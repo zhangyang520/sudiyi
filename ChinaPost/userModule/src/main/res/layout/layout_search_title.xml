@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_top"
+    android:layout_width="match_parent"
+    android:layout_height="96px"
+    android:background="@color/title_backround_color">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/rl_back"
+        android:layout_width="80px"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:id="@+id/btn_back"
+            style="@style/TitleLeftBtn"
+            android:src="@drawable/btn_back_selector" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <!--输入框-->
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="548px"
+            android:background="#F0EFF4"
+            android:layout_centerInParent="true"
+            android:layout_height="60px">
+
+        <!--搜索框-->
+        <ImageView
+                android:id="@+id/iv_map_search"
+                android:layout_width="25px"
+                android:layout_height="25px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="15px"
+                android:layout_centerVertical="true"
+                android:src="@drawable/map_iv_search"
+                android:layout_alignParentLeft="true"
+        />
+        <EditText
+                android:id="@+id/et_input_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:textSize="28px"
+                android:paddingLeft="55px"
+                android:hint="搜 索"
+        />
+        <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_marginLeft="20px"
+                android:id="@+id/rl_map_location_search"
+                android:layout_width="90px"
+                android:background="@drawable/shape_bg_search"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_height="60px">
+
+            <TextView
+                    android:id="@+id/iv_map_location_search"
+                    android:clickable="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="搜索"
+                    android:textColor="#00784B"
+                    android:textSize="28px"
+                    android:layout_centerVertical="true"
+            />
+        </com.zhy.autolayout.AutoRelativeLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+
+
+    <!--主题的信息设置-->
+    <ImageView
+            android:id="@+id/tv_right"
+            android:layout_width="48px"
+            android:layout_height="50px"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20px"
+            android:src="@drawable/base_iv_filter"
+            />
+</com.zhy.autolayout.AutoRelativeLayout>
+

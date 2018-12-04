@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="20px"
+            android:id="@+id/tv_resource_name"
+            android:layout_width="wrap_content"
+            android:text="东门车站旁"
+            android:textSize="30px"
+            android:ellipsize="end"
+            android:maxEms="11"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:layout_marginLeft="20px"
+            android:layout_marginBottom="20px"
+            android:layout_below="@+id/tv_resource_name"
+            android:id="@+id/tv_error_msg"
+            android:layout_width="wrap_content"
+            android:text="失败原因:柜屏、柜贴时间冲突"
+            android:layout_marginTop="10px"
+            android:textSize="24px"
+            android:textColor="#A1A1A3"
+            android:layout_height="wrap_content"/>
+
+
+    <!-- 成功: 00754b   失败: #ff3826-->
+    <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_state"
+            android:layout_width="wrap_content"
+            android:text="成功"
+            android:layout_centerVertical="true"
+            android:textSize="30px"
+            android:textColor="#00754b"
+            android:layout_marginRight="20px"
+            android:layout_height="wrap_content"/>
+
+    
+    <View
+          android:layout_below="@+id/tv_error_msg"
+          android:layout_width="match_parent"
+          android:layout_height="2px"
+          android:background="@drawable/base_bg_line"
+    ></View>
+</com.zhy.autolayout.AutoRelativeLayout>

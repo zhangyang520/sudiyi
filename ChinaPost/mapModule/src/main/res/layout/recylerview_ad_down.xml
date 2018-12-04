@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="#F0EFF5"
+        android:layout_width="match_parent"
+        android:paddingLeft="20px"
+        android:paddingBottom="40px"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:layout_marginTop="40px"
+             android:id="@+id/tv_city"
+             android:layout_width="115px"
+             android:layout_height="50px"
+             android:gravity="center"
+             android:text="北京市"
+             android:textSize="26px"
+             android:textColor="@color/white"
+             android:background="@drawable/map_bg_city"
+    />
+     <TextView
+             android:layout_below="@+id/tv_city"
+             android:id="@+id/tv_dot_location"
+             android:layout_width="wrap_content"
+             android:layout_height="40px"
+             android:textColor="@color/black"
+             android:text="北京大学东门外"
+             android:textSize="36px"
+             android:textStyle="bold"
+             android:layout_marginTop="40px"
+             android:layout_alignParentLeft="true"
+             android:gravity="left"
+     />
+
+    <!-- 小区类型 -->
+    <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_dot_name"
+            android:layout_below="@+id/tv_dot_location"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="40px"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30px"
+                android:textColor="@color/black"
+                android:text="位置:"
+                android:textSize="26px"
+                android:gravity="center_vertical"
+        />
+
+        <TextView
+                android:layout_marginTop="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="30px"
+                android:textColor="@color/black"
+                android:text="柜型:"
+                android:textSize="26px"
+                android:gravity="center_vertical"
+        />
+
+        <TextView
+                android:layout_marginTop="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="30px"
+                android:textColor="@color/black"
+                android:text="上刊日期:"
+                android:textSize="26px"
+                android:gravity="center_vertical"
+        />
+
+        <TextView
+                android:layout_marginTop="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="30px"
+                android:textColor="@color/black"
+                android:text="广告类型:"
+                android:textSize="26px"
+                android:gravity="center_vertical"
+        />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <!-- 小区类型 -->
+    <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_dot_value"
+            android:layout_toRightOf="@+id/ll_dot_name"
+            android:layout_below="@+id/tv_dot_location"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="40px"
+            android:layout_marginLeft="20px"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="30px"
+                android:gravity="center_vertical"
+                android:textColor="#99999C"
+                android:text="室外"
+                android:textSize="26px"
+        />
+
+        <TextView
+                android:id="@+id/tv_type"
+                android:layout_marginTop="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="30px"
+                android:gravity="center_vertical"
+                android:textColor="#99999C"
+                android:text="1T7"
+                android:textSize="26px"
+        />
+
+        <TextView
+                android:id="@+id/tv_up_date"
+                android:layout_marginTop="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="30px"
+                android:gravity="center_vertical"
+                android:textColor="#99999C"
+                android:text="2018-08-12"
+                android:textSize="26px"
+        />
+
+        <TextView
+                android:layout_marginTop="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="30px"
+                android:gravity="center_vertical"
+                android:textColor="#99999C"
+                android:text="柜体广告"
+                android:textSize="26px"
+        />
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

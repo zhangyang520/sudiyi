@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@color/activity_background_color"
+        android:layout_height="match_parent">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_below="@+id/title"
+            android:id="@+id/rl_client_name"
+            android:paddingLeft="20px"
+            android:paddingTop="30px"
+            android:paddingRight="20px"
+            android:background="@color/white"
+            android:paddingBottom="30px"
+            android:layout_marginTop="20px"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="36px"
+                  android:text="客户名称"
+                  android:textColor="@color/black"
+                  android:textSize="30px"
+                  android:layout_centerVertical="true"
+        />
+
+        <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_client_name"
+                android:layout_width="wrap_content"
+                android:layout_height="36px"
+                android:background="@null"
+                android:textSize="30px"
+                android:textColor="#666666"
+                android:textColorHint="#D5D5D5"
+                android:layout_centerVertical="true"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:maxEms="16"
+                android:layout_marginTop="2px"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <!--线条-->
+    <View
+            android:layout_below="@+id/rl_client_name"
+            android:id="@+id/line_2"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@drawable/base_bg_line"></View>
+
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_below="@+id/rl_client_name"
+            android:id="@+id/rl_client_xingming"
+            android:paddingLeft="20px"
+            android:paddingTop="30px"
+            android:paddingRight="20px"
+            android:paddingBottom="30px"
+            android:layout_marginTop="1px"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="36px"
+                android:text="联系人姓名"
+                android:textColor="@color/black"
+                android:textSize="30px"
+                android:layout_centerVertical="true"
+        />
+
+        <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_client_xingming"
+                android:layout_width="wrap_content"
+                android:layout_height="36px"
+                android:background="@null"
+                android:textSize="30px"
+                android:textColor="#666666"
+                android:textColorHint="#D5D5D5"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="2px"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
+    <!--线条-->
+    <View
+            android:layout_below="@+id/rl_client_name"
+            android:id="@+id/line_1"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@drawable/base_bg_line"></View>
+
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_below="@+id/rl_client_xingming"
+            android:id="@+id/rl_client_phone"
+            android:paddingLeft="20px"
+            android:paddingTop="30px"
+            android:paddingRight="20px"
+            android:paddingBottom="30px"
+            android:layout_marginTop="1px"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="36px"
+                android:text="联系号码"
+                android:textColor="@color/black"
+                android:textSize="30px"
+                android:layout_centerVertical="true"
+        />
+
+        <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_client_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="36px"
+                android:textSize="30px"
+                android:textColor="#666666"
+                android:textColorHint="#D5D5D5"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="2px"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <!-- 客户阶段 -->
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_client_state"
+            android:layout_below="@+id/rl_client_phone"
+            android:layout_marginTop="20px"
+            android:paddingLeft="20px"
+            android:paddingTop="30px"
+            android:paddingRight="20px"
+            android:paddingBottom="30px"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="客户阶段"
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                android:textSize="30px"
+        />
+
+
+        <!--
+            android:textColor="#666666"
+                android:textColorHint="#D5D5D5"
+        -->
+
+        <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+            <ImageView
+                    android:id="@+id/iv_yixiang"
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:src="@drawable/btn_choose_select"
+                    android:layout_toLeftOf="@+id/tv_yixiang_client"
+                    android:layout_marginRight="20px"
+                    android:layout_centerVertical="true"
+            />
+            <TextView
+                    android:id="@+id/tv_yixiang_client"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36px"
+                    android:text="意向客户"
+                    android:layout_toLeftOf="@+id/btn_hasxiadan"
+                    android:textColor="#666666"
+                    android:layout_marginRight="70px"
+                    android:layout_centerVertical="true"
+                    android:textSize="30px"
+            />
+
+            <!--
+              iv_yixiang
+              tv_yixiang_client
+
+              btn_hasxiadan
+              tv_has_client
+            -->
+            <ImageView
+                    android:id="@+id/btn_hasxiadan"
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:src="@drawable/btn_choose_select"
+                    android:layout_toLeftOf="@+id/tv_has_client"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20px"
+            />
+            <TextView
+                    android:id="@+id/tv_has_client"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36px"
+                    android:text="已下单客户"
+                    android:textColor="#666666"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textSize="30px"
+                    android:layout_marginRight="20px"
+            />
+        </com.zhy.autolayout.AutoRelativeLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

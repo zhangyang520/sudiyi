@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="750px"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+    <View
+          android:id="@+id/view_top"
+          android:layout_width="match_parent"
+          android:layout_height="20px"
+          android:background="@color/activity_background_color"></View>
+     <!--资源位 的名称-->
+     <com.zhy.autolayout.AutoRelativeLayout
+             android:layout_below="@+id/view_top"
+             android:id="@+id/rl_ad_name"
+             android:layout_width="match_parent"
+             android:gravity="center_vertical"
+             android:paddingLeft="20px"
+             android:paddingRight="20px"
+             android:layout_height="88px">
+
+         <com.zhy.autolayout.AutoLinearLayout
+                 android:orientation="horizontal"
+                 android:layout_width="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:gravity="center_vertical"
+                 android:layout_height="wrap_content">
+
+             <TextView
+                     android:id="@+id/tv_ad_name"
+                     android:layout_width="wrap_content"
+                     android:layout_height="36px"
+                     android:text="华为信息技术有限公司"
+                     android:textSize="30px"
+                     android:ellipsize="end"
+                     android:maxEms="11"
+                     android:maxLines="1"
+                     android:textColor="@color/black"
+             />
+
+             <TextView
+                     android:layout_alignBottom="@+id/tv_ad_name"
+                     android:layout_toRightOf="@+id/tv_ad_name"
+                     android:id="@+id/tv_mark"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="通讯行业"
+                     android:gravity="center"
+                     android:background="@drawable/mine_bg_rectangle"
+                     android:layout_marginLeft="10px"
+                     android:paddingLeft="10px"
+                     android:paddingRight="10px"
+                     android:textSize="16px"
+                     android:textColor="#606062"
+             />
+         </com.zhy.autolayout.AutoLinearLayout>
+
+         <!--
+             未到期:00754b
+             已到期: #AEAEB0
+             即将到期:ff3823
+         -->
+         <TextView
+                 android:id="@+id/tv_ad_state"
+                 android:layout_width="wrap_content"
+                 android:layout_height="34px"
+                 android:text="未到期"
+                 android:textSize="30px"
+                 android:textColor="#00754b"
+                 android:layout_alignParentRight="true"
+         />
+     </com.zhy.autolayout.AutoRelativeLayout>
+
+    <!--  线的颜色 -->
+    <View
+            android:id="@+id/view_line1"
+            android:layout_below="@+id/rl_ad_name"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@drawable/base_bg_line"
+            android:layout_marginLeft="20px"
+    ></View>
+
+    <!-- guanggao 时间-->
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_ad_time"
+            android:layout_below="@+id/view_line1"
+            android:layout_marginLeft="20px"
+            android:paddingBottom="30px"
+            android:paddingTop="30px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_ad_name"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tv_ad_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36px"
+                    android:text="预订时间段:"
+                    android:textSize="30px"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_alignParentLeft="true"
+            />
+
+            <TextView
+                    android:id="@+id/tv_ad_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36px"
+                    android:text="预定资源位:"
+                    android:textSize="30px"
+                    android:gravity="center"
+                    android:layout_marginTop="20px"
+                    android:textColor="@color/black"
+                    android:layout_alignParentLeft="true"
+            />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+       <!--对应的值-->
+        <com.zhy.autolayout.AutoLinearLayout
+                android:layout_toRightOf="@+id/ll_ad_name"
+                android:id="@+id/ll_ad_value"
+                android:layout_marginLeft="40px"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tv_yuding_time_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34px"
+                    android:text=""
+                    android:gravity="center"
+                    android:textSize="30px"
+                    android:textColor="#A0A0A2"
+                    android:layout_alignParentLeft="true"
+            />
+
+            <TextView
+                    android:id="@+id/tv_ad_resource_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34px"
+                    android:text="2018-09-04"
+                    android:textSize="30px"
+                    android:gravity="center"
+                    android:layout_marginTop="20px"
+                    android:textColor="#A0A0A2"
+                    android:layout_alignParentLeft="true"
+            />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <!--  线的颜色 -->
+    <View
+            android:id="@+id/view_line2"
+            android:layout_below="@+id/rl_ad_time"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@drawable/base_bg_line"
+            android:layout_marginLeft="20px"
+    ></View>
+
+
+    <Button
+            android:layout_below="@+id/view_line2"
+            android:layout_marginTop="15px"
+            android:id="@+id/btn_chakan"
+            android:layout_width="141px"
+            android:layout_height="50px"
+            android:text="预约续订"
+            android:textColor="@color/black"
+            android:background="@drawable/mine_btn_chakan"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:textSize="26px"
+            android:layout_marginBottom="15px"
+            android:layout_toLeftOf="@+id/btn_yuding"
+            android:layout_marginRight="20px"
+    />
+</com.zhy.autolayout.AutoRelativeLayout>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <!-- 头部 的布局-->
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_title"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="85px">
+
+        <!--用户的头像-->
+        <ImageView
+                android:id="@+id/iv_user_head"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginLeft="20px"
+                android:layout_marginTop="20px"
+                android:layout_marginRight="30px"
+                android:src="@drawable/map_iv_contact"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"></ImageView>
+
+        <!-- 中间的任务-->
+        <com.suntray.chinapost.map.ui.view.SwipeBtnRelativeLayout
+                android:id="@+id/swipeBtnRelativeLayout"
+                android:orientation="horizontal"
+                android:layout_width="352px"
+                android:background="@drawable/iv_task_handle_bg"
+                android:padding="4px"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:layout_height="62px">
+
+            <TextView
+                    android:id="@+id/tv_middle"
+                    android:layout_width="174px"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/iv_task_handle"
+                    android:gravity="center"
+                    android:textColor="#01764A"
+                    android:textSize="26px"
+                    android:layout_alignParentLeft="true"
+            />
+               <TextView
+                       android:id="@+id/tv_up"
+                       android:layout_width="174px"
+                       android:layout_height="wrap_content"
+                       android:text="上刊任务"
+                       android:layout_centerVertical="true"
+                       android:gravity="center"
+                       android:textColor="#01764A"
+                       android:textSize="26px"
+               />
+            <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_up"
+                    android:id="@+id/tv_down"
+                    android:layout_width="174px"
+                    android:layout_height="wrap_content"
+                    android:text="下刊任务"
+                    android:gravity="center"
+                    android:textSize="26px"
+                    android:textColor="#909092"
+            />
+        </com.suntray.chinapost.map.ui.view.SwipeBtnRelativeLayout>
+
+        <ImageView
+                android:id="@+id/iv_chat"
+                android:layout_width="50px"
+                android:layout_height="45px"
+                android:layout_marginTop="20px"
+                android:src="@drawable/map_iv_chat"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20px"
+                android:layout_centerVertical="true"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <!-- 相关的标题 -->
+    <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_unfinished"
+            android:layout_below="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="88px">
+
+        <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/tv_unfinished"
+                    android:textColor="#01764A"
+                    android:textSize="26px"
+                    android:text="未完成"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+            />
+            <View
+                   android:layout_marginTop="10px"
+                  android:id="@+id/view_unfinished"
+                  android:layout_width="45px"
+                  android:layout_height="2px"
+                  android:background="#01764A"
+            ></View>
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+        <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_willexamine"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/tv_will_examine"
+                    android:textColor="#909092"
+                    android:textSize="26px"
+                    android:text="待审核"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+            />
+            <View
+                    android:layout_marginTop="10px"
+                    android:id="@+id/view_will_examine"
+                    android:layout_width="45px"
+                    android:layout_height="2px"
+                    android:background="#909092"
+                    android:visibility="invisible"
+            ></View>
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+        <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_notexamine"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/tv_not_examine"
+                    android:textColor="#909092"
+                    android:textSize="26px"
+                    android:text="审核不通过"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+            />
+            <View
+                    android:layout_marginTop="10px"
+                    android:id="@+id/view_not_examine"
+                    android:layout_width="45px"
+                    android:layout_height="2px"
+                    android:background="#909092"
+                    android:visibility="invisible"
+            ></View>
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+        <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_examine"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/tv_examine"
+                    android:textColor="#909092"
+                    android:textSize="26px"
+                    android:text="审核通过"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+            />
+            <View
+                    android:layout_marginTop="10px"
+                    android:id="@+id/view_examine"
+                    android:layout_width="45px"
+                    android:layout_height="2px"
+                    android:background="#909092"
+                    android:visibility="invisible"
+            ></View>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_list"
+            android:layout_width="match_parent"
+            android:background="@color/black"
+            android:layout_weight="1"
+            android:layout_height="0px">
+
+    </android.support.v4.view.ViewPager>
+</com.zhy.autolayout.AutoLinearLayout>

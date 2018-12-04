@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:paddingLeft="20px"
+        android:paddingRight="20px"
+        android:background="@color/transparent"
+        android:gravity="bottom"
+        android:layout_height="1334px">
+
+    <Button
+            android:id="@+id/btn_photo"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:text="拍照"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:textSize="34px"
+    />
+
+    <View
+            android:layout_below="@+id/btn_photo"
+            android:id="@+id/line_1"
+            android:background="@drawable/base_bg_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"></View>
+
+    <Button
+            android:id="@+id/btn_choose"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:layout_marginTop="1px"
+            android:text="从手机相册选择"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:textSize="34px"
+            android:layout_below="@+id/btn_photo"
+    />
+
+    <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:layout_marginTop="16px"
+            android:layout_marginBottom="20px"
+            android:text="取消"
+            android:textColor="#A3A3A3"
+            android:background="@color/white"
+            android:textSize="34px"
+            android:layout_below="@+id/btn_choose"
+    />
+</com.zhy.autolayout.AutoRelativeLayout>
