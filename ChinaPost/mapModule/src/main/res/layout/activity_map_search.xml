@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        <com.amap.api.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" >
+        </com.amap.api.maps.MapView>
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+     <!--顶部的 搜索框-->
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_top"
+            android:layout_width="match_parent"
+            android:paddingTop="20px"
+            android:paddingBottom="15px"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+
+        <!--用户的头像-->
+        <com.suntray.chinapost.baselibrary.ui.view.CircleImageView
+                android:id="@+id/iv_user_head"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="30px"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/map_iv_contact"
+        />
+
+        <!--输入框-->
+        <com.zhy.autolayout.AutoRelativeLayout
+                android:id="@+id/rl_input"
+                android:layout_toRightOf="@+id/iv_user_head"
+                android:layout_width="548px"
+                android:background="@drawable/shape_btn_search"
+                android:gravity="center_vertical"
+                android:layout_height="60px">
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="15px"
+                    android:id="@+id/rl_map_search"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="60px"
+                    android:layout_height="60px">
+                <!--搜索框-->
+                <ImageView
+                        android:id="@+id/iv_map_search"
+                        android:layout_width="25px"
+                        android:layout_height="25px"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/map_iv_search"
+                />
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+            <EditText
+                    android:id="@+id/et_input_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:textSize="28px"
+                    android:layout_marginLeft="80px"
+                    android:layout_marginRight="40px"
+                    android:hint="搜 索"
+            />
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_marginLeft="20px"
+                    android:id="@+id/rl_map_location_search"
+                    android:layout_width="90px"
+                    android:background="@drawable/shape_bg_search"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="60px">
+
+                <TextView
+                        android:id="@+id/iv_map_location_search"
+                        android:clickable="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="搜索"
+                        android:textColor="#00784B"
+                        android:textSize="28px"
+                        android:layout_centerVertical="true"
+                />
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+
+            <ImageView
+                    android:id="@+id/iv_map_area"
+                    android:layout_width="30px"
+                    android:layout_height="45px"
+                    android:layout_marginRight="16px"
+                    android:src="@drawable/map_iv_area_search"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/rl_map_location_search"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"
+            />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <ImageView
+                android:id="@+id/iv_chat"
+                android:layout_width="50px"
+                android:layout_height="45px"
+                android:src="@drawable/map_iv_chat"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20px"
+                android:layout_centerVertical="true"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
+    <ListView
+            android:id="@+id/inputlist"
+            android:layout_width="match_parent"
+            android:layout_height="700px"
+            android:visibility="gone"
+            android:layout_below="@id/rl_top">
+    </ListView>
+
+    <ImageView
+            android:id="@+id/iv_setting"
+            android:layout_width="98px"
+            android:layout_height="98px"
+            android:src="@drawable/map_iv_setting"
+            android:layout_below="@+id/rl_top"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="40px"
+            android:layout_marginRight="20px"
+    />
+
+    <ImageView
+            android:id="@+id/iv_finger"
+            android:layout_width="98px"
+            android:layout_height="98px"
+            android:src="@drawable/map_iv_finger"
+            android:layout_below="@+id/iv_setting"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20px"
+            android:layout_marginRight="20px"
+    />
+
+    <!-- 图片 两者之间的选择 -->
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_dingwei_area"
+            android:layout_width="98px"
+            android:layout_height="98px"
+            android:layout_below="@+id/iv_finger"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20px"
+            android:layout_marginRight="20px"
+    >
+
+        <ImageView
+                android:id="@+id/iv_dingwei"
+                android:layout_width="98px"
+                android:layout_height="98px"
+                android:src="@drawable/map_iv_dingwei"
+        />
+
+        <ImageView
+                android:id="@+id/iv_area"
+                android:layout_width="98px"
+                android:layout_height="98px"
+                android:src="@drawable/map_iv_area"
+                android:visibility="gone"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <!-- 距离的检测 -->
+    <com.zhy.autolayout.AutoLinearLayout
+            android:layout_below="@+id/rl_dingwei_area"
+            android:id="@+id/ll_distance"
+            android:layout_width="98px"
+            android:layout_marginRight="20px"
+            android:orientation="vertical"
+            android:background="@drawable/map_bg_dis"
+            android:layout_marginTop="10px"
+            android:layout_alignParentRight="true"
+            android:layout_height="302px">
+
+        <Button
+                android:gravity="center"
+                android:id="@+id/btn_dis_1"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:text="1KM"
+                android:textSize="24px"
+                android:textColor="#0d7aff"
+                android:layout_height="59px"
+                android:drawableBottom="@drawable/map_bg_dis_line"
+        />
+            <Button
+                     android:gravity="center"
+                     android:id="@+id/btn_dis_3"
+                     android:layout_width="match_parent"
+                     android:background="@null"
+                     android:text="3KM"
+                     android:textSize="24px"
+                     android:textColor="@color/gray"
+                     android:layout_height="59px"
+                     android:drawableBottom="@drawable/map_bg_dis_line"
+            />
+            <Button
+                    android:gravity="center"
+                    android:id="@+id/btn_dis_5"
+                    android:layout_width="match_parent"
+                    android:background="@null"
+                    android:text="5KM"
+                    android:textSize="24px"
+                    android:textColor="@color/gray"
+                    android:layout_height="59px"
+                    android:drawableBottom="@drawable/map_bg_dis_line"
+            />
+            <Button
+                    android:gravity="center"
+                    android:id="@+id/btn_dis_8"
+                    android:layout_width="match_parent"
+                    android:background="@null"
+                    android:text="8KM"
+                    android:textSize="24px"
+                    android:textColor="@color/gray"
+                    android:layout_height="59px"
+                    android:drawableBottom="@drawable/map_bg_dis_line"
+            />
+            <Button
+                    android:gravity="center"
+                    android:id="@+id/btn_dis_10"
+                    android:layout_width="match_parent"
+                    android:background="@null"
+                    android:text="10KM"
+                    android:textSize="24px"
+                    android:textColor="@color/gray"
+                    android:layout_height="59px"
+            />
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

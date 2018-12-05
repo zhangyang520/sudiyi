@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/rl_commercial_instrument"
+        android:paddingLeft="20px"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_aptitude"
+            android:textSize="20px"
+            android:textColor="#98979C"
+            android:text="营业执照(图片大小100k左右)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <GridView
+            android:id="@+id/yingye_gridvew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15px"
+            android:numColumns="3"
+            android:stretchMode="columnWidth">
+    </GridView>
+</com.zhy.autolayout.AutoLinearLayout>
+
+<!--商标注册证-->
+<com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/rl_trade"
+        android:paddingLeft="20px"
+        android:layout_marginTop="70px"
+        android:orientation="vertical"
+        android:layout_below="@+id/rl_commercial_instrument"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_trade"
+            android:textSize="20px"
+            android:textColor="#98979C"
+            android:text="商标注册证(图片大小100k左右)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <GridView
+            android:id="@+id/trade_gridvew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15px"
+            android:numColumns="3"
+            android:stretchMode="columnWidth">
+    </GridView>
+</com.zhy.autolayout.AutoLinearLayout>
+
+<!--卫生许可证-->
+<com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/rl_food_licence"
+        android:paddingLeft="20px"
+        android:layout_marginTop="70px"
+        android:orientation="vertical"
+        android:layout_below="@+id/rl_trade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_food_licence"
+            android:textSize="20px"
+            android:textColor="#98979C"
+            android:text="卫生许可证(图片大小100k左右)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <GridView
+            android:id="@+id/food_gridvew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15px"
+            android:numColumns="3"
+            android:stretchMode="columnWidth">
+    </GridView>
+</com.zhy.autolayout.AutoLinearLayout>
+
+
+<!--肖像授权书-->
+<com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/rl_portrait_licence"
+        android:paddingLeft="20px"
+        android:orientation="vertical"
+        android:layout_marginTop="70px"
+        android:layout_below="@+id/rl_food_licence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_portrait_licence"
+            android:textSize="20px"
+            android:textColor="#98979C"
+            android:text="肖像授权书(图片大小100k左右)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <GridView
+            android:id="@+id/portrait_gridvew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15px"
+            android:numColumns="3"
+            android:stretchMode="columnWidth">
+    </GridView>
+</com.zhy.autolayout.AutoLinearLayout>
+
+
+<!--网址域名注册证 -->
+<com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/rl_hostname_licence"
+        android:paddingLeft="20px"
+        android:orientation="vertical"
+        android:layout_marginTop="70px"
+        android:layout_below="@+id/rl_portrait_licence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_hostname_licence"
+            android:textSize="20px"
+            android:textColor="#98979C"
+            android:text="网址域名注册证(图片大小100k左右)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <GridView
+            android:id="@+id/hostname_gridvew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15px"
+            android:numColumns="3"
+            android:stretchMode="columnWidth">
+    </GridView>
+</com.zhy.autolayout.AutoLinearLayout>
+
+
+<!--二维码说明 -->
+<com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/rl_zcode_licence"
+        android:paddingLeft="20px"
+        android:orientation="vertical"
+        android:layout_marginTop="70px"
+        android:layout_below="@+id/rl_hostname_licence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_zcode_licence"
+            android:textSize="20px"
+            android:textColor="#98979C"
+            android:text="二维码说明(图片大小100k左右)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <GridView
+            android:id="@+id/zcode_gridvew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15px"
+            android:numColumns="3"
+            android:stretchMode="columnWidth">
+    </GridView>
+</com.zhy.autolayout.AutoLinearLayout>
+
+<!-- 客户免责说明 -->
+<com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/rl_mianze_licence"
+        android:paddingLeft="20px"
+        android:orientation="vertical"
+        android:layout_marginTop="70px"
+        android:layout_below="@+id/rl_zcode_licence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_mianze_licence"
+            android:textSize="20px"
+            android:textColor="#98979C"
+            android:text="客户免责说明(图片大小100k左右)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <GridView
+            android:id="@+id/mianze_gridvew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15px"
+            android:numColumns="3"
+            android:stretchMode="columnWidth">
+    </GridView>
+</com.zhy.autolayout.AutoLinearLayout>
+
+
+<!-- 速递易免责说明 -->
+<com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/rl_sudimianze_licence"
+        android:paddingLeft="20px"
+        android:orientation="vertical"
+        android:layout_marginTop="70px"
+        android:layout_below="@+id/rl_mianze_licence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_sudimianze_licence"
+            android:textSize="20px"
+            android:textColor="#98979C"
+            android:text="速递易免责说明(图片大小100k左右)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <GridView
+            android:id="@+id/sudimianze_gridvew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15px"
+            android:numColumns="3"
+            android:stretchMode="columnWidth">
+    </GridView>
+</com.zhy.autolayout.AutoLinearLayout>
+
+<!--地产销售许可证-->
+<com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/rl_dichanxiaoshou_licence"
+        android:paddingLeft="20px"
+        android:orientation="vertical"
+        android:layout_marginTop="70px"
+        android:layout_below="@+id/rl_sudimianze_licence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_dichanxiaoshou_licence"
+            android:textSize="20px"
+            android:textColor="#98979C"
+            android:text="地产销售许可证(图片大小100k左右)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <GridView
+            android:id="@+id/dichanxiaoshou_gridvew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15px"
+            android:numColumns="3"
+            android:stretchMode="columnWidth">
+    </GridView>
+</com.zhy.autolayout.AutoLinearLayout>
+
+
+<!-- 其他 -->
+<com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/rl_other_licence"
+        android:paddingLeft="20px"
+        android:orientation="vertical"
+        android:layout_marginTop="70px"
+        android:layout_marginBottom="70px"
+        android:layout_below="@+id/rl_dichanxiaoshou_licence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_other_licence"
+            android:textSize="20px"
+            android:textColor="#98979C"
+            android:text="其他(图片大小100k左右)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <GridView
+            android:id="@+id/other_gridvew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15px"
+            android:numColumns="3"
+            android:stretchMode="columnWidth">
+    </GridView>
+</com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <include
+            android:id="@+id/title"
+            layout="@layout/layout_title"></include>
+
+    <ScrollView android:layout_width="match_parent"
+                 android:layout_height="0px"
+                 android:layout_weight="1"
+    >
+        <com.zhy.autolayout.AutoLinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <include
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title"
+                    layout="@layout/item_task"></include>
+
+
+            <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/rl_commercial_instrument"
+                    android:paddingLeft="20px"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/tv_aptitude"
+                        android:textSize="20px"
+                        android:textColor="#98979C"
+                        android:layout_marginTop="40px"
+                        android:text="上刊现场照片(图片大小100k左右)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <GridView
+                        android:id="@+id/gridvew"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:horizontalSpacing="15px"
+                        android:numColumns="3"
+                        android:layout_marginBottom="40px"
+                        android:stretchMode="columnWidth">
+                </GridView>
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+
+
+    <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+        <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="286px"
+                android:layout_height="match_parent"
+                android:text="取消"
+                android:textColor="@color/white"
+                android:textSize="34px"
+                android:background="#CACACC"
+                android:gravity="center"
+        />
+        <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="预 定"
+                android:background="#19D0FA"
+                android:textColor="@color/white"
+                android:textSize="34px"
+                android:gravity="center"
+        />
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

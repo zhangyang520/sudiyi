@@ -1,0 +1,119 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.suntray.chinapost.user">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> 
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <application
+            android:allowBackup="true"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+    >
+
+        <activity
+                  android:name=".ui.activity.MineReservedDotActivity"
+                  android:windowTranslucentStatus="true"
+                  android:windowTranslucentNavigation="true"
+                  android:screenOrientation="portrait"
+        ></activity>
+
+        <!--我的界面-->
+        <activity
+                android:name=".ui.activity.MineActivity"
+                android:windowTranslucentStatus="true"
+                android:windowTranslucentNavigation="true"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+                android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+              android:name=".ui.activity.MineClientActivity"
+              android:screenOrientation="portrait"
+        ></activity>
+
+        <activity
+                android:name=".ui.activity.MineAddClientActivity"
+                android:screenOrientation="portrait"
+        ></activity>
+
+        <activity
+                android:name=".ui.activity.UploadAptitudeActivity"
+                android:screenOrientation="portrait"
+        ></activity>
+
+        <activity
+                android:name=".ui.activity.MineMessageActivity"
+                android:screenOrientation="portrait"
+        ></activity>
+
+        <activity
+                android:name=".ui.activity.MineExamineEndorseActivity"
+                android:screenOrientation="portrait"
+            ></activity>
+
+        <activity
+                android:name=".ui.activity.EditPwdActivity"
+                android:screenOrientation="portrait"
+        ></activity>
+
+        <activity
+                android:name=".ui.activity.MineClientDetail"
+                android:screenOrientation="portrait"
+        ></activity>
+        <!--目标高度-->
+        <meta-data
+                android:name="design_width"
+                android:value="750" />
+
+        <meta-data
+                android:name="design_height"
+                android:value="1334" />
+
+
+        <!-- 配置 url -->
+        <meta-data
+                android:name="CONSTANT_URL"
+                android:value="${CONSTANT_URL_VALUE}" />
+
+        <meta-data
+                android:name="CONSTANT_UPLOAD_URL"
+                android:value="${CONSTANT_UPLOAD_URL_VALUE}" />
+
+        <!-- 配置 打印的参数 -->
+        <meta-data
+                android:name="CURRENT_PRINT"
+                android:value="${CURRENT_PRINT_VALUE}" />
+
+        <meta-data
+                android:name="JPUSH_PKGNAME"
+                android:value="${JPUSH_PKGNAME}"
+        ></meta-data>
+
+        <!--文件的provider-->
+        <provider
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="${JPUSH_PKGNAME}.FileProvider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+</manifest>

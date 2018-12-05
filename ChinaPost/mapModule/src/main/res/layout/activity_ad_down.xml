@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+     <include
+        android:id="@+id/title"
+        layout="@layout/layout_title"
+     ></include>
+
+    <!--中间的内容部分-->
+    <ScrollView
+                android:layout_below="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        <com.zhy.autolayout.AutoLinearLayout
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <include
+                    android:id="@+id/rl_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/recylerview_ad_down"
+            ></include>
+
+
+            <TextView
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:text="现场照片"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="20px"
+                    android:textColor="@color/black"
+                    android:textSize="30px"
+                    android:layout_height="88px"/>
+
+            <ImageView
+                        android:id="@+id/iv_1"
+                        android:layout_width="750px"
+                        android:layout_height="460px"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/map_iv_default"
+            />
+
+            <ImageView
+                    android:id="@+id/iv_2"
+                    android:layout_width="750px"
+                    android:layout_height="460px"
+                    android:layout_marginTop="20px"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/map_iv_default"
+            />
+
+            <ImageView
+                    android:id="@+id/iv_3"
+                    android:layout_width="750px"
+                    android:layout_height="460px"
+                    android:layout_marginTop="20px"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/map_iv_default"
+            />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+</com.zhy.autolayout.AutoRelativeLayout>

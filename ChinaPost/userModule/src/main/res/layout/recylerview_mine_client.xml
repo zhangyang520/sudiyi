@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="750px"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+    <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+           android:layout_height="20px"
+           android:background="@color/activity_background_color"
+    ></View>
+    <!--资源位 的名称-->
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_ad_name"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="20px"
+            android:paddingRight="20px"
+            android:layout_below="@+id/line2"
+            android:layout_height="88px">
+
+        <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tv_ad_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36px"
+                    android:text="华为信息技术有限公司"
+                    android:textSize="30px"
+                    android:ellipsize="end"
+                    android:maxEms="11"
+                    android:maxLines="1"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+            />
+
+            <TextView
+                    android:layout_alignBottom="@+id/tv_ad_name"
+                    android:layout_toRightOf="@+id/tv_ad_name"
+                    android:id="@+id/tv_mark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="通讯行业"
+                    android:background="@drawable/mine_bg_rectangle"
+                    android:layout_marginLeft="10px"
+                    android:paddingLeft="10px"
+                    android:paddingRight="10px"
+                    android:layout_centerVertical="true"
+                    android:textSize="20px"
+                    android:textColor="#606062"
+            />
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <!--
+            未到期:00754b
+            已到期: #AEAEB0
+            即将到期:ff3823
+
+            待审核
+            已审核 00754b
+        -->
+        <TextView
+                android:id="@+id/tv_ad_state"
+                android:layout_width="wrap_content"
+                android:layout_height="34px"
+                android:text="已审核"
+                android:textSize="30px"
+                android:textColor="#00754b"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+
+    <!--  线的颜色 -->
+    <View
+            android:id="@+id/view_line2"
+            android:layout_below="@+id/rl_ad_name"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@drawable/base_bg_line"
+            android:layout_marginLeft="20px"
+    ></View>
+
+
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:paddingTop="15px"
+            android:paddingBottom="15px"
+            android:layout_marginTop="2px"
+            android:layout_below="@+id/rl_ad_name"
+            android:layout_width="match_parent"
+            android:layout_height="88px">
+
+        <!--状态 意向阶段 已签合同-->
+        <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="意向阶段"
+                android:textSize="24px"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:layout_below="@+id/rl_ad_name"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20px"
+        />
+
+        <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="141px"
+                android:layout_height="50px"
+                android:text="编 辑"
+                android:textColor="@color/black"
+                android:background="@drawable/mine_btn_chakan"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/btn_chakan"
+                android:gravity="center"
+                android:textSize="26px"
+                android:layout_marginRight="30px"
+        />
+
+        <Button
+                android:id="@+id/btn_chakan"
+                android:layout_width="141px"
+                android:layout_height="50px"
+                android:text="上传资质"
+                android:textColor="@color/black"
+                android:background="@drawable/mine_btn_chakan"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:textSize="26px"
+                android:layout_toLeftOf="@+id/btn_yuding"
+                android:layout_marginRight="20px"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

@@ -1,0 +1,132 @@
+if(userModule.toBoolean()){
+    apply plugin: 'com.android.library'
+}else{
+    apply plugin: 'com.android.application'
+}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin:'kotlin-kapt'
+
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
+}
+android {
+    compileSdkVersion compile_SdkVersion
+    buildToolsVersion build_ToolsVersion
+
+    defaultConfig {
+        if(!userModule.toBoolean()){
+            applicationId application_Id
+        }
+        minSdkVersion minSdk_Version
+        targetSdkVersion target_SdkVersion
+        versionCode version_Code
+        versionName version_Name
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            if(userModule.toBoolean()){
+                manifest.srcFile "src/main/debug/AndroidManifest.xml"
+            }else{
+                manifest.srcFile "src/main/release/AndroidManifest.xml"
+            }
+        }
+        // Move the tests to tests/java, tests/res, etc...
+        instrumentTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+
+    productFlavors {
+        devlop {
+        }
+        prod {
+        }
+    }
+
+    if(!userModule.toBoolean()){
+        signingConfigs {
+            /**
+             * 设置你的keystore相关
+             * demo中只是一个示例，使用时请根据实际情况进行配置
+             */
+            debug {
+                storeFile file("chinapostDev.jks")
+                storePassword "devpost"
+                keyAlias "devpost"
+                keyPassword "devpost"
+            }
+
+            release{
+                storeFile file("chinapost.jks")
+                storePassword "chinapost"
+                keyAlias "post"
+                keyPassword "chinapost"
+            }
+        }
+    }
+
+    buildTypes {
+        if(!userModule.toBoolean()){
+            debug {
+                applicationIdSuffix ".dev"
+                manifestPlaceholders=[CONSTANT_URL_VALUE:"${project.CONSTANT_URL_DEBUG}",
+                                      CURRENT_PRINT_VALUE:"${project.CURRENT_PRINT_VALUE_DEBUG}",
+                                      GAODE_APPKEY:"${project.GAODE_DEBUG_APPKEY}",
+                                      JPUSH_PKGNAME:"${application_Id}"+applicationIdSuffix,
+                                       CONSTANT_UPLOAD_URL_VALUE:"${project.CONSTANT_URL_UPLOAD_DEBUG}",
+                                      CONSTANT_URL_DOWNLOAD_VALUE:"${project.CONSTANT_URL_DOWNLOAD_DEBUG}"]
+
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.debug
+            }
+
+            release {
+                manifestPlaceholders=[CONSTANT_URL_VALUE:"${project.CONSTANT_URL_PRODUCT}",
+                                      CURRENT_PRINT_VALUE:"${project.CURRENT_PRINT_VALUE_PRODUCT}",
+                                      GAODE_APPKEY:"${project.GAODE_PROD_APPKEY}",
+                                      JPUSH_PKGNAME:"${application_Id}",
+                                      CONSTANT_UPLOAD_URL_VALUE:"${project.CONSTANT_URL_UPLOAD_PRODUCT}",
+                                      CONSTANT_URL_DOWNLOAD_VALUE:"${project.CONSTANT_URL_DOWNLOAD_PRODUCT}"]
+
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    //引入baseLibary
+//    if(!userModule.toBoolean()){
+//        compile project(':userModule')
+//    }
+    compile project(':mapModule')
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}

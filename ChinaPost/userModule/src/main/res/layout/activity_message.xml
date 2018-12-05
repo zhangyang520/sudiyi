@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="@color/activity_background_color"
+        android:layout_height="match_parent">
+
+    <include
+       android:id="@+id/title"
+       layout="@layout/layout_title"
+    ></include>
+
+
+    <com.suntray.chinapost.baselibrary.ui.refreshView.PullToRefreshListView
+            android:id="@+id/recylerView"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:background="@color/activity_background_color"
+            android:layout_weight="1"
+    >
+    </com.suntray.chinapost.baselibrary.ui.refreshView.PullToRefreshListView>
+
+    <!--<include-->
+            <!--layout="@layout/recylerview_message_examine"-->
+    <!--&gt;</include>-->
+
+    <!--<include-->
+            <!--layout="@layout/recylerview_message_prewarning"-->
+    <!--&gt;</include>-->
+    <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@color/orange"-->
+    <!--&gt;</android.support.v7.widget.RecyclerView>-->
+</com.zhy.autolayout.AutoLinearLayout>

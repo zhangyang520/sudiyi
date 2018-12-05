@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@color/activity_background_color"
+         android:layout_height="match_parent">
+    <include
+            android:id="@+id/title"
+            layout="@layout/layout_title"></include>
+    <TextView
+            android:layout_below="@+id/title"
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018-12-12 12:12 12"
+            android:textColor="#BCBBC0"
+            android:textSize="26px"
+            android:layout_marginRight="35px"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="40px"
+    />
+
+    <TextView
+            android:layout_below="@+id/tv_date"
+            android:layout_marginRight="36px"
+            android:layout_marginLeft="36px"
+            android:layout_marginTop="40px"
+            android:textSize="30px"
+            android:textColor="#616163"
+            android:id="@+id/tv_content"
+            android:text="您提交的华为信息技术有限公司的材料已经审核通过，请核实。您提交的华为信息技术有限公司的材料已经审核通过，请核实。您提交的华为信息技术有限公司的材料已经审核通过，请核实。"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <ImageView
+            android:layout_width="197px"
+            android:layout_height="80px"
+            android:src="@drawable/mine_iv_post"
+            android:scaleType="fitCenter"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+    />
+</com.zhy.autolayout.AutoRelativeLayout>

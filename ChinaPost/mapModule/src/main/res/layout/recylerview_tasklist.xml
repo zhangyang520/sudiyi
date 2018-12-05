@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="750px"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+    <View
+           android:id="@+id/view_top"
+           android:layout_width="match_parent"
+           android:layout_height="20px"
+           android:background="@drawable/base_bg_line"></View>
+
+     <!--资源位 的名称-->
+     <com.zhy.autolayout.AutoRelativeLayout
+             android:layout_below="@+id/view_top"
+             android:id="@+id/rl_ad_name_error"
+             android:layout_width="match_parent"
+             android:gravity="center_vertical"
+             android:paddingLeft="20px"
+             android:paddingRight="20px"
+             android:layout_height="88px">
+
+         <TextView
+                 android:id="@+id/tv_dot_name_value"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="2018-09-04"
+                 android:textSize="30px"
+                 android:gravity="center"
+                 android:layout_marginTop="20px"
+                 android:textColor="#A0A0A2"
+                 android:layout_alignParentLeft="true"
+         />
+     </com.zhy.autolayout.AutoRelativeLayout>
+
+    <!--  线的颜色 -->
+    <View
+            android:id="@+id/view_line1"
+            android:layout_below="@+id/rl_ad_name_error"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@drawable/base_bg_line"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+    ></View>
+
+    <!-- guanggao 时间-->
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_ad_time_error"
+            android:layout_below="@+id/rl_ad_name_error"
+            android:layout_marginLeft="20px"
+            android:paddingBottom="30px"
+            android:paddingTop="30px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_ad_name_error"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tv_ad_client_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="客户名称:"
+                    android:textSize="30px"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_alignParentLeft="true"
+            />
+
+            <TextView
+                    android:id="@+id/tv_task_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="任务区域:"
+                    android:textSize="30px"
+                    android:gravity="center"
+                    android:layout_marginTop="20px"
+                    android:textColor="@color/black"
+                    android:layout_alignParentLeft="true"
+            />
+
+            <TextView
+                    android:id="@+id/tv_finish_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="要求完成时间:"
+                    android:textSize="30px"
+                    android:gravity="center"
+                    android:layout_marginTop="20px"
+                    android:textColor="@color/black"
+                    android:layout_alignParentLeft="true"
+            />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+       <!--对应的值-->
+        <com.zhy.autolayout.AutoLinearLayout
+                android:layout_toRightOf="@+id/ll_ad_name_error"
+                android:id="@+id/ll_ad_value_error"
+                android:layout_marginLeft="40px"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tv_client_name_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="柜体广告"
+                    android:gravity="center"
+                    android:textSize="30px"
+                    android:textColor="#A0A0A2"
+                    android:layout_alignParentLeft="true"
+            />
+
+            <TextView
+                    android:id="@+id/tv_task_area_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30px"
+                    android:gravity="center"
+                    android:layout_marginTop="20px"
+                    android:textColor="#A0A0A2"
+                    android:layout_alignParentLeft="true"
+            />
+
+            <TextView
+                    android:id="@+id/tv_finish_time_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018-09-04"
+                    android:textSize="30px"
+                    android:gravity="center"
+                    android:layout_marginTop="20px"
+                    android:textColor="#A0A0A2"
+                    android:layout_alignParentLeft="true"
+            />
+
+
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <!--  线的颜色 -->
+    <View
+            android:id="@+id/view_line2"
+            android:layout_below="@+id/rl_ad_time_error"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@drawable/base_bg_line"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+    ></View>
+
+    <Button
+             android:layout_below="@+id/view_line2"
+             android:layout_marginTop="19px"
+             android:id="@+id/btn_look_map"
+             android:layout_width="190px"
+             android:layout_height="60px"
+             android:text="查看点位地图"
+             android:textColor="@color/black"
+             android:background="@drawable/map_btn_chakan"
+             android:gravity="center"
+             android:textSize="26px"
+             android:layout_marginBottom="19px"
+             android:padding="10px"
+             android:layout_alignParentRight="true"
+             android:layout_marginRight="20px"
+    />
+
+    <Button
+            android:layout_below="@+id/view_line2"
+            android:layout_marginTop="19px"
+            android:id="@+id/btn_upload_pic"
+            android:layout_width="140px"
+            android:layout_height="60px"
+            android:text="上传照片"
+            android:textColor="@color/black"
+            android:background="@drawable/map_btn_chakan"
+            android:gravity="center"
+            android:textSize="26px"
+            android:layout_marginBottom="19px"
+            android:layout_toLeftOf="@+id/btn_look_map"
+            android:layout_marginRight="40px"
+    />
+</com.zhy.autolayout.AutoRelativeLayout>
