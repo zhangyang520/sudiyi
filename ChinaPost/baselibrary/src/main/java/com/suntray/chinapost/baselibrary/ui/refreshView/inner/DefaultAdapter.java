@@ -48,6 +48,7 @@ public abstract class DefaultAdapter<Data> extends BaseAdapter{
 
 	@Override
 	public int getCount() {
+		System.out.println("getCount mineClientlist datas size:"+datas.size());
 		return datas.size(); // 最后的一个条目 就是加载更多的条目
 	}
 
@@ -64,7 +65,7 @@ public abstract class DefaultAdapter<Data> extends BaseAdapter{
 	@SuppressWarnings("unchecked")
 	public View getView(int position, View convertView, ViewGroup parent) {
 		BaseHolder holder = null;
-
+		System.out.println("getView mineClientlist 1111:"+datas.size());
 		if (convertView == null){
 			holder = getHolder();
 		} else {

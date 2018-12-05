@@ -28,7 +28,11 @@ enum class UploadTaskEnum(var yingyePathId:String, var currentNumber: Int,
         override fun getPathList(): ArrayList<TaskUpload?> {
             return imageList
         }
-    },DownKan("DownKan",0,arrayListOf(),arrayListOf(),arrayListOf()){
+
+       override fun addPath(path: ArrayList<TaskUpload>) {
+           imageList.addAll(path)
+       }
+   },DownKan("DownKan",0,arrayListOf(),arrayListOf(),arrayListOf()){
         override fun getCurrentNumber1(): Int {
             return this.currentNumber;
         }
@@ -48,11 +52,15 @@ enum class UploadTaskEnum(var yingyePathId:String, var currentNumber: Int,
         override fun getPathList(): ArrayList<TaskUpload?> {
             return imageList
         }
+        override fun addPath(path: ArrayList<TaskUpload>) {
+            imageList.addAll(path)
+        }
     };
 
     abstract fun getCurrentNumber1():Int
     abstract fun getPathId():String
     abstract fun addAutoCurrentNumer();
     abstract fun addPath(path:TaskUpload)
+    abstract fun addPath(path:ArrayList<TaskUpload>)
     abstract fun getPathList():ArrayList<TaskUpload?>
 }

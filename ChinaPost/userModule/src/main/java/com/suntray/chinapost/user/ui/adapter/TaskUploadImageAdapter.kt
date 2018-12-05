@@ -147,7 +147,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
         } else {
             viewHolder = convertView.tag as ViewHolder
         }
-        if (getItem(position)!!.address == null || getItem(position)!!.address.equals("")) {//图片地址为空时设置默认图片
+        if (getItem(position)!!.imgPath == null || getItem(position)!!.imgPath.equals("")) {//图片地址为空时设置默认图片
             println("proImageShow getView 11111 position:$position")
             viewHolder.iv_1.setImageResource(R.drawable.mine_ic_default3)
             Glide.with(context).load(R.drawable.mine_ic_default3).into(viewHolder.iv_1)
@@ -166,7 +166,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 SystemUtil.printlnStr("delete uploadAptitudeEnum!!.imageList:"+uploadAptitudeEnum!!.imageList)
                 SystemUtil.printlnStr("delete aptitudeInfo contains :"+uploadAptitudeEnum!!.imageList.contains(aptitudeInfo))
                 if(uploadAptitudeEnum!!.imageList.contains(aptitudeInfo)&&
-                        !(!aptitudeInfo!!.address.startsWith("http") || aptitudeInfo.id==0)){
+                        !(!aptitudeInfo!!.imgPath.startsWith("http") || aptitudeInfo.id==0)){
                     //如果删除的对象 包含在 原有的集合中
                     imagePathList!!.removeAt(position)
                     uploadAptitudeEnum!!.deleteList.add(aptitudeInfo!!)
@@ -177,16 +177,16 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 //更新结构
                 update(imagePathList)
             }
-            SystemUtil.printlnStr("getItem(position)：" + BaseConstants.BASE_UPLOAD_URL + getItem(position)!!.address)
-            if(getItem(position)!!.address.startsWith("/storage")){
-                Glide.with(context).load(File(getItem(position)!!.address)).into(viewHolder.iv_1)
+            SystemUtil.printlnStr("getItem(position)：" + BaseConstants.BASE_UPLOAD_URL + getItem(position)!!.imgPath)
+            if(getItem(position)!!.imgPath.startsWith("/storage")){
+                Glide.with(context).load(File(getItem(position)!!.imgPath)).into(viewHolder.iv_1)
             }else{
-                if(getItem(position)!!.address.startsWith("http")){
+                if(getItem(position)!!.imgPath.startsWith("http")){
                     Glide.with(context).load(
-                            getItem(position)!!.address).error(R.drawable.mine_ic_default1).into(viewHolder.iv_1)
+                            getItem(position)!!.imgPath).error(R.drawable.mine_ic_default1).into(viewHolder.iv_1)
                 }else{
                     Glide.with(context).load(BaseConstants.BASE_UPLOAD_URL +
-                            getItem(position)!!.address).error(R.drawable.mine_ic_default1).into(viewHolder.iv_1)
+                            getItem(position)!!.imgPath).error(R.drawable.mine_ic_default1).into(viewHolder.iv_1)
                 }
             }
         }

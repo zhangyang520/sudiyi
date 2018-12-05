@@ -22,6 +22,7 @@ import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.baselibrary.utils.UiUtils
 import com.suntray.chinapost.map.R
+import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.injection.component.DaggerTaskComponent
 import com.suntray.chinapost.map.presenter.TaskPresenter
 import com.suntray.chinapost.map.presenter.view.TaskView
@@ -31,6 +32,7 @@ import com.suntray.chinapost.user.data.enum.UploadTaskEnum
 import com.suntray.chinapost.user.ui.adapter.TaskUploadImageAdapter
 import com.zhy.autolayout.utils.AutoUtils
 import kotlinx.android.synthetic.main.activity_task_detail.*
+import kotlinx.android.synthetic.main.item_task.*
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -46,6 +48,7 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
 
     var currentType=0// 0:上刊 1:下刊
     var isCanEditable=false
+    var taskEntity:TaskEntity?=null
     override fun injectCompontent() {
         DaggerTaskComponent.builder().activityComponent(activityComponent).build().bind(this)
         basePresenter.baseView=this
@@ -60,6 +63,35 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
 
         isCanEditable=intent.getBooleanExtra("editAble",false)
         currentType=intent.getIntExtra("currentType",0)
+        taskEntity= intent.getSerializableExtra("taskEntity") as TaskEntity?
+
+        if(taskEntity==null){
+            finish()
+            return
+        }
+
+        tv_task_type_value.text=taskEntity!!.taskType
+        tv_dot_name_value.text=taskEntity!!.pointName
+        tv_district_type_value.text=taskEntity!!.zoneType
+        tv_device_id_value.text=taskEntity!!.equId
+        tv_limit_up.text=taskEntity!!.publishType
+        tv_device_guige_value.text=taskEntity!!.equSpecify
+        tv_task_area_value.text=taskEntity!!.taskArea
+        tv_district_value.text=taskEntity!!.zoneaddress
+        tv_ad_type_value.text=taskEntity!!.adverType
+        tv_task_time_value.text=taskEntity!!.taskTime
+//        tv_up_product_value=taskEntity!!.taskTime  上刊产品
+        if(taskEntity!!.state.equals("1")){
+            tv_task_state_value.text="未完成"
+        }else if(taskEntity!!.state.equals("2")){
+            tv_task_state_value.text="待审核"
+        }else if(taskEntity!!.state.equals("3")){
+            tv_task_state_value.text="审核通过"
+        }else if(taskEntity!!.state.equals("4")){
+            tv_task_state_value.text="审核不通过"
+        }
+
+
         if(isCanEditable){
             ll_bottom.visibility=View.VISIBLE
         }else{
@@ -73,7 +105,9 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             UploadTaskEnum.UpKan.getPathList().clear()
             UploadTaskEnum.UpKan.deleteList.clear()
             UploadTaskEnum.UpKan.newAddList.clear()
-            UploadTaskEnum.UpKan.addPath(TaskUpload())
+            if(taskEntity!!.imgs!=null){
+                UploadTaskEnum.UpKan.addPath(taskEntity!!.imgs!!)
+            }
             landlist.addAll(UploadTaskEnum.UpKan.getPathList())
         }else{
             //初始化数据信息
@@ -82,7 +116,9 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             UploadTaskEnum.DownKan.getPathList().clear()
             UploadTaskEnum.DownKan.deleteList.clear()
             UploadTaskEnum.DownKan.newAddList.clear()
-            UploadTaskEnum.DownKan.addPath(TaskUpload())
+            if(taskEntity!!.imgs!=null){
+                UploadTaskEnum.DownKan.addPath(taskEntity!!.imgs!!)
+            }
             landlist.addAll(UploadTaskEnum.DownKan.getPathList())
         }
 
@@ -103,8 +139,8 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
                     //请求SD卡读写权限
                     requestPermission(BaseConstants.WRITE_EXTERNAL_STORAGE, "android.permission.WRITE_EXTERNAL_STORAGE", Runnable {
                         //允许SD卡读写权限
-                        if ((parent!!.getItemAtPosition(position) as TaskUpload).address== null ||
-                                (parent!!.getItemAtPosition(position) as TaskUpload).address.equals("")) { // 添加图片
+                        if ((parent!!.getItemAtPosition(position) as TaskUpload).imgPath== null ||
+                                (parent!!.getItemAtPosition(position) as TaskUpload).imgPath.equals("")) { // 添加图片
                             setPortraitDialog()
                         } else {
                         }

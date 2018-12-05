@@ -41,10 +41,10 @@ class TaskPresenter @Inject constructor():BasePresenter<TaskView>(){
                                 (baseView as TaskView).onGetWillExamineList(t,action)
                             }else if(taskListRequest.state==3){
                                 //审核不通过
-                                (baseView as TaskView).onGetNotExamineList(t,action)
-                            }else if(taskListRequest.state==4){
-                                //审核通过
                                 (baseView as TaskView).onGetExamineList(t,action)
+                            }else if(taskListRequest.state==4){
+                                //审核通过 onGetNotExamineList
+                                (baseView as TaskView).onGetNotExamineList(t,action)
                             }
 
                         })

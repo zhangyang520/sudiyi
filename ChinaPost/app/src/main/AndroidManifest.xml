@@ -12,6 +12,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <!-- 配置 打印的参数 -->
+
+        <meta-data
+                android:name="com.amap.api.v2.apikey"
+                android:value="${GAODE_APPKEY}" />
+
         <meta-data
                 android:name="CURRENT_PRINT"
                 android:value="${CURRENT_PRINT_VALUE}" />

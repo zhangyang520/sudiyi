@@ -78,14 +78,14 @@ class UnFinishFragment:Fragment(),TaskView{
                 pageNumber=1;
                 taskPresenter!!.getTaskListApi(
                         TaskListRequest(UserDao.getLocalUser().id,""
-                                        , pageNumber,10,firstType,0), RefreshAction.PullDownRefresh);
+                                        , pageNumber,10,firstType,1,supplyID), RefreshAction.PullDownRefresh);
             }
 
             override fun onPullUpToRefresh(refreshView: PullToRefreshBase<ListView>?) {
                 pageNumber+=1
                 taskPresenter!!.getTaskListApi(
                         TaskListRequest(UserDao.getLocalUser().id,"",
-                                pageNumber,10,firstType,0), RefreshAction.UpMore);
+                                pageNumber,10,firstType,1,supplyID), RefreshAction.UpMore);
             }
         })
     }
@@ -108,6 +108,7 @@ class UnFinishFragment:Fragment(),TaskView{
     override fun onGetUnfinishedList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
         super.onGetUnfinishedList(taskList, action)
         if(action==RefreshAction.NormalAction){
+            SystemUtil.printlnStr("mineClientlist onGetUnfinishedList NormalAction size:"+taskList.size)
             recyclerview.setRefreshTitle("我的客户列表,")
             if(taskAdapter==null){
                 taskAdapter = TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity,0,firstType)
@@ -119,14 +120,17 @@ class UnFinishFragment:Fragment(),TaskView{
         }else if(action==RefreshAction.PullDownRefresh){
             //下拉刷新
             ToastUtil.makeText(context,"刷新完成...")
-            SystemUtil.printlnStr("mineClientlist size:"+taskList.size)
+            SystemUtil.printlnStr("mineClientlist onGetUnfinishedList size:"+taskList.size)
             if(taskAdapter==null){
+                SystemUtil.printlnStr("mineClientlist onGetUnfinishedList 11111111111:")
                 taskAdapter = TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity,0,firstType)
                 recyclerview.getmListView().setAdapter(taskAdapter)
             }else{
+                SystemUtil.printlnStr("mineClientlist onGetUnfinishedList 2222222222:")
                 taskAdapter!!.datas=taskList;
+                taskAdapter!!.notifyDataSetChanged()
             }
-            taskAdapter!!.notifyDataSetChanged()
+
             recyclerview.onPullDownRefreshComplete()
         }else if(action==RefreshAction.UpMore){
             //上拉加载更多

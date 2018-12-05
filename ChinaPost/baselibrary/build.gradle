@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin:'kotlin-android'
 apply plugin:'kotlin-android-extensions'
 apply plugin:'kotlin-kapt'
@@ -34,7 +35,7 @@ dependencies {
 
     compile "com.android.support:appcompat-v7:$android_support_compat"
     compile "com.android.support.constraint:constraint-layout:$constraint_layout"
-    compile"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     compile "com.android.support:support-v4:${android_support_compat}"
     compile "com.android.support:recyclerview-v7:${android_support_compat}"
@@ -77,4 +78,7 @@ dependencies {
     //ARouter 阿里的路由
     compile "com.alibaba:arouter-api:$arouter_api_version"
     compile 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.6'
+}
+repositories {
+    mavenCentral()
 }

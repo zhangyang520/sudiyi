@@ -60,12 +60,14 @@ class TaskHolder: BaseHolder<TaskEntity>{
             ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_DETAIL)
                     .withBoolean("editAble",false)
                     .withInt("currentType",currentType)
+                    .withSerializable("taskEntity",getData())
                     .withInt("firstType",firstType).navigation()
         })
 
         btn_upload_pic!!.setOnClickListener({
             ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_DETAIL)
                     .withBoolean("editAble",true)
+                    .withSerializable("taskEntity",getData())
                     .withInt("currentType",currentType)
                     .withInt("firstType",firstType).navigation()
         })

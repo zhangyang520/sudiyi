@@ -69,14 +69,14 @@ class WillExamineFragment:Fragment(),TaskView{
                 pageNumber=1;
                 taskPresenter!!.getTaskListApi(
                         TaskListRequest(UserDao.getLocalUser().id,""
-                                , pageNumber,10,firstType,1), RefreshAction.PullDownRefresh);
+                                , pageNumber,10,firstType,2,supplyID), RefreshAction.PullDownRefresh);
             }
 
             override fun onPullUpToRefresh(refreshView: PullToRefreshBase<ListView>?) {
                 pageNumber+=1
                 taskPresenter!!.getTaskListApi(
                         TaskListRequest(UserDao.getLocalUser().id,"",
-                                pageNumber,10,firstType,1), RefreshAction.UpMore);
+                                pageNumber,10,firstType,2,supplyID), RefreshAction.UpMore);
             }
         })
     }
@@ -96,9 +96,9 @@ class WillExamineFragment:Fragment(),TaskView{
         }
     }
 
-    override fun onGetUnfinishedList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
-        super.onGetUnfinishedList(taskList, action)
+    override fun onGetWillExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
         if(action==RefreshAction.NormalAction){
+            SystemUtil.printlnStr("mineClientlist onGetWillExamineList NormalAction size:"+taskList.size)
             recyclerview.setRefreshTitle("我的客户列表,")
             if(taskAdapter==null){
                 taskAdapter = TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity,1,firstType)
@@ -110,14 +110,16 @@ class WillExamineFragment:Fragment(),TaskView{
         }else if(action==RefreshAction.PullDownRefresh){
             //下拉刷新
             ToastUtil.makeText(context,"刷新完成...")
-            SystemUtil.printlnStr("mineClientlist size:"+taskList.size)
+            SystemUtil.printlnStr("mineClientlist onGetWillExamineList size:"+taskList.size)
             if(taskAdapter==null){
+                SystemUtil.printlnStr("mineClientlist onGetWillExamineList 111111:")
                 taskAdapter = TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity,1,firstType)
                 recyclerview.getmListView().setAdapter(taskAdapter)
             }else{
+                SystemUtil.printlnStr("mineClientlist onGetWillExamineList 2222222:")
                 taskAdapter!!.datas=taskList;
+                taskAdapter!!.notifyDataSetChanged()
             }
-            taskAdapter!!.notifyDataSetChanged()
             recyclerview.onPullDownRefreshComplete()
         }else if(action==RefreshAction.UpMore){
             //上拉加载更多
@@ -136,17 +138,5 @@ class WillExamineFragment:Fragment(),TaskView{
             }
             recyclerview.onPullUpRefreshComplete()
         }
-    }
-
-    private fun getDatas(): ArrayList<TaskEntity> {
-        var list= arrayListOf<TaskEntity>()
-        list.add(TaskEntity("北京大学东门","中国邮政","北京大学","2018-10-30","定位名称"))
-        list.add(TaskEntity("北京大学东门","中国邮政","北京大学","2018-10-30","定位名称"))
-        list.add(TaskEntity("北京大学东门","中国邮政","北京大学","2018-10-30","定位名称"))
-        list.add(TaskEntity("北京大学东门","中国邮政","北京大学","2018-10-30","定位名称"))
-        list.add(TaskEntity("北京大学东门","中国邮政","北京大学","2018-10-30","定位名称"))
-        list.add(TaskEntity("北京大学东门","中国邮政","北京大学","2018-10-30","定位名称"))
-        list.add(TaskEntity("北京大学东门","中国邮政","北京大学","2018-10-30","定位名称"))
-        return list
     }
 }

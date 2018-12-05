@@ -37,7 +37,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //引入 dagger 编译包 生成指定的类
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile project(':userModule')
     //ARouter
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"

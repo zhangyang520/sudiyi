@@ -128,5 +128,5 @@ dependencies {
     compile project(':mapModule')
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

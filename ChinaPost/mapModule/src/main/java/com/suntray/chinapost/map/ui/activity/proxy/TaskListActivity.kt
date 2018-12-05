@@ -179,12 +179,12 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
 
     override fun onGetExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
         super.onGetExamineList(taskList, action)
-        examineFragment!!.onGetUnfinishedList(taskList,action)
+        examineFragment!!.onGetExamineList(taskList,action)
     }
 
     override fun onGetNotExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
         super.onGetNotExamineList(taskList, action)
-        notExamineFragment!!.onGetUnfinishedList(taskList,action)
+        notExamineFragment!!.onGetNotExamineList(taskList,action)
     }
 
     override fun onGetUnfinishedList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
@@ -194,7 +194,7 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
 
     override fun onGetWillExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
         super.onGetWillExamineList(taskList, action)
-        willExamineFragment!!.onGetUnfinishedList(taskList,action)
+        willExamineFragment!!.onGetWillExamineList(taskList,action)
     }
 
 
