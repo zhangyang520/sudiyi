@@ -24,6 +24,7 @@ class TaskUpload:Serializable{
     constructor()
     constructor(address: String) {
         this.address = address
+        this.imgPath = address
     }
 
     override fun equals(other: Any?): Boolean {

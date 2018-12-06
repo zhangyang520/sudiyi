@@ -22,7 +22,8 @@ class TaskEntity:Serializable {
     var equSpecify="" //设备的规格
     var adverType="" //广告类型
     var state="" //任务的状态
-
+    var taskId="" //任务的id
+    var pointTaskId="" //点位任务的id
 
     constructor(zoneaddress: String, clientName: String, taskArea: String, taskTime: String, dotName: String) {
         this.zoneaddress = zoneaddress

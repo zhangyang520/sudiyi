@@ -7,8 +7,8 @@ import com.suntray.chinapost.user.data.bean.TaskUpload
  */
 enum class UploadTaskEnum(var yingyePathId:String, var currentNumber: Int,
                           var imageList:ArrayList<TaskUpload?>, var newAddList:ArrayList<TaskUpload>
-                          , var deleteList:ArrayList<TaskUpload>) {
-   UpKan("UpKan",0,arrayListOf(),arrayListOf(),arrayListOf()){
+                          , var deleteList:ArrayList<Int>,var newIdsList:ArrayList<Int>) {
+   UpKan("UpKan",0,arrayListOf(),arrayListOf(),arrayListOf(), arrayListOf()){
         override fun getCurrentNumber1(): Int {
             return this.currentNumber;
         }
@@ -32,7 +32,7 @@ enum class UploadTaskEnum(var yingyePathId:String, var currentNumber: Int,
        override fun addPath(path: ArrayList<TaskUpload>) {
            imageList.addAll(path)
        }
-   },DownKan("DownKan",0,arrayListOf(),arrayListOf(),arrayListOf()){
+   },DownKan("DownKan",0,arrayListOf(),arrayListOf(),arrayListOf(),arrayListOf()){
         override fun getCurrentNumber1(): Int {
             return this.currentNumber;
         }

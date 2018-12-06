@@ -115,7 +115,6 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
 
             override fun onPageSelected(position: Int) {
                 //页面的选择
-                println("onPageSelected。。。。 position:"+position)
                 if(position==0){
                     unFinishFragment!!.getNormalData()
                 }else if(position==1){
@@ -292,6 +291,7 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
         constructor(fragmentManager:FragmentManager):super(fragmentManager)
 
         override fun getItem(position: Int): Fragment {
+            println("TaskFragmentAdapter getItem position:"+position)
             return fragmentList.get(position)
         }
 

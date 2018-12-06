@@ -64,6 +64,7 @@ object BaseConstants {
         const val UPDATE_APP="getNewApp.do"//更新版本
 
         const val GET_TASK_LIST="PointTasks.do"//获取 任务列表
+        const val UPLOAT_TASK_IMG="uploadScenePhotos.do" //上传 任务的图片
         val MACHINE_ID = "MACHINE_ID"
 
         /**

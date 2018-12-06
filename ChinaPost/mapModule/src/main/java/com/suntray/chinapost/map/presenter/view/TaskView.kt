@@ -51,4 +51,9 @@ interface TaskView: BaseView {
     fun  onError(content:String,action:RefreshAction){
 
     }
+
+    /**
+     * 上传 任务的图片
+     */
+    fun  onUploadTaskImg(){}
 }

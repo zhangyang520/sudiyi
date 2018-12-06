@@ -3,6 +3,7 @@ package com.suntray.chinapost.map.service
 import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.request.TaskListRequest
+import com.suntray.chinapost.map.data.request.TaskUploadRequest
 import rx.Observable
 
 /**
@@ -16,4 +17,9 @@ interface TaskService {
      * 获取任务列表
      */
     fun getTaskListApi(taskListRequest: TaskListRequest): Observable<ArrayList<TaskEntity>>
+
+    /**
+     * \上传任务的图片
+     */
+    fun uploadTaskImg(taskUpload: TaskUploadRequest):Observable<Object>
 }

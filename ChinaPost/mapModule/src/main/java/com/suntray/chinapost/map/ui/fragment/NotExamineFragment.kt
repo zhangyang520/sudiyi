@@ -10,6 +10,7 @@ import android.widget.ListView
 import com.suntray.chinapost.baselibrary.data.bean.RefreshAction
 import com.suntray.chinapost.baselibrary.data.dao.UserDao
 import com.suntray.chinapost.baselibrary.ui.refreshView.PullToRefreshBase
+import com.suntray.chinapost.baselibrary.ui.refreshView.PullToRefreshListView
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.map.R
@@ -37,7 +38,7 @@ class NotExamineFragment:Fragment(),TaskView {
     //任务的适配器
     var taskAdapter: TaskListViewAdapter?=null
     var taskPresenter: TaskPresenter?=null
-
+    var recyclerview: PullToRefreshListView?=null
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
         SystemUtil.printlnStr("TaskListity NotExamineFragment  setArguments ....")
@@ -50,7 +51,9 @@ class NotExamineFragment:Fragment(),TaskView {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         SystemUtil.printlnStr("TaskListity NotExamineFragment  onCreateView ....")
-        return inflater!!.inflate(R.layout.fragment_task,null)
+        var content=inflater!!.inflate(R.layout.fragment_task,null)
+        recyclerview=content.findViewById(R.id.recyclerview) as PullToRefreshListView
+        return content
     }
 
     fun getNormalData(){
@@ -64,7 +67,7 @@ class NotExamineFragment:Fragment(),TaskView {
         /**
          * 点击 查询的按钮
          */
-        recyclerview.setOnRefreshListener(object: PullToRefreshBase.OnRefreshListener<ListView>{
+        recyclerview!!.setOnRefreshListener(object: PullToRefreshBase.OnRefreshListener<ListView>{
             override fun onPullDownToRefresh(refreshView: PullToRefreshBase<ListView>?) {
                 pageNumber=1;
                 taskPresenter!!.getTaskListApi(
@@ -85,12 +88,12 @@ class NotExamineFragment:Fragment(),TaskView {
         if(action==RefreshAction.NormalAction){
             ToastUtil.makeText(context,"暂无审核不通过任务")
         }else if(action==RefreshAction.PullDownRefresh){
-            recyclerview.onPullDownRefreshComplete()
+            recyclerview!!.onPullDownRefreshComplete()
             ToastUtil.makeText(context,content)
         }else if(action==RefreshAction.UpMore){
             pageNumber-=1
             ToastUtil.makeText(context,content)
-            recyclerview.onPullUpRefreshComplete()
+            recyclerview!!.onPullUpRefreshComplete()
         }else if(action==RefreshAction.SearchAction){
             ToastUtil.makeText(context,content)
         }
@@ -99,10 +102,10 @@ class NotExamineFragment:Fragment(),TaskView {
     override fun onGetNotExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
         if(action==RefreshAction.NormalAction){
             SystemUtil.printlnStr("mineClientlist onGetNotExamineList NormalAction size:"+taskList.size)
-            recyclerview.setRefreshTitle("我的客户列表,")
+            recyclerview!!.setRefreshTitle("我的客户列表,")
             if(taskAdapter==null){
-                taskAdapter = TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity,2,firstType)
-                recyclerview.getmListView().setAdapter(taskAdapter)
+                taskAdapter = TaskListViewAdapter(taskList, recyclerview!!.getRefreshableView(),activity,2,firstType)
+                recyclerview!!.getmListView().setAdapter(taskAdapter)
             }else {
                 taskAdapter!!.datas = taskList;
                 taskAdapter!!.notifyDataSetChanged()
@@ -113,20 +116,20 @@ class NotExamineFragment:Fragment(),TaskView {
             SystemUtil.printlnStr("mineClientlist onGetNotExamineList size:"+taskList.size)
             if(taskAdapter==null){
                 SystemUtil.printlnStr("mineClientlist onGetNotExamineList 1111:")
-                taskAdapter = TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity,2,firstType)
-                recyclerview.getmListView().setAdapter(taskAdapter)
+                taskAdapter = TaskListViewAdapter(taskList, recyclerview!!.getRefreshableView(),activity,2,firstType)
+                recyclerview!!.getmListView().setAdapter(taskAdapter)
             }else{
                 SystemUtil.printlnStr("mineClientlist onGetNotExamineList 222222:")
                 taskAdapter!!.datas=taskList;
                 taskAdapter!!.notifyDataSetChanged()
             }
-            recyclerview.onPullDownRefreshComplete()
+            recyclerview!!.onPullDownRefreshComplete()
         }else if(action==RefreshAction.UpMore){
             //上拉加载更多
             if(taskList.size>0){
                 if(taskAdapter==null){
-                    taskAdapter =TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity,2,firstType)
-                    recyclerview.getmListView().setAdapter(taskAdapter)
+                    taskAdapter =TaskListViewAdapter(taskList, recyclerview!!.getRefreshableView(),activity,2,firstType)
+                    recyclerview!!.getmListView().setAdapter(taskAdapter)
                 }else{
                     taskAdapter!!.datas.addAll(taskList);
                 }
@@ -136,7 +139,7 @@ class NotExamineFragment:Fragment(),TaskView {
                 pageNumber-=1
                 ToastUtil.makeText(context,"没有更多数据了...")
             }
-            recyclerview.onPullUpRefreshComplete()
+            recyclerview!!.onPullUpRefreshComplete()
         }
     }
 

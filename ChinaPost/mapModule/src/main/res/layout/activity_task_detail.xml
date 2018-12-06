@@ -11,11 +11,13 @@
     <ScrollView android:layout_width="match_parent"
                  android:layout_height="0px"
                  android:layout_weight="1"
+                android:id="@+id/scrollView"
     >
         <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_top"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
             <include
                     android:layout_width="match_parent"
@@ -28,9 +30,9 @@
                     android:id="@+id/rl_commercial_instrument"
                     android:paddingLeft="20px"
                     android:orientation="vertical"
-                    android:background="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
 
                 <TextView
                         android:id="@+id/tv_aptitude"
@@ -39,22 +41,21 @@
                         android:layout_marginTop="40px"
                         android:text="上刊现场照片(图片大小100k左右)"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="40px"/>
 
+               <!-- android:layout_weight="1"
+                android:layout_height="0dp"-->
                 <GridView
                         android:id="@+id/gridvew"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="400px"
                         android:horizontalSpacing="15px"
                         android:numColumns="3"
-                        android:layout_marginBottom="40px"
                         android:stretchMode="columnWidth">
                 </GridView>
             </com.zhy.autolayout.AutoLinearLayout>
         </com.zhy.autolayout.AutoLinearLayout>
     </ScrollView>
-
-
     <com.zhy.autolayout.AutoLinearLayout
             android:id="@+id/ll_bottom"
             android:layout_alignParentBottom="true"

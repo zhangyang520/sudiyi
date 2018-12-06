@@ -16,6 +16,7 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.suntray.chinapost.baselibrary.common.BaseConstants
+import com.suntray.chinapost.baselibrary.data.dao.UserDao
 import com.suntray.chinapost.baselibrary.ui.activity.BaseMvpActivity
 import com.suntray.chinapost.baselibrary.utils.SDCardUtil
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
@@ -28,11 +29,15 @@ import com.suntray.chinapost.map.presenter.TaskPresenter
 import com.suntray.chinapost.map.presenter.view.TaskView
 import com.suntray.chinapost.provider.RouterPath
 import com.suntray.chinapost.user.data.bean.TaskUpload
+import com.suntray.chinapost.user.data.enum.UploadAptitudeEnum
 import com.suntray.chinapost.user.data.enum.UploadTaskEnum
 import com.suntray.chinapost.user.ui.adapter.TaskUploadImageAdapter
 import com.zhy.autolayout.utils.AutoUtils
 import kotlinx.android.synthetic.main.activity_task_detail.*
 import kotlinx.android.synthetic.main.item_task.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -46,7 +51,7 @@ import java.io.IOException
 @Route(path = RouterPath.MapModule.POST_TASK_DETAIL)
 class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
 
-    var currentType=0// 0:上刊 1:下刊
+    var firstType=0// 0:上刊 1:下刊
     var isCanEditable=false
     var taskEntity:TaskEntity?=null
     override fun injectCompontent() {
@@ -62,13 +67,22 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         viewtitle="任务详情"
 
         isCanEditable=intent.getBooleanExtra("editAble",false)
-        currentType=intent.getIntExtra("currentType",0)
+        firstType=intent.getIntExtra("firstType",0)
         taskEntity= intent.getSerializableExtra("taskEntity") as TaskEntity?
 
         if(taskEntity==null){
             finish()
             return
         }
+
+        ll_top.post(object:Runnable{
+            override fun run() {
+                println("ll_top post run scrollView.measuredHeight:"+scrollView.measuredHeight+"..ll_top height:"+ll_top.measuredHeight)
+                ll_top.layoutParams.height=scrollView.measuredHeight
+                ll_top.requestLayout()
+                gridvew.setAdapter(kanAdapter)
+            }
+        })
 
         tv_task_type_value.text=taskEntity!!.taskType
         tv_dot_name_value.text=taskEntity!!.pointName
@@ -91,23 +105,24 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             tv_task_state_value.text="审核不通过"
         }
 
-
         if(isCanEditable){
             ll_bottom.visibility=View.VISIBLE
         }else{
             ll_bottom.visibility=View.GONE
         }
         var landlist=arrayListOf<TaskUpload?>()
-        if(currentType==0){
+        if(firstType==1){
             //初始化数据信息
             UploadTaskEnum.UpKan.yingyePathId=""
             UploadTaskEnum.UpKan.currentNumber=0
             UploadTaskEnum.UpKan.getPathList().clear()
             UploadTaskEnum.UpKan.deleteList.clear()
             UploadTaskEnum.UpKan.newAddList.clear()
+            UploadTaskEnum.UpKan.newIdsList.clear()
             if(taskEntity!!.imgs!=null){
                 UploadTaskEnum.UpKan.addPath(taskEntity!!.imgs!!)
             }
+            UploadTaskEnum.UpKan.getPathList().add(TaskUpload())
             landlist.addAll(UploadTaskEnum.UpKan.getPathList())
         }else{
             //初始化数据信息
@@ -116,21 +131,23 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             UploadTaskEnum.DownKan.getPathList().clear()
             UploadTaskEnum.DownKan.deleteList.clear()
             UploadTaskEnum.DownKan.newAddList.clear()
+            UploadTaskEnum.DownKan.newIdsList.clear()
             if(taskEntity!!.imgs!=null){
                 UploadTaskEnum.DownKan.addPath(taskEntity!!.imgs!!)
             }
+            UploadTaskEnum.DownKan.getPathList().add(TaskUpload())
             landlist.addAll(UploadTaskEnum.DownKan.getPathList())
         }
 
         kanAdapter = TaskUploadImageAdapter(this@TaskDetailActivity, landlist)
         kanAdapter!!.isCancelable=isCanEditable
         kanAdapter!!.gridView=gridvew
-        if(currentType==0){
+        if(firstType==1){
             kanAdapter!!.uploadAptitudeEnum= UploadTaskEnum.UpKan
         }else{
             kanAdapter!!.uploadAptitudeEnum= UploadTaskEnum.DownKan
         }
-        gridvew.setAdapter(kanAdapter)
+
         gridvew.setOnItemClickListener(object : AdapterView.OnItemClickListener{
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 //先请求拍照权限
@@ -157,8 +174,48 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
          * 点击
          */
         btn_submit.setOnClickListener({
-            //todo 点击提交.
+            if(canUpload()){
+                if(firstType==1){
+                    //上刊
+                    basePresenter.uploadTaskImg(taskEntity!!.pointTaskId,taskEntity!!.taskId,taskEntity!!.state.toInt(),
+                            UserDao.getLocalUser().id,getMultiPartBody(UploadTaskEnum.UpKan),
+                            getDeleteIds(UploadTaskEnum.UpKan.newIdsList)!!,getDeleteIds(UploadTaskEnum.UpKan.deleteList))
+                }else{
+                    //下刊
+                    basePresenter.uploadTaskImg(taskEntity!!.pointTaskId,taskEntity!!.taskId,taskEntity!!.state.toInt(),
+                            UserDao.getLocalUser().id,getMultiPartBody(UploadTaskEnum.DownKan),
+                            getDeleteIds(UploadTaskEnum.DownKan.newIdsList),getDeleteIds(UploadTaskEnum.DownKan.deleteList))
+                }
+            }else{
+                ToastUtil.makeText(this@TaskDetailActivity,"暂时不能上传")
+            }
         })
+    }
+
+    override fun onUploadTaskImg() {
+        ToastUtil.makeText(this@TaskDetailActivity,"上传成功")
+    }
+    /**
+     * 是否 能够上传
+     */
+    private fun canUpload(): Boolean {
+        if(firstType==1){
+            if(UploadTaskEnum.UpKan.getPathList().size >0 && UploadTaskEnum.UpKan.newAddList.size>0){
+                return true
+            }else if(UploadTaskEnum.UpKan.deleteList.size>0){
+                //只是减少了图片
+                return true
+            }
+            return false
+        }else{
+            if(UploadTaskEnum.DownKan.getPathList().size >0 && UploadTaskEnum.DownKan.newAddList.size>0){
+                return true
+            }else if(UploadTaskEnum.DownKan.deleteList.size>0){
+                //只是减少了图片
+                return true
+            }
+            return false
+        }
     }
 
     override fun getView(): View {
@@ -300,10 +357,14 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
 
     private fun proImageShow(fileName: String) {
         var aptitudeInfo=TaskUpload(fileName)
-        if(currentType==0){
+        if(firstType==1){
             UploadTaskEnum.UpKan!!.newAddList.add(0, aptitudeInfo)
+            UploadTaskEnum.UpKan!!.newIdsList.add(-1)
+            UploadTaskEnum.UpKan!!.newIdsList.add(-1)
         }else{
             UploadTaskEnum.DownKan!!.newAddList.add(0, aptitudeInfo)
+            UploadTaskEnum.DownKan!!.newIdsList.add(-1)
+            UploadTaskEnum.DownKan!!.newIdsList.add(-1)
         }
         kanAdapter!!.newAddUpdate(aptitudeInfo)
     }
@@ -360,5 +421,40 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         } else {
             false
         }
+    }
+
+
+    /**
+     * 根据 上传类型 返回 boduy
+     */
+    private  fun  getMultiPartBody(uploadAptitudeEnum: UploadTaskEnum):List<MultipartBody.Part>{
+        SystemUtil.printlnStr("uploadAptitudeEnum.getPathId():"+uploadAptitudeEnum.newAddList.size)
+        var  parts= ArrayList<MultipartBody.Part>();
+        for (data in uploadAptitudeEnum.newAddList) {
+            SystemUtil.printlnStr("uploadAptitudeEnum data.address:"+data)
+            if(data!=null && data.imgPath!=null && !data.imgPath.equals("")){
+                var file=File(data.imgPath)
+                var requestBody= RequestBody.create(MediaType.parse("imgage/png"),file);
+                var  part= MultipartBody.Part.createFormData(uploadAptitudeEnum.getPathId(),file.getName(),requestBody);
+                parts.add(part);
+            }
+        }
+        return parts;
+    }
+
+    /**
+     * 获取得到  数组
+     */
+    private fun getDeleteIds(arrayList:ArrayList<Int>): Array<Int?> {
+        var deleteIdArrays=ArrayList<Int>()
+        for(data in arrayList){
+            deleteIdArrays.add(data)
+        }
+
+        var deleteIdInters= arrayOfNulls<Int>(deleteIdArrays.size)
+        for(index in deleteIdArrays.indices){
+            deleteIdInters.set(index,deleteIdArrays.get(index))
+        }
+        return deleteIdInters
     }
 }

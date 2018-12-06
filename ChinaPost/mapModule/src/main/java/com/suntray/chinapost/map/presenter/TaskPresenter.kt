@@ -8,9 +8,13 @@ import com.suntray.chinapost.baselibrary.rx.assertMethod
 import com.suntray.chinapost.baselibrary.rx.execute
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.request.TaskListRequest
+import com.suntray.chinapost.map.data.request.TaskUploadRequest
 import com.suntray.chinapost.map.presenter.view.TaskView
 import com.suntray.chinapost.map.service.impl.TaskServiceImpl
+import com.suntray.chinapost.user.presenter.view.ClientView
 import com.suntray.chinapost.user.presenter.view.MineEditView
+import okhttp3.MultipartBody
+import rx.Subscriber
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
@@ -67,4 +71,35 @@ class TaskPresenter @Inject constructor():BasePresenter<TaskView>(){
 
         },lifecylerProvider)
     }
+
+    /**
+     * 上传 task的img
+     */
+     fun uploadTaskImg( pointTaskId:String="",
+                        taskId:String="",
+                        type:Int,
+                        userId:Int,
+                        imgFiles:List<MultipartBody.Part> ?=null ,
+                        imgIds:Array<Int?> ? =null ,
+                        deleteIds:Array<Int?> ? =null){
+
+        taskServiceImpl.uploadTaskImg(TaskUploadRequest(pointTaskId,taskId,type,userId,imgFiles,imgIds,deleteIds))
+                    .execute(object: BaseSucriber<Object>(baseView,TaskPresenter::class.java.simpleName!!) {
+                        override fun onError(e: Throwable?) {
+                            if(e is ContentException){
+                                assertMethod(baseView,{
+                                    (baseView).onError(e.errorContent)
+                                    (baseView).hideLoading()
+                                })
+                            }else{
+                                super.onError(e)
+                            }
+                        }
+
+                        override fun onNext(t: Object) {
+                            (baseView as TaskView).onUploadTaskImg()
+                            (baseView).hideLoading()
+                        }
+                    },lifecylerProvider)
+     }
 }

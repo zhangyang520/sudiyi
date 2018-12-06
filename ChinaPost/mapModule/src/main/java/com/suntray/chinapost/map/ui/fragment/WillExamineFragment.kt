@@ -98,27 +98,29 @@ class WillExamineFragment:Fragment(),TaskView{
 
     override fun onGetWillExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
         if(action==RefreshAction.NormalAction){
-            SystemUtil.printlnStr("mineClientlist onGetWillExamineList NormalAction size:"+taskList.size)
+            SystemUtil.printlnStr("mineClientlist onGetWillExamineList NormalAction size:"+taskList.size+"..taskAdapter:"+taskAdapter.toString())
             recyclerview.setRefreshTitle("我的客户列表,")
             if(taskAdapter==null){
                 taskAdapter = TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity,1,firstType)
+                SystemUtil.printlnStr("mineClientlist onGetWillExamineList 111111:"+"..taskAdapter:"+taskAdapter.toString())
                 recyclerview.getmListView().setAdapter(taskAdapter)
             }else {
                 taskAdapter!!.datas = taskList;
                 taskAdapter!!.notifyDataSetChanged()
+                SystemUtil.printlnStr("mineClientlist onGetWillExamineList 111111:"+"..taskAdapter:"+taskAdapter.toString())
             }
         }else if(action==RefreshAction.PullDownRefresh){
             //下拉刷新
             ToastUtil.makeText(context,"刷新完成...")
-            SystemUtil.printlnStr("mineClientlist onGetWillExamineList size:"+taskList.size)
+            SystemUtil.printlnStr("mineClientlist onGetWillExamineList size:"+taskList.size+"..taskAdapter:"+taskAdapter.toString())
             if(taskAdapter==null){
-                SystemUtil.printlnStr("mineClientlist onGetWillExamineList 111111:")
                 taskAdapter = TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity,1,firstType)
+                SystemUtil.printlnStr("mineClientlist onGetWillExamineList 111111:"+"..taskAdapter:"+taskAdapter.toString())
                 recyclerview.getmListView().setAdapter(taskAdapter)
             }else{
-                SystemUtil.printlnStr("mineClientlist onGetWillExamineList 2222222:")
                 taskAdapter!!.datas=taskList;
                 taskAdapter!!.notifyDataSetChanged()
+                SystemUtil.printlnStr("mineClientlist onGetWillExamineList 2222222:"+"..taskAdapter:"+taskAdapter.toString())
             }
             recyclerview.onPullDownRefreshComplete()
         }else if(action==RefreshAction.UpMore){

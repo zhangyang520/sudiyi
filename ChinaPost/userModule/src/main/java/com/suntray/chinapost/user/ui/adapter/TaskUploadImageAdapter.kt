@@ -169,7 +169,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                         !(!aptitudeInfo!!.imgPath.startsWith("http") || aptitudeInfo.id==0)){
                     //如果删除的对象 包含在 原有的集合中
                     imagePathList!!.removeAt(position)
-                    uploadAptitudeEnum!!.deleteList.add(aptitudeInfo!!)
+                    uploadAptitudeEnum!!.deleteList.add(aptitudeInfo!!.id)
                     SystemUtil.printlnStr(uploadAptitudeEnum!!.yingyePathId+"..delete size:"+uploadAptitudeEnum!!.deleteList.size)
                 }else{
                     imagePathList!!.removeAt(position)
