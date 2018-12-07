@@ -51,6 +51,7 @@ object BaseConstants {
         const val DOT_OF_RESOURCE_LIST="findResource.do"
         const val SAVE_SUBMIT_RESERVE="saveSubmitReserve.do"
         const val RESOURCE_DATE="resourceSchedule.do"//日期的周期
+        const val FindResourceReport="findResourceReport.do"; //通过 id 查看 上下刊报告
 
         //字典接口
         const val RESOURCE_LSIT="findResourceTypeDic.do"
@@ -60,10 +61,14 @@ object BaseConstants {
 
         const val MINE_RESERVED_DOT="findMyReserve.do"
         const val MINE_XUDING_DOT="renewSave.do" //点位续订
+        const val RELIEVE_SAVE="relieveSave.do"//申请取消预订
 
         const val UPDATE_APP="getNewApp.do"//更新版本
 
-        const val GET_TASK_LIST="PointTasks.do"//获取 任务列表
+        const val GET_TASK_LIST="PointTasks.do"//获取 任务列表 PointTasks
+
+        const val GET_TASK_LIST_2="pointTasksA.do"//第二个接口
+
         const val UPLOAT_TASK_IMG="uploadScenePhotos.do" //上传 任务的图片
         val MACHINE_ID = "MACHINE_ID"
 

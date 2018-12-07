@@ -42,9 +42,6 @@ fun <T>Observable<BaseResp<T>>.convertData():Observable<T>{
             SystemUtil.printlnStr("BaseSucriber call....:"+t.toString())
             if(!t!!.messageCode.equals(BaseConstants.SUCCESS)){
                 SystemUtil.printlnStr("BaseSucriber call failure")
-//                if(t.code.equals(BaseConstants.RESULT_CODE_LOGIN_ERROR)){
-//                    return rx.Observable.error(NoLoginException(t.msg,t.code))
-//                }
                 return rx.Observable.error(ContentException(t.message))
             }
             SystemUtil.printlnStr("BaseSucriber call success")

@@ -2,8 +2,10 @@ package com.suntray.chinapost.map.service.impl
 
 import com.suntray.chinapost.baselibrary.rx.convertData
 import com.suntray.chinapost.map.data.request.DotOfResourceInfoRequest
+import com.suntray.chinapost.map.data.request.FindResourceReportRequest
 import com.suntray.chinapost.map.data.request.OneKeySubmitRequest
 import com.suntray.chinapost.map.data.request.ResourceDateRequest
+import com.suntray.chinapost.map.data.response.AdDownResponse
 import com.suntray.chinapost.map.data.response.DotOfResourceListResponse
 import com.suntray.chinapost.map.data.response.OneKeyReservedResponse
 import com.suntray.chinapost.map.data.response.ResourceDateResponse
@@ -43,5 +45,9 @@ class ResourceServiceImpl @Inject constructor():ResourceService{
 
     override fun getResourceDateSchedule(resourceDateRequest: ResourceDateRequest): Observable<ResourceDateResponse> {
         return resourceRespository.getResourceDateSchedule(resourceDateRequest).convertData()
+    }
+
+    override fun getResourceReportRequest(findResourceReportRequest: FindResourceReportRequest): Observable<AdDownResponse> {
+        return resourceRespository.getResourceReportRequest(findResourceReportRequest).convertData()
     }
 }

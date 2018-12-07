@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ListView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.suntray.chinapost.baselibrary.data.bean.RefreshAction
 import com.suntray.chinapost.baselibrary.data.dao.UserDao
 import com.suntray.chinapost.baselibrary.rx.getTxt
@@ -38,11 +39,13 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
     var pagePreNumber=-1
     var preSearch=""
 
+    var selectedList:Array<String?> ?=null
     override fun initView() {
         isBlackShow=true
         isTitleShow=true
-        isRightShow=false
+        isRightShow=true
         viewtitle="我预定的点位"
+        rightTitle="取消预定"
         basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10),RefreshAction.NormalAction)
 
 
@@ -58,6 +61,22 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
             override fun onPullUpToRefresh(refreshView: PullToRefreshBase<ListView>?) {
                 pageNumber+=1
                 basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10),RefreshAction.UpMore);
+            }
+        })
+
+        rl_bottom.setOnClickListener({
+            if(adapter!!.myReservedDotHolder!!.selectPositionList.size>0){
+                selectedList=arrayOfNulls<String>(adapter!!.myReservedDotHolder!!.selectPositionList.size)
+                for(position in adapter!!.myReservedDotHolder!!.selectPositionList.indices){
+                    //获取数值
+                    var position=adapter!!.myReservedDotHolder!!.selectPositionList!!.get(position)
+                    selectedList!!.set(position,adapter!!.datas.get(position).id.toString())
+                }
+
+                //调用接口
+                //调用接口
+            }else{
+                ToastUtil.makeText(this@MineReservedDotActivity,"请选择点位")
             }
         })
     }
@@ -152,5 +171,20 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
 
     override fun onResume() {
         super.onResume()
+    }
+
+    fun setSelectNumer(number:Int){
+        tv_reserved_number.setText(number.toString())
+    }
+
+    /**
+     * 右边标题的点击 事件处理
+     */
+    override fun rightTitleClick() {
+        super.rightTitleClick()
+    }
+
+    override  fun onRelieveSaveResponse(){
+        ToastUtil.makeText(this@MineReservedDotActivity,"申请取消预订成功")
     }
 }

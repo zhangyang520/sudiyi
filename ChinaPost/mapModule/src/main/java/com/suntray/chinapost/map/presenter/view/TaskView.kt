@@ -13,28 +13,28 @@ interface TaskView: BaseView {
     /**
      * 获取 未完成的任务列表
      */
-    fun onGetUnfinishedList(taskList:ArrayList<TaskEntity>,action:RefreshAction){
+    fun onGetUnfinishedList(taskList:ArrayList<TaskEntity>,action:RefreshAction,count:Int=0){
 
     }
 
     /**
      * 获取 待审核的任务列表
      */
-    fun  onGetWillExamineList(taskList:ArrayList<TaskEntity>,action:RefreshAction){
+    fun  onGetWillExamineList(taskList:ArrayList<TaskEntity>,action:RefreshAction,count:Int=0){
 
     }
 
     /**
      * 获取 审核不通过的任务列表
      */
-    fun  onGetNotExamineList(taskList:ArrayList<TaskEntity>,action:RefreshAction){
+    fun  onGetNotExamineList(taskList:ArrayList<TaskEntity>,action:RefreshAction,count:Int=0){
 
     }
 
     /**
      * 获取 审核通过的任务列表
      */
-    fun  onGetExamineList(taskList:ArrayList<TaskEntity>,action:RefreshAction){
+    fun  onGetExamineList(taskList:ArrayList<TaskEntity>,action:RefreshAction,count:Int=0){
 
     }
 

@@ -111,15 +111,23 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }else if(holder is IdleRecylerViewHolder){
             //空闲状态
             holder.tv_ad_down_value!!.setText("无")
-            if(resourceDotLocation!!.resourceAdList.get(position-1).type==33){
+
+            //判断 任务类型 ---> 1:上刊 2:下刊
+            if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
+                //查看下刊报告
                 holder.btn_chakan!!.visibility=View.VISIBLE
                 holder.btn_chakan!!.setText("查看下刊报告")
+            }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
+                //查看 上刊报告
+                holder.btn_chakan!!.visibility=View.VISIBLE
+                holder.btn_chakan!!.setText("查看上刊报告")
             }else{
+                //进行隐藏
                 holder.btn_chakan!!.visibility=View.GONE
-                holder.btn_chakan!!.setText("查看下刊报告")
             }
+
             holder.btn_chakan!!.setOnClickListener({
-                ARouter.getInstance().build(RouterPath.MapModule.POST_AD_DOWN).navigation(context)
+                ARouter.getInstance().build(RouterPath.MapModule.POST_AD_DOWN).withSerializable("ad",resourceDotLocation!!.resourceAdList.get(position-1)).navigation(context)
             })
 
             holder.btn_yuding!!.setOnClickListener({
@@ -136,21 +144,26 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }else{
                 holder.tv_ad_type_value!!.setText(resourceDotLocation!!.resourceAdList.get(position-1).typename)
             }
-
         }else if(holder is UnUsedRecylerViewHolder){
             //空闲状态
             holder.tv_ad_down_unused_value!!.setText("无")
 
-            if(resourceDotLocation!!.resourceAdList.get(position-1).type==33){
+            //判断 任务类型 ---> 1:上刊 2:下刊
+            if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
+                //查看下刊报告
                 holder.btn_chakan_unused!!.visibility=View.VISIBLE
                 holder.btn_chakan_unused!!.setText("查看下刊报告")
+            }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
+                //查看 上刊报告
+                holder.btn_chakan_unused!!.visibility=View.VISIBLE
+                holder.btn_chakan_unused!!.setText("查看上刊报告")
             }else{
+                //进行隐藏
                 holder.btn_chakan_unused!!.visibility=View.GONE
-                holder.btn_chakan_unused!!.setText("查看下刊报告")
             }
 
             holder.btn_chakan_unused!!.setOnClickListener({
-                ARouter.getInstance().build(RouterPath.MapModule.POST_AD_DOWN).navigation(context)
+                ARouter.getInstance().build(RouterPath.MapModule.POST_AD_DOWN).withSerializable("ad",resourceDotLocation!!.resourceAdList.get(position-1)).navigation(context)
             })
 
             holder.btn_yuding_unused!!.setOnClickListener({
@@ -169,16 +182,22 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }
         }else if(holder is LockedRecylerViewHolder){
 
-            if(resourceDotLocation!!.resourceAdList.get(position-1).type==33){
+            //判断 任务类型 ---> 1:上刊 2:下刊
+            if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
+                //查看下刊报告
+                holder.btn_chakan_error!!.visibility=View.VISIBLE
+                holder.btn_chakan_error!!.setText("查看下刊报告")
+            }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
+                //查看 上刊报告
                 holder.btn_chakan_error!!.visibility=View.VISIBLE
                 holder.btn_chakan_error!!.setText("查看上刊报告")
             }else{
+                //进行隐藏
                 holder.btn_chakan_error!!.visibility=View.GONE
-                holder.btn_chakan_error!!.setText("查看下刊报告")
             }
 
             holder.btn_chakan_error!!.setOnClickListener({
-                ARouter.getInstance().build(RouterPath.MapModule.POST_AD_DOWN).navigation(context)
+                ARouter.getInstance().build(RouterPath.MapModule.POST_AD_DOWN).withSerializable("ad",resourceDotLocation!!.resourceAdList.get(position-1)).navigation(context)
             })
 
             holder.btn_yuding_error!!.setOnClickListener({
@@ -198,16 +217,22 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }
         }else if(holder is ReservedRecylerViewHolder){
 
-            if(resourceDotLocation!!.resourceAdList.get(position-1).type==33){
+            //判断 任务类型 ---> 1:上刊 2:下刊
+            if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
+                //查看下刊报告
                 holder.btn_chakan_reserved!!.visibility=View.VISIBLE
                 holder.btn_chakan_reserved!!.setText("查看下刊报告")
+            }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
+                //查看 上刊报告
+                holder.btn_chakan_reserved!!.visibility=View.VISIBLE
+                holder.btn_chakan_reserved!!.setText("查看上刊报告")
             }else{
+                //进行隐藏
                 holder.btn_chakan_reserved!!.visibility=View.GONE
-                holder.btn_chakan_reserved!!.setText("查看下刊报告")
             }
 
             holder.btn_chakan_reserved!!.setOnClickListener({
-                ARouter.getInstance().build(RouterPath.MapModule.POST_AD_DOWN).navigation(context)
+                ARouter.getInstance().build(RouterPath.MapModule.POST_AD_DOWN).withSerializable("ad",resourceDotLocation!!.resourceAdList.get(position-1)).navigation(context)
             })
 
             holder.btn_yuding_reserved!!.setOnClickListener({

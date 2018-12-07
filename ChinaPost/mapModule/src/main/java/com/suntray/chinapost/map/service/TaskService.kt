@@ -2,6 +2,7 @@ package com.suntray.chinapost.map.service
 
 import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.map.data.bean.TaskEntity
+import com.suntray.chinapost.map.data.bean.TaskItem
 import com.suntray.chinapost.map.data.request.TaskListRequest
 import com.suntray.chinapost.map.data.request.TaskUploadRequest
 import rx.Observable
@@ -13,6 +14,10 @@ import rx.Observable
  */
 interface TaskService {
 
+    /**
+     * 获取任务列表 第二个接口
+     */
+    fun getTaskListApi2(taskListRequest: TaskListRequest):Observable<TaskItem>
     /**
      * 获取任务列表
      */

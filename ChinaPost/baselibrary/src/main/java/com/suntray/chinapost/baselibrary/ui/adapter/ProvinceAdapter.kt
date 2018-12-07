@@ -82,8 +82,8 @@ class ProvinceAdapter:RecyclerView.Adapter<ProvinceAdapter.ProvinceViewHoler>{
         var tv_province:TextView?=null
         var rl_top: AutoRelativeLayout?=null
         constructor(itemView: View?) : super(itemView){
-            rl_top=itemView!!.findViewById<AutoRelativeLayout>(R.id.rl_top)
-            tv_province= itemView!!.findViewById<TextView>(R.id.tv_province)
+            rl_top=itemView!!.findViewById(R.id.rl_top) as AutoRelativeLayout
+            tv_province= itemView!!.findViewById(R.id.tv_province) as TextView
         }
     }
 }

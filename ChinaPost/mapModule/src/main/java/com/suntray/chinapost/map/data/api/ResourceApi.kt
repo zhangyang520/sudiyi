@@ -3,8 +3,10 @@ package com.suntray.chinapost.map.data.api
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.map.data.request.DotOfResourceInfoRequest
+import com.suntray.chinapost.map.data.request.FindResourceReportRequest
 import com.suntray.chinapost.map.data.request.OneKeySubmitRequest
 import com.suntray.chinapost.map.data.request.ResourceDateRequest
+import com.suntray.chinapost.map.data.response.AdDownResponse
 import com.suntray.chinapost.map.data.response.DotOfResourceListResponse
 import com.suntray.chinapost.map.data.response.OneKeyReservedResponse
 import com.suntray.chinapost.map.data.response.ResourceDateResponse
@@ -32,7 +34,11 @@ interface ResourceApi {
     @POST(value = BaseConstants.DOT_OF_RESOURCE_LIST)
     fun getDotOfResourceInfo(@Body dotOfResourceInfoRequest: DotOfResourceInfoRequest):Observable<BaseResp<DotOfResourceListResponse>>
 
-
+    /**
+     *  获取上下刊的内容
+     */
+    @POST(value = BaseConstants.FindResourceReport)
+    fun getResourceReportRequest(@Body findResourceReportRequest: FindResourceReportRequest):Observable<BaseResp<AdDownResponse>>
     /**
      * 获取结果
      */

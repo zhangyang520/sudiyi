@@ -96,6 +96,18 @@
                     android:orientation="vertical"
                     android:layout_height="match_parent">
                 <!--数字的提醒-->
+                <TextView
+                        android:id="@+id/tv_unfinish_number"
+                        android:background="@drawable/iv_notification_small"
+                        android:text="12"
+                        android:textSize="15px"
+                        android:visibility="gone"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:layout_toRightOf="@+id/tv_unfinished"
+                        android:layout_marginTop="10px"
+                        android:layout_width="24px"
+                        android:layout_height="24px"/>
 
                 <TextView
                         android:id="@+id/tv_unfinished"
@@ -103,6 +115,7 @@
                         android:textSize="26px"
                         android:text="未完成"
                         android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                 />
@@ -112,18 +125,18 @@
                         android:id="@+id/view_unfinished"
                         android:layout_width="45px"
                         android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:layout_height="2px"
                         android:background="#01764A"
                 ></View>
             </com.zhy.autolayout.AutoRelativeLayout>
 
 
-        <com.zhy.autolayout.AutoLinearLayout
+        <com.zhy.autolayout.AutoRelativeLayout
                 android:id="@+id/ll_willexamine"
                 android:layout_width="0px"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:gravity="center"
                 android:layout_height="match_parent">
 
             <TextView
@@ -131,53 +144,71 @@
                     android:textColor="#909092"
                     android:textSize="26px"
                     android:text="待审核"
+                    android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
             />
             <View
+                    android:layout_below="@+id/tv_will_examine"
                     android:layout_marginTop="10px"
                     android:id="@+id/view_will_examine"
                     android:layout_width="45px"
+                    android:layout_centerInParent="true"
                     android:layout_height="2px"
                     android:background="#909092"
                     android:visibility="invisible"
             ></View>
-        </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
 
 
-        <com.zhy.autolayout.AutoLinearLayout
+        <com.zhy.autolayout.AutoRelativeLayout
                 android:id="@+id/ll_notexamine"
                 android:layout_width="0px"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:gravity="center"
                 android:layout_height="match_parent">
+
+            <!--数字的提醒-->
+            <TextView
+                    android:id="@+id/tv_unexamine_number"
+                    android:background="@drawable/iv_notification_small"
+                    android:text="12"
+                    android:textSize="15px"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:layout_toRightOf="@+id/tv_not_examine"
+                    android:layout_above="@+id/tv_not_examine"
+                    android:layout_width="24px"
+                    android:layout_height="24px"/>
 
             <TextView
                     android:id="@+id/tv_not_examine"
                     android:textColor="#909092"
                     android:textSize="26px"
                     android:text="不通过"
+                    android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
             />
             <View
+                    android:layout_below="@+id/tv_not_examine"
                     android:layout_marginTop="10px"
                     android:id="@+id/view_not_examine"
                     android:layout_width="45px"
+                    android:layout_centerInParent="true"
                     android:layout_height="2px"
                     android:background="#909092"
                     android:visibility="invisible"
             ></View>
-        </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
 
 
-        <com.zhy.autolayout.AutoLinearLayout
+        <com.zhy.autolayout.AutoRelativeLayout
                 android:id="@+id/ll_examine"
                 android:layout_width="0px"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:gravity="center"
                 android:layout_height="match_parent">
 
             <TextView
@@ -185,18 +216,21 @@
                     android:textColor="#909092"
                     android:textSize="26px"
                     android:text="通过"
+                    android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
             />
             <View
+                    android:layout_below="@+id/tv_examine"
                     android:layout_marginTop="10px"
                     android:id="@+id/view_examine"
                     android:layout_width="45px"
                     android:layout_height="2px"
+                    android:layout_centerInParent="true"
                     android:background="#909092"
                     android:visibility="invisible"
             ></View>
-        </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
     </com.zhy.autolayout.AutoLinearLayout>
     <android.support.v4.view.ViewPager
             android:id="@+id/viewpager_list"

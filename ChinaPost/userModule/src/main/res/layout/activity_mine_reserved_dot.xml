@@ -20,4 +20,53 @@
             android:layout_weight="1"
     >
     </com.suntray.chinapost.baselibrary.ui.refreshView.PullToRefreshListView>
+
+    <!--申请取消预定-->
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_bottom"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/map_btn_reserved"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="97px">
+
+        <TextView
+                android:layout_centerHorizontal="true"
+                android:id="@+id/btn_reserved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="申请取消预定"
+                android:textColor="@color/white"
+                android:background="@null"
+                android:textSize="36px"
+        />
+
+        <TextView
+                android:layout_toRightOf="@+id/btn_reserved"
+                android:id="@+id/tv_reserved_count1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(共选"
+                android:textColor="@color/black"
+                android:textSize="34px"
+        />
+        <TextView
+                android:id="@+id/tv_reserved_number"
+                android:layout_toRightOf="@+id/tv_reserved_count1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/red"
+                android:textSize="34px"
+        />
+        <TextView
+                android:layout_toRightOf="@+id/tv_reserved_number"
+                android:id="@+id/tv_reserved_count2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个点位)"
+                android:textColor="@color/black"
+                android:textSize="34px"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
 </com.zhy.autolayout.AutoLinearLayout>

@@ -4,8 +4,10 @@ import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.baselibrary.data.net.RetrofitFactory
 import com.suntray.chinapost.map.data.api.ResourceApi
 import com.suntray.chinapost.map.data.request.DotOfResourceInfoRequest
+import com.suntray.chinapost.map.data.request.FindResourceReportRequest
 import com.suntray.chinapost.map.data.request.OneKeySubmitRequest
 import com.suntray.chinapost.map.data.request.ResourceDateRequest
+import com.suntray.chinapost.map.data.response.AdDownResponse
 import com.suntray.chinapost.map.data.response.DotOfResourceListResponse
 import com.suntray.chinapost.map.data.response.OneKeyReservedResponse
 import com.suntray.chinapost.map.data.response.ResourceDateResponse
@@ -48,4 +50,9 @@ interface ResourceService {
      * 资源周期的获取
      */
     fun getResourceDateSchedule(@Body resourceDateRequest: ResourceDateRequest):Observable<ResourceDateResponse>
+
+    /**
+     *  获取上下看刊 的报告
+     */
+    fun getResourceReportRequest( findResourceReportRequest: FindResourceReportRequest):Observable<AdDownResponse>
 }

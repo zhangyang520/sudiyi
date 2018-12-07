@@ -125,6 +125,7 @@
         />
 
         <TextView
+                android:id="@+id/tv_ad_type"
                 android:layout_marginTop="24px"
                 android:layout_width="wrap_content"
                 android:layout_height="30px"

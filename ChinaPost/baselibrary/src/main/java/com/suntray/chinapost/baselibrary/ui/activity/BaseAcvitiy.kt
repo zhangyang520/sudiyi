@@ -59,7 +59,7 @@ open abstract class BaseAcvitiy: RxAppCompatActivity() {
      */
     fun initBtnBlackAndTitle() {
         if (isBlackShow) {
-            val black = root.findViewById<RelativeLayout>(R.id.rl_back)
+            val black = root.findViewById(R.id.rl_back) as RelativeLayout
             black.visibility = View.VISIBLE
             black.setOnClickListener {
                 beforeFinish()
@@ -68,12 +68,12 @@ open abstract class BaseAcvitiy: RxAppCompatActivity() {
 
         if (isTitleShow) {
             //进行设置主题
-            val tv_Title = root.findViewById<TextView>(R.id.tv_title)
+            val tv_Title = root.findViewById(R.id.tv_title) as TextView
             tv_Title.text = viewtitle
         }
 
         if(isRightShow){
-            val tv_Title = root.findViewById<TextView>(R.id.tv_right)
+            val tv_Title = root.findViewById(R.id.tv_right) as TextView
             tv_Title.visibility=View.VISIBLE
             tv_Title.text = rightTitle
             tv_Title.setOnClickListener({

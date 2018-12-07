@@ -4,6 +4,7 @@ import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.baselibrary.data.net.RetrofitFactory
 import com.suntray.chinapost.map.data.api.TaskApi
 import com.suntray.chinapost.map.data.bean.TaskEntity
+import com.suntray.chinapost.map.data.bean.TaskItem
 import com.suntray.chinapost.map.data.request.TaskListRequest
 import com.suntray.chinapost.map.data.request.TaskUploadRequest
 import retrofit2.http.Body
@@ -24,7 +25,12 @@ class TaskRespository @Inject constructor(){
         return RetrofitFactory.instance.create(TaskApi::class.java).getTaskListApi(taskListRequest)
     }
 
-
+    /**
+     * 获取任务列表 第二个接口
+     */
+    fun getTaskListApi2(taskListRequest: TaskListRequest):Observable<BaseResp<TaskItem>>{
+        return RetrofitFactory.instance.create(TaskApi::class.java).getTaskListApi2(taskListRequest)
+    }
   /**
 　　* @Description: 上传任务的图片
 　　* @param

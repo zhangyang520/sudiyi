@@ -4,6 +4,7 @@ import com.suntray.chinapost.baselibrary.rx.convertData
 import com.suntray.chinapost.user.data.bean.MineReservedDot
 import com.suntray.chinapost.user.data.request.MineReservedDotRequest
 import com.suntray.chinapost.user.data.request.MineXudingDotRequest
+import com.suntray.chinapost.user.data.request.RelieveSaveRequest
 import com.suntray.chinapost.user.data.respository.MineDotRespository
 import com.suntray.chinapost.user.service.MineDotService
 import rx.Observable
@@ -25,5 +26,9 @@ class MineDotServiceImpl @Inject constructor():MineDotService{
 
     override fun dotXuding(mineDotXudingDotRequest: MineXudingDotRequest): Observable<ArrayList<Object>> {
         return mineDotRespository.dotXuding(mineDotXudingDotRequest).convertData()
+    }
+
+    override fun relieveSave(relieveSaveRequest: RelieveSaveRequest): Observable<ArrayList<Object>> {
+        return mineDotRespository.relieveSave(relieveSaveRequest).convertData()
     }
 }

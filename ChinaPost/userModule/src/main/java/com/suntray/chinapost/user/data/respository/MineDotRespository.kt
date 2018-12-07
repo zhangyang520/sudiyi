@@ -7,6 +7,7 @@ import com.suntray.chinapost.user.data.api.MineDotApi
 import com.suntray.chinapost.user.data.bean.MineReservedDot
 import com.suntray.chinapost.user.data.request.MineReservedDotRequest
 import com.suntray.chinapost.user.data.request.MineXudingDotRequest
+import com.suntray.chinapost.user.data.request.RelieveSaveRequest
 import retrofit2.http.Body
 import retrofit2.http.POST
 import rx.Observable
@@ -31,5 +32,9 @@ class MineDotRespository  @Inject constructor(){
      */
     fun dotXuding(mineDotXudingDotRequest: MineXudingDotRequest): Observable<BaseResp<ArrayList<Object>>>{
         return RetrofitFactory.instance.create(MineDotApi::class.java). dotXuding(mineDotXudingDotRequest)
+    }
+
+    fun relieveSave( relieveSaveRequest: RelieveSaveRequest):Observable<BaseResp<ArrayList<Object>>>{
+        return RetrofitFactory.instance.create(MineDotApi::class.java). relieveSave(relieveSaveRequest)
     }
 }

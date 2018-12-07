@@ -3,6 +3,7 @@ package com.suntray.chinapost.map.injection.component
 import com.suntray.chinapost.baselibrary.injection.PerComponentScope
 import com.suntray.chinapost.baselibrary.injection.component.ActivityComponent
 import com.suntray.chinapost.map.injection.module.ResourceModule
+import com.suntray.chinapost.map.ui.activity.sale.PostAdDownActivity
 import com.suntray.chinapost.map.ui.activity.sale.PostAdInfoActivity
 import com.suntray.chinapost.map.ui.activity.sale.PostAdResorceReservedActivity
 import com.suntray.chinapost.map.ui.activity.sale.PostReservedAdResultActivity
@@ -32,4 +33,9 @@ interface ResourceComponent {
      * 绑定结果界面
      */
     fun bind(postReservedAdResultActivity: PostReservedAdResultActivity)
+
+    /**
+     * 将上下刊报告的界面绑定
+     */
+    fun bind(postAdDownActivity: PostAdDownActivity)
 }

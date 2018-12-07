@@ -100,7 +100,7 @@ class WillExamineFragment:Fragment(),TaskView{
         }
     }
 
-    override fun onGetWillExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
+    override fun onGetWillExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction,count:Int) {
         if(action==RefreshAction.NormalAction){
             SystemUtil.printlnStr("mineClientlist onGetWillExamineList NormalAction size:"+taskList.size+"..taskAdapter:"+taskAdapter.toString())
             recyclerview.setRefreshTitle("我的客户列表,")

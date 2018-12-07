@@ -157,7 +157,7 @@
             android:gravity="center"
             android:textSize="26px"
             android:layout_marginBottom="19px"
-            android:layout_toLeftOf="@+id/btn_yuding"
+            android:layout_toLeftOf="@+id/btn_yuding_unused"
             android:layout_marginRight="40px"
     />
 </com.zhy.autolayout.AutoRelativeLayout>

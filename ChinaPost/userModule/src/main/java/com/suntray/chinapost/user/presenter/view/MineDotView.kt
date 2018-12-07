@@ -28,4 +28,11 @@ interface MineDotView:BaseView{
     fun onError(content: String, action: RefreshAction){
 
     }
+
+    /**
+     * \申请取消保存 的响应
+     */
+    fun onRelieveSaveResponse(){
+
+    }
 }

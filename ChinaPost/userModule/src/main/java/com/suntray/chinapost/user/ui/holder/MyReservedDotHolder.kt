@@ -8,11 +8,14 @@ import android.widget.TextView
 import com.suntray.chinapost.baselibrary.ui.refreshView.inner.BaseHolder
 import com.suntray.chinapost.baselibrary.utils.DateUtil
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
+import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.baselibrary.utils.UiUtils
 import com.suntray.chinapost.user.R
+import com.suntray.chinapost.user.R.id.btn_check
 import com.suntray.chinapost.user.data.bean.MineClient
 import com.suntray.chinapost.user.data.bean.MineReservedDot
 import com.suntray.chinapost.user.presenter.MineDotPresenter
+import com.suntray.chinapost.user.ui.activity.MineReservedDotActivity
 import com.suntray.chinapost.user.ui.dialog.DotRenewDialog
 
 class MyReservedDotHolder: BaseHolder<MineReservedDot>{
@@ -24,11 +27,14 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
     var tv_ad_resource_value: TextView?=null
 
     var btn_chakan: Button?=null
-
+    var btn_check: Button?=null
     var basePresenter: MineDotPresenter?=null
+    var context:MineReservedDotActivity?=null
 
-    constructor(basePresenter: MineDotPresenter?):super(){
+
+    constructor(basePresenter: MineDotPresenter?,context:MineReservedDotActivity):super(){
         this.basePresenter = basePresenter
+        this.context=context
     }
 
 
@@ -42,9 +48,12 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
 
 
         btn_chakan=itemView!!.findViewById(R.id.btn_chakan) as Button;
+        btn_check=itemView!!.findViewById(R.id.btn_check) as Button;
+
         return itemView
     }
 
+    var selectPositionList:ArrayList<Int> = arrayListOf()
     override fun refreshView(data: MineReservedDot?, activity: Activity?) {
         /**
          * 待审核 #FDA100
@@ -88,6 +97,25 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
             btn_chakan!!.visibility=View.VISIBLE
         }
 
+        if(selectPositionList.contains(position)){
+            btn_check!!.isActivated=true
+        }else{
+            btn_check!!.isActivated=false
+        }
+
+        btn_check!!.setOnClickListener({
+            if(data!!.statename.equals("未到期") && data!!.statename.equals("即将到期")){
+                if(btn_check!!.isActivated){
+                    selectPositionList.remove(position)
+                }else{
+                    selectPositionList.add(position)
+                }
+                btn_check!!.isActivated=!btn_check!!.isActivated
+                context!!.setSelectNumer(selectPositionList.size)
+            }else{
+                ToastUtil.makeText(UiUtils.instance.getContext(),"不可以选择")
+            }
+        })
         btn_chakan!!.setOnClickListener({
             //上传资质！
             dialog= DotRenewDialog(activity)

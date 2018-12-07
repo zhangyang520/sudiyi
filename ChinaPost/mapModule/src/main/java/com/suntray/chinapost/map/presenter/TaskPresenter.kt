@@ -7,6 +7,7 @@ import com.suntray.chinapost.baselibrary.rx.BaseSucriber
 import com.suntray.chinapost.baselibrary.rx.assertMethod
 import com.suntray.chinapost.baselibrary.rx.execute
 import com.suntray.chinapost.map.data.bean.TaskEntity
+import com.suntray.chinapost.map.data.bean.TaskItem
 import com.suntray.chinapost.map.data.request.TaskListRequest
 import com.suntray.chinapost.map.data.request.TaskUploadRequest
 import com.suntray.chinapost.map.presenter.view.TaskView
@@ -14,6 +15,7 @@ import com.suntray.chinapost.map.service.impl.TaskServiceImpl
 import com.suntray.chinapost.user.presenter.view.ClientView
 import com.suntray.chinapost.user.presenter.view.MineEditView
 import okhttp3.MultipartBody
+import rx.Observable
 import rx.Subscriber
 import java.net.SocketTimeoutException
 import javax.inject.Inject
@@ -27,6 +29,51 @@ class TaskPresenter @Inject constructor():BasePresenter<TaskView>(){
 
     @Inject
     lateinit var taskServiceImpl: TaskServiceImpl
+
+
+    /**
+     *  获取任务列表 第二个的方法
+     */
+    fun getTaskListApi2(taskListRequest: TaskListRequest,action: RefreshAction) {
+        taskServiceImpl.getTaskListApi2(taskListRequest).
+                execute(object :BaseSucriber<TaskItem>(baseView,TaskPresenter::class.java.simpleName!!){
+
+                    override fun onNext(t: TaskItem) {
+                        assertMethod(baseView,{
+                            if(taskListRequest.state==1){
+                                //未完成
+                                (baseView as TaskView).onGetUnfinishedList(t.list!!,action,t.count)
+                            }else if(taskListRequest.state==2){
+                                //待审核
+                                (baseView as TaskView).onGetWillExamineList(t.list!!,action)
+                            }else if(taskListRequest.state==3){
+                                //审核不通过
+                                (baseView as TaskView).onGetExamineList(t.list!!,action)
+                            }else if(taskListRequest.state==4){
+                                //审核通过 onGetNotExamineList
+                                (baseView as TaskView).onGetNotExamineList(t.list!!,action,t.count)
+                            }
+
+                        })
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        if(e is ContentException){
+                            assertMethod(baseView,{
+                                (baseView as TaskView).onError(e.errorContent,action,taskListRequest.state);
+                                baseView.hideLoading()
+                            })
+                        }else{
+                            if(e is SocketTimeoutException){
+                                (baseView as TaskView).onError("请求超时!",action,taskListRequest.state)
+                            }else{
+                                (baseView as TaskView).onError("请求失败",action,taskListRequest.state)
+                            }
+                        }
+                    }
+
+                },lifecylerProvider)
+    }
     /***
      * 请求任务列表
      */
@@ -50,7 +97,6 @@ class TaskPresenter @Inject constructor():BasePresenter<TaskView>(){
                                 //审核通过 onGetNotExamineList
                                 (baseView as TaskView).onGetNotExamineList(t,action)
                             }
-
                         })
                     }
 

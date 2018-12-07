@@ -41,6 +41,7 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
     var notExamineFragment:NotExamineFragment?=null
     var examineFragment:ExamineFragment?=null
     var supplyID:String=""
+    var currentPointerIndex=0
 
     override fun initView() {
         isTitleShow=false
@@ -56,10 +57,19 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                     willExamineFragment!!.firstType=currentIndex+1
                     notExamineFragment!!.firstType=currentIndex+1
                     examineFragment!!.firstType=currentIndex+1
-
                     tv_down.background=null
                     tv_down.setTextColor(Color.parseColor("#909092"))
                     tv_up.setTextColor(Color.parseColor("#01764A"))
+
+                    if(currentPointerIndex==0){
+                        unFinishFragment!!.getNormalData()
+                    }else if(currentPointerIndex==1){
+                        willExamineFragment!!.getNormalData()
+                    }else if(currentPointerIndex==2){
+                        notExamineFragment!!.getNormalData()
+                    }else if(currentPointerIndex==3){
+                        examineFragment!!.getNormalData()
+                    }
                 }
             }
 
@@ -73,6 +83,16 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                     tv_up.background=null
                     tv_up.setTextColor(Color.parseColor("#909092"))
                     tv_down.setTextColor(Color.parseColor("#01764A"))
+
+                    if(currentPointerIndex==0){
+                        unFinishFragment!!.getNormalData()
+                    }else if(currentPointerIndex==1){
+                        willExamineFragment!!.getNormalData()
+                    }else if(currentPointerIndex==2){
+                        notExamineFragment!!.getNormalData()
+                    }else if(currentPointerIndex==3){
+                        examineFragment!!.getNormalData()
+                    }
                 }
             }
         }
@@ -112,6 +132,7 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
 
             override fun onPageSelected(position: Int) {
                 //页面的选择
+                currentPointerIndex=position
                 if(position==0){
                     unFinishFragment!!.getNormalData()
                 }else if(position==1){
@@ -130,7 +151,7 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
         unFinishFragment!!.getNormalData()
 
         //未完成 点击事件 0
-        ll_unfinished.setOnClickListener({
+        rl_unfinish.setOnClickListener({
             viewpager_list.setCurrentItem(0)
         })
 
@@ -172,23 +193,31 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
         }
     }
 
-    override fun onGetExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
-        super.onGetExamineList(taskList, action)
+    override fun onGetExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction,count:Int) {
         examineFragment!!.onGetExamineList(taskList,action)
     }
 
-    override fun onGetNotExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
-        super.onGetNotExamineList(taskList, action)
+    override fun onGetNotExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction,count:Int) {
+        if(count>0){
+            tv_unexamine_number.visibility=View.VISIBLE
+            tv_unexamine_number.text=count.toString()
+        }else{
+            tv_unexamine_number.visibility=View.GONE
+        }
         notExamineFragment!!.onGetNotExamineList(taskList,action)
     }
 
-    override fun onGetUnfinishedList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
-        super.onGetUnfinishedList(taskList, action)
+    override fun onGetUnfinishedList(taskList: ArrayList<TaskEntity>, action: RefreshAction,count:Int) {
+        if(count>0){
+            tv_unfinish_number.visibility=View.VISIBLE
+            tv_unfinish_number.text=count.toString()
+        }else{
+            tv_unfinish_number.visibility=View.GONE
+        }
         unFinishFragment!!.onGetUnfinishedList(taskList,action)
     }
 
-    override fun onGetWillExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
-        super.onGetWillExamineList(taskList, action)
+    override fun onGetWillExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction,count:Int) {
         willExamineFragment!!.onGetWillExamineList(taskList,action)
     }
 

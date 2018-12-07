@@ -82,15 +82,18 @@ class DotRenewDialog:Dialog{
 
         btn_ok.setOnClickListener({
             //点击确定:
-            if(ed_end_time!!.hasTxt()){
-                if(DateUtil.parse2Date(ed_end_time!!.getTxt()).time>DateUtil.parse2Date(myReservedDot!!.enddate).time){
-                    basePresenter!!.dotXuding(MineXudingDotRequest(myReservedDot!!.id,ed_end_time!!.getTxt(),UserDao.getLocalUser().id))
-                }else{
-                    ToastUtil.makeText(context,"选择的日期小于结束日期")
-                }
-            }else{
-                ToastUtil.makeText(context,"请选择结束日期")
-            }
+//            if(ed_end_time!!.hasTxt()){
+//                if(DateUtil.parse2Date(ed_end_time!!.getTxt()).time>DateUtil.parse2Date(myReservedDot!!.enddate).time){
+//                    basePresenter!!.dotXuding(MineXudingDotRequest(myReservedDot!!.id,ed_end_time!!.getTxt(),UserDao.getLocalUser().id))
+//                }else{
+//                    ToastUtil.makeText(context,"选择的日期小于结束日期")
+//                }
+//            }else{
+//                ToastUtil.makeText(context,"请选择结束日期")
+//            }
+
+            //直接调用接口
+            basePresenter!!.dotXuding(MineXudingDotRequest(myReservedDot!!.id,"",UserDao.getLocalUser().id))
         })
         setCancelable(true)
         view.layoutParams.height=AutoUtils.getPercentHeightSize(898)

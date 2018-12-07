@@ -21,8 +21,13 @@ class ResourceAd:Serializable{
     var state:Int=0 //对应的资源位的状态
     var statename=""
     var typename=""//类型名称
-
+    var taskType=-1 //默认 没有上 下刊报告
+    var uploadDate="" //报告完成日期
+    
     override fun toString(): String {
-        return "ResourceAd(pointid=$pointid, expiredate='$expiredate', publishdate='$publishdate', salesmanname='$salesmanname', startDate='$startDate', endDate='$endDate', type=$type, id=$id, category=$category, name='$name', state=$state)"
+        return "ResourceAd(pointid=$pointid, expiredate='$expiredate', " +
+                   "publishdate='$publishdate', salesmanname='$salesmanname', " +
+                         "startDate='$startDate', endDate='$endDate', type=$type, id=$id, " +
+                                                        "category=$category, name='$name', state=$state)"
     }
 }

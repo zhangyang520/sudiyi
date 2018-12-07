@@ -5,6 +5,7 @@ import com.suntray.chinapost.baselibrary.data.bean.AdStyle
 import com.suntray.chinapost.baselibrary.data.bean.RefreshAction
 import com.suntray.chinapost.baselibrary.data.bean.ResourceType
 import com.suntray.chinapost.map.data.enum.CalendarAction
+import com.suntray.chinapost.map.data.response.AdDownResponse
 import com.suntray.chinapost.map.data.response.ClientDictResponse
 import com.suntray.chinapost.map.data.response.OneKeyReservedResponse
 import com.suntray.chinapost.map.data.response.ResourceDateResponse
@@ -24,6 +25,9 @@ interface ResourceView:BaseView{
 
     }
 
+    fun onGetAdDownReportList(adDownResponse: AdDownResponse){
+
+    }
     /**
      * 获取 广告类型列表数据回调
      */

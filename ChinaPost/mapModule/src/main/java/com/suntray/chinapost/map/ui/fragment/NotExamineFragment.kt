@@ -101,7 +101,7 @@ class NotExamineFragment:Fragment(),TaskView {
         }
     }
 
-    override fun onGetNotExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
+    override fun onGetNotExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction,count:Int) {
         if(action==RefreshAction.NormalAction){
             SystemUtil.printlnStr("mineClientlist onGetNotExamineList NormalAction size:"+taskList.size)
             recyclerview!!.setRefreshTitle("我的客户列表,")

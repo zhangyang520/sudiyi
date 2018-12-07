@@ -6,6 +6,7 @@ import com.suntray.chinapost.user.data.api.MineDotApi
 import com.suntray.chinapost.user.data.bean.MineReservedDot
 import com.suntray.chinapost.user.data.request.MineReservedDotRequest
 import com.suntray.chinapost.user.data.request.MineXudingDotRequest
+import com.suntray.chinapost.user.data.request.RelieveSaveRequest
 import rx.Observable
 
 /**
@@ -23,4 +24,9 @@ interface MineDotService {
      * 续订保存
      */
     fun dotXuding(mineDotXudingDotRequest: MineXudingDotRequest): Observable<ArrayList<Object>>
+
+    /**
+     * 申请取消预订接口
+     */
+    fun relieveSave( relieveSaveRequest: RelieveSaveRequest):Observable<ArrayList<Object>>
 }

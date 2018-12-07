@@ -1,20 +1,20 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = '1.1.3-2'
+    ext.kotlin_version = '1.1.3'
     //android 基础相关的 jar 包的版本号
-    ext.android_support_compat='26.0.0'
+    ext.android_support_compat='25.0.0'
     ext.constraint_layout='1.0.2'
     ext.index_multidex='1.0.0'
 
     //编译器的版本控制 sdk
-    ext.compile_SdkVersion=26
-    ext.build_ToolsVersion='28.0.3'
+    ext.compile_SdkVersion=25
+    ext.build_ToolsVersion='25.0.0'
     ext.minSdk_Version=15
-    ext.target_SdkVersion=26
+    ext.target_SdkVersion=25
 
     //版本控制
     ext.version_Code=3
-    ext.version_Name='2.0'
+    ext.version_Name='2.1'
 
     //junit测试
     ext.android_junit='4.12'
@@ -46,8 +46,10 @@ buildscript {
         maven{
             url "https://jitpack.io"
         }
-
-        google()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.2'
@@ -63,9 +65,6 @@ allprojects {
         maven {
             url "https://jitpack.io"
         }
-        google()
-        mavenCentral()
-        mavenLocal()
     }
 }
 task clean(type: Delete) {

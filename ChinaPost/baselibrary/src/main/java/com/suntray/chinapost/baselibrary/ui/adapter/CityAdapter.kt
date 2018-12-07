@@ -73,7 +73,7 @@ class CityAdapter:RecyclerView.Adapter<CityAdapter.CityViewHolder>{
         var tv_province:TextView?=null
 
         constructor(itemView: View?) : super(itemView){
-            tv_province= itemView!!.findViewById<TextView>(R.id.tv_city)
+            tv_province= itemView!!.findViewById(R.id.tv_city) as TextView
         }
     }
 }

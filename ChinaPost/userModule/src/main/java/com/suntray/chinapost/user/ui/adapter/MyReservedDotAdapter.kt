@@ -8,6 +8,7 @@ import com.suntray.chinapost.baselibrary.ui.refreshView.inner.DefaultAdapter
 import com.suntray.chinapost.user.data.bean.MineMessage
 import com.suntray.chinapost.user.data.bean.MineReservedDot
 import com.suntray.chinapost.user.presenter.MineDotPresenter
+import com.suntray.chinapost.user.ui.activity.MineReservedDotActivity
 import com.suntray.chinapost.user.ui.holder.MyReservedDotHolder
 
 /**
@@ -18,7 +19,7 @@ import com.suntray.chinapost.user.ui.holder.MyReservedDotHolder
 class MyReservedDotAdapter: DefaultAdapter<MineReservedDot> {
 
     constructor(datas: MutableList<MineReservedDot>?,
-                lv: ListView?, activity: Activity?,
+                lv: ListView?, activity: MineReservedDotActivity?,
                 basePresenter: MineDotPresenter):super(datas,lv,activity){
         this.basePresenter=basePresenter
     }
@@ -26,12 +27,20 @@ class MyReservedDotAdapter: DefaultAdapter<MineReservedDot> {
 
     var myReservedDotHolder:MyReservedDotHolder?=null
     override fun getHolder(): BaseHolder<MineReservedDot> {
-        myReservedDotHolder=MyReservedDotHolder(basePresenter!!)
+        myReservedDotHolder=MyReservedDotHolder(basePresenter!!,activity as MineReservedDotActivity)
         return myReservedDotHolder!!
     }
 
     override fun processDatasList() {
 
+    }
+
+    /**
+     * 处理取消全选
+     */
+    fun processAntiAllSelect(){
+        myReservedDotHolder!!.selectPositionList.clear()
+        notifyDataSetChanged()
     }
 
     fun dismissDilog() {

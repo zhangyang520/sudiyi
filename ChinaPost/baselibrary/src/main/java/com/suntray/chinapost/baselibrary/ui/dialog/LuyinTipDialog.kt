@@ -93,10 +93,10 @@ class LuyinTipDialog :Dialog, View.OnClickListener {
      * Button tv_ok;
      */
     private fun initView() {
-        ll_dialog = findViewById<LinearLayout>(R.id.ll_dialog)
-        tv_tips = findViewById<TextView>(R.id.tv_tips)
+        ll_dialog = findViewById(R.id.ll_dialog) as LinearLayout
+        tv_tips = findViewById(R.id.tv_tips) as TextView
         tv_tips.text = tips
-        tv_ok = findViewById<Button>(R.id.tv_ok)
+        tv_ok = findViewById(R.id.tv_ok) as Button
         tv_ok.setOnClickListener(this)
         setCancelable(false)
 

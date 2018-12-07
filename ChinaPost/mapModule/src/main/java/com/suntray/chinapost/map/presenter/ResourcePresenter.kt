@@ -12,8 +12,10 @@ import com.suntray.chinapost.baselibrary.data.dao.AdStyleDao
 import com.suntray.chinapost.baselibrary.rx.convertData
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.map.data.enum.CalendarAction
+import com.suntray.chinapost.map.data.request.FindResourceReportRequest
 import com.suntray.chinapost.map.data.request.OneKeySubmitRequest
 import com.suntray.chinapost.map.data.request.ResourceDateRequest
+import com.suntray.chinapost.map.data.response.AdDownResponse
 import com.suntray.chinapost.map.data.response.ClientDictResponse
 import com.suntray.chinapost.map.data.response.OneKeyReservedResponse
 import com.suntray.chinapost.map.data.response.ResourceDateResponse
@@ -40,6 +42,31 @@ class ResourcePresenter @Inject constructor():BasePresenter<ResourceView>(){
 
     @Inject
     lateinit var resourceServiceImpl: ResourceServiceImpl
+
+    /**
+     * 获取 上下刊报告的 列表数据
+     */
+    fun getResourceReportRequest(findResourceReportRequest: FindResourceReportRequest){
+        resourceServiceImpl.getResourceReportRequest(findResourceReportRequest)
+                .execute(object : BaseSucriber<AdDownResponse>(baseView, ResourcePresenter::javaClass.name) {
+                    override fun onError(e: Throwable?) {
+                        if (e is ContentException) {
+                            assertMethod(baseView, {
+                                (baseView as ResourceView).onError(e.errorContent)
+                                (baseView as ResourceView).hideLoading()
+                            })
+                        } else {
+                            super.onError(e)
+                        }
+                    }
+
+                    override fun onNext(t: AdDownResponse) {
+                        super.onNext(t)
+                        (baseView as ResourceView).onGetAdDownReportList(t)
+                        (baseView as ResourceView).hideLoading()
+                    }
+                }, lifecylerProvider)
+    }
 
     fun getResourceList(){
         dictService.getResourceList().execute(object:BaseSucriber<ArrayList<ResourceType>>(baseView,ResourcePresenter::javaClass.name){

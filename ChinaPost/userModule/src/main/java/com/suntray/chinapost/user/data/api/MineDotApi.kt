@@ -5,6 +5,7 @@ import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.user.data.bean.MineReservedDot
 import com.suntray.chinapost.user.data.request.MineReservedDotRequest
 import com.suntray.chinapost.user.data.request.MineXudingDotRequest
+import com.suntray.chinapost.user.data.request.RelieveSaveRequest
 import retrofit2.http.Body
 import retrofit2.http.POST
 import rx.Observable
@@ -28,4 +29,11 @@ interface MineDotApi {
      */
     @POST(BaseConstants.MINE_XUDING_DOT)
     fun dotXuding(@Body mineDotXudingDotRequest: MineXudingDotRequest):Observable<BaseResp<ArrayList<Object>>>
+
+
+    /**
+     * 申请取消预订 动作
+     */
+    @POST(BaseConstants.RELIEVE_SAVE)
+    fun relieveSave(@Body relieveSaveRequest: RelieveSaveRequest):Observable<BaseResp<ArrayList<Object>>>
 }

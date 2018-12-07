@@ -33,7 +33,7 @@ class MatchOkDialog : Dialog {
     override fun onCreate(savedInstanceState: Bundle) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_match_ok)
-        ll_dialog = findViewById<LinearLayout>(R.id.ll_dialog)
+        ll_dialog = findViewById(R.id.ll_dialog) as LinearLayout
         setCancelable(false)
 
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager

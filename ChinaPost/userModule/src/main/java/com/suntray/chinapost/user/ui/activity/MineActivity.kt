@@ -78,7 +78,7 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
     override fun initView() {
         isTitleShow = false
         isBlackShow = false
-        tv_username.setText(UserDao.getLocalUser().email);
+        tv_username.setText(UserDao.getLocalUser().nickName);
         tv_jigou.setText(UserDao.getLocalUser().orgName)
         if(UserDao.getLocalUser().headImgPath!=null &&
                     !UserDao.getLocalUser().headImgPath.equals("")) {

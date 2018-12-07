@@ -10,6 +10,7 @@ import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.user.data.bean.MineReservedDot
 import com.suntray.chinapost.user.data.request.MineReservedDotRequest
 import com.suntray.chinapost.user.data.request.MineXudingDotRequest
+import com.suntray.chinapost.user.data.request.RelieveSaveRequest
 import com.suntray.chinapost.user.presenter.view.ClientView
 import com.suntray.chinapost.user.presenter.view.MineDotView
 import com.suntray.chinapost.user.service.impl.MineDotServiceImpl
@@ -29,6 +30,32 @@ class MineDotPresenter @Inject constructor():BasePresenter<MineDotView>(){
 
 
 
+    fun relieveSave(relieveSaveRequest: RelieveSaveRequest){
+        mineDotServiceImpl.relieveSave(relieveSaveRequest).
+                execute(object: BaseSucriber<ArrayList<Object>>(baseView,MineDotPresenter::javaClass.name){
+                    override fun onError(e: Throwable?) {
+                        if(e is ContentException){
+                            assertMethod(baseView,{
+                                (baseView as MineDotView).onError(e.errorContent);
+                                baseView.hideLoading()
+                            })
+                        }else{
+                            if(e is SocketTimeoutException){
+                                (baseView as MineDotView).onError("请求超时!")
+                            }else{
+                                (baseView as MineDotView).onError("请求失败")
+                            }
+                        }
+                    }
+
+                    override fun onNext(t:ArrayList<Object>) {
+                        super.onNext(t)
+                        assertMethod(baseView,{
+                            (baseView as MineDotView).onRelieveSaveResponse()
+                        })
+                    }
+                },lifecylerProvider);
+    }
     /**
      * 我预定的点位
      */

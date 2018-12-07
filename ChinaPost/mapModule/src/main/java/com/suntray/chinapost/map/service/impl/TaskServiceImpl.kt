@@ -2,6 +2,7 @@ package com.suntray.chinapost.map.service.impl
 
 import com.suntray.chinapost.baselibrary.rx.convertData
 import com.suntray.chinapost.map.data.bean.TaskEntity
+import com.suntray.chinapost.map.data.bean.TaskItem
 import com.suntray.chinapost.map.data.request.TaskListRequest
 import com.suntray.chinapost.map.data.request.TaskUploadRequest
 import com.suntray.chinapost.map.data.respository.TaskRespository
@@ -18,6 +19,11 @@ class TaskServiceImpl @Inject constructor():TaskService{
 
     @Inject
     lateinit var taskRespository: TaskRespository
+
+
+    override fun getTaskListApi2(taskListRequest: TaskListRequest): Observable<TaskItem> {
+        return taskRespository.getTaskListApi2(taskListRequest).convertData()
+    }
 
     /**
      * 获取任务列表

@@ -73,7 +73,7 @@ class DistrictAdapter:RecyclerView.Adapter<DistrictAdapter.DistrictViewHolder>{
         var tv_province:TextView?=null
 
         constructor(itemView: View?) : super(itemView){
-            tv_province= itemView!!.findViewById<TextView>(R.id.tv_district)
+            tv_province= itemView!!.findViewById(R.id.tv_district) as TextView
         }
     }
 }

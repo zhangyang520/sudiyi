@@ -102,8 +102,7 @@ class UnFinishFragment:Fragment(),TaskView{
         }
     }
 
-    override fun onGetUnfinishedList(taskList: ArrayList<TaskEntity>, action: RefreshAction) {
-        super.onGetUnfinishedList(taskList, action)
+    override fun onGetUnfinishedList(taskList: ArrayList<TaskEntity>, action: RefreshAction,count:Int) {
         if(action==RefreshAction.NormalAction){
             SystemUtil.printlnStr("mineClientlist onGetUnfinishedList NormalAction size:"+taskList.size)
             recyclerview.setRefreshTitle("我的客户列表,")

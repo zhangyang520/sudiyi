@@ -3,6 +3,7 @@ package com.suntray.chinapost.map.data.api
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.map.data.bean.TaskEntity
+import com.suntray.chinapost.map.data.bean.TaskItem
 import com.suntray.chinapost.map.data.request.TaskListRequest
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -20,6 +21,12 @@ interface TaskApi {
      */
     @POST(value = BaseConstants.GET_TASK_LIST)
     fun getTaskListApi(@Body taskListRequest: TaskListRequest):Observable<BaseResp<ArrayList<TaskEntity>>>
+
+    /**
+     * 获取任务列表 第二个接口
+     */
+    @POST(value = BaseConstants.GET_TASK_LIST_2)
+    fun getTaskListApi2(@Body taskListRequest: TaskListRequest):Observable<BaseResp<TaskItem>>
 
     /**
      * pointTaskId	是	string	点位任务id
