@@ -38,7 +38,8 @@ class NotExamineFragment:Fragment(),TaskView {
     //任务的适配器
     var taskAdapter: TaskListViewAdapter?=null
     var taskPresenter: TaskPresenter?=null
-    var recyclerview: PullToRefreshListView?=null
+    var contentView:View?=null
+
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
         SystemUtil.printlnStr("TaskListity NotExamineFragment  setArguments ....")
@@ -51,9 +52,10 @@ class NotExamineFragment:Fragment(),TaskView {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         SystemUtil.printlnStr("TaskListity NotExamineFragment  onCreateView ....")
-        var content=inflater!!.inflate(R.layout.fragment_task,null)
-        recyclerview=content.findViewById(R.id.recyclerview) as PullToRefreshListView
-        return content
+        if(contentView==null){
+            contentView=inflater!!.inflate(R.layout.fragment_task,null)
+        }
+        return contentView
     }
 
     fun getNormalData(){

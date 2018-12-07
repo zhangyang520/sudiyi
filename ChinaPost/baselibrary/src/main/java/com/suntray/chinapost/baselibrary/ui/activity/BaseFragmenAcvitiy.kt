@@ -60,7 +60,7 @@ open abstract class BaseFragmenAcvitiy: RxFragmentActivity() {
      */
     fun initBtnBlackAndTitle() {
         if (isBlackShow) {
-            val black = root.findViewById(R.id.rl_back) as RelativeLayout
+            val black = root.findViewById<RelativeLayout>(R.id.rl_back)
             black.visibility = View.VISIBLE
             black.setOnClickListener {
                 beforeFinish()
@@ -69,12 +69,12 @@ open abstract class BaseFragmenAcvitiy: RxFragmentActivity() {
 
         if (isTitleShow) {
             //进行设置主题
-            val tv_Title = root.findViewById(R.id.tv_title) as TextView
+            val tv_Title = root.findViewById<TextView>(R.id.tv_title)
             tv_Title.text = viewtitle
         }
 
         if(isRightShow){
-            val tv_Title = root.findViewById(R.id.tv_right) as TextView
+            val tv_Title = root.findViewById<TextView>(R.id.tv_right)
             tv_Title.visibility=View.VISIBLE
             tv_Title.text = rightTitle
             tv_Title.setOnClickListener({

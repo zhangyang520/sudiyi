@@ -60,7 +60,6 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                     tv_down.background=null
                     tv_down.setTextColor(Color.parseColor("#909092"))
                     tv_up.setTextColor(Color.parseColor("#01764A"))
-                    ToastUtil.makeText(this@TaskListActivity,"切换到 左边了")
                 }
             }
 
@@ -74,8 +73,6 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                     tv_up.background=null
                     tv_up.setTextColor(Color.parseColor("#909092"))
                     tv_down.setTextColor(Color.parseColor("#01764A"))
-
-                    ToastUtil.makeText(this@TaskListActivity,"切换到 右边了")
                 }
             }
         }
@@ -129,7 +126,6 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
             }
         })
 
-        println("onPageSelected: setCurrentItem 0")
         viewpager_list.setCurrentItem(0)
         unFinishFragment!!.getNormalData()
 

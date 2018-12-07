@@ -35,6 +35,7 @@ class UnFinishFragment:Fragment(),TaskView{
     var taskAdapter:TaskListViewAdapter?=null
     var taskPresenter:TaskPresenter?=null
     var supplyID:String=""
+    var contentView:View?=null
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
         SystemUtil.printlnStr("TaskListity ActivUnFinishFragment  setArguments ....")
@@ -47,7 +48,10 @@ class UnFinishFragment:Fragment(),TaskView{
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         SystemUtil.printlnStr("TaskListity ActivUnFinishFragment  onCreateView ....")
-        return inflater!!.inflate(R.layout.fragment_task,null)
+        if(contentView==null){
+            contentView=inflater!!.inflate(R.layout.fragment_task,null)
+        }
+        return contentView
     }
 
     /**
@@ -63,13 +67,6 @@ class UnFinishFragment:Fragment(),TaskView{
 
         recyclerview.setRefreshTitle("我的客户列表,")
         //直接从网络请求
-//        if(taskAdapter==null){
-//            taskAdapter = TaskListViewAdapter(getDatas(), recyclerview.getRefreshableView(),activity!!,0,firstType)
-//            recyclerview.getmListView().setAdapter(taskAdapter)
-//        }else {
-//            taskAdapter!!.datas = getDatas();
-//            taskAdapter!!.notifyDataSetChanged()
-//        }
         /**
          * 点击 查询的按钮
          */

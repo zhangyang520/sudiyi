@@ -89,29 +89,33 @@
             android:orientation="horizontal"
             android:layout_height="88px">
 
-        <com.zhy.autolayout.AutoLinearLayout
-                android:layout_width="0px"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_height="match_parent">
+            <com.zhy.autolayout.AutoRelativeLayout
+                    android:id="@+id/rl_unfinish"
+                    android:layout_width="0px"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                <!--数字的提醒-->
 
-            <TextView
-                    android:id="@+id/tv_unfinished"
-                    android:textColor="#01764A"
-                    android:textSize="26px"
-                    android:text="未完成"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-            />
-            <View
-                   android:layout_marginTop="10px"
-                  android:id="@+id/view_unfinished"
-                  android:layout_width="45px"
-                  android:layout_height="2px"
-                  android:background="#01764A"
-            ></View>
-        </com.zhy.autolayout.AutoLinearLayout>
+                <TextView
+                        android:id="@+id/tv_unfinished"
+                        android:textColor="#01764A"
+                        android:textSize="26px"
+                        android:text="未完成"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                />
+                <View
+                        android:layout_below="@+id/tv_unfinished"
+                        android:layout_marginTop="10px"
+                        android:id="@+id/view_unfinished"
+                        android:layout_width="45px"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="2px"
+                        android:background="#01764A"
+                ></View>
+            </com.zhy.autolayout.AutoRelativeLayout>
 
 
         <com.zhy.autolayout.AutoLinearLayout
@@ -153,7 +157,7 @@
                     android:id="@+id/tv_not_examine"
                     android:textColor="#909092"
                     android:textSize="26px"
-                    android:text="审核不通过"
+                    android:text="不通过"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
             />
@@ -180,7 +184,7 @@
                     android:id="@+id/tv_examine"
                     android:textColor="#909092"
                     android:textSize="26px"
-                    android:text="审核通过"
+                    android:text="通过"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
             />

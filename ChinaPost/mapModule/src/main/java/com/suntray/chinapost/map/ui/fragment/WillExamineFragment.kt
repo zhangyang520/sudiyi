@@ -37,6 +37,7 @@ class WillExamineFragment:Fragment(),TaskView{
     //任务的适配器
     var taskAdapter: TaskListViewAdapter?=null
     var taskPresenter: TaskPresenter?=null
+    var contentView:View?=null
 
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
@@ -50,7 +51,10 @@ class WillExamineFragment:Fragment(),TaskView{
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         SystemUtil.printlnStr("TaskListity WillExamineFragment  onCreateView ....")
-        return inflater!!.inflate(R.layout.fragment_task,null)
+        if(contentView==null){
+            contentView=inflater!!.inflate(R.layout.fragment_task,null)
+        }
+        return contentView
     }
 
     fun getNormalData(){

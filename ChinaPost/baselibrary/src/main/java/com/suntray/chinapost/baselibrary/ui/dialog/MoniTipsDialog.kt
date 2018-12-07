@@ -129,13 +129,13 @@ class MoniTipsDialog : Dialog, View.OnClickListener {
      * Button tv_ok;
      */
     private fun initView() {
-        ll_dialog = findViewById(R.id.ll_dialog) as LinearLayout
-        tv_tips = findViewById(R.id.tv_tips) as TextView
+        ll_dialog = findViewById<LinearLayout>(R.id.ll_dialog)
+        tv_tips = findViewById<TextView>(R.id.tv_tips)
         tv_tips.text = tips
-        tv_ok = findViewById(R.id.tv_fanhui) as Button
+        tv_ok = findViewById<Button>(R.id.tv_fanhui)
         tv_ok.text = this.str_ok
         tv_ok.setOnClickListener(this)
-        tv_repipei = findViewById(R.id.tv_repipei) as Button
+        tv_repipei = findViewById<Button>(R.id.tv_repipei)
         if (isSingleBtn) {
             tv_repipei.visibility = View.GONE
         } else {
