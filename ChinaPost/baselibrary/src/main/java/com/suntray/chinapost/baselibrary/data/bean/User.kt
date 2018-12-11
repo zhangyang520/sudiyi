@@ -22,10 +22,10 @@ class User {
     var nickName:String=""//昵称
     var emailAddres:String=""//邮箱地址
     var pwd:String=""
-    var userRole=-1
+    var userRole:Int=-1
     var orgId:String=""
 
     override fun toString(): String {
-        return "User(id=$id, token=$token, userId=$userId, isLocalUser=$isLocalUser, headImgPath='$headImgPath', phone='$phone', email='$email', orgName='$orgName', nickName='$nickName', emailAddres='$emailAddres', pwd='$pwd')"
+        return "User(id=$id, token=$token, userId=$userId, isLocalUser=$isLocalUser, headImgPath='$headImgPath', phone='$phone', email='$email', orgName='$orgName', nickName='$nickName', emailAddres='$emailAddres', pwd='$pwd', userRole=$userRole, orgId='$orgId')"
     }
 }

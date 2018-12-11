@@ -33,6 +33,9 @@ object RouterPath {
             //预定 资源列表界面
             const val POST_AD_RESERVED_LIST="/map/PostAdReservedListActivity"
 
+            //预定 资源列表界面
+            const val POST_AD_CHECK_DATE="/map/PostAdCheckDateActivity"
+
             //一键预定的界面
             const val POST_AD_ONE_KEY_RESERVED="/map/PostAdOneKeyReservedActivity"
 

@@ -34,11 +34,11 @@ import java.util.ArrayList
 
 open class BaseActivity : Activity(), AMapNaviListener, AMapNaviViewListener {
 
-     var mAMapNaviView: AMapNaviView? = null
-     var mAMapNavi: AMapNavi?=null
+    protected var mAMapNaviView: AMapNaviView? = null
+    protected var mAMapNavi: AMapNavi?=null
     protected var mTtsManager: TTSController? = null
-    private val mStartPoint = NaviLatLng(39.942295, 116.335891)//起点，116.335891,39.942295
-    private val mEndPoint = NaviLatLng(39.995576, 116.481288)//终点，116.481288,39.995576
+    public  var mStartPoint = LatLonPoint(39.942295, 116.335891)//起点，116.335891,39.942295
+    public var mEndPoint = LatLonPoint(39.995576, 116.481288)//终点，116.481288,39.995576
     protected val sList: MutableList<NaviLatLng> = ArrayList()
     protected val eList: MutableList<NaviLatLng> = ArrayList()
     protected var mWayPointList: List<NaviLatLng>? = null
@@ -52,8 +52,8 @@ open class BaseActivity : Activity(), AMapNaviListener, AMapNaviViewListener {
 
         //设置模拟导航的行车速度
         mAMapNavi!!.setEmulatorNaviSpeed(0)
-        sList.add(mStartPoint!!)
-        eList.add(mEndPoint!!)
+        sList.add(NaviLatLng(mStartPoint.latitude,mStartPoint.longitude))
+        eList.add(NaviLatLng(mEndPoint.latitude,mEndPoint.longitude))
     }
 
     override fun onResume() {

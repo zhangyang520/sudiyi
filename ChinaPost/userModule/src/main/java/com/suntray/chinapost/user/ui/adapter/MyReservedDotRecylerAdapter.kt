@@ -34,7 +34,7 @@ class MyReservedDotRecylerAdapter: RecyclerView.Adapter<MyReservedDotRecylerAdap
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyClientViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyClientViewHolder {
         return MyClientViewHolder(View.inflate(context,R.layout.recylerview_mine_dot_state,null))
     }
 
@@ -45,7 +45,7 @@ class MyReservedDotRecylerAdapter: RecyclerView.Adapter<MyReservedDotRecylerAdap
         return 0;
     }
 
-    override fun onBindViewHolder(holder: MyClientViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: MyClientViewHolder, position: Int) {
 
         /**
          * 待审核 #FDA100
@@ -113,7 +113,7 @@ class MyReservedDotRecylerAdapter: RecyclerView.Adapter<MyReservedDotRecylerAdap
 
         var btn_chakan:Button?=null
 
-        constructor(itemView: View?) : super(itemView){
+        constructor(itemView: View?) : super(itemView!!){
             tv_ad_name=itemView!!.findViewById(R.id.tv_ad_name) as TextView;
             tv_mark=itemView!!.findViewById(R.id.tv_mark) as TextView;
             tv_ad_state=itemView!!.findViewById(R.id.tv_ad_state) as TextView;

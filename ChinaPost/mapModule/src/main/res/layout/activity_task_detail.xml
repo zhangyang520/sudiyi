@@ -50,7 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="400px"
                         android:horizontalSpacing="15px"
-                        android:numColumns="3"
+                        android:numColumns="1"
                         android:stretchMode="columnWidth">
                 </GridView>
             </com.zhy.autolayout.AutoLinearLayout>

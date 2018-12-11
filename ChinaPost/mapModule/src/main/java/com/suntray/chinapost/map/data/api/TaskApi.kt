@@ -5,7 +5,10 @@ import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.bean.TaskItem
 import com.suntray.chinapost.map.data.request.TaskListRequest
+import com.suntray.chinapost.map.data.request.TaskNumberRequest
+import com.suntray.chinapost.map.data.response.TaskNumberResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 import rx.Observable
 
@@ -28,6 +31,13 @@ interface TaskApi {
     @POST(value = BaseConstants.GET_TASK_LIST_2)
     fun getTaskListApi2(@Body taskListRequest: TaskListRequest):Observable<BaseResp<TaskItem>>
 
+
+    /**
+     * 获取 任务数量的接口
+     */
+    @POST(value = BaseConstants.TASK_COUNT_NUMBER)
+    fun getTaskNumber(@Body taskNumberRequest: TaskNumberRequest):Observable<BaseResp<TaskNumberResponse>>
+
     /**
      * pointTaskId	是	string	点位任务id
       taskId	是	string	总任务id
@@ -45,5 +55,6 @@ interface TaskApi {
                       @Query(value = "userId")userId:Int,
                       @Part imgFiles: List<MultipartBody.Part>,
                       @Query(value = "imgIds")imgIds:Array<Int?>,
-                      @Query(value = "deleteIds")deleteIds:Array<Int?>):Observable<BaseResp<Object>>
+                      @Query(value = "deleteIds")deleteIds:Array<Int?>,
+                      @Part("description") description:RequestBody):Observable<BaseResp<Object>>
 }

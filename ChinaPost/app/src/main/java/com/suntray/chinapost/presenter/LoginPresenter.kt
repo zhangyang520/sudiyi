@@ -34,7 +34,6 @@ class LoginPresenter @Inject constructor():BasePresenter<LoginView>(){
                 object :BaseSucriber<User>(baseView,LoginPresenter::javaClass.name){
 
                     override fun onError(e: Throwable?) {
-                        super.onError(e)
                         e!!.printStackTrace()
                         var errorMsg="";
                         if(e is SocketTimeoutException){
@@ -45,18 +44,19 @@ class LoginPresenter @Inject constructor():BasePresenter<LoginView>(){
                             errorMsg="登录操作,请求失败";
                         }
                         assertMethod(baseView,{
-                            (baseView as LoginView).onError(errorMsg, BaseConstants.LOGIN);
+                            baseView.hideLoading()
+                            (baseView as LoginView).onLoginError(errorMsg, BaseConstants.LOGIN);
                         })
                     }
                     override fun onNext(t: User) {
                         super.onNext(t)
-                        SystemUtil.printlnStr("loginBiz t:"+t.toString())
                         t.pwd=userPwd;
                         try {
                             var user= UserDao.getUserId(t.id.toString())
                             user.userRole=selectRoleIndex
                             UserDao.deleteUser(user)
                             t.isLocalUser=true
+                            t.userRole=selectRoleIndex
                             UserDao.saveUpDate(t)
                             assertMethod(baseView,{
                                 (baseView as LoginView).onLogignRequest(t);

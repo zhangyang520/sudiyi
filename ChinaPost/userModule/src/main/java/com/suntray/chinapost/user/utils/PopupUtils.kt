@@ -35,7 +35,7 @@ object PopupUtils {
             window!!.contentView=contentView;
             window!!.isOutsideTouchable=false
             //-AutoUtils.getPercentWidthSize(250) AutoUtils.getPercentHeightSize(50)
-            window!!.showAsDropDown(rootView,AutoUtils.getPercentWidthSize(350),AutoUtils.getPercentHeightSize(50))
+            window!!.showAsDropDown(rootView,AutoUtils.getPercentWidthSize(350),AutoUtils.getPercentHeightSize(30))
             recyler_clientName=contentView.findViewById(R.id.recyler_clientName) as RecyclerView
         }
 

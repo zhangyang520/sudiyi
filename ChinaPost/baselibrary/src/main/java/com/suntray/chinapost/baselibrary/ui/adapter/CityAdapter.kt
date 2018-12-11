@@ -30,7 +30,7 @@ class CityAdapter:RecyclerView.Adapter<CityAdapter.CityViewHolder>{
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CityViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
         var contentView=View.inflate(context,R.layout.recylerview_city,null)
         var layoutParams=ViewGroup.LayoutParams(AutoUtils.getPercentWidthSize(750/3),AutoUtils.getPercentHeightSize(88))
         contentView.layoutParams=layoutParams
@@ -46,7 +46,7 @@ class CityAdapter:RecyclerView.Adapter<CityAdapter.CityViewHolder>{
         return 0
     }
 
-    override fun onBindViewHolder(holder: CityViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
 
         holder!!.tv_province!!.setText(provinceList!!.get(position).city)
 
@@ -72,7 +72,7 @@ class CityAdapter:RecyclerView.Adapter<CityAdapter.CityViewHolder>{
 
         var tv_province:TextView?=null
 
-        constructor(itemView: View?) : super(itemView){
+        constructor(itemView: View?) : super(itemView!!){
             tv_province= itemView!!.findViewById(R.id.tv_city) as TextView
         }
     }

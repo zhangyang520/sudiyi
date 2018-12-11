@@ -86,4 +86,5 @@ interface ResourceView:BaseView{
     fun  onGetResourceDate(resourceDateResponse: ResourceDateResponse,calendarAction: CalendarAction){
 
     }
+
 }

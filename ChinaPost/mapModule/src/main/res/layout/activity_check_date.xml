@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <!-- 标题的部分 -->
+   <include
+           android:id="@+id/title"
+           layout="@layout/layout_title"></include>
+
+    <ScrollView
+                  android:layout_weight="1"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp">
+
+        <!-- scrollView的布局-->
+        <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <!--主内容的部分-->
+            <include
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/title"
+                    android:id="@+id/dot_info"
+                    layout="@layout/recylerview_dot_info"></include>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_below="@+id/dot_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    android:fitsSystemWindows="true"
+                    android:orientation="vertical">
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                        android:id="@+id/rl_tool"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:background="#006D46">
+
+                    <Button
+                            android:id="@+id/btn_last_month"
+                            android:layout_width="wrap_content"
+                            android:text="上一月"
+                            android:textColor="#ffffff"
+                            android:background="@null"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_height="wrap_content"/>
+                    <TextView
+                            android:id="@+id/tv_month_day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerInParent="true"
+                            android:paddingLeft="16dp"
+                            android:textColor="#ffffff"
+                            android:text="tv_month_day"
+                            android:textSize="15sp"/>
+
+                    <Button
+                            android:id="@+id/btn_next_month"
+                            android:layout_width="wrap_content"
+                            android:text="下一月"
+                            android:textColor="#ffffff"
+                            android:background="@null"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_height="wrap_content"/>
+                </com.zhy.autolayout.AutoRelativeLayout>
+                <com.haibin.calendarview.CalendarView
+                        android:id="@+id/calendarView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#fff"
+                        app:calendar_padding="10dp"
+                        app:current_month_lunar_text_color="#CFCFCF"
+                        app:current_month_text_color="#333333"
+                        app:min_year="2004"
+                        app:month_view="com.suntray.chinapost.map.ui.calendar.SingleMonthView"
+                        app:month_view_show_mode="mode_only_current"
+                        app:other_month_text_color="#e1e1e1"
+                        app:scheme_lunar_text_color="#ffffff"
+                        app:scheme_text="假"
+                        app:scheme_text_color="#128c4b"
+                        app:scheme_theme_color="#128c4b"
+                        app:selected_lunar_text_color="#fff"
+                        app:selected_text_color="#fff"
+                        app:selected_theme_color="#108cd4"
+                        app:week_background="#fff"
+                        app:week_text_color="#006D46"
+                        app:select_mode="single_mode"
+                        app:week_view="com.suntray.chinapost.map.ui.calendar.SingleWeekView"
+                        app:year_view_day_text_color="#333333"
+                        app:year_view_day_text_size="9sp"
+                        app:year_view_month_text_color="#ff0000"
+                        app:year_view_month_text_size="20sp"
+                        app:year_view_scheme_color="#f17706" />
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+    </ScrollView>
+
+</com.zhy.autolayout.AutoLinearLayout>

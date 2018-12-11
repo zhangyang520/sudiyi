@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ListView
 import android.widget.TextView
 import com.alibaba.android.arouter.launcher.ARouter
+import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.route.DrivePath
 import com.amap.api.services.route.DriveRouteResult
 import com.amap.api.services.route.DriveStep
@@ -29,6 +30,9 @@ class DriveRouteDetailActivity : Activity() {
     private var mDesDriveRoute: TextView? = null
     private var mDriveSegmentList: ListView? = null
     private var mDriveSegmentListAdapter: DriveSegmentListAdapter? = null
+    private var mStartPoint = LatLonPoint(39.942295, 116.335891)//起点，116.335891,39.942295
+    private var mEndPoint = LatLonPoint(39.995576, 116.481288)//终点，116.481288,39.995576
+
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +59,8 @@ class DriveRouteDetailActivity : Activity() {
         navi_map.setText("开始导航")
         title_map.setOnClickListener({
             //导航点击事件
-            ARouter.getInstance().build(RouterPath.MapModule.POST_SINGLE_ROUTE_CALCULATE_ACTIVITY).navigation(this)
+            ARouter.getInstance().build(RouterPath.MapModule.POST_SINGLE_ROUTE_CALCULATE_ACTIVITY)
+                     .withParcelable("startPoint",mStartPoint).withParcelable("endPoint",mEndPoint).navigation(this)
         })
     }
 
@@ -67,6 +72,10 @@ class DriveRouteDetailActivity : Activity() {
     }
 
     private fun getIntentData() {
+
+        mStartPoint=intent.getParcelableExtra("startPoint")
+        mEndPoint=intent.getParcelableExtra("endPoint")
+
         val intent = intent ?: return
         mDrivePath = intent.getParcelableExtra("drive_path")
         mDriveRouteResult = intent.getParcelableExtra("drive_result")

@@ -111,14 +111,31 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
     override fun onGetReservedResult(oneKeyReservedResponse: OneKeyReservedResponse, resourceTypeIdArray: Array<Int?>) {
         var integerArrayList=ArrayList<Int?>()
         integerArrayList.addAll(resourceTypeIdArray)
-        ARouter.getInstance().build(RouterPath.MapModule.POST_AD_RESERVED_RESULT)
-                .withSerializable("reservedAdResult",oneKeyReservedResponse)
-                .withIntegerArrayList("resourceIdList",integerArrayList)
-                .withInt("adType",adType)
-                .withInt("clientId",selectedClient!!.id)
-                .withString("startDate",startDate)
-                .withString("endDate",endDate)
-                .navigation(this@PostAdOneKeyReservedActivity,110)
+        if(UserDao.getLocalUser().userRole==4){
+            //销售人员
+            ARouter.getInstance().build(RouterPath.MapModule.POST_AD_RESERVED_RESULT)
+                    .withSerializable("reservedAdResult",oneKeyReservedResponse)
+                    .withIntegerArrayList("resourceIdList",integerArrayList)
+                    .withInt("adType",adType)
+                    .withInt("clientId",selectedClient!!.id)
+                    .withString("startDate",startDate)
+                    .withString("endDate",endDate)
+                    .withString("clientName",tv_select_client_content!!.text.toString())
+                    .navigation(this@PostAdOneKeyReservedActivity,110)
+        }else if(UserDao.getLocalUser().userRole==2){
+            //代理商
+            ARouter.getInstance().build(RouterPath.MapModule.POST_AD_RESERVED_RESULT)
+                    .withSerializable("reservedAdResult",oneKeyReservedResponse)
+                    .withIntegerArrayList("resourceIdList",integerArrayList)
+                    .withInt("adType",adType)
+                    .withInt("clientId",-1)
+                    .withString("startDate",startDate)
+                    .withString("endDate",endDate)
+                    .withString("clientName",tv_select_client_content!!.text.toString())
+                    .navigation(this@PostAdOneKeyReservedActivity,110)
+        }else{
+           ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"其他类型")
+        }
     }
 
     val columnNum=3 //每行
@@ -272,12 +289,14 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
             override fun afterTextChanged(s: Editable?) {
                 //获取内容:
                 //刷新该界面:
-                if(!isSetContent && !s.toString().equals("")){
-                    pageNumer=1
-                    basePresenter.myClient(UserDao.getLocalUser().id,s.toString(),pageNumer,10,RefreshAction.PullDownRefresh)
-                }else{
-                    PopupUtils.dismissWindow()
-                    isSetContent=false
+                if(UserDao.getLocalUser().userRole==4){
+                    if(!isSetContent && !s.toString().equals("")){
+                        pageNumer=1
+                        basePresenter.myClient(UserDao.getLocalUser().id,s.toString(),pageNumer,10,RefreshAction.PullDownRefresh)
+                    }else{
+                        PopupUtils.dismissWindow()
+                        isSetContent=false
+                    }
                 }
             }
 

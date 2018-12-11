@@ -9,12 +9,15 @@ import com.suntray.chinapost.baselibrary.rx.execute
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.bean.TaskItem
 import com.suntray.chinapost.map.data.request.TaskListRequest
+import com.suntray.chinapost.map.data.request.TaskNumberRequest
 import com.suntray.chinapost.map.data.request.TaskUploadRequest
+import com.suntray.chinapost.map.data.response.TaskNumberResponse
 import com.suntray.chinapost.map.presenter.view.TaskView
 import com.suntray.chinapost.map.service.impl.TaskServiceImpl
 import com.suntray.chinapost.user.presenter.view.ClientView
 import com.suntray.chinapost.user.presenter.view.MineEditView
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import rx.Observable
 import rx.Subscriber
 import java.net.SocketTimeoutException
@@ -29,6 +32,34 @@ class TaskPresenter @Inject constructor():BasePresenter<TaskView>(){
 
     @Inject
     lateinit var taskServiceImpl: TaskServiceImpl
+
+
+    /**
+     * 获取 任务的数量
+     */
+    fun  getTaskNumber(taskNumberRequest: TaskNumberRequest){
+        taskServiceImpl.getTaskNumber(taskNumberRequest)
+                .execute(object: BaseSucriber<TaskNumberResponse>(baseView,TaskPresenter::class.java.simpleName!!) {
+                    override fun onError(e: Throwable?) {
+                        if(e is ContentException){
+                            assertMethod(baseView,{
+                                (baseView).onError(e.errorContent)
+                                (baseView).hideLoading()
+                            })
+                        }else{
+                            super.onError(e)
+                        }
+                    }
+
+                    override fun onStart() {
+
+                    }
+                    override fun onNext(t: TaskNumberResponse) {
+                        (baseView as TaskView).onGetTaskNumber(t)
+                        (baseView).hideLoading()
+                    }
+                },lifecylerProvider)
+    }
 
 
     /**
@@ -127,9 +158,9 @@ class TaskPresenter @Inject constructor():BasePresenter<TaskView>(){
                         userId:Int,
                         imgFiles:List<MultipartBody.Part> ?=null ,
                         imgIds:Array<Int?> ? =null ,
-                        deleteIds:Array<Int?> ? =null){
-
-        taskServiceImpl.uploadTaskImg(TaskUploadRequest(pointTaskId,taskId,type,userId,imgFiles,imgIds,deleteIds))
+                        deleteIds:Array<Int?> ? =null,
+                        descritpion: RequestBody? = null){
+        taskServiceImpl.uploadTaskImg(TaskUploadRequest(pointTaskId,taskId,type,userId,imgFiles,imgIds,deleteIds,descritpion))
                     .execute(object: BaseSucriber<Object>(baseView,TaskPresenter::class.java.simpleName!!) {
                         override fun onError(e: Throwable?) {
                             if(e is ContentException){

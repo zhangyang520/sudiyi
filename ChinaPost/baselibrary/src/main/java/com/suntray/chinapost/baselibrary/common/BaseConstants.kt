@@ -66,9 +66,8 @@ object BaseConstants {
         const val UPDATE_APP="getNewApp.do"//更新版本
 
         const val GET_TASK_LIST="PointTasks.do"//获取 任务列表 PointTasks
-
         const val GET_TASK_LIST_2="pointTasksA.do"//第二个接口
-
+        const val TASK_COUNT_NUMBER="getPointTaskCounts.do";//任务数量
         const val UPLOAT_TASK_IMG="uploadScenePhotos.do" //上传 任务的图片
         val MACHINE_ID = "MACHINE_ID"
 

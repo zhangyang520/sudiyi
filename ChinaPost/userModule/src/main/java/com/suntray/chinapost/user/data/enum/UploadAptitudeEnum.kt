@@ -8,13 +8,13 @@ import com.suntray.chinapost.user.data.bean.AptitudeInfo
 enum class UploadAptitudeEnum(var yingyePathId:String,var currentNumber: Int,
                               var imageList:ArrayList<AptitudeInfo?>,var newAddList:ArrayList<AptitudeInfo>
                               ,var deleteList:ArrayList<AptitudeInfo>) {
-    Yingye("licenseFiles",0, arrayListOf(),arrayListOf(),arrayListOf()){
+    JiBenXinxi("baseFiles",0, arrayListOf(),arrayListOf(),arrayListOf()){
         override fun getCurrentNumber1(): Int {
             return this.currentNumber;
         }
 
         override fun getPathId(): String {
-            return "licenseFiles"
+            return "baseFiles"
         }
 
         override fun addAutoCurrentNumer() {
@@ -28,174 +28,13 @@ enum class UploadAptitudeEnum(var yingyePathId:String,var currentNumber: Int,
         override fun getPathList(): ArrayList<AptitudeInfo?> {
             return imageList
         }
-    },Trade("trademarkFiles",0,arrayListOf(),arrayListOf(),arrayListOf()){
+    },HangyeTeshu("specialFiles",0,arrayListOf(),arrayListOf(),arrayListOf()){
         override fun getCurrentNumber1(): Int {
             return this.currentNumber;
         }
 
         override fun getPathId(): String {
-            return "trademarkFiles"
-        }
-
-        override fun addAutoCurrentNumer() {
-            this.currentNumber++
-        }
-
-        override fun addPath(path: AptitudeInfo) {
-            this.imageList.add(0,path)
-        }
-
-        override fun getPathList(): ArrayList<AptitudeInfo?> {
-            return imageList
-        }
-    },
-    Food("healthFiles",0,arrayListOf(),arrayListOf(),arrayListOf()){
-        override fun getCurrentNumber1(): Int {
-            return this.currentNumber;
-        }
-
-        override fun getPathId(): String {
-            return "healthFiles"
-        }
-
-        override fun addAutoCurrentNumer() {
-            this.currentNumber++
-        }
-
-        override fun addPath(path: AptitudeInfo) {
-            this.imageList.add(0,path)
-        }
-
-        override fun getPathList(): ArrayList<AptitudeInfo?> {
-            return imageList
-        }
-    },Portrait("portraitFiles",0,arrayListOf(),arrayListOf(),arrayListOf()){
-        override fun getCurrentNumber1(): Int {
-            return this.currentNumber;
-        }
-
-        override fun getPathId(): String {
-            return "portraitFiles"
-        }
-
-        override fun addAutoCurrentNumer() {
-            this.currentNumber++
-        }
-
-        override fun addPath(path: AptitudeInfo) {
-            this.imageList.add(0,path)
-        }
-
-        override fun getPathList(): ArrayList<AptitudeInfo?> {
-            return imageList
-        }
-    },Host("urlFiles",0,arrayListOf(),arrayListOf(),arrayListOf()){
-        override fun getCurrentNumber1(): Int {
-            return this.currentNumber;
-        }
-
-        override fun getPathId(): String {
-            return "urlFiles"
-        }
-
-        override fun addAutoCurrentNumer() {
-            this.currentNumber++
-        }
-
-        override fun addPath(path: AptitudeInfo) {
-            this.imageList.add(0,path)
-        }
-
-        override fun getPathList(): ArrayList<AptitudeInfo?> {
-            return imageList
-        }
-    },ZCode("qrcodeFiles",0,arrayListOf(),arrayListOf(),arrayListOf()){
-        override fun getCurrentNumber1(): Int {
-            return this.currentNumber;
-        }
-
-        override fun getPathId(): String {
-            return "qrcodeFiles"
-        }
-
-        override fun addAutoCurrentNumer() {
-            this.currentNumber++
-        }
-
-        override fun addPath(path: AptitudeInfo) {
-            this.imageList.add(0,path)
-        }
-
-        override fun getPathList(): ArrayList<AptitudeInfo?> {
-            return imageList
-        }
-    },ClientMianze("clientdisclaimerFiles",0,arrayListOf(),arrayListOf(),arrayListOf()){
-        override fun getCurrentNumber1(): Int {
-            return this.currentNumber;
-        }
-
-        override fun getPathId(): String {
-            return "clientdisclaimerFiles"
-        }
-
-        override fun addAutoCurrentNumer() {
-            this.currentNumber++
-        }
-
-        override fun addPath(path: AptitudeInfo) {
-            this.imageList.add(0,path)
-        }
-
-        override fun getPathList(): ArrayList<AptitudeInfo?> {
-            return imageList
-        }
-    },PostMianze("expressdisclaimerFiles",0,arrayListOf(),arrayListOf(),arrayListOf()){
-        override fun getCurrentNumber1(): Int {
-            return this.currentNumber;
-        }
-
-        override fun getPathId(): String {
-            return "expressdisclaimerFiles"
-        }
-
-        override fun addAutoCurrentNumer() {
-            this.currentNumber++
-        }
-
-        override fun addPath(path: AptitudeInfo) {
-            this.imageList.add(0,path)
-        }
-
-        override fun getPathList(): ArrayList<AptitudeInfo?> {
-            return imageList
-        }
-    },DiChanXiaoShouLicense("landsaleFiles",0,arrayListOf(),arrayListOf(),arrayListOf()){
-        override fun getCurrentNumber1(): Int {
-            return this.currentNumber;
-        }
-
-        override fun getPathId(): String {
-            return "landsaleFiles"
-        }
-
-        override fun addAutoCurrentNumer() {
-            this.currentNumber++
-        }
-
-        override fun addPath(path: AptitudeInfo) {
-            this.imageList.add(0,path)
-        }
-
-        override fun getPathList(): ArrayList<AptitudeInfo?> {
-            return imageList
-        }
-    },Other("otherFiles",0,arrayListOf(),arrayListOf(),arrayListOf()){
-        override fun getCurrentNumber1(): Int {
-            return this.currentNumber;
-        }
-
-        override fun getPathId(): String {
-            return "otherFiles"
+            return "specialFiles"
         }
 
         override fun addAutoCurrentNumer() {

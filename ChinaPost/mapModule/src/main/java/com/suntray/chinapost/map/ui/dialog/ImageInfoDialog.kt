@@ -38,6 +38,6 @@ class ImageInfoDialog:Dialog{
      * 设置 图片的url
      */
     fun setContent(imgUrl:String){
-        Glide.with(context).load(imgUrl).into(imageView)
+        Glide.with(context).load(imgUrl).into(imageView!!)
     }
 }

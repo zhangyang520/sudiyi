@@ -45,6 +45,10 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
     >
 
+        <meta-data
+                android:name="com.amap.api.v2.apikey"
+                android:value="${GAODE_APPKEY}" />
+
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
         <service android:name="com.amap.api.location.APSService" >
         <!-- 定位需要的服务 -->
@@ -83,6 +87,10 @@
                 android:screenOrientation="portrait"
             ></activity>
 
+        <activity
+                android:name=".ui.activity.sale.PostAdCheckDateActivity"
+                android:screenOrientation="portrait"
+        ></activity>
         <activity
                 android:name=".ui.activity.sale.PostAdOneKeyReservedActivity"
                 android:screenOrientation="portrait"

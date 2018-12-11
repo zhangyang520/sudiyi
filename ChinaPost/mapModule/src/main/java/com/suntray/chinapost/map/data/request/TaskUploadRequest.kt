@@ -1,6 +1,7 @@
 package com.suntray.chinapost.map.data.request
 
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Multipart
 
 /**
@@ -19,8 +20,8 @@ class TaskUploadRequest {
     var imgFiles:List<MultipartBody.Part> ?=null // List<MultipartFile>	图片
     var imgIds:Array<Int?> ? =null // 新增或修改图片id，顺序与imgFiles一致 ，新增时对应值为空
     var deleteIds:Array<Int?> ? =null // 删除图片id
-
-    constructor(pointTaskId: String, taskId: String, type: Int, userId: Int, imgFiles: List<MultipartBody.Part>?, imgIds: Array<Int?>?, deleteIds: Array<Int?>?) {
+    var descritpion: RequestBody?=null
+    constructor(pointTaskId: String, taskId: String, type: Int, userId: Int, imgFiles: List<MultipartBody.Part>?, imgIds: Array<Int?>?, deleteIds: Array<Int?>?,descritpion: RequestBody?) {
         this.pointTaskId = pointTaskId
         this.taskId = taskId
         this.type = type
@@ -28,5 +29,6 @@ class TaskUploadRequest {
         this.imgFiles = imgFiles
         this.imgIds = imgIds
         this.deleteIds = deleteIds
+        this.descritpion=descritpion
     }
 }

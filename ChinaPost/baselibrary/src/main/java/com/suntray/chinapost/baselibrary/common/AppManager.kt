@@ -72,10 +72,10 @@ class AppManager {
      * 退出当前的app
      */
     fun existApp(context: Context) {
-        finishAll()
-        var activityManager = context.getSystemService(Context.ACTIVITY_SERVICE);
-        (activityManager as ActivityManager).killBackgroundProcesses(context.packageName);
-        System.exit(0);
+//        finishAll()
+//        var activityManager = context.getSystemService(Context.ACTIVITY_SERVICE);
+//        (activityManager as ActivityManager).killBackgroundProcesses(context.packageName);
+//        System.exit(0);
     }
 
     /**

@@ -74,6 +74,7 @@ object AppPrefsUtils {
         return sp.getInt(key, 0)
     }
 
+
     /*
        默认 0
     */

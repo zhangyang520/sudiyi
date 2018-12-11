@@ -24,6 +24,14 @@
                    android:layout_marginTop="20px"
            />
 
+          <!-- <ImageView
+                   android:id="@+id/iv_portrait"
+                   android:layout_width="214px"
+                   android:layout_height="214px"
+                   android:layout_marginTop="40px"
+                   android:layout_centerHorizontal="true"
+                   android:src="@drawable/iv_user_portrait"
+           />-->
            <com.suntray.chinapost.baselibrary.ui.view.CircleImageView
                    android:id="@+id/iv_portrait"
                    android:layout_width="214px"
@@ -166,7 +174,7 @@
         </com.zhy.autolayout.AutoRelativeLayout>
 
 
-        <!-- 我的客户 -->
+        <!-- 我的预订的点位 -->
         <com.zhy.autolayout.AutoRelativeLayout
                 android:id="@+id/rl_mine_reserved"
                 android:layout_width="match_parent"
@@ -205,6 +213,44 @@
             ></View>
         </com.zhy.autolayout.AutoRelativeLayout>
 
+        <!-- 我的任务 -->
+        <com.zhy.autolayout.AutoRelativeLayout
+                android:id="@+id/rl_mine_task"
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_height="90px">
+
+            <!--图片-->
+            <ImageView
+                    android:id="@+id/iv_mine_task"
+                    android:layout_marginTop="25px"
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:src="@drawable/mine_iv_reserved_dot"
+                    android:layout_marginBottom="25px"
+                    android:layout_marginLeft="35px"
+                    android:layout_marginRight="30px"
+            />
+
+            <TextView
+                    android:id="@+id/tv_mine_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35px"
+                    android:layout_toRightOf="@+id/iv_mine_task"
+                    android:text="我的任务"
+                    android:layout_centerVertical="true"
+                    android:textSize="30px"
+                    android:textColor="@color/black"
+            />
+
+            <View
+                    android:layout_toRightOf="@+id/iv_mine_reserved"
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="@drawable/bg_mine_line_duan"
+                    android:layout_alignParentBottom="true"
+            ></View>
+        </com.zhy.autolayout.AutoRelativeLayout>
 
         <!-- 修改密码 -->
         <com.zhy.autolayout.AutoRelativeLayout

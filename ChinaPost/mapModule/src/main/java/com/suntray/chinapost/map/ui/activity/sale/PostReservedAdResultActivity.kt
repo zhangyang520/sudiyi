@@ -16,6 +16,8 @@ import com.suntray.chinapost.map.presenter.view.ResourceView
 import com.suntray.chinapost.map.ui.adapter.saler.AdReservedResultAdapter
 import com.suntray.chinapost.provider.RouterPath
 import kotlinx.android.synthetic.main.activity_reserved_result.*
+import kotlinx.android.synthetic.main.item_client_ad_layout.*
+import kotlinx.android.synthetic.main.item_start_end_time_layout.*
 
 /**
  *   预定结果展示!
@@ -30,6 +32,9 @@ class PostReservedAdResultActivity:BaseMvpActivity<ResourcePresenter>(),Resource
         basePresenter.baseView=this
     }
 
+    //所选择的 成功个数
+    var selectedIndexList= arrayListOf<Int>()
+
     override fun initView() {
         isBlackShow=true
         isRightShow=false
@@ -42,6 +47,7 @@ class PostReservedAdResultActivity:BaseMvpActivity<ResourcePresenter>(),Resource
        var clientId=intent.getIntExtra("clientId",-1)
        var startDate= intent.getStringExtra("startDate")
        var endDate= intent.getStringExtra("endDate")
+       var clientName=intent.getStringExtra("clientName")
 
        if(reservedAdResult is OneKeyReservedResponse && reservedAdResult!=null && adType!=-1 && clientId!=-1){
            hud2= KProgressHUD(this@PostReservedAdResultActivity).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setLabel("确定预定中...")
@@ -51,7 +57,7 @@ class PostReservedAdResultActivity:BaseMvpActivity<ResourcePresenter>(),Resource
            SystemUtil.printlnStr("reservedAdResult:"+reservedAdResult.toString())
 
            var adReservedResultAdapter=
-                   AdReservedResultAdapter(reservedAdResult.data, this@PostReservedAdResultActivity)
+                   AdReservedResultAdapter(reservedAdResult.data, this@PostReservedAdResultActivity,selectedIndexList)
            var linearLayoutManager=LinearLayoutManager(this@PostReservedAdResultActivity)
            linearLayoutManager.orientation=LinearLayoutManager.VERTICAL
            recylerView.layoutManager=linearLayoutManager
@@ -63,23 +69,41 @@ class PostReservedAdResultActivity:BaseMvpActivity<ResourcePresenter>(),Resource
 
            btn_submit_reserved.setOnClickListener({
                if(reservedAdResult.countSuccess>0){
-                   //集合循环
-                   var idArray= arrayOfNulls<Int>(reservedAdResult.countSuccess)
-                   var index=0
-                   for(data in reservedAdResult.data!!){
-                       if(data.success){
-                           //如果成功
-                           idArray.set(index,data.point!!.id)
+
+//                   if(selectedIndexList.size>0){
+                       //集合循环
+                       var idArray= arrayOfNulls<Int>(selectedIndexList.size)
+                       var index=0
+                       for( i in selectedIndexList.indices){
+                           //直接从 选择的集合中遍历
+                           idArray.set(index,reservedAdResult.data!!.get(selectedIndexList.get(i)).point!!.id)
                            index++
                        }
-                   }
-                   var resourceIdArray:Array<Int?> = arrayOfNulls<Int>(resourceIdList.size)
-                   for(index in resourceIdList.indices){
-                       resourceIdArray.set(index,resourceIdList.get(index))
-                   }
-                   //提交
-                   basePresenter.submitReserve(idArray,resourceIdArray,
-                                                                clientId,adType,UserDao.getLocalUser().id,startDate,endDate)
+
+                       var resourceIdArray:Array<Int?> = arrayOfNulls<Int>(selectedIndexList.size)
+                       index=0
+                       for(i in selectedIndexList.indices){
+                           resourceIdArray.set(index,resourceIdList.get(selectedIndexList.get(i)))
+                           index++
+                       }
+
+                       if(UserDao.getLocalUser().userRole==4){
+                           //销售人员
+                           //提交
+                           basePresenter.submitReserve(idArray,resourceIdArray,
+                                   clientId,adType,UserDao.getLocalUser().id,startDate,endDate,"",4)
+
+                       }else if(UserDao.getLocalUser().userRole==2){
+                           //代理商
+                           //提交
+                           basePresenter.submitReserve(idArray,resourceIdArray,
+                                   clientId,adType,UserDao.getLocalUser().id,startDate,endDate,clientName,2)
+                       }else{
+                           ToastUtil.makeText(this@PostReservedAdResultActivity,"其他类型")
+                       }
+//                   }else{
+//                       ToastUtil.makeText(this@PostReservedAdResultActivity,"请选择!")
+//                   }
                }else{
                    ToastUtil.makeText(this@PostReservedAdResultActivity,"成功个数为0")
                }

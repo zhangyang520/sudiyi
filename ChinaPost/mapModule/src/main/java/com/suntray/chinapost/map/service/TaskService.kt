@@ -4,7 +4,9 @@ import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.bean.TaskItem
 import com.suntray.chinapost.map.data.request.TaskListRequest
+import com.suntray.chinapost.map.data.request.TaskNumberRequest
 import com.suntray.chinapost.map.data.request.TaskUploadRequest
+import com.suntray.chinapost.map.data.response.TaskNumberResponse
 import rx.Observable
 
 /**
@@ -27,4 +29,10 @@ interface TaskService {
      * \上传任务的图片
      */
     fun uploadTaskImg(taskUpload: TaskUploadRequest):Observable<Object>
+
+
+    /**
+     * 获取 任务的数量
+     */
+    fun getTaskNumber(taskNumberRequest: TaskNumberRequest):Observable<TaskNumberResponse>
 }

@@ -6,7 +6,9 @@ import com.suntray.chinapost.map.data.api.TaskApi
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.bean.TaskItem
 import com.suntray.chinapost.map.data.request.TaskListRequest
+import com.suntray.chinapost.map.data.request.TaskNumberRequest
 import com.suntray.chinapost.map.data.request.TaskUploadRequest
+import com.suntray.chinapost.map.data.response.TaskNumberResponse
 import retrofit2.http.Body
 import rx.Observable
 import javax.inject.Inject
@@ -42,6 +44,14 @@ class TaskRespository @Inject constructor(){
     fun uploadTaskImg(taskUpload:TaskUploadRequest):Observable<BaseResp<Object>>{
         return RetrofitFactory.instance.create(TaskApi::class.java).
                             uploadTaskImg(taskUpload.pointTaskId,taskUpload.taskId,taskUpload.type,
-                                            taskUpload.userId,taskUpload.imgFiles!!,taskUpload.imgIds!!,taskUpload.deleteIds!!)
+                                            taskUpload.userId,taskUpload.imgFiles!!,taskUpload.imgIds!!,taskUpload.deleteIds!!,taskUpload!!.descritpion!!)
+    }
+
+
+    /**
+     * 获取任务数量
+     */
+    fun getTaskNumber(taskNumberRequest: TaskNumberRequest):Observable<BaseResp<TaskNumberResponse>>{
+        return RetrofitFactory.instance.create(TaskApi::class.java).getTaskNumber(taskNumberRequest)
     }
 }

@@ -2,7 +2,6 @@ package com.suntray.chinapost.map.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.request.TaskListRequest
 import com.suntray.chinapost.map.presenter.TaskPresenter
 import com.suntray.chinapost.map.presenter.view.TaskView
-import com.suntray.chinapost.map.ui.adapter.proxy.TaskAdapter
 import com.suntray.chinapost.map.ui.adapter.proxy.TaskListViewAdapter
 import kotlinx.android.synthetic.main.fragment_task.*
 
@@ -49,7 +47,7 @@ class WillExamineFragment:Fragment(),TaskView{
         SystemUtil.printlnStr("TaskListity WillExamineFragment  onCreate ....hashcode:"+hashCode())
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         SystemUtil.printlnStr("TaskListity WillExamineFragment  onCreateView ....")
         if(contentView==null){
             contentView=inflater!!.inflate(R.layout.fragment_task,null)
@@ -87,16 +85,16 @@ class WillExamineFragment:Fragment(),TaskView{
 
     override fun onError(content: String, action: RefreshAction) {
         if(action==RefreshAction.NormalAction){
-            ToastUtil.makeText(context,"暂无待审核任务")
+            ToastUtil.makeText(context!!,"暂无待审核任务")
         }else if(action==RefreshAction.PullDownRefresh){
             recyclerview.onPullDownRefreshComplete()
-            ToastUtil.makeText(context,content)
+            ToastUtil.makeText(context!!,content)
         }else if(action==RefreshAction.UpMore){
             pageNumber-=1
-            ToastUtil.makeText(context,content)
+            ToastUtil.makeText(context!!,content)
             recyclerview.onPullUpRefreshComplete()
         }else if(action==RefreshAction.SearchAction){
-            ToastUtil.makeText(context,content)
+            ToastUtil.makeText(context!!,content)
         }
     }
 
@@ -105,7 +103,7 @@ class WillExamineFragment:Fragment(),TaskView{
             SystemUtil.printlnStr("mineClientlist onGetWillExamineList NormalAction size:"+taskList.size+"..taskAdapter:"+taskAdapter.toString())
             recyclerview.setRefreshTitle("我的客户列表,")
             if(taskAdapter==null){
-                taskAdapter = TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity,1,firstType)
+                taskAdapter = TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity!!,1,firstType)
                 SystemUtil.printlnStr("mineClientlist onGetWillExamineList 111111:"+"..taskAdapter:"+taskAdapter.toString())
                 recyclerview.getmListView().setAdapter(taskAdapter)
             }else {
@@ -115,10 +113,10 @@ class WillExamineFragment:Fragment(),TaskView{
             }
         }else if(action==RefreshAction.PullDownRefresh){
             //下拉刷新
-            ToastUtil.makeText(context,"刷新完成...")
+            ToastUtil.makeText(context!!,"刷新完成...")
             SystemUtil.printlnStr("mineClientlist onGetWillExamineList size:"+taskList.size+"..taskAdapter:"+taskAdapter.toString())
             if(taskAdapter==null){
-                taskAdapter = TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity,1,firstType)
+                taskAdapter = TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity!!,1,firstType)
                 SystemUtil.printlnStr("mineClientlist onGetWillExamineList 111111:"+"..taskAdapter:"+taskAdapter.toString())
                 recyclerview.getmListView().setAdapter(taskAdapter)
             }else{
@@ -131,16 +129,16 @@ class WillExamineFragment:Fragment(),TaskView{
             //上拉加载更多
             if(taskList.size>0){
                 if(taskAdapter==null){
-                    taskAdapter =TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity,1,firstType)
+                    taskAdapter =TaskListViewAdapter(taskList, recyclerview.getRefreshableView(),activity!!,1,firstType)
                     recyclerview.getmListView().setAdapter(taskAdapter)
                 }else{
                     taskAdapter!!.datas.addAll(taskList);
                 }
                 taskAdapter!!.notifyDataSetChanged()
-                ToastUtil.makeText(context,"加载更多完成...")
+                ToastUtil.makeText(context!!,"加载更多完成...")
             }else{
                 pageNumber-=1
-                ToastUtil.makeText(context,"没有更多数据了...")
+                ToastUtil.makeText(context!!,"没有更多数据了...")
             }
             recyclerview.onPullUpRefreshComplete()
         }

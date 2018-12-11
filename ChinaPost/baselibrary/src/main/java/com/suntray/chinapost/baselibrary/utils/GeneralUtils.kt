@@ -505,10 +505,10 @@ object GeneralUtils {
      * @return
      * @see [类、类.方法、类.成员]
     </功能详细描述></获取imei> */
-    fun getDeviceId(context: Context): String {
-        val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        return telephonyManager.getDeviceId()
-    }
+//    fun getDeviceId(context: Context): String {
+//        val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+//        return telephonyManager.getDeviceId()
+//    }
 
     /**
      * http://stackoverflow.com/questions/3495890/how-can-i-put-a-listview-into-a-scrollview-without-it-collapsing/3495908#3495908
@@ -568,39 +568,39 @@ object GeneralUtils {
      * @param context
      * @return
      */
-    fun getMachineId(context: Context): String {
-        var tmDevice = ""
-        try {
-            if (SharedPreferencesManager[context, BaseConstants.MACHINE_ID, ""] == "") {
-                val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-//                tmDevice =""
-                tmDevice = tm.deviceId;
-                SharedPreferencesManager.put(context, BaseConstants.MACHINE_ID, tmDevice)
-            } else {
-                tmDevice = SharedPreferencesManager.get(context, BaseConstants.MACHINE_ID, "") as String
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            tmDevice = (System.currentTimeMillis().toString() + "").hashCode().toString() + ""
-            SharedPreferencesManager.put(context, BaseConstants.MACHINE_ID, tmDevice)
-        }
-
-        return tmDevice
-    }
+//    fun getMachineId(context: Context): String {
+//        var tmDevice = ""
+//        try {
+//            if (SharedPreferencesManager[context, BaseConstants.MACHINE_ID, ""] == "") {
+//                val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+////                tmDevice =""
+//                tmDevice = tm.deviceId;
+//                SharedPreferencesManager.put(context, BaseConstants.MACHINE_ID, tmDevice)
+//            } else {
+//                tmDevice = SharedPreferencesManager.get(context, BaseConstants.MACHINE_ID, "") as String
+//            }
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//            tmDevice = (System.currentTimeMillis().toString() + "").hashCode().toString() + ""
+//            SharedPreferencesManager.put(context, BaseConstants.MACHINE_ID, tmDevice)
+//        }
+//
+//        return tmDevice
+//    }
 
     /**
      * 进行获取手机唯一标识!
      * @param context
      * @return
      */
-    fun getMachineFromSP(context: Context): String {
-        var machineID: String = SharedPreferencesManager.get(context, BaseConstants.MACHINE_ID, "") as String
-        if (machineID == "") {
-            machineID = getMachineId(context)
-            SharedPreferencesManager.put(context, BaseConstants.MACHINE_ID, machineID)
-        }
-        return machineID
-    }
+//    fun getMachineFromSP(context: Context): String {
+//        var machineID: String = SharedPreferencesManager.get(context, BaseConstants.MACHINE_ID, "") as String
+//        if (machineID == "") {
+//            machineID = getMachineId(context)
+//            SharedPreferencesManager.put(context, BaseConstants.MACHINE_ID, machineID)
+//        }
+//        return machineID
+//    }
 
 
     /**

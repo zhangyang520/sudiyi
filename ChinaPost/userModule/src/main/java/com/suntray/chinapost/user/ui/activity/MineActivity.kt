@@ -15,7 +15,6 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.bumptech.glide.Glide
 import com.suntray.chinapost.baselibrary.common.AppManager
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.dao.UserDao
@@ -23,8 +22,6 @@ import com.suntray.chinapost.baselibrary.ui.activity.BaseMvpActivity
 import com.suntray.chinapost.baselibrary.utils.*
 import com.suntray.chinapost.provider.RouterPath
 import com.suntray.chinapost.user.R
-import com.suntray.chinapost.user.data.bean.AptitudeInfo
-import com.suntray.chinapost.user.data.enum.UploadAptitudeEnum
 import com.suntray.chinapost.user.injection.component.DaggerMineComponent
 import com.suntray.chinapost.user.presenter.MinePresenter
 import com.suntray.chinapost.user.presenter.view.MineEditView
@@ -60,18 +57,17 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
         ToastUtil.makeText(this@MineActivity,content)
         if(UserDao.getLocalUser().headImgPath!=null &&
                 !UserDao.getLocalUser().headImgPath.equals("")){
-            Glide.with(this@MineActivity)
-                    .load(BaseConstants.BASE_UPLOAD_URL+UserDao.getLocalUser().headImgPath)
-                    .error(R.drawable.iv_user_portrait).into(iv_portrait)
 
-            if(UserDao.getLocalUser().headImgPath.startsWith("http")){
+            if (UserDao.getLocalUser().headImgPath.startsWith("http")) {
                 BitmapUtil.myInstance!!.configDefaultLoadFailedImage(R.drawable.iv_user_portrait)
                         .display(iv_portrait, UserDao.getLocalUser().headImgPath)
-            }else{
-                BitmapUtil.myInstance!!.configDefaultLoadFailedImage(R.drawable.iv_user_portrait)
-                        .display(iv_portrait,BaseConstants.BASE_UPLOAD_URL+UserDao.getLocalUser().headImgPath)
-            }
 
+            } else {
+                BitmapUtil.myInstance!!.configDefaultLoadFailedImage(R.drawable.iv_user_portrait)
+                        .display(iv_portrait, BaseConstants.BASE_UPLOAD_URL + UserDao.getLocalUser().headImgPath)
+            }
+//            Glide.with(this@MineActivity)
+//                    .load(UserDao.getLocalUser().headImgPath).bitmapTransform(CropCircleTransformation(this)).into(iv_portrait)
         }
     }
 
@@ -80,6 +76,19 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
         isBlackShow = false
         tv_username.setText(UserDao.getLocalUser().nickName);
         tv_jigou.setText(UserDao.getLocalUser().orgName)
+
+        /**
+         * 供应商 角色 只有 我的任务
+         * 供应商 角色 只有 我的任务
+         */
+        if(UserDao.getLocalUser().userRole==3){
+            rl_mine_task.visibility=View.VISIBLE
+            rl_mine_reserved.visibility=View.GONE
+        }else{
+            rl_mine_task.visibility=View.GONE
+            rl_mine_reserved.visibility=View.VISIBLE
+        }
+
         if(UserDao.getLocalUser().headImgPath!=null &&
                     !UserDao.getLocalUser().headImgPath.equals("")) {
 //            Glide.with(this@MineActivity).load(BaseConstants.BASE_UPLOAD_URL+UserDao.getLocalUser().headImgPath).error(R.drawable.iv_user_portrait).into(iv_portrait)
@@ -138,6 +147,13 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
                     .navigation(this@MineActivity)
         })
 
+        /**
+         * 我的任务的点击事件
+         */
+        rl_mine_task.setOnClickListener({
+            setResult(102)
+            finish()
+        })
 
         rl_clear_cache.setOnClickListener({
 
@@ -220,7 +236,7 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
             val uri: Uri
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 uri = FileProvider.getUriForFile(this, packageName+".FileProvider",
-                        tempFile)
+                        tempFile!!)
             } else {
                 uri = Uri.fromFile(tempFile)
             }
@@ -255,16 +271,20 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
                 val uri: Uri
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     uri = FileProvider.getUriForFile(this, "$packageName.FileProvider",
-                            tempFile)
+                            tempFile!!)
                 } else {
                     uri = Uri.fromFile(tempFile)
                 }
-                crop(uri)
+                //todo 截图有问题 最后调试
+//                crop(uri)
+                basePresenter.onUploadPortrait(UserDao.getLocalUser().id,File(tempFile!!.path),BaseConstants.SELECTEDROLEINDEX)
+                if(photoWindow!=null && photoWindow!!.isShowing){
+                    photoWindow!!.dismiss()
+                }
+
             } else {
                 Toast.makeText(this@MineActivity, "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show()
             }
-
-
             SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop 1111:"+requestCode)
         } else if (requestCode == PHOTO_REQUEST_CUT) {
             SystemUtil.printlnStr("PHOTO_REQUEST_CUT 1111111111111:"+(data==null))

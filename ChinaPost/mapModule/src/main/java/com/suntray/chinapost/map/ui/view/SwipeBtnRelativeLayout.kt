@@ -229,6 +229,21 @@ class SwipeBtnRelativeLayout: AutoRelativeLayout{
         return super.onTouchEvent(event)
     }
 
+    /**
+     * 平滑到 左边
+     */
+    fun smoothToLeft(){
+        var translateXAll=(rightValue.toFloat()-leftValue.toFloat())-(tv_middle!!.right-tv_middle!!.left)
+        var value=ValueAnimator.ofFloat(-translateXAll,0f)
+        value.addUpdateListener(object :ValueAnimator.AnimatorUpdateListener{
+            override fun onAnimationUpdate(p0: ValueAnimator?) {
+                //todo
+                tv_middle!!.translationX=-(p0!!.animatedValue as Float)
+                SystemUtil.printlnStr("SwipeBtnRelativeLayout onAnimationUpdate value:"+(p0!!.animatedValue as Float)+"..tv_middle.x:"+tv_middle!!.x)
+            }
+        })
+        value.start()
+    }
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         return true
     }

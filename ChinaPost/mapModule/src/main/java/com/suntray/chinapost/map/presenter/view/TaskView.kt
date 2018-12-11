@@ -3,6 +3,8 @@ package com.suntray.chinapost.map.presenter.view
 import com.suntray.chinapost.baselibrary.data.bean.RefreshAction
 import com.suntray.chinapost.baselibrary.presenter.view.BaseView
 import com.suntray.chinapost.map.data.bean.TaskEntity
+import com.suntray.chinapost.map.data.request.TaskNumberRequest
+import com.suntray.chinapost.map.data.response.TaskNumberResponse
 
 /**
  *  任务界面的view
@@ -56,4 +58,12 @@ interface TaskView: BaseView {
      * 上传 任务的图片
      */
     fun  onUploadTaskImg(){}
+
+
+    /**
+     * 获取任务的数量接口
+     */
+    fun onGetTaskNumber(taskNumberResponse: TaskNumberResponse){
+
+    }
 }

@@ -9,17 +9,21 @@ import java.io.Serializable
  */
 class TaskUpload:Serializable{
     var id:Int=0 //id
+
+    //以下是没有用的
     var address="" //资质的上传图片的地址
     var accessoryid="" //
     var name="" //图片的名称
     var size="" //图片的大小 字符串类型
 
+    //以下是最新的属性
     var tasktype=0
     var imgpathid=""
     var taskid=0
-    var state=0
+    var state=0 //  //审批状态（2待审批、4审批不通过、3,5,6,7审批通过)
     var taskpointid=0
     var imgPath=""
+    var opinion="" //审批意见
 
     constructor()
     constructor(address: String) {

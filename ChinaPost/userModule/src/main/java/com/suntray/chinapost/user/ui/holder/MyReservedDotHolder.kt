@@ -4,6 +4,7 @@ import android.app.Activity
 import android.graphics.Color
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import com.suntray.chinapost.baselibrary.ui.refreshView.inner.BaseHolder
 import com.suntray.chinapost.baselibrary.utils.DateUtil
@@ -27,14 +28,15 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
     var tv_ad_resource_value: TextView?=null
 
     var btn_chakan: Button?=null
-    var btn_check: Button?=null
+    var btn_check: ImageView?=null
     var basePresenter: MineDotPresenter?=null
     var context:MineReservedDotActivity?=null
+    var selectPositionList:ArrayList<Int>?=null
 
-
-    constructor(basePresenter: MineDotPresenter?,context:MineReservedDotActivity):super(){
+    constructor(basePresenter: MineDotPresenter?,context:MineReservedDotActivity,selectPositionList:ArrayList<Int>):super(){
         this.basePresenter = basePresenter
         this.context=context
+        this.selectPositionList=selectPositionList
     }
 
 
@@ -48,12 +50,12 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
 
 
         btn_chakan=itemView!!.findViewById(R.id.btn_chakan) as Button;
-        btn_check=itemView!!.findViewById(R.id.btn_check) as Button;
+        btn_check=itemView!!.findViewById(R.id.btn_check) as ImageView;
 
         return itemView
     }
 
-    var selectPositionList:ArrayList<Int> = arrayListOf()
+
     override fun refreshView(data: MineReservedDot?, activity: Activity?) {
         /**
          * 待审核 #FDA100
@@ -80,8 +82,8 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
         }else if(data!!.statename.equals("已到期")){
             //灰色
             tv_ad_state!!.setTextColor(Color.parseColor("#AEAEB0"))
-        }else if(data!!.statename.equals("即将到期")){
-            //红色
+        }else if(data!!.statename.equals("即将到期") || data!!.statename.equals("申请解除预约")){
+            //红色 申请解除预约
             tv_ad_state!!.setTextColor(Color.parseColor("#ff3823"))
         }
         tv_ad_state!!.text=data!!.statename
@@ -92,26 +94,29 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
 
 
         if(data!!.statename.equals("已到期")){
-            btn_chakan!!.visibility=View.GONE
+            btn_chakan!!.visibility=View.INVISIBLE
         }else{
             btn_chakan!!.visibility=View.VISIBLE
         }
 
-        if(selectPositionList.contains(position)){
+        if(selectPositionList!!.contains(position)){
+            SystemUtil.printlnStr("selectPositionList.contains(position):"+position)
             btn_check!!.isActivated=true
         }else{
+            SystemUtil.printlnStr("selectPositionList.not contains(position):"+position)
             btn_check!!.isActivated=false
         }
 
+
         btn_check!!.setOnClickListener({
-            if(data!!.statename.equals("未到期") && data!!.statename.equals("即将到期")){
+            if(data!!.statename.equals("未到期") || data!!.statename.equals("即将到期")){
                 if(btn_check!!.isActivated){
-                    selectPositionList.remove(position)
+                    selectPositionList!!.remove(position)
                 }else{
-                    selectPositionList.add(position)
+                    selectPositionList!!.add(position)
                 }
                 btn_check!!.isActivated=!btn_check!!.isActivated
-                context!!.setSelectNumer(selectPositionList.size)
+                context!!.setSelectNumer(selectPositionList!!.size)
             }else{
                 ToastUtil.makeText(UiUtils.instance.getContext(),"不可以选择")
             }

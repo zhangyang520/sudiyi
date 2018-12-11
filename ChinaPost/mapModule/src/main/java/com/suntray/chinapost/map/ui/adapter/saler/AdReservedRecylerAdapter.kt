@@ -27,7 +27,7 @@ class AdReservedRecylerAdapter:
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): AdReservedViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdReservedViewHolder {
         return AdReservedViewHolder(View.inflate(context,R.layout.recylerview_ad_reserved_list,null))
     }
 
@@ -40,7 +40,7 @@ class AdReservedRecylerAdapter:
 
     var isClickAll:Boolean=false
     var selectPositionList:ArrayList<Int> = arrayListOf()
-    override fun onBindViewHolder(holder: AdReservedViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: AdReservedViewHolder, position: Int) {
         holder!!.tv_location!!.setText(mapDotList!!.get(position).zoneaddress)
         holder!!.tv_id_value!!.setText(mapDotList!!.get(position).equid)
         holder!!.tv_position!!.setText(mapDotList!!.get(position).equlocation)
@@ -58,6 +58,14 @@ class AdReservedRecylerAdapter:
             }
             context!!.setSelectNumer(selectPositionList.size)
         })
+
+        if (selectPositionList.contains(position)) {
+            //是否 包含 该位置
+            holder!!.btn_check!!.isActivated=true
+        }else{
+            //不包含
+            holder!!.btn_check!!.isActivated=false
+        }
     }
 
     fun  processAllSelect(){
@@ -85,7 +93,7 @@ class AdReservedRecylerAdapter:
         var btn_check:ImageView?=null
 
 
-        constructor(itemView: View?) : super(itemView){
+        constructor(itemView: View?) : super(itemView!!){
             tv_location=itemView!!.findViewById(R.id.tv_location) as TextView
             tv_id_value=itemView!!.findViewById(R.id.tv_id_value) as TextView
             tv_position=itemView!!.findViewById(R.id.tv_position) as TextView

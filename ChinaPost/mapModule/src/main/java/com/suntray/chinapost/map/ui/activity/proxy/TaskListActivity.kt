@@ -1,6 +1,8 @@
 package com.suntray.chinapost.map.ui.activity.proxy
 
+import android.content.Intent
 import android.graphics.Color
+import android.provider.Settings
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
@@ -9,12 +11,17 @@ import android.view.View
 import android.widget.RatingBar
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.amap.api.location.AMapLocation
+import com.amap.api.location.AMapLocationListener
+import com.amap.api.services.core.LatLonPoint
 import com.suntray.chinapost.baselibrary.data.bean.RefreshAction
 import com.suntray.chinapost.baselibrary.ui.activity.BaseMvpFragment
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.map.R
 import com.suntray.chinapost.map.data.bean.TaskEntity
+import com.suntray.chinapost.map.data.request.TaskNumberRequest
+import com.suntray.chinapost.map.data.response.TaskNumberResponse
 import com.suntray.chinapost.map.injection.component.DaggerTaskComponent
 import com.suntray.chinapost.map.presenter.TaskPresenter
 import com.suntray.chinapost.map.presenter.view.TaskView
@@ -23,6 +30,7 @@ import com.suntray.chinapost.map.ui.fragment.NotExamineFragment
 import com.suntray.chinapost.map.ui.fragment.UnFinishFragment
 import com.suntray.chinapost.map.ui.fragment.WillExamineFragment
 import com.suntray.chinapost.map.ui.view.inner.OnRatioChanageListener
+import com.suntray.chinapost.map.utils.AMapUI
 import com.suntray.chinapost.provider.RouterPath
 import kotlinx.android.synthetic.main.activity_task_list.*
 
@@ -135,6 +143,7 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                 currentPointerIndex=position
                 if(position==0){
                     unFinishFragment!!.getNormalData()
+                    notExamineFragment!!.getNormalData()
                 }else if(position==1){
                     willExamineFragment!!.getNormalData()
                 }else if(position==2){
@@ -146,9 +155,10 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                 setTextView(position)
             }
         })
-
-        viewpager_list.setCurrentItem(0)
         unFinishFragment!!.getNormalData()
+        //获取任务数量
+        basePresenter.getTaskNumber(TaskNumberRequest(currentIndex+1,supplyID.toInt()))
+        viewpager_list.setCurrentItem(0)
 
         //未完成 点击事件 0
         rl_unfinish.setOnClickListener({
@@ -172,11 +182,23 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
 
         //我的模块的跳转
         iv_user_head.setOnClickListener {
-            ARouter.getInstance().build(RouterPath.MineModule.MINE_ACTIVITY).navigation(this@TaskListActivity)
+            ARouter.getInstance().build(RouterPath.MineModule.MINE_ACTIVITY).navigation(this@TaskListActivity,102)
         }
 
         iv_chat.setOnClickListener({
             ARouter.getInstance().build(RouterPath.MineModule.MINE_MESSAGE).navigation(this@TaskListActivity)
+        })
+
+        requestPermission(101, "android.permission.ACCESS_COARSE_LOCATION", object : Runnable {
+            override fun run() {
+                //定位中
+                AMapUI.initLocation(this@TaskListActivity, locationListener);
+                AMapUI.startLocation()
+            }
+        }, object : Runnable {
+            override fun run() {
+                ToastUtil.makeText(this@TaskListActivity, "请打开定位权限")
+            }
         })
     }
 
@@ -198,22 +220,11 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
     }
 
     override fun onGetNotExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction,count:Int) {
-        if(count>0){
-            tv_unexamine_number.visibility=View.VISIBLE
-            tv_unexamine_number.text=count.toString()
-        }else{
-            tv_unexamine_number.visibility=View.GONE
-        }
         notExamineFragment!!.onGetNotExamineList(taskList,action)
     }
 
     override fun onGetUnfinishedList(taskList: ArrayList<TaskEntity>, action: RefreshAction,count:Int) {
-        if(count>0){
-            tv_unfinish_number.visibility=View.VISIBLE
-            tv_unfinish_number.text=count.toString()
-        }else{
-            tv_unfinish_number.visibility=View.GONE
-        }
+
         unFinishFragment!!.onGetUnfinishedList(taskList,action)
     }
 
@@ -221,7 +232,22 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
         willExamineFragment!!.onGetWillExamineList(taskList,action)
     }
 
+    override fun onGetTaskNumber(taskNumberResponse: TaskNumberResponse) {
+        if(taskNumberResponse.count1>0){
+            tv_unfinish_number.visibility=View.VISIBLE
+            tv_unfinish_number.text=taskNumberResponse.count1.toString()
+        }else{
+            tv_unfinish_number.visibility=View.GONE
+        }
 
+        if(taskNumberResponse.count3>0){
+            tv_unexamine_number.visibility=View.VISIBLE
+            tv_unexamine_number.text=taskNumberResponse.count3.toString()
+        }else{
+            tv_unexamine_number.visibility=View.GONE
+        }
+        super.onGetTaskNumber(taskNumberResponse)
+    }
     /**
      * 设置对应位置的Ui
      */
@@ -327,4 +353,70 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
             return 0
         }
     }
+
+    /**
+     * 重新刷新界面
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        println("resultCode:"+resultCode+"..requestCode:"+requestCode)
+        if(requestCode==101 && resultCode==101){
+            //从更改界面传递过来的
+            if(currentPointerIndex==0){
+                unFinishFragment!!.getNormalData()
+                notExamineFragment!!.getNormalData()
+            }else if(currentPointerIndex==1){
+                willExamineFragment!!.getNormalData()
+            }else if(currentPointerIndex==2){
+                notExamineFragment!!.getNormalData()
+            }else if(currentPointerIndex==3){
+                examineFragment!!.getNormalData()
+            }
+        }else if(requestCode==102 && resultCode==102){
+            //从 我的 任务中返回的  上刊任务 未完成
+            currentPointerIndex=0
+            if(swipeBtnRelativeLayout.onRatingBarChangeListener!=null){
+                swipeBtnRelativeLayout.smoothToLeft()
+                swipeBtnRelativeLayout.onRatingBarChangeListener!!.onChangeToLeft()
+            }
+            viewpager_list.currentItem=currentPointerIndex
+        }
+    }
+
+
+
+    var currntLocation: AMapLocation?=null
+    /**
+     * 定位监听
+     */
+    internal var locationListener: AMapLocationListener = AMapLocationListener { location ->
+        if (null != location) {
+            currntLocation=location
+            //todo 需要重新改
+            currntLocation!!.longitude=116.397472
+            currntLocation!!.latitude=39.908683
+            val sb = StringBuffer()
+            //errCode等于0代表定位成功，其他的为定位失败，具体的可以参照官网定位错误码说明
+            if (location.errorCode == 0) {
+                //定位成功
+                ToastUtil.makeText(this@TaskListActivity,"定位成功!")
+                AMapUI.stopLocation()
+            } else {
+                currntLocation=null
+                //定位失败.
+                if(location.errorCode==12){
+                    var intent= Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivityForResult(intent,887);
+                }else{
+                    ToastUtil.makeText(this@TaskListActivity,"定位失败....")
+                }
+            }
+            //定位之后的回调时间
+            //解析定位结果，
+        } else {
+            //定位失败
+            ToastUtil.makeText(this@TaskListActivity,"定位失败....")
+        }
+    }
+
 }

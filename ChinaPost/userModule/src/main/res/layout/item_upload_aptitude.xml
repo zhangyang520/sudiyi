@@ -11,6 +11,7 @@
     <ImageView
             android:layout_below="@id/view_top"
             android:id="@+id/iv_1"
+            android:layout_marginTop="20px"
             android:layout_width="184px"
             android:layout_height="184px"
             android:src="@drawable/mine_ic_default1"

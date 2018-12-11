@@ -17,6 +17,7 @@ import com.suntray.chinapost.provider.RouterPath
 import com.suntray.chinapost.user.R
 import com.suntray.chinapost.user.data.bean.MineReservedDot
 import com.suntray.chinapost.user.data.request.MineReservedDotRequest
+import com.suntray.chinapost.user.data.request.RelieveSaveRequest
 import com.suntray.chinapost.user.injection.component.DaggerMineComponent
 import com.suntray.chinapost.user.presenter.MineDotPresenter
 import com.suntray.chinapost.user.presenter.view.MineDotView
@@ -26,6 +27,7 @@ import com.suntray.chinapost.user.ui.adapter.MyReservedDotRecylerAdapter
 import com.suntray.chinapost.user.ui.dialog.DotRenewDialog
 import kotlinx.android.synthetic.main.activity_mine_reserved_dot.*
 import kotlinx.android.synthetic.main.layout_search_title.*
+import java.util.*
 
 /**
  *   我预定的点位的界面
@@ -65,16 +67,14 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
         })
 
         rl_bottom.setOnClickListener({
-            if(adapter!!.myReservedDotHolder!!.selectPositionList.size>0){
-                selectedList=arrayOfNulls<String>(adapter!!.myReservedDotHolder!!.selectPositionList.size)
-                for(position in adapter!!.myReservedDotHolder!!.selectPositionList.indices){
+            if(adapter!!.selectPositionList.size>0){
+                selectedList=arrayOfNulls<String>(adapter!!.selectPositionList.size)
+                for(position in adapter!!.selectPositionList.indices){
                     //获取数值
-                    var position=adapter!!.myReservedDotHolder!!.selectPositionList!!.get(position)
-                    selectedList!!.set(position,adapter!!.datas.get(position).id.toString())
+                    var value=adapter!!.myReservedDotHolder!!.selectPositionList!!.get(position)
+                    selectedList!!.set(position,adapter!!.datas.get(value).id.toString())
                 }
-
-                //调用接口
-                //调用接口
+                basePresenter.relieveSave(RelieveSaveRequest(selectedList!!,UserDao.getLocalUser().id))
             }else{
                 ToastUtil.makeText(this@MineReservedDotActivity,"请选择点位")
             }
@@ -181,10 +181,12 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
      * 右边标题的点击 事件处理
      */
     override fun rightTitleClick() {
-        super.rightTitleClick()
+        adapter!!.processAntiAllSelect()
     }
 
     override  fun onRelieveSaveResponse(){
+        adapter!!.processAntiAllSelect()
+        basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10),RefreshAction.NormalAction)
         ToastUtil.makeText(this@MineReservedDotActivity,"申请取消预订成功")
     }
 }

@@ -3,10 +3,7 @@ package com.suntray.chinapost.map.injection.component
 import com.suntray.chinapost.baselibrary.injection.PerComponentScope
 import com.suntray.chinapost.baselibrary.injection.component.ActivityComponent
 import com.suntray.chinapost.map.injection.module.ResourceModule
-import com.suntray.chinapost.map.ui.activity.sale.PostAdDownActivity
-import com.suntray.chinapost.map.ui.activity.sale.PostAdInfoActivity
-import com.suntray.chinapost.map.ui.activity.sale.PostAdResorceReservedActivity
-import com.suntray.chinapost.map.ui.activity.sale.PostReservedAdResultActivity
+import com.suntray.chinapost.map.ui.activity.sale.*
 import dagger.Component
 
 
@@ -38,4 +35,9 @@ interface ResourceComponent {
      * 将上下刊报告的界面绑定
      */
     fun bind(postAdDownActivity: PostAdDownActivity)
+
+    /**
+     * 绑定 对应的查看排期的界面
+     */
+    fun bind(postAdCheckDateActivity: PostAdCheckDateActivity);
 }

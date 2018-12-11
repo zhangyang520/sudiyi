@@ -146,7 +146,9 @@ class ResourcePresenter @Inject constructor():BasePresenter<ResourceView>(){
                       adtype:Int=0 ,//广告类型字典id
                       userId:Int=0 ,//当前登录用户ID
                       startdate:String="" ,//预约开始时间（2018/09/09）
-                      enddate:String="" //预约开始时间（2018/09/09）'
+                      enddate:String="", //预约开始时间（2018/09/09）'
+                      clientName:String="", //客户名称
+                      userType:Int=-1  //用户类型
                       ){
         resourceServiceImpl.oneKeySubmit(OneKeySubmitRequest(id,resourceid,clientid,adtype,userId,startdate,enddate))
                 .execute(object : BaseSucriber<OneKeyReservedResponse>(baseView, ResourcePresenter::javaClass.name) {
@@ -179,7 +181,9 @@ class ResourcePresenter @Inject constructor():BasePresenter<ResourceView>(){
                       adtype:Int=0 ,//广告类型字典id
                       userId:Int=0 ,//当前登录用户ID
                       startdate:String="" ,//预约开始时间（2018/09/09）
-                      enddate:String="" //预约开始时间（2018/09/09)
+                      enddate:String="" ,//预约开始时间（2018/09/09)
+                      clientName:String="", //客户名称
+                      userType:Int=-1  //用户类型
     ){
                   resourceServiceImpl.submitReserve(OneKeySubmitRequest(id,resourceid,clientid,adtype,userId,startdate,enddate))
                   .execute(object : BaseSucriber<ArrayList<Object>>(baseView, ResourcePresenter::javaClass.name) {
@@ -209,7 +213,9 @@ class ResourcePresenter @Inject constructor():BasePresenter<ResourceView>(){
                             adtype:Int=0 ,//广告类型字典id
                             userId:Int=0 ,//当前登录用户ID
                             startdate:String="" ,//预约开始时间（2018/09/09）
-                            enddate:String="" //预约开始时间（2018/09/09）'
+                            enddate:String="", //预约开始时间（2018/09/09）'
+                            clientName:String="", //客户名称
+                            userType:Int=-1  //用户类型
      ){
         resourceServiceImpl.oneKeySubmitResult(OneKeySubmitRequest(id,resourceid,clientid,adtype,userId,startdate,enddate))
                 .execute(object : BaseSucriber<OneKeyReservedResponse>(baseView, ResourcePresenter::javaClass.name) {

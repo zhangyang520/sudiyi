@@ -12,6 +12,7 @@ data class OneKeySubmitRequest(
     var adtype:Int=0 ,//广告类型字典id
     var userId:Int=0 ,//当前登录用户ID
     var startdate:String="" ,//预约开始时间（2018/09/09）
-    var enddate:String="" //预约开始时间（2018/09/09）
-
+    var enddate:String="", //预约开始时间（2018/09/09)
+    var clientName:String ="",  //客户名称
+    var userType:Int =-1 // 2代理商，3供应商，4销售人员
 )

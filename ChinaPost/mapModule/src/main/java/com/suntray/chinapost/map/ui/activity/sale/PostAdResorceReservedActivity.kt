@@ -66,6 +66,7 @@ class PostAdResorceReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resourc
      * 资源位的获取
      */
     override fun onGetResourceDate(resourceDateResponse: ResourceDateResponse,calendarAction: CalendarAction) {
+        SystemUtil.printlnStr("SingleMonthView onGetResourceDate .....")
         if(calendarAction==CalendarAction.CalendarNext){
          //stateArray
             //下个月
@@ -197,9 +198,20 @@ class PostAdResorceReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resourc
              */
             btn_submmit_reserved.setOnClickListener({
                 if (hasInput()) {
-                    basePresenter.oneKeySubmit(arrayOf(dotId), arrayOf(resourceId),
-                            selectedClient!!.id, chooseAdStyle, UserDao.getLocalUser().id,
-                            tv_choose_start_time.getTxt(), tv_choose_end_time.getTxt())
+                    if(UserDao.getLocalUser().userRole==4){
+                        //销售人员
+                        basePresenter.oneKeySubmit(arrayOf(dotId), arrayOf(resourceId),
+                                selectedClient!!.id, chooseAdStyle, UserDao.getLocalUser().id,
+                                tv_choose_start_time.getTxt(), tv_choose_end_time.getTxt(),"",4)
+
+                    }else if(UserDao.getLocalUser().userRole==2){
+                        //代理商
+                        basePresenter.oneKeySubmit(arrayOf(dotId), arrayOf(resourceId),
+                                -1, chooseAdStyle, UserDao.getLocalUser().id,
+                                tv_choose_start_time.getTxt(), tv_choose_end_time.getTxt(),tv_select_client_content.getTxt(),2)
+                    }else{
+                        ToastUtil.makeText(this@PostAdResorceReservedActivity,"其他类型")
+                    }
                 }
             })
 
@@ -211,9 +223,14 @@ class PostAdResorceReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resourc
                 override fun afterTextChanged(s: Editable?) {
                     //获取内容:
                     //刷新该界面:
-                    if(!isSetContent && !s.toString().equals("")){
-                        pageNumer=1
-                        basePresenter.myClient(UserDao.getLocalUser().id,s.toString(),pageNumer,10,RefreshAction.PullDownRefresh)
+                    if(UserDao.getLocalUser().userRole==4){
+                        if(!isSetContent && !s.toString().equals("")){
+                            pageNumer=1
+                            basePresenter.myClient(UserDao.getLocalUser().id,s.toString(),pageNumer,10,RefreshAction.PullDownRefresh)
+                        }else{
+                            PopupUtils.dismissWindow()
+                            isSetContent=false
+                        }
                     }else{
                         PopupUtils.dismissWindow()
                         isSetContent=false
@@ -312,9 +329,14 @@ class PostAdResorceReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resourc
     private fun hasInput(): Boolean {
         if(tv_select_client_content.hasTxt() && tv_choose_ad_type.hasTxt()
                         && tv_choose_start_time.hasTxt() && tv_choose_end_time.hasTxt()  && chooseAdStyle>0){
-            if(selectedClient==null){
+
+            if(selectedClient==null && UserDao.getLocalUser().userRole==4){
                 ToastUtil.makeText(this@PostAdResorceReservedActivity,"请选择客户名称")
                 tv_select_client_content.setText("")
+                return false
+            }else if(selectedClient==null && UserDao.getLocalUser().userRole==2 && tv_select_client_content.text.isEmpty()){
+                //代理商
+                ToastUtil.makeText(this@PostAdResorceReservedActivity,"请输入客户名称")
                 return false
             }
             if(!tv_select_client_content.getTxt().equals(rightClientName)){

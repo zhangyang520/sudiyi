@@ -31,7 +31,7 @@ class ClientNameAdapter:RecyclerView.Adapter<ClientNameAdapter.ProvinceViewHoler
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ProvinceViewHoler {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProvinceViewHoler {
         var contentView=View.inflate(context,R.layout.recylerview_client_name,null)
 //        var layoutParams=
 //                AutoRelativeLayout.LayoutParams(AutoUtils.getPercentWidthSize(150),AutoUtils.getPercentHeightSize(80))
@@ -54,7 +54,7 @@ class ClientNameAdapter:RecyclerView.Adapter<ClientNameAdapter.ProvinceViewHoler
     #000000 黑色
     -->
      */
-    override fun onBindViewHolder(holder: ProvinceViewHoler?, position: Int) {
+    override fun onBindViewHolder(holder: ProvinceViewHoler, position: Int) {
         holder!!.tv_province!!.setText(provinceList!!.get(position).name)
         holder.itemView.setOnClickListener({
             clickPosition=position
@@ -85,7 +85,7 @@ class ClientNameAdapter:RecyclerView.Adapter<ClientNameAdapter.ProvinceViewHoler
 
         var tv_province:TextView?=null
         var rl_top: AutoRelativeLayout?=null
-        constructor(itemView: View?) : super(itemView){
+        constructor(itemView: View?) : super(itemView!!){
             rl_top=itemView!!.findViewById(R.id.rl_top) as AutoRelativeLayout
             tv_province= itemView!!.findViewById(R.id.tv_province) as TextView
         }

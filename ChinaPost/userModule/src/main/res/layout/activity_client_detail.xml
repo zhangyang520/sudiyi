@@ -41,7 +41,7 @@
                     android:layout_marginTop="20px"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    layout="@layout/upload_aptitude_view"></include>
+                    layout="@layout/upload_aptitude_view_new"></include>
         </com.zhy.autolayout.AutoRelativeLayout>
     </ScrollView>
 </com.zhy.autolayout.AutoLinearLayout>

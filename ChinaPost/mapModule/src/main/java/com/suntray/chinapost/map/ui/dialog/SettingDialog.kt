@@ -81,7 +81,7 @@ class SettingDialog:Dialog{
         rl_yuding=findViewById(R.id.rl_yuding) as AutoLinearLayout
         rl_ad=findViewById(R.id.rl_ad) as AutoLinearLayout
 
-        var dotIndex=AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)
+        var dotIndex=AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)
         currentKeyIndex=dotIndex
         //设置对应的标签
         iv_dot_name!!.isActivated= (dotIndex==0)

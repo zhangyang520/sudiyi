@@ -142,7 +142,12 @@ class SingleMonthView(context: Context) : MonthView(context) {
     }
 
     override fun onDrawText(canvas: Canvas, calendar: Calendar, x: Int, y: Int, hasScheme: Boolean, isSelected: Boolean) {
-        SystemUtil.printlnStr("SingleMonthView onDrawText .....")
+
+        if(stateArray!=null){
+          SystemUtil.printlnStr("SingleMonthView onDrawText .....stateArray:"+(stateArray==null)+"..stateArray size:"+stateArray!!.size+"..calendar:"+calendar.day)
+        }else{
+            SystemUtil.printlnStr("SingleMonthView onDrawText .....stateArray:"+(stateArray==null))
+        }
         val baselineY = mTextBaseLine + y - dipToPx(context, 1f)
         val cx = x + mItemWidth / 2
 

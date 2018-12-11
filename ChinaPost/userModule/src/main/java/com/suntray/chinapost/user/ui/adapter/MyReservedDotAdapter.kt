@@ -17,7 +17,7 @@ import com.suntray.chinapost.user.ui.holder.MyReservedDotHolder
  *  @Date 2018/9/27 0:13
  */
 class MyReservedDotAdapter: DefaultAdapter<MineReservedDot> {
-
+    var selectPositionList:ArrayList<Int> = arrayListOf()
     constructor(datas: MutableList<MineReservedDot>?,
                 lv: ListView?, activity: MineReservedDotActivity?,
                 basePresenter: MineDotPresenter):super(datas,lv,activity){
@@ -27,7 +27,7 @@ class MyReservedDotAdapter: DefaultAdapter<MineReservedDot> {
 
     var myReservedDotHolder:MyReservedDotHolder?=null
     override fun getHolder(): BaseHolder<MineReservedDot> {
-        myReservedDotHolder=MyReservedDotHolder(basePresenter!!,activity as MineReservedDotActivity)
+        myReservedDotHolder=MyReservedDotHolder(basePresenter!!,activity as MineReservedDotActivity,selectPositionList)
         return myReservedDotHolder!!
     }
 
@@ -35,11 +35,12 @@ class MyReservedDotAdapter: DefaultAdapter<MineReservedDot> {
 
     }
 
+
     /**
      * 处理取消全选
      */
     fun processAntiAllSelect(){
-        myReservedDotHolder!!.selectPositionList.clear()
+        myReservedDotHolder!!.selectPositionList!!.clear()
         notifyDataSetChanged()
     }
 

@@ -181,10 +181,12 @@ class UploadImageAdapter(private val context: Context, var imagePathList: ArrayL
                 Glide.with(context).load(File(getItem(position)!!.address)).into(viewHolder.iv_1)
             }else{
                 if(getItem(position)!!.address.startsWith("http")){
-                    Glide.with(context).load(getItem(position)!!.address).error(R.drawable.mine_ic_default1).into(viewHolder.iv_1)
+                    Glide.with(context).load(getItem(position)!!.address).into(viewHolder.iv_1)
+                    //error(R.drawable.mine_ic_default1).
                 }else{
                     Glide.with(context).load(BaseConstants.BASE_UPLOAD_URL +
-                            getItem(position)!!.address).error(R.drawable.mine_ic_default1).into(viewHolder.iv_1)
+                            getItem(position)!!.address).into(viewHolder.iv_1)
+                    //error(R.drawable.mine_ic_default1).
                 }
 
             }

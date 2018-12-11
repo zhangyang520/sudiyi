@@ -1,12 +1,14 @@
 package com.suntray.chinapost.map.data.bean
 
+import java.io.Serializable
+
 
 /**
  *   资源点 一个资源点 -- 包含多个 资源位
  *  @Author 张扬 @version 1.0
  *  @Date 2018/9/17 13:09
  */
-class ResourceDotLocation {
+class ResourceDotLocation:Serializable{
    var id:Int=0 //点位 的id
    var resourceLocation:String="" //资源位置
    var districtType:Int=0 //小区类型

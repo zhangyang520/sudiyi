@@ -4,9 +4,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <TextView
+    <ImageView
+            android:id="@+id/btn_check"
+            android:layout_width="44px"
+            android:layout_height="44px"
+            android:enabled="true"
+            android:background="@drawable/btn_choose_select"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="20px"
-            android:layout_marginTop="20px"
+    ></ImageView>
+
+    <TextView
+            android:layout_toRightOf="@+id/btn_check"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="30px"
             android:id="@+id/tv_resource_name"
             android:layout_width="wrap_content"
             android:text="东门车站旁"
@@ -18,8 +30,9 @@
             android:layout_height="wrap_content"/>
 
     <TextView
+            android:layout_toRightOf="@+id/btn_check"
             android:layout_marginLeft="20px"
-            android:layout_marginBottom="20px"
+            android:layout_marginBottom="30px"
             android:layout_below="@+id/tv_resource_name"
             android:id="@+id/tv_error_msg"
             android:layout_width="wrap_content"

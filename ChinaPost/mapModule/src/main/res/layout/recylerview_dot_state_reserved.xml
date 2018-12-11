@@ -173,6 +173,21 @@
     <Button
             android:layout_below="@+id/view_line2"
             android:layout_marginTop="19px"
+            android:id="@+id/btn_check_date"
+            android:layout_width="168px"
+            android:layout_height="50px"
+            android:text="查看排期"
+            android:textColor="@color/black"
+            android:background="@drawable/map_btn_chakan"
+            android:gravity="center"
+            android:textSize="26px"
+            android:layout_marginBottom="19px"
+            android:layout_marginRight="20px"
+            android:layout_toLeftOf="@+id/btn_yuding_reserved"
+    />
+    <Button
+            android:layout_below="@+id/view_line2"
+            android:layout_marginTop="19px"
             android:id="@+id/btn_chakan_reserved"
             android:layout_width="194px"
             android:layout_height="50px"
@@ -182,7 +197,7 @@
             android:gravity="center"
             android:textSize="26px"
             android:layout_marginBottom="19px"
-            android:layout_toLeftOf="@+id/btn_yuding_reserved"
+            android:layout_toLeftOf="@+id/btn_check_date"
             android:layout_marginRight="40px"
     />
 </com.zhy.autolayout.AutoRelativeLayout>

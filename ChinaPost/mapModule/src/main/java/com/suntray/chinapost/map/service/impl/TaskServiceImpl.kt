@@ -4,7 +4,9 @@ import com.suntray.chinapost.baselibrary.rx.convertData
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.bean.TaskItem
 import com.suntray.chinapost.map.data.request.TaskListRequest
+import com.suntray.chinapost.map.data.request.TaskNumberRequest
 import com.suntray.chinapost.map.data.request.TaskUploadRequest
+import com.suntray.chinapost.map.data.response.TaskNumberResponse
 import com.suntray.chinapost.map.data.respository.TaskRespository
 import com.suntray.chinapost.map.service.TaskService
 import rx.Observable
@@ -37,5 +39,9 @@ class TaskServiceImpl @Inject constructor():TaskService{
      */
     override fun uploadTaskImg(taskUpload: TaskUploadRequest): Observable<Object> {
         return taskRespository.uploadTaskImg(taskUpload).convertData()
+    }
+
+    override fun getTaskNumber(taskNumberRequest: TaskNumberRequest): Observable<TaskNumberResponse> {
+        return taskRespository.getTaskNumber(taskNumberRequest).convertData()
     }
 }

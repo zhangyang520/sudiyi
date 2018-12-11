@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/rl_commercial_instrument"
+        android:paddingLeft="20px"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.zhy.autolayout.AutoLinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/tv_aptitude"
+                android:textSize="20px"
+                android:textColor="#98979C"
+                android:text="基本资质图片(图片大小100k左右)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/tv_base_tips"
+                android:textSize="20px"
+                android:textColor="@color/blue"
+                android:layout_marginLeft="20px"
+                android:text="查看说明"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <GridView
+            android:id="@+id/yingye_gridvew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15px"
+            android:numColumns="3"
+            android:stretchMode="columnWidth">
+    </GridView>
+</com.zhy.autolayout.AutoLinearLayout>
+
+
+<!--卫生许可证-->
+<com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/rl_food_licence"
+        android:paddingLeft="20px"
+        android:layout_marginTop="70px"
+        android:orientation="vertical"
+        android:layout_below="@+id/rl_commercial_instrument"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_food_licence"
+            android:textSize="20px"
+            android:textColor="#98979C"
+            android:text="行业特殊资质(图片大小100k左右)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <GridView
+            android:id="@+id/food_gridvew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15px"
+            android:numColumns="3"
+            android:stretchMode="columnWidth">
+    </GridView>
+</com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

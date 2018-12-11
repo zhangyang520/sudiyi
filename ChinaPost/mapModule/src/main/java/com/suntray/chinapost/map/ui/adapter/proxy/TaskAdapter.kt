@@ -28,7 +28,7 @@ class TaskAdapter:RecyclerView.Adapter<TaskAdapter.TaskViewHolder>{
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): TaskViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         return TaskViewHolder(View.inflate(context, R.layout.recylerview_tasklist,null));
     }
 
@@ -39,7 +39,7 @@ class TaskAdapter:RecyclerView.Adapter<TaskAdapter.TaskViewHolder>{
         return 0
     }
 
-    override fun onBindViewHolder(holder: TaskViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         holder!!.tv_client_name_value!!.setText(taskList.get(position).supplyName)
         holder!!.tv_position!!.setText(taskList.get(position).zoneaddress)
         holder!!.tv_task_area_value!!.setText(taskList.get(position).taskArea)
@@ -81,7 +81,7 @@ class TaskAdapter:RecyclerView.Adapter<TaskAdapter.TaskViewHolder>{
         var btn_look_map:Button?=null
         var btn_upload_pic:Button?=null
 
-        constructor(itemView: View?) : super(itemView){
+        constructor(itemView: View?) : super(itemView!!){
             AutoUtils.autoSize(itemView)
             tv_position=itemView!!.findViewById(R.id.tv_position) as TextView
             tv_client_name_value=itemView!!.findViewById(R.id.tv_client_name_value) as TextView

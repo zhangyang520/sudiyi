@@ -29,8 +29,7 @@ class DistrictAdapter:RecyclerView.Adapter<DistrictAdapter.DistrictViewHolder>{
         this.context = context
     }
 
-
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DistrictViewHolder {
+    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): DistrictViewHolder {
         var contentView=View.inflate(context,R.layout.recylerview_district,null)
         var layoutParams=ViewGroup.LayoutParams(AutoUtils.getPercentWidthSize(750/3),AutoUtils.getPercentHeightSize(88))
         contentView.layoutParams=layoutParams
@@ -46,7 +45,7 @@ class DistrictAdapter:RecyclerView.Adapter<DistrictAdapter.DistrictViewHolder>{
         return 0
     }
 
-    override fun onBindViewHolder(holder: DistrictViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: DistrictViewHolder, position: Int) {
         holder!!.tv_province!!.setText(provinceList!!.get(position).district)
 
         holder.itemView.setOnClickListener({
@@ -72,7 +71,7 @@ class DistrictAdapter:RecyclerView.Adapter<DistrictAdapter.DistrictViewHolder>{
 
         var tv_province:TextView?=null
 
-        constructor(itemView: View?) : super(itemView){
+        constructor(itemView: View?) : super(itemView!!){
             tv_province= itemView!!.findViewById(R.id.tv_district) as TextView
         }
     }

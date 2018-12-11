@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.user.R
+import com.suntray.chinapost.user.data.bean.AptitudeInfo
 import com.suntray.chinapost.user.data.bean.TaskUpload
 import com.suntray.chinapost.user.data.enum.UploadAptitudeEnum
 import com.suntray.chinapost.user.data.enum.UploadTaskEnum
@@ -27,7 +28,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
     /**
      * 控制最多上传的图片数量
      */
-    var imageNumber = 100
+    var imageNumber = 3
     var gridView: GridView? = null
     private var imageHeight: Int = 0//图片的高度
 
@@ -38,9 +39,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
      * 新增的信息  进行更新
      */
     fun  newAddUpdate(imagePath: TaskUpload??){
-        SystemUtil.printlnStr(" this.imagePathList hs"+ this.imagePathList!!.hashCode()+"..enum:"+uploadAptitudeEnum!!.imageList.hashCode())
         this.imagePathList!!.add(0,imagePath!!)
-        SystemUtil.printlnStr("update list size: this.imagePathList:"+imagePathList!!.size)
         //这里控制选择的图片放到前面,默认的图片放到最后面,
         //集合中的总数量等于上传图片的数量加上默认的图片不能大于imageNumber + 1
         if (imagePathList!!.size == imageNumber + 1) {
@@ -57,7 +56,6 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
 
     fun update(imagePathList: ArrayList<TaskUpload?>?) {
         this.imagePathList = imagePathList
-        SystemUtil.printlnStr("update list size: this.imagePathList:"+imagePathList!!.size)
         //这里控制选择的图片放到前面,默认的图片放到最后面,
         //集合中的总数量等于上传图片的数量加上默认的图片不能大于imageNumber + 1
         if (imagePathList!!.size == imageNumber + 1) {
@@ -86,7 +84,6 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 index = lineCount
             }
         }
-
         gridView!!.layoutParams.height = index * imageHeight + (index - 1) * AutoUtils.getPercentWidthSize(15)
         gridView!!.requestLayout()
     }
@@ -152,7 +149,16 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
             viewHolder.iv_1.setImageResource(R.drawable.mine_ic_default3)
             Glide.with(context).load(R.drawable.mine_ic_default3).into(viewHolder.iv_1)
             viewHolder.iv_cancel1.visibility = View.GONE
+
+            if(position==3){
+                //如果为第四个 进行隐藏
+                viewHolder.itemView.visibility=View.GONE
+            }else{
+                viewHolder.itemView.visibility=View.VISIBLE
+            }
+
         } else {
+            viewHolder.itemView.visibility=View.VISIBLE
             println("proImageShow getView 222222 position:$position")
             if(isCancelable){
                 viewHolder.iv_cancel1.visibility = View.VISIBLE
@@ -162,9 +168,6 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
             viewHolder.iv_cancel1.setOnClickListener {
                 //删除 对应的图片
                var aptitudeInfo= imagePathList!!.get(position)
-                SystemUtil.printlnStr("delete aptitudeInfo:"+aptitudeInfo.toString())
-                SystemUtil.printlnStr("delete uploadAptitudeEnum!!.imageList:"+uploadAptitudeEnum!!.imageList)
-                SystemUtil.printlnStr("delete aptitudeInfo contains :"+uploadAptitudeEnum!!.imageList.contains(aptitudeInfo))
                 if(uploadAptitudeEnum!!.imageList.contains(aptitudeInfo)&&
                         !(!aptitudeInfo!!.imgPath.startsWith("http") || aptitudeInfo.id==0)){
                     //如果删除的对象 包含在 原有的集合中
@@ -173,6 +176,10 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                     SystemUtil.printlnStr(uploadAptitudeEnum!!.yingyePathId+"..delete size:"+uploadAptitudeEnum!!.deleteList.size)
                 }else{
                     imagePathList!!.removeAt(position)
+                }
+                if(imagePathList!!.size<3){
+                    //如果执行删除之后 , 集合的长度 <=3
+                    imagePathList!!.add(TaskUpload())
                 }
                 //更新结构
                 update(imagePathList)
@@ -183,10 +190,11 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
             }else{
                 if(getItem(position)!!.imgPath.startsWith("http")){
                     Glide.with(context).load(
-                            getItem(position)!!.imgPath).error(R.drawable.mine_ic_default1).into(viewHolder.iv_1)
+                            getItem(position)!!.imgPath).into(viewHolder.iv_1)
                 }else{
                     Glide.with(context).load(BaseConstants.BASE_UPLOAD_URL +
-                            getItem(position)!!.imgPath).error(R.drawable.mine_ic_default1).into(viewHolder.iv_1)
+                            getItem(position)!!.imgPath).into(viewHolder.iv_1)
+                    //error(R.drawable.mine_ic_default1).
                 }
             }
         }

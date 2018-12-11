@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
+import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.map.R
 import com.suntray.chinapost.map.data.bean.AdStyleEnum
 import com.suntray.chinapost.map.data.bean.ResourceDotLocation
@@ -43,7 +44,7 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             return resourceDotLocation!!.resourceAdList.get(position-1).state
         }
     }
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if(viewType==AdStyleEnum.AdIdle.getStyle()){
             //空闲
             return IdleRecylerViewHolder(View.inflate(context, R.layout.recylerview_dot_state_idle,null));
@@ -74,11 +75,11 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is TitleRecylerViewHolder){
             //设置图片
-            Glide.with(context).load(resourceDotLocation!!.infoImage)
-                        .error(R.drawable.icon_default).into(holder.iv_info)
+            Glide.with(context!!).load(resourceDotLocation!!.infoImage).into(holder.iv_info!!)
+                    //error(R.drawable.icon_default).
                             .onLoadStarted(context!!.resources.getDrawable(R.drawable.icon_default))
             holder.tv_info_devive_specification!!.setText(resourceDotLocation!!.deviceSpecification)
 
@@ -94,9 +95,7 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             })
             //网点名称
             holder.tv_wangdain_value!!.setText(resourceDotLocation!!.wangdianName)
-            SystemUtil.printlnStr("resourceDotLocation!!.cityname:"+resourceDotLocation!!.cityname+
-                                           "..resourceDotLocation!!.districtname:"+resourceDotLocation!!.districtname+
-                                            "resourceDotLocation!!.zoneaddress:"+resourceDotLocation!!.zoneaddress)
+
             holder.tv_device_position_value!!.setText(resourceDotLocation!!.cityname
                                    +resourceDotLocation!!.districtname
                                    +resourceDotLocation!!.zoneaddress
@@ -105,13 +104,11 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             holder.tv_info_district_type!!.setText(resourceDotLocation!!.zonename)
 
             holder.tv_info_limit_type!!.setText(resourceDotLocation!!.publishtypename)
-            SystemUtil.printlnStr("resourceDotLocation!!.resourceLocation:"+resourceDotLocation!!.resourceLocation)
+
             holder.tv_dot_location!!.setText(resourceDotLocation!!.resourceLocation)
             holder.tv_info_location!!.setText(resourceDotLocation!!.deviceId)
-        }else if(holder is IdleRecylerViewHolder){
-            //空闲状态
-            holder.tv_ad_down_value!!.setText("无")
 
+        }else if(holder is IdleRecylerViewHolder){
             //判断 任务类型 ---> 1:上刊 2:下刊
             if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
                 //查看下刊报告
@@ -144,9 +141,37 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }else{
                 holder.tv_ad_type_value!!.setText(resourceDotLocation!!.resourceAdList.get(position-1).typename)
             }
+
+            if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
+                holder.tv_ad_down!!.text="上刊时间"
+                holder.tv_ad_down_value!!.text=resourceDotLocation!!.resourceAdList.get(position-1).uploadDate
+            }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
+                holder.tv_ad_down!!.text = "下刊时间"
+                holder.tv_ad_down_value!!.text = resourceDotLocation!!.resourceAdList.get(position - 1).uploadDate
+            }else{
+                holder.tv_ad_down!!.text = "暂无时间"
+                holder.tv_ad_down_value!!.text =""
+            }
+
+            //查看排期
+            holder.btn_check_date!!.setOnClickListener({
+               ARouter.getInstance().build(RouterPath.MapModule.POST_AD_CHECK_DATE)
+                        .withSerializable("resorceAd",resourceDotLocation!!.resourceAdList.get(position - 1))
+                        .withSerializable("resourceDotLocation",resourceDotLocation).navigation()
+            })
+
         }else if(holder is UnUsedRecylerViewHolder){
             //空闲状态
-            holder.tv_ad_down_unused_value!!.setText("无")
+            if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
+                holder.tv_ad_down!!.text="上刊时间"
+                holder.tv_ad_down_unused_value!!.text=resourceDotLocation!!.resourceAdList.get(position-1).uploadDate
+            }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
+                holder.tv_ad_down!!.text = "下刊时间"
+                holder.tv_ad_down_unused_value!!.text = resourceDotLocation!!.resourceAdList.get(position - 1).uploadDate
+            }else{
+                holder.tv_ad_down!!.text = "暂无时间"
+                holder.tv_ad_down_unused_value!!.text =""
+            }
 
             //判断 任务类型 ---> 1:上刊 2:下刊
             if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
@@ -180,7 +205,26 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }else{
                 holder.tv_ad_name_unused!!.setText(resourceDotLocation!!.resourceAdList.get(position-1).typename)
             }
+
+            //查看排期
+            holder.btn_check_date!!.setOnClickListener({
+                ARouter.getInstance().build(RouterPath.MapModule.POST_AD_CHECK_DATE)
+                        .withSerializable("resorceAd",resourceDotLocation!!.resourceAdList.get(position - 1))
+                        .withSerializable("resourceDotLocation",resourceDotLocation).navigation()
+            })
+
         }else if(holder is LockedRecylerViewHolder){
+            //空闲状态
+            if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
+                holder.tv_ad_down_error!!.text="上刊时间"
+                holder.tv_ad_down_value_error!!.text=resourceDotLocation!!.resourceAdList.get(position-1).uploadDate
+            }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
+                holder.tv_ad_down_error!!.text = "下刊时间"
+                holder.tv_ad_down_value_error!!.text = resourceDotLocation!!.resourceAdList.get(position - 1).uploadDate
+            }else{
+                holder.tv_ad_down_error!!.text = "暂无时间"
+                holder.tv_ad_down_value_error!!.text =""
+            }
 
             //判断 任务类型 ---> 1:上刊 2:下刊
             if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
@@ -215,7 +259,26 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }else{
                 holder.tv_ad_type_value_error!!.setText(resourceDotLocation!!.resourceAdList.get(position-1).typename)
             }
+
+            //查看排期
+            holder.btn_check_date!!.setOnClickListener({
+                ARouter.getInstance().build(RouterPath.MapModule.POST_AD_CHECK_DATE)
+                        .withSerializable("resorceAd",resourceDotLocation!!.resourceAdList.get(position - 1))
+                        .withSerializable("resourceDotLocation",resourceDotLocation).navigation()
+            })
+
         }else if(holder is ReservedRecylerViewHolder){
+             //空闲状态
+            if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
+                holder.tv_ad_period!!.text="上刊时间"
+                holder.tv_ad_period_value!!.text=resourceDotLocation!!.resourceAdList.get(position-1).uploadDate
+            }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
+                holder.tv_ad_period!!.text = "下刊时间"
+                holder.tv_ad_period_value!!.text = resourceDotLocation!!.resourceAdList.get(position - 1).uploadDate
+            }else{
+                holder.tv_ad_period!!.text = "暂无时间"
+                holder.tv_ad_period_value!!.text =""
+            }
 
             //判断 任务类型 ---> 1:上刊 2:下刊
             if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
@@ -253,6 +316,13 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }else{
                 holder.tv_ad_summary_value!!.setText(resourceDotLocation!!.resourceAdList.get(position-1).typename)
             }
+
+            //查看排期
+            holder.btn_check_date!!.setOnClickListener({
+                ARouter.getInstance().build(RouterPath.MapModule.POST_AD_CHECK_DATE)
+                        .withSerializable("resorceAd",resourceDotLocation!!.resourceAdList.get(position - 1))
+                        .withSerializable("resourceDotLocation",resourceDotLocation).navigation()
+            })
         }
     }
 
@@ -268,8 +338,9 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
         var tv_wangdain_value:TextView?=null
         var tv_device_position_value:TextView?=null
 
+
         var iv_info:ImageView?=null
-        constructor(itemView: View?) : super(itemView){
+        constructor(itemView: View?) : super(itemView!!){
             tv_info_devive_specification=itemView!!.findViewById(R.id.tv_info_devive_specification) as TextView
             tv_info_district_type=itemView!!.findViewById(R.id.tv_info_district_type) as TextView
             tv_info_location=itemView!!.findViewById(R.id.tv_info_location) as TextView
@@ -290,13 +361,18 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
         var tv_ad_down_value:TextView?=null
         var btn_yuding:Button?=null
         var btn_chakan:Button?=null
+        var tv_ad_down:TextView?=null
+        var btn_check_date:Button?=null
 
-        constructor(itemView: View?) : super(itemView){
+        constructor(itemView: View?) : super(itemView!!){
             tv_ad_name=itemView!!.findViewById(R.id.tv_ad_name) as TextView
             tv_ad_type_value=itemView!!.findViewById(R.id.tv_ad_type_value) as TextView
             tv_ad_down_value=itemView!!.findViewById(R.id.tv_ad_down_value) as TextView
             btn_yuding=itemView!!.findViewById(R.id.btn_yuding) as Button
             btn_chakan=itemView!!.findViewById(R.id.btn_chakan) as Button
+            btn_check_date=itemView!!.findViewById(R.id.btn_check_date) as Button
+
+            tv_ad_down=itemView!!.findViewById(R.id.tv_ad_down) as TextView
         }
     }
 
@@ -307,13 +383,17 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
         var tv_ad_down_unused_value:TextView?=null
         var btn_yuding_unused:Button?=null
         var btn_chakan_unused:Button?=null
+        var tv_ad_down:TextView?=null
+        var btn_check_date:Button?=null
 
-        constructor(itemView: View?) : super(itemView){
+        constructor(itemView: View?) : super(itemView!!){
             tv_ad_name_unused=itemView!!.findViewById(R.id.tv_ad_name_unused) as TextView
             tv_ad_type_unused_value=itemView!!.findViewById(R.id.tv_ad_type_unused_value) as TextView
             tv_ad_down_unused_value=itemView!!.findViewById(R.id.tv_ad_down_unused_value) as TextView
+            tv_ad_down=itemView!!.findViewById(R.id.tv_ad_down) as TextView
             btn_yuding_unused=itemView!!.findViewById(R.id.btn_yuding_unused) as Button
             btn_chakan_unused=itemView!!.findViewById(R.id.btn_chakan_unused) as Button
+            btn_check_date=itemView!!.findViewById(R.id.btn_check_date) as Button
         }
     }
 
@@ -326,14 +406,20 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
         var tv_ad_summary_value:TextView?=null
         var btn_yuding_reserved:Button?=null
         var btn_chakan_reserved:Button?=null
+        var btn_check_date:Button?=null
+        var tv_ad_period:TextView ?=null
 
-        constructor(itemView: View?) : super(itemView){
+        constructor(itemView: View?) : super(itemView!!){
             tv_ad_name=itemView!!.findViewById(R.id.tv_ad_name) as TextView
             tv_ad_belong_value=itemView!!.findViewById(R.id.tv_ad_belong_value) as TextView
             tv_ad_period_value=itemView!!.findViewById(R.id.tv_ad_period_value) as TextView
             tv_ad_summary_value=itemView!!.findViewById(R.id.tv_ad_summary_value) as TextView
+
+            tv_ad_period=itemView!!.findViewById(R.id.tv_ad_period) as TextView
             btn_yuding_reserved=itemView!!.findViewById(R.id.btn_yuding_reserved) as Button
             btn_chakan_reserved=itemView!!.findViewById(R.id.btn_chakan_reserved) as Button
+            btn_check_date=itemView!!.findViewById(R.id.btn_check_date) as Button
+
         }
     }
 
@@ -345,13 +431,18 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
         var tv_ad_down_value_error:TextView?=null
         var btn_yuding_error:Button?=null
         var btn_chakan_error:Button?=null
+        var tv_ad_down_error:TextView?=null
+        var btn_check_date:Button?=null
 
-        constructor(itemView: View?) : super(itemView){
+        constructor(itemView: View?) : super(itemView!!){
             tv_ad_name_error=itemView!!.findViewById(R.id.tv_ad_name_error)  as TextView
             tv_ad_type_value_error=itemView!!.findViewById(R.id.tv_ad_type_value_error) as TextView
             tv_ad_down_value_error=itemView!!.findViewById(R.id.tv_ad_down_value_error) as TextView
+
+            tv_ad_down_error=itemView!!.findViewById(R.id.tv_ad_down_error) as TextView
             btn_yuding_error=itemView!!.findViewById(R.id.btn_yuding_error) as Button
             btn_chakan_error=itemView!!.findViewById(R.id.btn_chakan_error) as Button
+            btn_check_date=itemView!!.findViewById(R.id.btn_check_date) as Button
         }
     }
 }

@@ -25,7 +25,7 @@ class RoleAdapter: RecyclerView.Adapter<RoleAdapter.RoleViewHolder>{
         this.context = context
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RoleViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoleViewHolder {
         return RoleViewHolder(View.inflate(context, R.layout.item_role,null))
     }
 
@@ -36,7 +36,7 @@ class RoleAdapter: RecyclerView.Adapter<RoleAdapter.RoleViewHolder>{
         return 0
     }
 
-    override fun onBindViewHolder(holder: RoleViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RoleViewHolder, position: Int) {
         holder!!.tv_role!!.setText(roleList!!.get(position).roleName )
         holder.itemView.setOnClickListener({
             if(RolePopup.window!=null){
@@ -52,7 +52,7 @@ class RoleAdapter: RecyclerView.Adapter<RoleAdapter.RoleViewHolder>{
    class RoleViewHolder: RecyclerView.ViewHolder{
        var tv_role:TextView?=null
 
-       constructor(itemView: View?):super(itemView){
+       constructor(itemView: View?):super(itemView!!){
            AutoUtils.autoSize(itemView)
            var layoutParams=
                    ViewGroup.LayoutParams(AutoUtils.getPercentWidthSize(710),AutoUtils.getPercentHeightSize(88))

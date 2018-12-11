@@ -18,6 +18,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.dao.UserDao
 import com.suntray.chinapost.baselibrary.ui.activity.BaseMvpActivity
+import com.suntray.chinapost.baselibrary.ui.progressbar.KProgressHUD
 import com.suntray.chinapost.baselibrary.utils.SDCardUtil
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.baselibrary.utils.ToastUtil
@@ -29,7 +30,6 @@ import com.suntray.chinapost.map.presenter.TaskPresenter
 import com.suntray.chinapost.map.presenter.view.TaskView
 import com.suntray.chinapost.provider.RouterPath
 import com.suntray.chinapost.user.data.bean.TaskUpload
-import com.suntray.chinapost.user.data.enum.UploadAptitudeEnum
 import com.suntray.chinapost.user.data.enum.UploadTaskEnum
 import com.suntray.chinapost.user.ui.adapter.TaskUploadImageAdapter
 import com.zhy.autolayout.utils.AutoUtils
@@ -67,7 +67,7 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         viewtitle="任务详情"
 
         isCanEditable=intent.getBooleanExtra("editAble",false)
-        firstType=intent.getIntExtra("firstType",0)
+        firstType=intent.getIntExtra("firstType",1)
         taskEntity= intent.getSerializableExtra("taskEntity") as TaskEntity?
 
         if(taskEntity==null){
@@ -106,6 +106,7 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         }
 
         if(isCanEditable){
+            hud2= KProgressHUD(this@TaskDetailActivity).setLabel("图片上传中....").setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             ll_bottom.visibility=View.VISIBLE
         }else{
             ll_bottom.visibility=View.GONE
@@ -116,6 +117,7 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             UploadTaskEnum.UpKan.yingyePathId=""
             UploadTaskEnum.UpKan.currentNumber=0
             UploadTaskEnum.UpKan.getPathList().clear()
+            UploadTaskEnum.UpKan.imageList.clear()
             UploadTaskEnum.UpKan.deleteList.clear()
             UploadTaskEnum.UpKan.newAddList.clear()
             UploadTaskEnum.UpKan.newIdsList.clear()
@@ -129,6 +131,7 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             UploadTaskEnum.DownKan.yingyePathId=""
             UploadTaskEnum.DownKan.currentNumber=0
             UploadTaskEnum.DownKan.getPathList().clear()
+            UploadTaskEnum.DownKan.imageList.clear()
             UploadTaskEnum.DownKan.deleteList.clear()
             UploadTaskEnum.DownKan.newAddList.clear()
             UploadTaskEnum.DownKan.newIdsList.clear()
@@ -175,16 +178,17 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
          */
         btn_submit.setOnClickListener({
             if(canUpload()){
+                val description = RequestBody.create(MediaType.parse("multipart/form-data"), "this is a description")
                 if(firstType==1){
                     //上刊
-                    basePresenter.uploadTaskImg(taskEntity!!.pointTaskId,taskEntity!!.taskId,taskEntity!!.state.toInt(),
+                    basePresenter.uploadTaskImg(taskEntity!!.pointTaskId,taskEntity!!.taskId,firstType,
                             UserDao.getLocalUser().id,getMultiPartBody(UploadTaskEnum.UpKan),
-                            getDeleteIds(UploadTaskEnum.UpKan.newIdsList)!!,getDeleteIds(UploadTaskEnum.UpKan.deleteList))
+                            getNewAddIds(UploadTaskEnum.UpKan.newAddList)!!,getDeleteIds(UploadTaskEnum.UpKan.deleteList),description)
                 }else{
                     //下刊
-                    basePresenter.uploadTaskImg(taskEntity!!.pointTaskId,taskEntity!!.taskId,taskEntity!!.state.toInt(),
+                    basePresenter.uploadTaskImg(taskEntity!!.pointTaskId,taskEntity!!.taskId,firstType,
                             UserDao.getLocalUser().id,getMultiPartBody(UploadTaskEnum.DownKan),
-                            getDeleteIds(UploadTaskEnum.DownKan.newIdsList),getDeleteIds(UploadTaskEnum.DownKan.deleteList))
+                            getNewAddIds(UploadTaskEnum.DownKan.newAddList),getDeleteIds(UploadTaskEnum.DownKan.deleteList),description)
                 }
             }else{
                 ToastUtil.makeText(this@TaskDetailActivity,"暂时不能上传")
@@ -194,6 +198,8 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
 
     override fun onUploadTaskImg() {
         ToastUtil.makeText(this@TaskDetailActivity,"上传成功")
+        setResult(101)
+        finish()
     }
     /**
      * 是否 能够上传
@@ -268,7 +274,7 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
 
     var tempFile: File?=null
     /* 头像名称 */
-    private val PHOTO_FILE_NAME = "temp_photo.jpg"
+    private var PHOTO_FILE_NAME = "temp_photo.jpg"
     /**
      * 打开摄像机按钮功能
      */
@@ -277,12 +283,13 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         // 判断存储卡是否可以用，可用进行存储
         if (hasSdcard()) {
+            PHOTO_FILE_NAME=System.currentTimeMillis().toString()+"_temp_photo.jpg"
             tempFile = File(Environment.getExternalStorageDirectory(), PHOTO_FILE_NAME)
             // 从文件中创建uri
             val uri: Uri
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 uri = FileProvider.getUriForFile(this, packageName+".FileProvider",
-                        tempFile)
+                        tempFile!!)
             } else {
                 uri = Uri.fromFile(tempFile)
             }
@@ -316,17 +323,21 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         } else if (requestCode == PHOTO_REQUEST_CAREMA) {
             SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop 22222:"+requestCode)
             if (hasSdcard()) {
-                SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop:"+requestCode)
-                tempFile = File(Environment.getExternalStorageDirectory(), PHOTO_FILE_NAME)
+//                SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop:"+requestCode)
+//                tempFile = File(Environment.getExternalStorageDirectory(), PHOTO_FILE_NAME)
                 val uri: Uri
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     uri = FileProvider.getUriForFile(this, "$packageName.FileProvider",
-                            tempFile)
+                            tempFile!!)
                 } else {
                     uri = Uri.fromFile(tempFile)
                 }
-
-                crop(uri)
+                // todo 截图有问题
+//                crop(uri)
+                proImageShow(tempFile!!.path)
+                if(photoWindow!=null && photoWindow!!.isShowing){
+                    photoWindow!!.dismiss()
+                }
             } else {
                 Toast.makeText(this@TaskDetailActivity, "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show()
             }
@@ -359,12 +370,8 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         var aptitudeInfo=TaskUpload(fileName)
         if(firstType==1){
             UploadTaskEnum.UpKan!!.newAddList.add(0, aptitudeInfo)
-            UploadTaskEnum.UpKan!!.newIdsList.add(-1)
-            UploadTaskEnum.UpKan!!.newIdsList.add(-1)
         }else{
             UploadTaskEnum.DownKan!!.newAddList.add(0, aptitudeInfo)
-            UploadTaskEnum.DownKan!!.newIdsList.add(-1)
-            UploadTaskEnum.DownKan!!.newIdsList.add(-1)
         }
         kanAdapter!!.newAddUpdate(aptitudeInfo)
     }
@@ -442,6 +449,14 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         return parts;
     }
 
+    private fun getNewAddIds(arrayList:ArrayList<TaskUpload>):Array<Int?>{
+
+        var deleteIdInters= arrayOfNulls<Int>(arrayList.size)
+        for(index in arrayList.indices){
+            deleteIdInters.set(index,-1)
+        }
+        return deleteIdInters
+    }
     /**
      * 获取得到  数组
      */

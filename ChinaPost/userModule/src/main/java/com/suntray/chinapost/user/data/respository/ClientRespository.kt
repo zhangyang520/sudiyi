@@ -80,17 +80,9 @@ class ClientRespository @Inject constructor(){
      */
     fun uploadAllAptitudeImage(uploadAllAptitudeImageRequest: UploadAllAptitudeImageRequest):Observable<BaseResp<ArrayList<Object>>>{
         return RetrofitFactory.instance.create(ClientApi::class.java)
-                .uploadAllAptitudeImage(uploadAllAptitudeImageRequest.licenseFiles,
+                .uploadAllAptitudeImage(uploadAllAptitudeImageRequest.baseFiles,
                         uploadAllAptitudeImageRequest.cid,
-                        uploadAllAptitudeImageRequest.healthFiles,
-                        uploadAllAptitudeImageRequest.portraitFiles,
-                        uploadAllAptitudeImageRequest.trademarkFiles,
-                        uploadAllAptitudeImageRequest.urlFiles,
-                        uploadAllAptitudeImageRequest.qrcodeFiles,
-                        uploadAllAptitudeImageRequest.clientdisclaimerFiles,
-                        uploadAllAptitudeImageRequest.expressdisclaimerFiles,
-                        uploadAllAptitudeImageRequest.landsaleFiles,
-                        uploadAllAptitudeImageRequest.otherFiles,
+                        uploadAllAptitudeImageRequest.specialFiles,
                         uploadAllAptitudeImageRequest.descritpion,
                         uploadAllAptitudeImageRequest.id,
                         uploadAllAptitudeImageRequest.deleteFileIds

@@ -18,6 +18,8 @@ import com.suntray.chinapost.provider.RouterPath
 class WalkRouteCalculateActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        mStartPoint = intent.getParcelableExtra("startPoint")
+        mEndPoint = intent.getParcelableExtra("endPoint")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_basic_navi)
         mAMapNaviView = findViewById(R.id.navi_view) as AMapNaviView
@@ -28,7 +30,7 @@ class WalkRouteCalculateActivity : BaseActivity() {
 
     override fun onInitNaviSuccess() {
         super.onInitNaviSuccess()
-        mAMapNavi!!.calculateWalkRoute(NaviLatLng(39.942295, 116.335891), NaviLatLng(39.995576, 116.481288))
+        mAMapNavi!!.calculateWalkRoute(NaviLatLng(mStartPoint.latitude, mStartPoint.longitude), NaviLatLng(mEndPoint.latitude, mEndPoint.longitude))
 
     }
 

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.amap.api.location.AMapLocation
 import com.amap.api.maps.AMap
 import com.amap.api.maps.MapView
 import com.amap.api.maps.model.BitmapDescriptorFactory
@@ -18,6 +19,7 @@ import com.amap.api.services.core.AMapException
 import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.route.*
 import com.suntray.chinapost.map.R
+import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.ui.adapter.proxy.BusResultListAdapter
 import com.suntray.chinapost.map.utils.AMapUtil
 import com.suntray.chinapost.map.utils.ToastUtil
@@ -43,8 +45,10 @@ class RouteActivity : Activity(), AMap.OnMapClickListener, AMap.OnMarkerClickLis
     private var mWalkRouteResult: WalkRouteResult? = null
     private val mStartPoint = LatLonPoint(39.942295, 116.335891)//起点，116.335891,39.942295
     private val mEndPoint = LatLonPoint(39.995576, 116.481288)//终点，116.481288,39.995576
+
     private val mStartPoint_bus = LatLonPoint(40.818311, 111.670801)//起点，111.670801,40.818311
     private val mEndPoint_bus = LatLonPoint(44.433942, 125.184449)//终点，
+
     private val mCurrentCityName = "北京"
     private val ROUTE_TYPE_BUS = 1
     private val ROUTE_TYPE_DRIVE = 2
@@ -60,9 +64,32 @@ class RouteActivity : Activity(), AMap.OnMapClickListener, AMap.OnMarkerClickLis
     private var mWalk: ImageView? = null
     private var mBusResultList: ListView? = null
     private var progDialog: ProgressDialog? = null// 搜索时进度条
+
+    //任务的实体
+    private var taskEntity:TaskEntity?=null
+    //定位实体
+    private var currntLocation:AMapLocation?=null
+
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
         setContentView(R.layout.route_activity)
+
+        //目标经纬度
+        taskEntity=intent.getSerializableExtra("taskEntity") as TaskEntity
+        //当前的经纬度
+        currntLocation=intent.getParcelableExtra<AMapLocation>("currntLocation")
+
+        mStartPoint.latitude=currntLocation!!.latitude
+        mStartPoint.longitude=currntLocation!!.longitude
+
+        mEndPoint.latitude=taskEntity!!.latitude.toDouble()
+        mEndPoint.longitude=taskEntity!!.longitude.toDouble()
+
+        mStartPoint_bus.latitude=currntLocation!!.latitude
+        mStartPoint_bus.longitude=currntLocation!!.longitude
+
+        mEndPoint_bus.latitude=taskEntity!!.latitude.toDouble()
+        mEndPoint_bus.longitude=taskEntity!!.longitude.toDouble()
 
         mContext = this.applicationContext
         mapView = findViewById(R.id.route_map) as MapView
@@ -70,14 +97,13 @@ class RouteActivity : Activity(), AMap.OnMapClickListener, AMap.OnMarkerClickLis
         init()
         //		getIntentData();
         setfromandtoMarker()
-
-
     }
 
     private fun setfromandtoMarker() {
         aMap!!.addMarker(MarkerOptions()
                 .position(AMapUtil.convertToLatLng(mStartPoint))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)))
+
         aMap!!.addMarker(MarkerOptions()
                 .position(AMapUtil.convertToLatLng(mEndPoint))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.end)))
@@ -277,6 +303,8 @@ class RouteActivity : Activity(), AMap.OnMapClickListener, AMap.OnMarkerClickLis
                         val intent = Intent(mContext,
                                 DriveRouteDetailActivity::class.java)
                         intent.putExtra("drive_path", drivePath)
+                        intent.putExtra("startPoint",mStartPoint)
+                        intent.putExtra("endPoint",mEndPoint)
                         intent.putExtra("drive_result",
                                 mDriveRouteResult)
                         startActivity(intent)
@@ -322,6 +350,8 @@ class RouteActivity : Activity(), AMap.OnMapClickListener, AMap.OnMarkerClickLis
                     mBottomLayout!!.setOnClickListener {
                         val intent = Intent(mContext,
                                 WalkRouteDetailActivity::class.java)
+                        intent.putExtra("startPoint",mStartPoint)
+                        intent.putExtra("endPoint",mEndPoint)
                         intent.putExtra("walk_path", walkPath)
                         intent.putExtra("walk_result",
                                 mWalkRouteResult)

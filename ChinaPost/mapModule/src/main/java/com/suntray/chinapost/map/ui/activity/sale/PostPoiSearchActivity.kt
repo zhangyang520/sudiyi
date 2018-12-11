@@ -245,7 +245,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             override fun afterTextChanged(s: Editable?) {
                 //内容改变时
                 if(isCanAccess){
-                    if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)==1){
+                    if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)==1){
                         //地理位置 查询高德地图的api
                         val newText = s.toString().trim { it <= ' ' }
                         val inputquery = InputtipsQuery(newText, "北京")
@@ -301,12 +301,17 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                                 DateUtil.dateFormat(Calendar.getInstance().time))
                         var endTime=AppPrefsUtils.getString(MapContstants.SETTING_ENDTIME,
                                 DateUtil.dateFormat(Calendar.getInstance().time))
-                        basePresenter.radiusDot(RadiusDotRequest(currntLocation!!.longitude,currntLocation!!.latitude,
-                                currentRadius.toDouble(),et_input_search.getTxt(),
-                                "0",1,30, UserDao.getLocalUser().id,
-                                currntLocation!!.adCode.toInt(),-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)+1,
-                                AppPrefsUtils.getInt(MapContstants.SETTING_ADTYPEID,-1),
-                                AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime))
+
+                        try {
+                            basePresenter.radiusDot(RadiusDotRequest(currntLocation!!.longitude,currntLocation!!.latitude,
+                                    currentRadius.toDouble(),et_input_search.getTxt(),
+                                    "0",1,30, UserDao.getLocalUser().id,
+                                    currntLocation!!.adCode.toInt(),-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)+1,
+                                    AppPrefsUtils.getInt(MapContstants.SETTING_ADTYPEID,-1),
+                                    AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime))
+                        } catch (e: NumberFormatException) {
+
+                        }
                     }
 
                     override fun onPositionClickListener() {
@@ -422,7 +427,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                     inputlist.visibility=View.INVISIBLE
                     doRequestRadius()
                 }else{
-                    if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)==0){
+                    if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)==0){
                         //点位名称
                         ToastUtil.makeText(this@PostPoiSearchActivity,"请输入点位名称")
                     }else{
@@ -507,7 +512,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
         if(currentMapDot!=null){
             currentMapDot!!.clear()
         }
-        if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)==1
+        if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)==1
                 && !et_input_search.getTxt().equals("") && currentTip!=null &&
                 et_input_search.getTxt().equals(currentTip!!.name) && currentTip!!.point!=null){
             //此时能够切换
@@ -539,7 +544,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
         currentMapDot =mapDot;
         SystemUtil.printlnStr("11111  currentTip ......SETTING_KEYWORDINDEX："+
                 AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)+"..currentTip!!.name:"+(currentTip!=null))
-        if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)==1
+        if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)==1
                     && !et_input_search.getTxt().equals("") && currentTip!=null &&
                 et_input_search.getTxt().equals(currentTip!!.name) && currentTip!!.point!=null){
             //此时能够切换
@@ -633,7 +638,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             887 ->
                 //开启GPS，重新添加地理监听
@@ -723,18 +728,22 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
      * 请求 半径搜索
      */
     fun doRequestRadius(){
-        if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)==0){
+        if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)==0){
             //点位名称
             var startTime=AppPrefsUtils.getString(MapContstants.SETTING_STARTTIME,
                     DateUtil.dateFormat(Calendar.getInstance().time))
             var endTime=AppPrefsUtils.getString(MapContstants.SETTING_ENDTIME,
                     DateUtil.dateFormat(Calendar.getInstance().time))
-            basePresenter.radiusDot(RadiusDotRequest(currntLocation!!.longitude,currntLocation!!.latitude,
-                                         currentRadius.toDouble(),et_input_search.getTxt(),
-                                      "0",1,30, UserDao.getLocalUser().id,
-                    currntLocation!!.adCode.toInt(),-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)+1,
-                         AppPrefsUtils.getInt(MapContstants.SETTING_ADTYPEID,-1),
-                             AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime))
+            try {
+                basePresenter.radiusDot(RadiusDotRequest(currntLocation!!.longitude,currntLocation!!.latitude,
+                        currentRadius.toDouble(),et_input_search.getTxt(),
+                        "0",1,30, UserDao.getLocalUser().id,
+                        currntLocation!!.adCode.toInt(),-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)+1,
+                        AppPrefsUtils.getInt(MapContstants.SETTING_ADTYPEID,-1),
+                        AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime))
+            } catch (e: NumberFormatException) {
+                e.printStackTrace()
+            }
         }else{
             //地理位置
             //点位名称
@@ -746,22 +755,29 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             SystemUtil.printlnStr("adCode:"+currntLocation!!.adCode+"..city:"+currntLocation!!.cityCode)
             if(currentTip!=null && currentTip!!.name.equals(et_input_search.getTxt())){
                 //如果输入不为空  且等于 当前的tip的 内容
-                city=currentTip!!.adcode.toInt()
-                basePresenter.radiusDot(RadiusDotRequest(currentTip!!.point.longitude,currentTip!!.point.latitude,
-                        currentRadius.toDouble(),et_input_search.getTxt(), "0",1,30, UserDao.getLocalUser().id,
-                        city,-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)+1,
-                        AppPrefsUtils.getInt(MapContstants.SETTING_ADTYPEID,-1),
-                        AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime))
+                try {
+                    city=currentTip!!.adcode.toInt()
+                    basePresenter.radiusDot(RadiusDotRequest(currentTip!!.point.longitude,currentTip!!.point.latitude,
+                            currentRadius.toDouble(),et_input_search.getTxt(), "0",1,30, UserDao.getLocalUser().id,
+                            city,-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)+1,
+                            AppPrefsUtils.getInt(MapContstants.SETTING_ADTYPEID,-1),
+                            AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime))
+                } catch (e: NumberFormatException) {
+                    e.printStackTrace()
+                }
             }else{
                 //不等的情况
-                city=currntLocation!!.adCode.toInt()
-                basePresenter.radiusDot(RadiusDotRequest(currntLocation!!.longitude,currntLocation!!.latitude,
-                        currentRadius.toDouble(),et_input_search.getTxt(), "0",1,30, UserDao.getLocalUser().id,
-                        city,-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)+1,
-                        AppPrefsUtils.getInt(MapContstants.SETTING_ADTYPEID,-1),
-                        AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime))
+                try {
+                    city=currntLocation!!.adCode.toInt()
+                    basePresenter.radiusDot(RadiusDotRequest(currntLocation!!.longitude,currntLocation!!.latitude,
+                            currentRadius.toDouble(),et_input_search.getTxt(), "0",1,30, UserDao.getLocalUser().id,
+                            city,-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)+1,
+                            AppPrefsUtils.getInt(MapContstants.SETTING_ADTYPEID,-1),
+                            AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime))
+                } catch (e: NumberFormatException) {
+                    e.printStackTrace()
+                }
             }
-
         }
     }
 }

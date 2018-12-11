@@ -52,7 +52,8 @@ class PostAdDownActivity:BaseMvpActivity<ResourcePresenter>(),ResourceView{
                 var layoutParams=LinearLayout.LayoutParams(AutoUtils.getPercentWidthSize(750),AutoUtils.getPercentHeightSize(460))
                 imageView.layoutParams=layoutParams
                 imageView.scaleType=ImageView.ScaleType.FIT_XY
-                Glide.with(this@PostAdDownActivity).load(data.imgPath).error(R.drawable.map_iv_default).into(imageView)
+                Glide.with(this@PostAdDownActivity).load(data.imgPath).into(imageView)
+                //.error(R.drawable.map_iv_default)
                 ll_content.addView(imageView)
             }
         }

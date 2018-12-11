@@ -70,16 +70,8 @@ interface ClientApi {
      */
     @Multipart
     @POST(value = BaseConstants.UPLOAD_ALL_APTITUDE_IMAGE)
-    fun uploadAllAptitudeImage(@Part licenseFiles: List<MultipartBody.Part>,@Query(value = "cid")cid:Int=-1,
-                               @Part healthFiles: List<MultipartBody.Part>,
-                               @Part portraitFiles: List<MultipartBody.Part>,
-                               @Part trademarkFiles: List<MultipartBody.Part>,
-                               @Part urlFiles: List<MultipartBody.Part>,
-                               @Part qrcodeFiles: List<MultipartBody.Part>,
-                               @Part clientdisclaimerFiles: List<MultipartBody.Part>,
-                               @Part expressdisclaimerFiles: List<MultipartBody.Part>,
-                               @Part landsaleFiles: List<MultipartBody.Part>,
-                               @Part otherFiles: List<MultipartBody.Part>,
+    fun uploadAllAptitudeImage(@Part baseFiles: List<MultipartBody.Part>,@Query(value = "cid")cid:Int=-1,
+                               @Part specialFiles: List<MultipartBody.Part>,
                                @Part("description") descritpion: RequestBody,
                                @Query(value = "id")id:Int=-1,
                                @Query(value = "deleteFileIds")deleteFileIds:Array<Int?>):Observable<BaseResp<ArrayList<Object>>>

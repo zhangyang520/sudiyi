@@ -450,9 +450,10 @@ object AMapUI {
         //tv_device_position_value
         (contentView.findViewById(R.id.tv_device_position_value)as TextView).
                 setText(mCurrentPoi.cityname+mCurrentPoi.districtname+mCurrentPoi.zoneaddress+mCurrentPoi.equlocation)
-        Glide.with(context).load(mCurrentPoi.imgpath).error(R.drawable.icon_default)
+        Glide.with(context).load(mCurrentPoi.imgpath)
                 .into(contentView.findViewById(R.id.map_iv_info) as ImageView)
                     .onLoadStarted(context.resources.getDrawable(R.drawable.icon_default))
+        //.error(R.drawable.icon_default)
 
         //设置 点击事件
         (contentView.findViewById(R.id.map_iv_info) as ImageView).setOnClickListener({

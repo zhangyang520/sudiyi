@@ -8,4 +8,4 @@ package com.suntray.chinapost.user.data.request
  *  @author Administrator
  *  @date 2018/12/80:02
  */
-data class RelieveSaveRequest(var id: Array<String>,var userId:Int)
+data class RelieveSaveRequest(var id: Array<String?>,var userId:Int)

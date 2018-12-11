@@ -24,7 +24,8 @@ class TaskEntity:Serializable {
     var state="" //任务的状态
     var taskId="" //任务的id
     var pointTaskId="" //点位任务的id
-
+    var longitude="" //经度
+    var latitude="" //纬度
     constructor(zoneaddress: String, clientName: String, taskArea: String, taskTime: String, dotName: String) {
         this.zoneaddress = zoneaddress
         this.supplyName = clientName
