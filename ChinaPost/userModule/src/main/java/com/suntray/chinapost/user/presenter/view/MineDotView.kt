@@ -35,4 +35,9 @@ interface MineDotView:BaseView{
     fun onRelieveSaveResponse(){
 
     }
+
+    fun onFindRenewDays(renewDays: Int){
+
+    }
+
 }

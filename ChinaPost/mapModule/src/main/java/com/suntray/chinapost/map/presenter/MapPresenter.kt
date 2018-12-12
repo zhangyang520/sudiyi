@@ -9,10 +9,7 @@ import com.suntray.chinapost.baselibrary.rx.assertMethod
 import com.suntray.chinapost.baselibrary.rx.execute
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.map.data.bean.MapDot
-import com.suntray.chinapost.map.data.request.ProvinceDotRequest
-import com.suntray.chinapost.map.data.request.ProvinceRequest
-import com.suntray.chinapost.map.data.request.RadiusDotRequest
-import com.suntray.chinapost.map.data.request.UpdateRequest
+import com.suntray.chinapost.map.data.request.*
 import com.suntray.chinapost.map.data.response.ClientDictResponse
 import com.suntray.chinapost.map.data.response.UpdateResponse
 import com.suntray.chinapost.map.presenter.view.MapView
@@ -296,6 +293,32 @@ class MapPresenter @Inject constructor():BasePresenter<MapView>(){
             override fun onNext(t: UpdateResponse) {
                 super.onNext(t)
                 (baseView as MapView).onGetAppVersion(t)
+            }
+        }, lifecylerProvider)
+    }
+
+    /**
+     * 查询一键预订的数量
+     */
+    fun findReserveNum(findReserveNumRequest: FindReserveNumRequest){
+        mapService.findReserveNum(findReserveNumRequest).execute(object : BaseSucriber<Int>(baseView, ResourcePresenter::javaClass.name) {
+
+            override fun onError(e: Throwable?) {
+                if (e is ContentException) {
+                    assertMethod(baseView, {
+                        (baseView as MapView).onError(e.errorContent)
+                    })
+                } else {
+                    super.onError(e)
+                }
+            }
+
+            override fun onStart() {
+
+            }
+            override fun onNext(t:Int) {
+                super.onNext(t)
+                (baseView as MapView).onFindReserverNumber(t)
             }
         }, lifecylerProvider)
     }

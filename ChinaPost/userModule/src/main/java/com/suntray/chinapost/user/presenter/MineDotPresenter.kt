@@ -8,6 +8,7 @@ import com.suntray.chinapost.baselibrary.rx.assertMethod
 import com.suntray.chinapost.baselibrary.rx.execute
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.user.data.bean.MineReservedDot
+import com.suntray.chinapost.user.data.request.FindRenewDaysRequest
 import com.suntray.chinapost.user.data.request.MineReservedDotRequest
 import com.suntray.chinapost.user.data.request.MineXudingDotRequest
 import com.suntray.chinapost.user.data.request.RelieveSaveRequest
@@ -116,5 +117,37 @@ class MineDotPresenter @Inject constructor():BasePresenter<MineDotView>(){
                         })
                     }
                 },lifecylerProvider);
+    }
+
+    /**\
+     * 查询续订的天数
+     */
+     fun findRenewDays(findRenewDaysRequest: FindRenewDaysRequest){
+         mineDotServiceImpl.findRenewDays(findRenewDaysRequest).
+                 execute(object: BaseSucriber<Int>(baseView,MineDotPresenter::javaClass.name){
+                     override fun onError(e: Throwable?) {
+                         SystemUtil.printlnStr("OK  onError ......")
+                         if(e is ContentException){
+                             assertMethod(baseView,{
+                                 (baseView as MineDotView).onError(e.errorContent);
+                                 baseView.hideLoading()
+                             })
+                         }else{
+                             if(e is SocketTimeoutException){
+                                 (baseView as MineDotView).onError("请求超时!")
+                             }else{
+                                 (baseView as MineDotView).onError("请求失败")
+                             }
+                         }
+                     }
+
+                     override fun onNext(t:Int) {
+                         super.onNext(t)
+                         SystemUtil.printlnStr("OK  onNext ......")
+                         assertMethod(baseView,{
+                             (baseView as MineDotView).onFindRenewDays(t)
+                         })
+                     }
+                 },lifecylerProvider);
     }
 }

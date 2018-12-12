@@ -21,6 +21,7 @@ import com.suntray.chinapost.user.R
 import com.suntray.chinapost.user.data.bean.MineReservedDot
 import com.suntray.chinapost.user.data.request.MineXudingDotRequest
 import com.suntray.chinapost.user.presenter.MineDotPresenter
+import com.suntray.chinapost.user.ui.holder.MyReservedDotHolder
 import com.zhy.autolayout.utils.AutoUtils
 import kotlinx.android.synthetic.main.dialog_dot_renew.*
 import java.util.*
@@ -56,7 +57,9 @@ class DotRenewDialog:Dialog{
         var calendar=Calendar.getInstance()
         println("yuanshi DateUtil.dateFormat():"+DateUtil.dateFormat(DateUtil.parse2DateTime(myReservedDot!!.enddate)))
         calendar.time=DateUtil.parse2DateTime(myReservedDot!!.enddate)
-        calendar.set(Calendar.DAY_OF_YEAR,calendar.get(Calendar.DAY_OF_YEAR)+5)
+        if(MyReservedDotHolder.renewDays!=-1){
+            calendar.set(Calendar.DAY_OF_YEAR,calendar.get(Calendar.DAY_OF_YEAR)+MyReservedDotHolder.renewDays)
+        }
         var endDate= DateUtil.dateFormat(calendar.time)
         ed_end_time!!.setText(endDate)
         iv_dot_renew_cancel=view.findViewById(R.id.iv_dot_renew_cancel) as ImageView
@@ -64,21 +67,21 @@ class DotRenewDialog:Dialog{
             dismiss()
         })
 
-        ed_end_time!!.setOnClickListener({
-            //
-            var calendar=Calendar.getInstance()
-            calendar.time=DateUtil.parse2Date(endDate)
-            var picker= DatePickerDialog(context,object: DatePickerDialog.OnDateSetListener {
-                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-                    var calendar= Calendar.getInstance()
-                    calendar.set(year,month,dayOfMonth)
-                    var content= DateUtil.dateFormat(calendar.time)
-                    ed_end_time!!.setText(content)
-                }
-            }, calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)).show()
-        })
+//        ed_end_time!!.setOnClickListener({
+//            //
+//            var calendar=Calendar.getInstance()
+//            calendar.time=DateUtil.parse2Date(endDate)
+//            var picker= DatePickerDialog(context,object: DatePickerDialog.OnDateSetListener {
+//                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+//                    var calendar= Calendar.getInstance()
+//                    calendar.set(year,month,dayOfMonth)
+//                    var content= DateUtil.dateFormat(calendar.time)
+//                    ed_end_time!!.setText(content)
+//                }
+//            }, calendar.get(Calendar.YEAR),
+//                    calendar.get(Calendar.MONTH),
+//                    calendar.get(Calendar.DAY_OF_MONTH)).show()
+//        })
 
         btn_ok.setOnClickListener({
             //点击确定:
@@ -92,8 +95,12 @@ class DotRenewDialog:Dialog{
 //                ToastUtil.makeText(context,"请选择结束日期")
 //            }
 
-            //直接调用接口
-            basePresenter!!.dotXuding(MineXudingDotRequest(myReservedDot!!.id,"",UserDao.getLocalUser().id))
+            if(MyReservedDotHolder.renewDays==-1){
+                ToastUtil.makeText(context,"查询续订天数失败")
+            }else{
+                //直接调用接口
+                basePresenter!!.dotXuding(MineXudingDotRequest(myReservedDot!!.id,"",UserDao.getLocalUser().id))
+            }
         })
         setCancelable(true)
         view.layoutParams.height=AutoUtils.getPercentHeightSize(898)

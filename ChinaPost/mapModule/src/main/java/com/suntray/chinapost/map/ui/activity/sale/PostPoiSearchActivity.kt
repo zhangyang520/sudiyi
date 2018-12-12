@@ -42,6 +42,7 @@ import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.map.R
 import com.suntray.chinapost.map.data.bean.MapDot
 import com.suntray.chinapost.map.data.constants.MapContstants
+import com.suntray.chinapost.map.data.request.FindReserveNumRequest
 import com.suntray.chinapost.map.data.request.ProvinceDotRequest
 import com.suntray.chinapost.map.data.request.RadiusDotRequest
 import com.suntray.chinapost.map.data.request.UpdateRequest
@@ -75,6 +76,8 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
     var currentRadius:Int=1000;//默认当前半径
     var currentTip:Tip?=null
     var isCanAccess=true //是否能够访问
+    var reserveNumber=-1 //查询 一键预订的数量
+
     override fun initView() {
         isBlackShow = false
         isTitleShow = false
@@ -106,18 +109,24 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
          */
         iv_finger.setOnClickListener(View.OnClickListener {
             //判断 当前获取到的数据有无?
-            if (currentMapDot != null &&
-                    currentMapDot!!.size > 0) {
-                if (currentMapDot!!.size < 50) {
-                    ARouter.getInstance()
-                            .build(RouterPath.MapModule.POST_AD_RESERVED_LIST)
-                            .navigation(this@PostPoiSearchActivity)
+            if(reserveNumber==-1){
+                //接口调用失败
+                ToastUtil.makeText(this@PostPoiSearchActivity,"获取一键预订的数量失败")
+            }else{
+                if (currentMapDot != null &&
+                        currentMapDot!!.size > 0) {
+                    if (currentMapDot!!.size < 50) {
+                        ARouter.getInstance()
+                                .build(RouterPath.MapModule.POST_AD_RESERVED_LIST)
+                                .navigation(this@PostPoiSearchActivity)
+                    } else {
+                        ToastUtil.makeText(this@PostPoiSearchActivity, "点位的数据不能超过50个")
+                    }
                 } else {
-                    ToastUtil.makeText(this@PostPoiSearchActivity, "点位的数据不能超过50个")
+                    ToastUtil.makeText(this@PostPoiSearchActivity, "暂无点位数据")
                 }
-            } else {
-                ToastUtil.makeText(this@PostPoiSearchActivity, "暂无点位数据")
             }
+
         })
 
         iv_map_area.setOnClickListener({
@@ -394,6 +403,11 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
         //获取客户字典的 数据
         basePresenter.getClientNameList()
 
+        /**查询一键预订的数量
+         *
+         */
+        basePresenter.findReserveNum(FindReserveNumRequest(-1))
+
         requestPermission(101, "android.permission.ACCESS_COARSE_LOCATION", object : Runnable {
             override fun run() {
                 //定位中
@@ -406,6 +420,14 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             }
         })
     }
+
+    /**
+     * 一键预订数量的回调
+     */
+    override fun onFindReserverNumber(number: Int) {
+        reserveNumber=number
+    }
+
 
     private fun setModeDotAndArea() {
         //清空设置

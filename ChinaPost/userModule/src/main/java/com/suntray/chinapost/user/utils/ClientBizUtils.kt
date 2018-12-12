@@ -50,7 +50,7 @@ object ClientBizUtils {
             clickIndex=0
             contentView= View.inflate(context, R.layout.popup_city_list,null);
             window= PopupWindow(context,null,R.style.Transparent_Dialog);
-            window!!.width= AutoLayoutConifg.getInstance().screenWidth;
+            window!!.width=  AutoUtils.getPercentWidthSize(750);
             window!!.height= AutoUtils.getPercentHeightSize(1242);
             AutoUtils.autoSize(contentView)
             window!!.contentView=contentView;

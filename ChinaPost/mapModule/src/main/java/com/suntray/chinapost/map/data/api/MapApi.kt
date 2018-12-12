@@ -1,9 +1,11 @@
 package com.suntray.chinapost.map.data.api
 
+import android.bluetooth.BluetoothGatt
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.map.data.bean.MapDot
 import com.suntray.chinapost.baselibrary.data.bean.ProvinceCity
+import com.suntray.chinapost.map.data.request.FindReserveNumRequest
 import com.suntray.chinapost.map.data.request.ProvinceDotRequest
 import com.suntray.chinapost.map.data.request.ProvinceRequest
 import com.suntray.chinapost.map.data.request.RadiusDotRequest
@@ -36,4 +38,11 @@ interface MapApi {
      */
     @POST(value = BaseConstants.RADIUS_DOT)
     fun radiusDot(@Body radiusDotRequest: RadiusDotRequest):Observable<BaseResp<ArrayList<MapDot>>>
+
+
+    /**
+     *  查看一键预订的数量
+     */
+    @POST(value = BaseConstants.FIND_RESERVE_NUM)
+    fun findReserveNum(@Body findReserveNumRequest: FindReserveNumRequest):Observable<BaseResp<Int>>
 }

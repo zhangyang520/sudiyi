@@ -143,14 +143,18 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }
 
             if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
+                holder.tv_ad_down!!.visibility=View.VISIBLE
+                holder.tv_ad_down_value!!.visibility=View.VISIBLE
                 holder.tv_ad_down!!.text="上刊时间"
                 holder.tv_ad_down_value!!.text=resourceDotLocation!!.resourceAdList.get(position-1).uploadDate
             }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
+                holder.tv_ad_down!!.visibility=View.VISIBLE
+                holder.tv_ad_down_value!!.visibility=View.VISIBLE
                 holder.tv_ad_down!!.text = "下刊时间"
                 holder.tv_ad_down_value!!.text = resourceDotLocation!!.resourceAdList.get(position - 1).uploadDate
             }else{
-                holder.tv_ad_down!!.text = "暂无时间"
-                holder.tv_ad_down_value!!.text =""
+                holder.tv_ad_down!!.visibility=View.GONE
+                holder.tv_ad_down_value!!.visibility=View.GONE
             }
 
             //查看排期
@@ -163,14 +167,19 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }else if(holder is UnUsedRecylerViewHolder){
             //空闲状态
             if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
+                holder.tv_ad_down!!.visibility=View.VISIBLE
+                holder.tv_ad_down_unused_value!!.visibility=View.VISIBLE
                 holder.tv_ad_down!!.text="上刊时间"
                 holder.tv_ad_down_unused_value!!.text=resourceDotLocation!!.resourceAdList.get(position-1).uploadDate
             }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
+                holder.tv_ad_down!!.visibility=View.VISIBLE
+                holder.tv_ad_down_unused_value!!.visibility=View.VISIBLE
                 holder.tv_ad_down!!.text = "下刊时间"
                 holder.tv_ad_down_unused_value!!.text = resourceDotLocation!!.resourceAdList.get(position - 1).uploadDate
             }else{
-                holder.tv_ad_down!!.text = "暂无时间"
-                holder.tv_ad_down_unused_value!!.text =""
+
+                holder.tv_ad_down!!.visibility=View.GONE
+                holder.tv_ad_down_unused_value!!.visibility=View.GONE
             }
 
             //判断 任务类型 ---> 1:上刊 2:下刊
@@ -216,14 +225,18 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }else if(holder is LockedRecylerViewHolder){
             //空闲状态
             if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
+                holder.tv_ad_down_error!!.visibility=View.VISIBLE
+                holder.tv_ad_down_error!!.visibility=View.VISIBLE
                 holder.tv_ad_down_error!!.text="上刊时间"
                 holder.tv_ad_down_value_error!!.text=resourceDotLocation!!.resourceAdList.get(position-1).uploadDate
             }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
+                holder.tv_ad_down_error!!.visibility=View.VISIBLE
+                holder.tv_ad_down_error!!.visibility=View.VISIBLE
                 holder.tv_ad_down_error!!.text = "下刊时间"
                 holder.tv_ad_down_value_error!!.text = resourceDotLocation!!.resourceAdList.get(position - 1).uploadDate
             }else{
-                holder.tv_ad_down_error!!.text = "暂无时间"
-                holder.tv_ad_down_value_error!!.text =""
+                holder.tv_ad_down_error!!.visibility=View.GONE
+                holder.tv_ad_down_error!!.visibility=View.GONE
             }
 
             //判断 任务类型 ---> 1:上刊 2:下刊
@@ -270,12 +283,18 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }else if(holder is ReservedRecylerViewHolder){
              //空闲状态
             if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
+                holder.tv_ad_period!!.visibility=View.VISIBLE
+                holder.tv_ad_period_value!!.visibility=View.VISIBLE
                 holder.tv_ad_period!!.text="上刊时间"
                 holder.tv_ad_period_value!!.text=resourceDotLocation!!.resourceAdList.get(position-1).uploadDate
             }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
+                holder.tv_ad_period!!.visibility=View.VISIBLE
+                holder.tv_ad_period_value!!.visibility=View.VISIBLE
                 holder.tv_ad_period!!.text = "下刊时间"
                 holder.tv_ad_period_value!!.text = resourceDotLocation!!.resourceAdList.get(position - 1).uploadDate
             }else{
+                holder.tv_ad_period!!.visibility=View.GONE
+                holder.tv_ad_period_value!!.visibility=View.GONE
                 holder.tv_ad_period!!.text = "暂无时间"
                 holder.tv_ad_period_value!!.text =""
             }

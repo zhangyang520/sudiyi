@@ -5,6 +5,7 @@ import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.baselibrary.data.net.RetrofitFactory
 import com.suntray.chinapost.user.data.api.MineDotApi
 import com.suntray.chinapost.user.data.bean.MineReservedDot
+import com.suntray.chinapost.user.data.request.FindRenewDaysRequest
 import com.suntray.chinapost.user.data.request.MineReservedDotRequest
 import com.suntray.chinapost.user.data.request.MineXudingDotRequest
 import com.suntray.chinapost.user.data.request.RelieveSaveRequest
@@ -36,5 +37,12 @@ class MineDotRespository  @Inject constructor(){
 
     fun relieveSave( relieveSaveRequest: RelieveSaveRequest):Observable<BaseResp<ArrayList<Object>>>{
         return RetrofitFactory.instance.create(MineDotApi::class.java). relieveSave(relieveSaveRequest)
+    }
+
+    /**
+     * 查询续订天数
+     */
+    fun findRenewDays(@Body findRenewDaysRequest: FindRenewDaysRequest):Observable<BaseResp<Int>>{
+        return RetrofitFactory.instance.create(MineDotApi::class.java).findRenewDays(findRenewDaysRequest)
     }
 }

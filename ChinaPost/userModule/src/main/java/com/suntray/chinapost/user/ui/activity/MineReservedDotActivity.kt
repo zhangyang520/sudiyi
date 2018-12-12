@@ -16,6 +16,7 @@ import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.provider.RouterPath
 import com.suntray.chinapost.user.R
 import com.suntray.chinapost.user.data.bean.MineReservedDot
+import com.suntray.chinapost.user.data.request.FindRenewDaysRequest
 import com.suntray.chinapost.user.data.request.MineReservedDotRequest
 import com.suntray.chinapost.user.data.request.RelieveSaveRequest
 import com.suntray.chinapost.user.injection.component.DaggerMineComponent
@@ -25,6 +26,7 @@ import com.suntray.chinapost.user.ui.adapter.MyClientAdapter
 import com.suntray.chinapost.user.ui.adapter.MyReservedDotAdapter
 import com.suntray.chinapost.user.ui.adapter.MyReservedDotRecylerAdapter
 import com.suntray.chinapost.user.ui.dialog.DotRenewDialog
+import com.suntray.chinapost.user.ui.holder.MyReservedDotHolder
 import kotlinx.android.synthetic.main.activity_mine_reserved_dot.*
 import kotlinx.android.synthetic.main.layout_search_title.*
 import java.util.*
@@ -40,7 +42,6 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
     var pageNumber=1;
     var pagePreNumber=-1
     var preSearch=""
-
     var selectedList:Array<String?> ?=null
     override fun initView() {
         isBlackShow=true
@@ -48,9 +49,11 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
         isRightShow=true
         viewtitle="我预定的点位"
         rightTitle="取消预定"
+        MyReservedDotHolder.renewDays=-1
         basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10),RefreshAction.NormalAction)
 
-
+        //查询 续订的天数
+        basePresenter.findRenewDays(FindRenewDaysRequest(-1))
         /**
          * 点击 查询的按钮
          */
@@ -66,6 +69,7 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
             }
         })
 
+        rl_bottom.visibility=View.GONE
         rl_bottom.setOnClickListener({
             if(adapter!!.selectPositionList.size>0){
                 selectedList=arrayOfNulls<String>(adapter!!.selectPositionList.size)
@@ -74,7 +78,7 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
                     var value=adapter!!.myReservedDotHolder!!.selectPositionList!!.get(position)
                     selectedList!!.set(position,adapter!!.datas.get(value).id.toString())
                 }
-                basePresenter.relieveSave(RelieveSaveRequest(selectedList!!,UserDao.getLocalUser().id))
+                basePresenter.relieveSave(RelieveSaveRequest(selectedList!!,UserDao.getLocalUser().id,UserDao.getLocalUser().userRole))
             }else{
                 ToastUtil.makeText(this@MineReservedDotActivity,"请选择点位")
             }
@@ -181,12 +185,30 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
      * 右边标题的点击 事件处理
      */
     override fun rightTitleClick() {
-        adapter!!.processAntiAllSelect()
+        if(rightTitle.equals("取消预定")){
+            setRight("取消")
+            //底部显示
+            rl_bottom.visibility=View.VISIBLE
+            adapter!!.processAllSelect()
+
+        }else{
+            setRight("取消预定")
+            rl_bottom.visibility=View.GONE
+            adapter!!.processAntiAllSelect()
+        }
+
     }
 
     override  fun onRelieveSaveResponse(){
         adapter!!.processAntiAllSelect()
         basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10),RefreshAction.NormalAction)
         ToastUtil.makeText(this@MineReservedDotActivity,"申请取消预订成功")
+    }
+
+    /**
+     * 查询续订的天数
+     */
+    override fun onFindRenewDays(renewDays: Int) {
+        MyReservedDotHolder.renewDays=renewDays
     }
 }

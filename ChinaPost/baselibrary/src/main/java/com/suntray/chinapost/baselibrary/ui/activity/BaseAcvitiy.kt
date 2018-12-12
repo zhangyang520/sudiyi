@@ -107,8 +107,8 @@ open abstract class BaseAcvitiy: RxAppCompatActivity() {
 
     open fun setRight(rightTitle: String) {
         if(isRightShow){
-            viewtitle=rightTitle
-            tv_right.text=viewtitle
+            this.rightTitle=rightTitle
+            tv_right.text=rightTitle
         }
     }
     /**

@@ -3,6 +3,7 @@ package com.suntray.chinapost.user.data.api
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.user.data.bean.MineReservedDot
+import com.suntray.chinapost.user.data.request.FindRenewDaysRequest
 import com.suntray.chinapost.user.data.request.MineReservedDotRequest
 import com.suntray.chinapost.user.data.request.MineXudingDotRequest
 import com.suntray.chinapost.user.data.request.RelieveSaveRequest
@@ -36,4 +37,10 @@ interface MineDotApi {
      */
     @POST(BaseConstants.RELIEVE_SAVE)
     fun relieveSave(@Body relieveSaveRequest: RelieveSaveRequest):Observable<BaseResp<ArrayList<Object>>>
+
+    /**
+     * 查询续订天数
+     */
+    @POST(BaseConstants.FIND_RENEWS_DAYS)
+    fun findRenewDays(@Body findRenewDaysRequest: FindRenewDaysRequest):Observable<BaseResp<Int>>
 }

@@ -1,11 +1,12 @@
 package com.suntray.chinapost.user.data.request
 
 /**
- *  申请取消预订的 请求体
+ *  查看续订天数的请求封装体
  *  @Title ${name}
  *  @ProjectName ChinaPost
  *  @Description: TODO
  *  @author Administrator
- *  @date 2018/12/80:02
+ *  @date 2018/12/1213:09
+ *
  */
-data class RelieveSaveRequest(var id: Array<String?>,var userId:Int,var userType:Int)
+data class FindRenewDaysRequest(var id:Int=0)

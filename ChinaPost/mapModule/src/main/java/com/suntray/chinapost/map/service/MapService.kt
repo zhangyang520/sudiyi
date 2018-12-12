@@ -2,6 +2,7 @@ package com.suntray.chinapost.map.service
 
 import com.suntray.chinapost.map.data.bean.MapDot
 import com.suntray.chinapost.baselibrary.data.bean.ProvinceCity
+import com.suntray.chinapost.map.data.request.FindReserveNumRequest
 import com.suntray.chinapost.map.data.request.ProvinceDotRequest
 import com.suntray.chinapost.map.data.request.ProvinceRequest
 import com.suntray.chinapost.map.data.request.RadiusDotRequest
@@ -29,4 +30,9 @@ interface MapService {
      * 省市的请求
      */
     fun province(provinceRequest: ProvinceRequest): Observable<ArrayList<ProvinceCity>>;
+
+    /**
+     * 查询一键预订的数量
+     */
+    fun findReserveNum(findReserveNumRequest: FindReserveNumRequest):Observable<Int>
 }

@@ -62,6 +62,9 @@ object BaseConstants {
         const val MINE_RESERVED_DOT="findMyReserve.do"
         const val MINE_XUDING_DOT="renewSave.do" //点位续订
         const val RELIEVE_SAVE="relieveSave.do"//申请取消预订
+        const val FIND_RENEWS_DAYS="findRenewDays.do"//查询续订天数
+
+        const val FIND_RESERVE_NUM="findReserveNum.do"//查看一键预订的数量
 
         const val UPDATE_APP="getNewApp.do"//更新版本
 

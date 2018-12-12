@@ -33,6 +33,18 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
     var context:MineReservedDotActivity?=null
     var selectPositionList:ArrayList<Int>?=null
 
+    companion  object MyReservedDotHolder{
+        var isNeedShowSelected:Boolean=false
+        var renewDays=-1
+        var dialog:DotRenewDialog?=null
+
+        fun dismissDilog(){
+            if(dialog!=null && dialog!!.isShowing){
+                dialog!!.dismiss()
+            }
+        }
+    }
+
     constructor(basePresenter: MineDotPresenter?,context:MineReservedDotActivity,selectPositionList:ArrayList<Int>):super(){
         this.basePresenter = basePresenter
         this.context=context
@@ -99,13 +111,25 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
             btn_chakan!!.visibility=View.VISIBLE
         }
 
-        if(selectPositionList!!.contains(position)){
-            SystemUtil.printlnStr("selectPositionList.contains(position):"+position)
-            btn_check!!.isActivated=true
+        //是否需要显示
+        if(isNeedShowSelected){
+            if(data!!.statename.equals("已到期") || data!!.statename.equals("申请解除预约")){
+                //如果对应的状态 为已到期 申请解除预约 不显示
+                btn_check!!.visibility=View.INVISIBLE
+            }else{
+                btn_check!!.visibility=View.VISIBLE
+                if(selectPositionList!!.contains(position)){
+                    SystemUtil.printlnStr("selectPositionList.contains(position):"+position)
+                    btn_check!!.isActivated=true
+                }else{
+                    SystemUtil.printlnStr("selectPositionList.not contains(position):"+position)
+                    btn_check!!.isActivated=false
+                }
+            }
         }else{
-            SystemUtil.printlnStr("selectPositionList.not contains(position):"+position)
-            btn_check!!.isActivated=false
+            btn_check!!.visibility=View.INVISIBLE
         }
+
 
 
         btn_check!!.setOnClickListener({
@@ -129,15 +153,5 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
             dialog!!.show()
             dialog!!.setContent()
         })
-    }
-
-    companion object {
-        var dialog:DotRenewDialog?=null
-
-        fun dismissDilog(){
-            if(dialog!=null && dialog!!.isShowing){
-                dialog!!.dismiss()
-            }
-        }
     }
 }

@@ -1,5 +1,7 @@
 package com.suntray.chinapost.user.ui.activity
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.View
 import android.widget.AdapterView
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -88,17 +90,26 @@ class MineClientDetail :BaseMvpActivity<ClientPresenter>(),ClientView{
         tv_client_phone.setText(currentClient!!.linkmanphone)
         if(currentClient!!.stage==8){
             tv_yixiang_client.visibility=View.VISIBLE
-            iv_yixiang.visibility=View.GONE
+            iv_yixiang.visibility=View.INVISIBLE
 
             btn_hasxiadan.visibility=View.GONE
             tv_has_client.visibility=View.GONE
-        }else if(currentClient!!.stage==9){
+        }else if(currentClient!!.stage==64){
+            tv_yixiang_client.visibility=View.GONE
+            iv_yixiang.visibility=View.GONE
+
+            btn_hasxiadan.visibility=View.INVISIBLE
+            tv_has_client.visibility=View.VISIBLE
+         }else if(currentClient!!.stage==9){
             tv_yixiang_client.visibility=View.GONE
             iv_yixiang.visibility=View.GONE
 
             btn_hasxiadan.visibility=View.GONE
-            tv_has_client.visibility=View.VISIBLE
-        }
+            tv_has_client.visibility=View.GONE
+
+            btn_zizhi.visibility=View.GONE
+            tv_zizhi.visibility=View.VISIBLE
+          }
 
         tv_client_dizhi.setText(currentClient!!.provincename+currentClient!!.cityname+currentClient!!.districtname)
         tv_select_content.setText(currentClient!!.professionname)
@@ -107,9 +118,9 @@ class MineClientDetail :BaseMvpActivity<ClientPresenter>(),ClientView{
         tv_address.setText(currentClient!!.address)
         ed_belong.setText(currentClient!!.salesmanname)
 
-        if(currentClient!!.stage==8){
-            scrollView.visibility=View.GONE
-        }else{
+//        if(currentClient!!.stage==8){
+//            scrollView.visibility=View.GONE
+//        }else{
             //初始化数据信息
             UploadAptitudeEnum.HangyeTeshu.yingyePathId=""
             UploadAptitudeEnum.HangyeTeshu.currentNumber=0
@@ -146,7 +157,20 @@ class MineClientDetail :BaseMvpActivity<ClientPresenter>(),ClientView{
             tradeAdapter!!.uploadAptitudeEnum=UploadAptitudeEnum.JiBenXinxi
             tradeAdapter!!.isCancelable=false
             food_gridvew.setAdapter(tradeAdapter)
-        }
+
+            /***
+             *  提示图展示
+             */
+            tv_base_tips.setOnClickListener({
+                AlertDialog.Builder(this@MineClientDetail)
+                        .setTitle("基本资质说明").setMessage("基本资质信息包括营业执照、工商信息、商标注册证、代言人协议和肖像免责声明。")
+                        .setNegativeButton("确定",object: DialogInterface.OnClickListener{
+                            override fun onClick(dialog: DialogInterface?, which: Int) {
+                                dialog!!.dismiss()
+                            }
+                        }).create().show()
+            })
+//        }
     }
 
     override fun getView(): View {

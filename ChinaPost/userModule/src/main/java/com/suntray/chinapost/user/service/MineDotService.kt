@@ -4,9 +4,11 @@ import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.baselibrary.data.net.RetrofitFactory
 import com.suntray.chinapost.user.data.api.MineDotApi
 import com.suntray.chinapost.user.data.bean.MineReservedDot
+import com.suntray.chinapost.user.data.request.FindRenewDaysRequest
 import com.suntray.chinapost.user.data.request.MineReservedDotRequest
 import com.suntray.chinapost.user.data.request.MineXudingDotRequest
 import com.suntray.chinapost.user.data.request.RelieveSaveRequest
+import retrofit2.http.Body
 import rx.Observable
 
 /**
@@ -29,4 +31,9 @@ interface MineDotService {
      * 申请取消预订接口
      */
     fun relieveSave( relieveSaveRequest: RelieveSaveRequest):Observable<ArrayList<Object>>
+
+    /**
+     * 查询 续订天数
+     */
+    fun findRenewDays(@Body findRenewDaysRequest: FindRenewDaysRequest):Observable<Int>
 }

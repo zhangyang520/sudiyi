@@ -139,11 +139,40 @@
         />
     </com.zhy.autolayout.AutoLinearLayout>
 
-
     <com.zhy.autolayout.AutoRelativeLayout
-            android:id="@+id/rl_device_position"
+            android:id="@+id/rl_dot_name"
             android:layout_marginTop="50px"
             android:layout_below="@+id/ll_dot_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_marginTop="10px"
+                android:layout_width="wrap_content"
+                android:layout_height="30px"
+                android:textColor="@color/black"
+                android:text="网点名称:"
+                android:textSize="26px"
+                android:gravity="center_vertical"
+        />
+
+        <TextView
+                android:id="@+id/tv_wangdain_value"
+                android:layout_width="400px"
+                android:layout_height="30px"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10px"
+                android:textColor="@color/black"
+                android:layout_marginLeft="130px"
+                android:maxLines="3"
+                android:textSize="26px"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_marginTop="15px"
+            android:id="@+id/rl_device_position"
+            android:layout_below="@+id/rl_dot_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -170,34 +199,5 @@
         />
     </com.zhy.autolayout.AutoRelativeLayout>
 
-    <com.zhy.autolayout.AutoRelativeLayout
-            android:id="@+id/rl_dot_name"
-            android:layout_marginTop="15px"
-            android:layout_below="@+id/rl_device_position"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <TextView
-                android:layout_marginTop="10px"
-                android:layout_width="wrap_content"
-                android:layout_height="30px"
-                android:textColor="@color/black"
-                android:text="网点名称:"
-                android:textSize="26px"
-                android:gravity="center_vertical"
-        />
-
-        <TextView
-                android:id="@+id/tv_wangdain_value"
-                android:layout_width="400px"
-                android:layout_height="30px"
-                android:gravity="center_vertical"
-                android:layout_marginTop="10px"
-                android:textColor="@color/black"
-                android:layout_marginLeft="130px"
-                android:maxLines="3"
-                android:textSize="26px"
-        />
-    </com.zhy.autolayout.AutoRelativeLayout>
 
 </com.zhy.autolayout.AutoRelativeLayout>

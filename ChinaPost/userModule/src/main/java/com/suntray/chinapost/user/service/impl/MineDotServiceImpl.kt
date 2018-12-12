@@ -2,6 +2,7 @@ package com.suntray.chinapost.user.service.impl
 
 import com.suntray.chinapost.baselibrary.rx.convertData
 import com.suntray.chinapost.user.data.bean.MineReservedDot
+import com.suntray.chinapost.user.data.request.FindRenewDaysRequest
 import com.suntray.chinapost.user.data.request.MineReservedDotRequest
 import com.suntray.chinapost.user.data.request.MineXudingDotRequest
 import com.suntray.chinapost.user.data.request.RelieveSaveRequest
@@ -30,5 +31,9 @@ class MineDotServiceImpl @Inject constructor():MineDotService{
 
     override fun relieveSave(relieveSaveRequest: RelieveSaveRequest): Observable<ArrayList<Object>> {
         return mineDotRespository.relieveSave(relieveSaveRequest).convertData()
+    }
+
+    override fun findRenewDays(findRenewDaysRequest: FindRenewDaysRequest): Observable<Int> {
+        return mineDotRespository.findRenewDays(findRenewDaysRequest).convertData()
     }
 }

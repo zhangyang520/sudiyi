@@ -5,9 +5,11 @@ import com.suntray.chinapost.baselibrary.data.net.RetrofitFactory
 import com.suntray.chinapost.map.data.api.MapApi
 import com.suntray.chinapost.map.data.bean.MapDot
 import com.suntray.chinapost.baselibrary.data.bean.ProvinceCity
+import com.suntray.chinapost.map.data.request.FindReserveNumRequest
 import com.suntray.chinapost.map.data.request.ProvinceDotRequest
 import com.suntray.chinapost.map.data.request.ProvinceRequest
 import com.suntray.chinapost.map.data.request.RadiusDotRequest
+import retrofit2.http.Body
 import rx.Observable
 import javax.inject.Inject
 
@@ -39,5 +41,12 @@ class MapRespository @Inject constructor(){
      */
     fun province(provinceRequest: ProvinceRequest):Observable<BaseResp<ArrayList<ProvinceCity>>>{
         return RetrofitFactory.instance.create(MapApi::class.java).province(provinceRequest)
+    }
+
+    /**\
+     * 查询 一键预订的数量
+     */
+    fun findReserveNum(@Body findReserveNumRequest: FindReserveNumRequest):Observable<BaseResp<Int>>{
+        return RetrofitFactory.instance.create(MapApi::class.java).findReserveNum(findReserveNumRequest)
     }
 }

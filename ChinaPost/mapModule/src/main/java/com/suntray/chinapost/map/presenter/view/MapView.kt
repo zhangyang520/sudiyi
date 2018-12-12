@@ -61,4 +61,11 @@ interface MapView:BaseView{
     fun onGetAppVersion(appUpdateResponse: UpdateResponse){
 
     }
+
+    /**
+     * 查询一键预订的数量
+     */
+    fun onFindReserverNumber(number: Int){
+
+    }
 }

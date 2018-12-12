@@ -56,7 +56,10 @@ class MineAddClientActivity : BaseMvpActivity<ClientPresenter>(),ClientView{
         super.onProvinceCityRequest(provinceCity, action)
         SystemUtil.printlnStr("provinceCity:"+provinceCity.toString())
         if(provinceCity.size>0){
-            ClientBizUtils.showCityList(this@MineAddClientActivity,root,action,provinceCity,basePresenter,currentClient,tv_client_dizhi)
+            if(ClientBizUtils.window==null ||  !ClientBizUtils.window!!.isShowing){
+                //没有展示的时候
+                ClientBizUtils.showCityList(this@MineAddClientActivity,root,action,provinceCity,basePresenter,currentClient,tv_client_dizhi)
+            }
         }else{
             ToastUtil.makeText(this@MineAddClientActivity,action.errorMsg)
         }
@@ -111,7 +114,7 @@ class MineAddClientActivity : BaseMvpActivity<ClientPresenter>(),ClientView{
 
             hud2= KProgressHUD(this@MineAddClientActivity).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setLabel("添加客户信息中")
             //增加客户：
-            btn_hasxiadan.visibility=View.VISIBLE
+            btn_hasxiadan.visibility=View.INVISIBLE
             tv_has_client.visibility=View.VISIBLE
             btn_hasxiadan.isActivated=true
 

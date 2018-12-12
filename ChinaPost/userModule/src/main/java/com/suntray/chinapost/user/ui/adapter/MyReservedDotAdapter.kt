@@ -24,7 +24,6 @@ class MyReservedDotAdapter: DefaultAdapter<MineReservedDot> {
         this.basePresenter=basePresenter
     }
     var basePresenter:MineDotPresenter?=null
-
     var myReservedDotHolder:MyReservedDotHolder?=null
     override fun getHolder(): BaseHolder<MineReservedDot> {
         myReservedDotHolder=MyReservedDotHolder(basePresenter!!,activity as MineReservedDotActivity,selectPositionList)
@@ -37,9 +36,18 @@ class MyReservedDotAdapter: DefaultAdapter<MineReservedDot> {
 
 
     /**
+     * 处理显示 所有的显示数据
+     */
+    fun  processAllSelect(){
+        MyReservedDotHolder!!.isNeedShowSelected=true
+        myReservedDotHolder!!.selectPositionList!!.clear()
+        notifyDataSetChanged()
+    }
+    /**
      * 处理取消全选
      */
     fun processAntiAllSelect(){
+        MyReservedDotHolder!!.isNeedShowSelected=false
         myReservedDotHolder!!.selectPositionList!!.clear()
         notifyDataSetChanged()
     }
