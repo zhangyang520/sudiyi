@@ -8,10 +8,8 @@ import com.suntray.chinapost.baselibrary.rx.assertMethod
 import com.suntray.chinapost.baselibrary.rx.execute
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.user.data.bean.MineReservedDot
-import com.suntray.chinapost.user.data.request.FindRenewDaysRequest
-import com.suntray.chinapost.user.data.request.MineReservedDotRequest
-import com.suntray.chinapost.user.data.request.MineXudingDotRequest
-import com.suntray.chinapost.user.data.request.RelieveSaveRequest
+import com.suntray.chinapost.user.data.request.*
+import com.suntray.chinapost.user.data.response.FindReservePointByIdResponse
 import com.suntray.chinapost.user.presenter.view.ClientView
 import com.suntray.chinapost.user.presenter.view.MineDotView
 import com.suntray.chinapost.user.service.impl.MineDotServiceImpl
@@ -29,6 +27,36 @@ class MineDotPresenter @Inject constructor():BasePresenter<MineDotView>(){
     @Inject
     lateinit var mineDotServiceImpl: MineDotServiceImpl
 
+
+    /**
+     * 查看预订详情
+     */
+    fun findReservePointById(findReservePointByIdRequest: FindReservePointByIdRequest){
+        mineDotServiceImpl.findReservePointById(findReservePointByIdRequest).
+                execute(object: BaseSucriber<FindReservePointByIdResponse>(baseView,MineDotPresenter::javaClass.name){
+                    override fun onError(e: Throwable?) {
+                        if(e is ContentException){
+                            assertMethod(baseView,{
+                                (baseView as MineDotView).onError(e.errorContent);
+                                baseView.hideLoading()
+                            })
+                        }else{
+                            if(e is SocketTimeoutException){
+                                (baseView as MineDotView).onError("请求超时!")
+                            }else{
+                                (baseView as MineDotView).onError("请求失败")
+                            }
+                        }
+                    }
+
+                    override fun onNext(t:FindReservePointByIdResponse) {
+                        super.onNext(t)
+                        assertMethod(baseView,{
+                            (baseView as MineDotView).onFindReservePointByIdResponse(t)
+                        })
+                    }
+                },lifecylerProvider);
+    }
 
 
     fun relieveSave(relieveSaveRequest: RelieveSaveRequest){
@@ -78,6 +106,9 @@ class MineDotPresenter @Inject constructor():BasePresenter<MineDotView>(){
                         }
                     }
 
+                    override fun onStart() {
+
+                    }
                     override fun onNext(t:ArrayList<MineReservedDot>) {
                         super.onNext(t)
                         assertMethod(baseView,{

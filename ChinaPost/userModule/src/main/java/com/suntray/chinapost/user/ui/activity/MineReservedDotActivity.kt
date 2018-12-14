@@ -10,6 +10,7 @@ import com.suntray.chinapost.baselibrary.data.dao.UserDao
 import com.suntray.chinapost.baselibrary.rx.getTxt
 import com.suntray.chinapost.baselibrary.ui.activity.BaseAcvitiy
 import com.suntray.chinapost.baselibrary.ui.activity.BaseMvpActivity
+import com.suntray.chinapost.baselibrary.ui.progressbar.KProgressHUD
 import com.suntray.chinapost.baselibrary.ui.refreshView.PullToRefreshBase
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.baselibrary.utils.ToastUtil
@@ -57,6 +58,7 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
         /**
          * 点击 查询的按钮
          */
+        recylerView.refreshTitle="我预订点位"
         recylerView.setOnRefreshListener(object: PullToRefreshBase.OnRefreshListener<ListView>{
             override fun onPullDownToRefresh(refreshView: PullToRefreshBase<ListView>?) {
                 pageNumber=1;
@@ -83,6 +85,8 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
                 ToastUtil.makeText(this@MineReservedDotActivity,"请选择点位")
             }
         })
+
+        hud2= KProgressHUD(this@MineReservedDotActivity).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setLabel("申请取消预订中...")
     }
 
 
@@ -200,6 +204,9 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
     }
 
     override  fun onRelieveSaveResponse(){
+        adapter!!.processAntiAllSelect()
+        setRight("取消预定")
+        rl_bottom.visibility=View.GONE
         adapter!!.processAntiAllSelect()
         basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10),RefreshAction.NormalAction)
         ToastUtil.makeText(this@MineReservedDotActivity,"申请取消预订成功")

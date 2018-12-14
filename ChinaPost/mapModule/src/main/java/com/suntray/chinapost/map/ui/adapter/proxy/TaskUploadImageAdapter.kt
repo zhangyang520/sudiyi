@@ -1,18 +1,18 @@
-package com.suntray.chinapost.user.ui.adapter
+package com.suntray.chinapost.map.ui.adapter.proxy
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.GridView
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.suntray.chinapost.baselibrary.common.BaseConstants
-import com.suntray.chinapost.baselibrary.utils.SystemUtil
+import com.suntray.chinapost.map.ui.activity.proxy.TaskDetailActivity
 import com.suntray.chinapost.user.R
-import com.suntray.chinapost.user.data.bean.AptitudeInfo
 import com.suntray.chinapost.user.data.bean.TaskUpload
-import com.suntray.chinapost.user.data.enum.UploadAptitudeEnum
 import com.suntray.chinapost.user.data.enum.UploadTaskEnum
 import com.zhy.autolayout.AutoRelativeLayout
 import com.zhy.autolayout.utils.AutoUtils
@@ -35,11 +35,12 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
     //所属的对应的 枚举类
     var uploadAptitudeEnum: UploadTaskEnum?=null
     var  isCancelable=true
+    var editPosition=-1
     /**
      * 新增的信息  进行更新
      */
     fun  newAddUpdate(imagePath: TaskUpload??){
-        this.imagePathList!!.add(0,imagePath!!)
+        this.imagePathList!!.add(imagePathList!!.size-1,imagePath!!)
         //这里控制选择的图片放到前面,默认的图片放到最后面,
         //集合中的总数量等于上传图片的数量加上默认的图片不能大于imageNumber + 1
         if (imagePathList!!.size == imageNumber + 1) {
@@ -136,55 +137,22 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
         val autoRelativeLayout: AutoRelativeLayout
         var viewHolder: ViewHolder? = null
         if (convertView == null) {//创建ImageView
-            viewHolder = ViewHolder(View.inflate(context, R.layout.item_upload_aptitude, null))
+            viewHolder = ViewHolder(View.inflate(context, R.layout.item_upload_task, null))
             convertView = viewHolder.itemView
-            val width = AutoUtils.getPercentWidthSize(184)
+            val width = AutoUtils.getPercentWidthSize(200)
             imageHeight = width
             convertView.tag = viewHolder
         } else {
             viewHolder = convertView.tag as ViewHolder
         }
+
+
         if (getItem(position)!!.imgPath == null || getItem(position)!!.imgPath.equals("")) {//图片地址为空时设置默认图片
-            println("proImageShow getView 11111 position:$position")
             viewHolder.iv_1.setImageResource(R.drawable.mine_ic_default3)
             Glide.with(context).load(R.drawable.mine_ic_default3).into(viewHolder.iv_1)
             viewHolder.iv_cancel1.visibility = View.GONE
-
-            if(position==3){
-                //如果为第四个 进行隐藏
-                viewHolder.itemView.visibility=View.GONE
-            }else{
-                viewHolder.itemView.visibility=View.VISIBLE
-            }
-
         } else {
             viewHolder.itemView.visibility=View.VISIBLE
-            println("proImageShow getView 222222 position:$position")
-            if(isCancelable){
-                viewHolder.iv_cancel1.visibility = View.VISIBLE
-            }else{
-                viewHolder.iv_cancel1.visibility = View.GONE
-            }
-            viewHolder.iv_cancel1.setOnClickListener {
-                //删除 对应的图片
-               var aptitudeInfo= imagePathList!!.get(position)
-                if(uploadAptitudeEnum!!.imageList.contains(aptitudeInfo)&&
-                        !(!aptitudeInfo!!.imgPath.startsWith("http") || aptitudeInfo.id==0)){
-                    //如果删除的对象 包含在 原有的集合中
-                    imagePathList!!.removeAt(position)
-                    uploadAptitudeEnum!!.deleteList.add(aptitudeInfo!!.id)
-                    SystemUtil.printlnStr(uploadAptitudeEnum!!.yingyePathId+"..delete size:"+uploadAptitudeEnum!!.deleteList.size)
-                }else{
-                    imagePathList!!.removeAt(position)
-                }
-                if(imagePathList!!.size<3){
-                    //如果执行删除之后 , 集合的长度 <=3
-                    imagePathList!!.add(TaskUpload())
-                }
-                //更新结构
-                update(imagePathList)
-            }
-            SystemUtil.printlnStr("getItem(position)：" + BaseConstants.BASE_UPLOAD_URL + getItem(position)!!.imgPath)
             if(getItem(position)!!.imgPath.startsWith("/storage")){
                 Glide.with(context).load(File(getItem(position)!!.imgPath)).into(viewHolder.iv_1)
             }else{
@@ -194,7 +162,45 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 }else{
                     Glide.with(context).load(BaseConstants.BASE_UPLOAD_URL +
                             getItem(position)!!.imgPath).into(viewHolder.iv_1)
-                    //error(R.drawable.mine_ic_default1).
+                }
+            }
+
+            //根据 状态值 设置 对应意见的颜色 2待审批、4审批不通过、3,5,6,7审批通过
+            if(getItem(position)!!.state==2){
+                //待审批
+                viewHolder.tv_approval_content!!.setTextColor(Color.parseColor("#277E63"))
+                viewHolder.tv_approval_content!!.setText("待审批")
+                if(getItem(position)!!.opinion==null || getItem(position)!!.opinion.trim().equals("")){
+                    viewHolder.tv_approval_reason!!.setText("审批意见:暂无")
+                }else{
+                    viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
+                }
+                viewHolder.tv_edit!!.visibility=View.INVISIBLE
+            }else if(getItem(position)!!.state==4){
+                //审批不通过
+                viewHolder.tv_approval_content!!.setTextColor(Color.RED)
+                viewHolder.tv_approval_content!!.setText("审批不通过")
+                viewHolder.tv_edit!!.visibility=View.VISIBLE
+                if(getItem(position)!!.opinion==null || getItem(position)!!.opinion.trim().equals("")){
+                    viewHolder.tv_approval_reason!!.setText("审批意见:暂无")
+                }else{
+                    viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
+                }
+                viewHolder.tv_edit!!.setOnClickListener({
+                    //编辑 事件
+                    editPosition=position
+                    (context as TaskDetailActivity)!!.setPortraitDialog()
+                })
+            }else if(getItem(position)!!.state==3 || getItem(position)!!.state==5
+                           || getItem(position)!!.state==6|| getItem(position)!!.state==7){
+                //审批通过
+                viewHolder.tv_approval_content!!.setTextColor(Color.GRAY)
+                viewHolder.tv_approval_content!!.setText("审批通过")
+                viewHolder.tv_edit!!.visibility=View.INVISIBLE
+                if(getItem(position)!!.opinion==null || getItem(position)!!.opinion.trim().equals("")){
+                    viewHolder.tv_approval_reason!!.setText("审批意见:暂无")
+                }else{
+                    viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
                 }
             }
         }
@@ -204,11 +210,17 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
     internal inner class ViewHolder(var itemView: View) {
         var iv_1: ImageView
         var iv_cancel1: View
+        var tv_approval_content:TextView?=null //审批状态
+        var tv_approval_reason:TextView?=null //审批意见
+        var tv_edit:TextView?=null //编辑按钮
 
         init {
             AutoUtils.auto(itemView)
             iv_1 = itemView.findViewById(R.id.iv_1) as ImageView
             iv_cancel1 = itemView.findViewById(R.id.iv_cancel1)
+            tv_approval_content = itemView.findViewById(R.id.tv_approval_content) as TextView
+            tv_approval_reason = itemView.findViewById(R.id.tv_approval_reason) as TextView
+            tv_edit = itemView.findViewById(R.id.tv_edit) as TextView
         }
     }
 }

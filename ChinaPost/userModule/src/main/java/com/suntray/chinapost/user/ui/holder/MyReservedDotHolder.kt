@@ -94,9 +94,11 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
         }else if(data!!.statename.equals("已到期")){
             //灰色
             tv_ad_state!!.setTextColor(Color.parseColor("#AEAEB0"))
-        }else if(data!!.statename.equals("即将到期") || data!!.statename.equals("申请解除预约")){
+        }else if(data!!.statename.equals("即将到期")){
             //红色 申请解除预约
             tv_ad_state!!.setTextColor(Color.parseColor("#ff3823"))
+        }else if( data!!.statename.equals("申请解除预约")){
+            tv_ad_state!!.setTextColor(Color.parseColor("#AEAEB0"))
         }
         tv_ad_state!!.text=data!!.statename
         var startDate= DateUtil.dateFormat(DateUtil.parse2DateTime(data!!.startdate))
@@ -153,5 +155,11 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
             dialog!!.show()
             dialog!!.setContent()
         })
+
+        if(data!!.statename.equals("申请解除预约")){
+            btn_chakan!!.visibility=View.INVISIBLE
+        }else{
+            btn_chakan!!.visibility=View.VISIBLE
+        }
     }
 }

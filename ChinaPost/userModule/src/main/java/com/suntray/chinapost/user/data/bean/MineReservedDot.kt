@@ -21,7 +21,7 @@ class MineReservedDot {
     var resourcetypename:String=""
     var startdate:String=""
     var enddate:String=""
-
+    var validenddate:String=""
 
     override fun toString(): String {
         return "MineReservedDot(reserveman=$reserveman, createby=$createby, pointid=$pointid, createdate='$createdate', state=$state, adtype=$adtype, clientname='$clientname', id=$id, salesman=$salesman, clientid=$clientid, adtypename='$adtypename', resourcetypename='$resourcetypename', startdate='$startdate', enddate='$enddate')"

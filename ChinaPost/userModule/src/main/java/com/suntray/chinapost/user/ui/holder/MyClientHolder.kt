@@ -83,8 +83,7 @@ class MyClientHolder:BaseHolder<MineClient>(){
             if(!((data.stagename!=null && data.stagename.equals("意向客户") &&
                                             data.statename!=null && data.statename.equals("待审批"))||(
                             data.stagename!=null && data.stagename.equals("意向客户") &&
-                                                data.statename!=null && data.statename.equals("审批不通过"))|| (
-                            data.stagename!=null && data.stagename.equals("已下单客户")))){
+                                                data.statename!=null && data.statename.equals("审批不通过")))){
                 ARouter.getInstance().build(RouterPath.MineModule.MINE_UPLOAD_APTITUDE).withInt("clientId",data.id).navigation(activity,100)
             }else{
                 ToastUtil.makeText(activity,"不允许上传资质")

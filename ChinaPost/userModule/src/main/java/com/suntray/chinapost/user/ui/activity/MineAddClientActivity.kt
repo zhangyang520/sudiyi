@@ -56,10 +56,8 @@ class MineAddClientActivity : BaseMvpActivity<ClientPresenter>(),ClientView{
         super.onProvinceCityRequest(provinceCity, action)
         SystemUtil.printlnStr("provinceCity:"+provinceCity.toString())
         if(provinceCity.size>0){
-            if(ClientBizUtils.window==null ||  !ClientBizUtils.window!!.isShowing){
-                //没有展示的时候
-                ClientBizUtils.showCityList(this@MineAddClientActivity,root,action,provinceCity,basePresenter,currentClient,tv_client_dizhi)
-            }
+            //没有展示的时候
+            ClientBizUtils.showCityList(this@MineAddClientActivity,root,action,provinceCity,basePresenter,currentClient,tv_client_dizhi)
         }else{
             ToastUtil.makeText(this@MineAddClientActivity,action.errorMsg)
         }

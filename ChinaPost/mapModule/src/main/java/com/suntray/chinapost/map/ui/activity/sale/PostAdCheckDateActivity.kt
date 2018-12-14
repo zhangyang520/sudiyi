@@ -73,7 +73,7 @@ class PostAdCheckDateActivity:BaseMvpActivity<ResourcePresenter>(),ResourceView 
             //事件点击
             iv_info!!.setOnClickListener({
                 if(resourceDotLocation!!.infoImage!=null && !resourceDotLocation!!.infoImage.equals("")){
-                    var imageDialog= ImageInfoDialog(applicationContext)
+                    var imageDialog= ImageInfoDialog(this@PostAdCheckDateActivity)
                     imageDialog.show()
                     imageDialog.setContent(resourceDotLocation!!.infoImage)
                 }else{

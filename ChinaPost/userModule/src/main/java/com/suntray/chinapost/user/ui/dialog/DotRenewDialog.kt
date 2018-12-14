@@ -56,7 +56,7 @@ class DotRenewDialog:Dialog{
         ed_end_time=view.findViewById(R.id.ed_end_time) as EditText
         var calendar=Calendar.getInstance()
         println("yuanshi DateUtil.dateFormat():"+DateUtil.dateFormat(DateUtil.parse2DateTime(myReservedDot!!.enddate)))
-        calendar.time=DateUtil.parse2DateTime(myReservedDot!!.enddate)
+        calendar.time=DateUtil.parse2DateTime(myReservedDot!!.validenddate)
         if(MyReservedDotHolder.renewDays!=-1){
             calendar.set(Calendar.DAY_OF_YEAR,calendar.get(Calendar.DAY_OF_YEAR)+MyReservedDotHolder.renewDays)
         }

@@ -9,6 +9,7 @@ import com.suntray.chinapost.baselibrary.data.bean.AdStyle
 import com.suntray.chinapost.baselibrary.data.bean.RefreshAction
 import com.suntray.chinapost.baselibrary.data.bean.ResourceType
 import com.suntray.chinapost.baselibrary.data.dao.AdStyleDao
+import com.suntray.chinapost.baselibrary.data.dao.UserDao
 import com.suntray.chinapost.baselibrary.rx.convertData
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.map.data.enum.CalendarAction
@@ -150,7 +151,7 @@ class ResourcePresenter @Inject constructor():BasePresenter<ResourceView>(){
                       clientName:String="", //客户名称
                       userType:Int=-1  //用户类型
                       ){
-        resourceServiceImpl.oneKeySubmit(OneKeySubmitRequest(id,resourceid,clientid,adtype,userId,startdate,enddate))
+        resourceServiceImpl.oneKeySubmit(OneKeySubmitRequest(id,resourceid,clientid,adtype,userId,startdate,enddate,clientName,userType))
                 .execute(object : BaseSucriber<OneKeyReservedResponse>(baseView, ResourcePresenter::javaClass.name) {
                         override fun onError(e: Throwable?) {
                             if (e is ContentException) {
@@ -185,7 +186,7 @@ class ResourcePresenter @Inject constructor():BasePresenter<ResourceView>(){
                       clientName:String="", //客户名称
                       userType:Int=-1  //用户类型
     ){
-                  resourceServiceImpl.submitReserve(OneKeySubmitRequest(id,resourceid,clientid,adtype,userId,startdate,enddate))
+                  resourceServiceImpl.submitReserve(OneKeySubmitRequest(id,resourceid,clientid,adtype,userId,startdate,enddate,clientName,userType))
                   .execute(object : BaseSucriber<ArrayList<Object>>(baseView, ResourcePresenter::javaClass.name) {
                       override fun onError(e: Throwable?) {
                           if (e is ContentException) {
@@ -217,7 +218,7 @@ class ResourcePresenter @Inject constructor():BasePresenter<ResourceView>(){
                             clientName:String="", //客户名称
                             userType:Int=-1  //用户类型
      ){
-        resourceServiceImpl.oneKeySubmitResult(OneKeySubmitRequest(id,resourceid,clientid,adtype,userId,startdate,enddate))
+        resourceServiceImpl.oneKeySubmitResult(OneKeySubmitRequest(id,resourceid,clientid,adtype,userId,startdate,enddate,clientName,userType))
                 .execute(object : BaseSucriber<OneKeyReservedResponse>(baseView, ResourcePresenter::javaClass.name) {
                     override fun onError(e: Throwable?) {
                         if (e is ContentException) {

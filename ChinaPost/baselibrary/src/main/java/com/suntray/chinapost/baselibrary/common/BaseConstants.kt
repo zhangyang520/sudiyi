@@ -72,6 +72,9 @@ object BaseConstants {
         const val GET_TASK_LIST_2="pointTasksA.do"//第二个接口
         const val TASK_COUNT_NUMBER="getPointTaskCounts.do";//任务数量
         const val UPLOAT_TASK_IMG="uploadScenePhotos.do" //上传 任务的图片
+
+        const val FindReservePointById="findReservePointById.do"//查看预订点位详情
+
         val MACHINE_ID = "MACHINE_ID"
 
         /**

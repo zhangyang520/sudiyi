@@ -31,7 +31,7 @@ import com.suntray.chinapost.map.presenter.view.TaskView
 import com.suntray.chinapost.provider.RouterPath
 import com.suntray.chinapost.user.data.bean.TaskUpload
 import com.suntray.chinapost.user.data.enum.UploadTaskEnum
-import com.suntray.chinapost.user.ui.adapter.TaskUploadImageAdapter
+import com.suntray.chinapost.map.ui.adapter.proxy.TaskUploadImageAdapter
 import com.zhy.autolayout.utils.AutoUtils
 import kotlinx.android.synthetic.main.activity_task_detail.*
 import kotlinx.android.synthetic.main.item_task.*
@@ -59,7 +59,7 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         basePresenter.baseView=this
     }
 
-    var  kanAdapter:TaskUploadImageAdapter?=null
+    var  kanAdapter: TaskUploadImageAdapter?=null
     override fun initView() {
         isBlackShow=true
         isRightShow=false
@@ -233,7 +233,7 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
     /**
      * 点击头像，显示弹窗，设置新头像
      */
-    private fun setPortraitDialog() {
+    public fun setPortraitDialog() {
         //设置长按弹窗-提醒是否删除本条目
         photoWindow= PopupWindow(this@TaskDetailActivity)
         var view=View.inflate(this@TaskDetailActivity, com.suntray.chinapost.user.R.layout.item_choose_photo,null)
@@ -255,6 +255,7 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         })
 
         (view.findViewById(com.suntray.chinapost.user.R.id.btn_cancel) as Button).setOnClickListener({
+            kanAdapter!!.editPosition=-1
             photoWindow!!.dismiss()
         })
     }
@@ -367,13 +368,26 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
     }
 
     private fun proImageShow(fileName: String) {
-        var aptitudeInfo=TaskUpload(fileName)
-        if(firstType==1){
-            UploadTaskEnum.UpKan!!.newAddList.add(0, aptitudeInfo)
+        if(kanAdapter!!.editPosition==-1){
+            //新增
+            var aptitudeInfo=TaskUpload(fileName)
+            if(firstType==1){
+                UploadTaskEnum.UpKan!!.newAddList.add(0, null)
+            }else{
+                UploadTaskEnum.DownKan!!.newAddList.add(0, null)
+            }
+            kanAdapter!!.newAddUpdate(aptitudeInfo)
         }else{
-            UploadTaskEnum.DownKan!!.newAddList.add(0, aptitudeInfo)
+            //修改
+            if(firstType==1){
+                UploadTaskEnum.UpKan!!.newAddList.add(0, kanAdapter!!.getItem(kanAdapter!!.editPosition))
+            }else{
+                UploadTaskEnum.DownKan!!.newAddList.add(0, kanAdapter!!.getItem(kanAdapter!!.editPosition))
+            }
+            kanAdapter!!.imagePathList!!.get(kanAdapter!!.editPosition)!!.imgPath=fileName
+            kanAdapter!!.editPosition=-1
+            kanAdapter!!.update( kanAdapter!!.imagePathList)
         }
-        kanAdapter!!.newAddUpdate(aptitudeInfo)
     }
 
     private fun crop(uri: Uri?) {
@@ -449,11 +463,15 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         return parts;
     }
 
-    private fun getNewAddIds(arrayList:ArrayList<TaskUpload>):Array<Int?>{
+    private fun getNewAddIds(arrayList:ArrayList<TaskUpload?>):Array<Int?>{
 
         var deleteIdInters= arrayOfNulls<Int>(arrayList.size)
         for(index in arrayList.indices){
-            deleteIdInters.set(index,-1)
+            if(arrayList.get(index)==null){
+                deleteIdInters.set(index,-1)
+            }else{
+                deleteIdInters.set(index,arrayList.get(index)!!.id)
+            }
         }
         return deleteIdInters
     }

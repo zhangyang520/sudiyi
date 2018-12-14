@@ -12,7 +12,7 @@
         <Button
                 android:id="@+id/btn_1"
                 android:layout_width="0dp"
-                android:layout_height="52px"
+                android:layout_height="100px"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/btn_choose_select"
                 android:text="全屏屏保3"
@@ -27,7 +27,7 @@
         <Button
                 android:id="@+id/btn_2"
                 android:layout_width="0dp"
-                android:layout_height="52px"
+                android:layout_height="100px"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/btn_choose_select"
                 android:text="全屏屏保4"
@@ -42,7 +42,7 @@
         <Button
                 android:id="@+id/btn_3"
                 android:layout_width="0dp"
-                android:layout_height="52px"
+                android:layout_height="100px"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/btn_choose_select"
                 android:text="全屏屏保5"

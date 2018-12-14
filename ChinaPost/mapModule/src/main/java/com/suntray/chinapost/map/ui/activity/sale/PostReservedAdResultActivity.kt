@@ -73,6 +73,7 @@ class PostReservedAdResultActivity:BaseMvpActivity<ResourcePresenter>(),Resource
 //                   if(selectedIndexList.size>0){
                        //集合循环
                        var idArray= arrayOfNulls<Int>(selectedIndexList.size)
+                       var resourceIdArray:Array<Int?> = arrayOfNulls<Int>(resourceIdList.size)
                        var index=0
                        for( i in selectedIndexList.indices){
                            //直接从 选择的集合中遍历
@@ -80,12 +81,10 @@ class PostReservedAdResultActivity:BaseMvpActivity<ResourcePresenter>(),Resource
                            index++
                        }
 
-                       var resourceIdArray:Array<Int?> = arrayOfNulls<Int>(selectedIndexList.size)
-                       index=0
-                       for(i in selectedIndexList.indices){
-                           resourceIdArray.set(index,resourceIdList.get(selectedIndexList.get(i)))
-                           index++
+                       for(j in resourceIdList.indices){
+                           resourceIdArray.set(j,resourceIdList.get(j))
                        }
+
 
                        if(UserDao.getLocalUser().userRole==4){
                            //销售人员

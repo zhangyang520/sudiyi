@@ -49,6 +49,11 @@ object ClientBizUtils {
         if(action== CityListAction.ProvinceAtion){
             clickIndex=0
             contentView= View.inflate(context, R.layout.popup_city_list,null);
+            if(window!=null && window!!.isShowing){
+                window!!.dismiss()
+                window=null
+            }
+
             window= PopupWindow(context,null,R.style.Transparent_Dialog);
             window!!.width=  AutoUtils.getPercentWidthSize(750);
             window!!.height= AutoUtils.getPercentHeightSize(1242);
@@ -108,7 +113,6 @@ object ClientBizUtils {
                 districtAdapter!!.provinceList?.clear()
                 districtAdapter!!.notifyDataSetChanged()
             }
-
         }else if(action== CityListAction.CityAction){
             SystemUtil.printlnStr("showCityList 2222222222222 provinceCity:"+provinceCity.size)
             //显示的 市

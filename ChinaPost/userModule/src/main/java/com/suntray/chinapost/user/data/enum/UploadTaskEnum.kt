@@ -6,7 +6,7 @@ import com.suntray.chinapost.user.data.bean.TaskUpload
  * 上传 资质的图片的类型
  */
 enum class UploadTaskEnum(var yingyePathId:String, var currentNumber: Int,
-                          var imageList:ArrayList<TaskUpload?>, var newAddList:ArrayList<TaskUpload>
+                          var imageList:ArrayList<TaskUpload?>, var newAddList:ArrayList<TaskUpload?>
                           , var deleteList:ArrayList<Int>,var newIdsList:ArrayList<Int>) {
    UpKan("imgFiles",0,arrayListOf(),arrayListOf(),arrayListOf(), arrayListOf()){
         override fun getCurrentNumber1(): Int {

@@ -77,7 +77,7 @@ class PostAdReservedListActivity:BaseAcvitiy(){
 
     override fun rightTitleClick() {
         super.rightTitleClick()
-        if(viewtitle.equals("全选")){
+        if(rightTitle.equals("全选")){
             adReservedRecylerAdapter!!.processAllSelect()
             tv_reserved_number.setText(adReservedRecylerAdapter!!.selectPositionList.size.toString())
             setRight("取消")

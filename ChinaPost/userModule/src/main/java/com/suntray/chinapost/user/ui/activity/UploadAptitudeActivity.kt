@@ -68,6 +68,7 @@ class UploadAptitudeActivity:BaseMvpActivity<ClientPresenter>(),ClientView{
     override fun onSaveClientInfo() {
         super.onSaveClientInfo()
         ToastUtil.makeText(this@UploadAptitudeActivity,"上传成功")
+        setResult(101)
         finish()
     }
 

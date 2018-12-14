@@ -133,40 +133,12 @@
         />
     </com.zhy.autolayout.AutoLinearLayout>
 
-    <com.zhy.autolayout.AutoRelativeLayout
-            android:id="@+id/rl_weizhi"
-            android:layout_marginTop="15px"
-            android:layout_below="@+id/ll_dot_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-        <TextView
-                android:layout_marginTop="10px"
-                android:layout_width="wrap_content"
-                android:layout_height="30px"
-                android:textColor="@color/black"
-                android:text="设备位置:"
-                android:textSize="26px"
-                android:gravity="center_vertical"
-        />
-
-        <TextView
-                android:id="@+id/tv_device_position_value"
-                android:layout_marginTop="10px"
-                android:layout_width="400px"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:textColor="@color/black"
-                android:layout_marginLeft="130px"
-                android:maxLines="3"
-                android:textSize="26px"
-        />
-    </com.zhy.autolayout.AutoRelativeLayout>
 
     <com.zhy.autolayout.AutoRelativeLayout
             android:id="@+id/rl_dot_name"
             android:layout_marginTop="15px"
-            android:layout_below="@+id/rl_weizhi"
+            android:layout_below="@+id/ll_dot_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -193,6 +165,35 @@
         />
     </com.zhy.autolayout.AutoRelativeLayout>
 
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_weizhi"
+            android:layout_marginTop="15px"
+            android:layout_below="@+id/rl_dot_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_marginTop="10px"
+                android:layout_width="wrap_content"
+                android:layout_height="30px"
+                android:textColor="@color/black"
+                android:text="设备位置:"
+                android:textSize="26px"
+                android:gravity="center_vertical"
+        />
+
+        <TextView
+                android:id="@+id/tv_device_position_value"
+                android:layout_marginTop="10px"
+                android:layout_width="400px"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:layout_marginLeft="130px"
+                android:maxLines="3"
+                android:textSize="26px"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
     <Button
             android:id="@+id/btn_guanggao"
             android:layout_width="188px"
@@ -203,7 +204,7 @@
             android:textSize="30px"
             android:textColor="@color/black"
             android:layout_marginLeft="130px"
-            android:layout_below="@+id/rl_dot_name"
+            android:layout_below="@+id/rl_weizhi"
             android:layout_marginTop="40px"
     />
 
@@ -217,7 +218,7 @@
             android:textSize="30px"
             android:textColor="@color/black"
             android:layout_marginLeft="80px"
-            android:layout_below="@+id/rl_dot_name"
+            android:layout_below="@+id/rl_weizhi"
             android:layout_marginTop="40px"
             android:layout_toRightOf="@+id/btn_guanggao"
     />

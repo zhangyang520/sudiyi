@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="200px">
+
+    <View
+            android:id="@+id/view_top"
+            android:layout_width="match_parent"
+            android:layout_height="30px"></View>
+
+    <ImageView
+            android:layout_below="@id/view_top"
+            android:id="@+id/iv_1"
+            android:layout_marginTop="20px"
+            android:layout_width="184px"
+            android:layout_height="184px"
+            android:src="@drawable/mine_ic_default1"
+            android:scaleType="fitXY"
+    />
+
+    <TextView
+            android:id="@+id/tv_approval_content"
+            android:textSize="20px"
+            android:text="审批不通过"
+            android:layout_toRightOf="@+id/iv_1"
+            android:layout_marginLeft="20px"
+            android:layout_alignTop="@+id/iv_1"
+            android:textColor="@color/red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tv_approval_reason"
+            android:textSize="20px"
+            android:text="审批意见: 拍照位置不准确"
+            android:layout_toRightOf="@+id/iv_1"
+            android:layout_marginLeft="20px"
+           android:layout_below="@+id/tv_approval_content"
+            android:layout_marginTop="25px"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tv_edit"
+            android:textSize="25px"
+            android:text="编 辑"
+            android:layout_toRightOf="@+id/iv_1"
+            android:layout_marginLeft="20px"
+            android:layout_below="@+id/tv_approval_reason"
+            android:layout_marginTop="25px"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <View
+            android:layout_alignTop="@+id/iv_1"
+            android:layout_alignRight="@+id/iv_1"
+            android:id="@+id/iv_cancel1"
+            android:background="@drawable/mine_iv_cancel"
+            android:layout_marginTop="10px"
+            android:layout_marginRight="10px"
+            android:visibility="gone"
+            android:layout_width="37px"
+            android:layout_height="40px"></View>
+
+</com.zhy.autolayout.AutoRelativeLayout>

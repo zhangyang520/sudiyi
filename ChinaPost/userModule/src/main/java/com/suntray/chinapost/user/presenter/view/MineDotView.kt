@@ -3,6 +3,7 @@ package com.suntray.chinapost.user.presenter.view
 import com.suntray.chinapost.baselibrary.data.bean.RefreshAction
 import com.suntray.chinapost.baselibrary.presenter.view.BaseView
 import com.suntray.chinapost.user.data.bean.MineReservedDot
+import com.suntray.chinapost.user.data.response.FindReservePointByIdResponse
 
 /**
  *  我预定的点位 view
@@ -40,4 +41,10 @@ interface MineDotView:BaseView{
 
     }
 
+    /**&
+     * 查看预订详情的回馈
+     */
+    fun onFindReservePointByIdResponse(findReservePointByIdResponse: FindReservePointByIdResponse){
+
+    }
 }

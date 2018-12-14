@@ -115,12 +115,12 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             }else{
                 if (currentMapDot != null &&
                         currentMapDot!!.size > 0) {
-                    if (currentMapDot!!.size < 50) {
+                    if (currentMapDot!!.size < reserveNumber) {
                         ARouter.getInstance()
                                 .build(RouterPath.MapModule.POST_AD_RESERVED_LIST)
                                 .navigation(this@PostPoiSearchActivity)
                     } else {
-                        ToastUtil.makeText(this@PostPoiSearchActivity, "点位的数据不能超过50个")
+                        ToastUtil.makeText(this@PostPoiSearchActivity, "点位的数据不能超过"+reserveNumber+"个")
                     }
                 } else {
                     ToastUtil.makeText(this@PostPoiSearchActivity, "暂无点位数据")

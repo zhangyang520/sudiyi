@@ -33,7 +33,7 @@ object ASettingUtils {
                 stringList.add(bean.id)
             }
             try{
-                SystemUtil.printlnStr("Arrays.toString(stringList.toTypedArray()):"+Arrays.toString(stringList.toTypedArray()))
+//                SystemUtil.printlnStr("Arrays.toString(stringList.toTypedArray()):"+Arrays.toString(stringList.toTypedArray()))
                 return Arrays.toString(stringList.toTypedArray())
 //                return URLEncoder.encode(Arrays.toString(stringList.toTypedArray()), "UTF-8")
             } catch (e: UnsupportedEncodingException) {
@@ -60,7 +60,7 @@ object ASettingUtils {
      * 清空设置条件
      */
     fun clearSetting(){
-        AppPrefsUtils.putInt(MapContstants.SETTING_KEYWORDINDEX,0)
+        AppPrefsUtils.putInt(MapContstants.SETTING_KEYWORDINDEX,1)
         AppPrefsUtils.putInt(MapContstants.SETTING_ADTYPEID,-1)
         AppPrefsUtils.putString(MapContstants.SETTING_STARTTIME, DateUtil.dateFormat(Calendar.getInstance().time))
         AppPrefsUtils.putString(MapContstants.SETTING_ENDTIME,DateUtil.dateFormat(Calendar.getInstance().time))

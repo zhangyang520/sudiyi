@@ -24,8 +24,10 @@ open class myPoiOverlay(private val mamap: AMap?, private val mPois: List<MapDot
             if (mPois != null) {
                 val size = mPois.size
                 for (i in 0 until size) {
-                    b.include(LatLng(mPois[i].latitude.toDouble(),
-                            mPois[i].longitude.toDouble()))
+                    if(mPois[i].latitude!=null && !mPois[i].latitude.trim().equals("")  && mPois[i].longitude!=null && !mPois[i].longitude.trim().equals("")){
+                        b.include(LatLng(mPois[i].latitude.toDouble(),
+                                mPois[i].longitude.toDouble()))
+                    }
                 }
             }
             return b.build()
@@ -39,10 +41,12 @@ open class myPoiOverlay(private val mamap: AMap?, private val mPois: List<MapDot
         if (mPois != null) {
             val size = mPois.size
             for (i in 0 until size) {
-                val marker = mamap!!.addMarker(getMarkerOptions(i,context))
-                val item = mPois[i]
-                marker.`object` = item
-                mPoiMarks.add(marker)
+                if(mPois!![i].latitude!=null && !mPois[i].latitude.trim().equals("")  && mPois[i].longitude!=null && !mPois[i].longitude.trim().equals("")){
+                    val marker = mamap!!.addMarker(getMarkerOptions(i,context))
+                    val item = mPois[i]
+                    marker.`object` = item
+                    mPoiMarks.add(marker)
+                }
             }
         }
     }

@@ -376,7 +376,7 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
                 startDate=tv_choose_start_time.getTxt()
                 endDate=tv_choose_end_time.getTxt()
                 basePresenter.oneKeySubmitResult(dotArray,resourceArray,selectedClient!!.id,adType,
-                                                        UserDao.getLocalUser().id,tv_choose_start_time.getTxt(),tv_choose_end_time.getTxt())
+                                                        UserDao.getLocalUser().id,tv_choose_start_time.getTxt(),tv_choose_end_time.getTxt(),"",UserDao.getLocalUser().userRole)
             }
         })
 

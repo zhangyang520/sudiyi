@@ -139,7 +139,7 @@ class MinePresenter @Inject constructor():BasePresenter<MineEditView> (){
      * 我的消息
      */
     fun myMessage(userId:Int,page:Int,rows:Int,action:RefreshAction){
-        mineService.myMessage(MineMessageRequest(userId,page,rows)).
+        mineService.myMessage(MineMessageRequest(userId,page,rows,UserDao.getLocalUser().userRole)).
                 execute(object:BaseSucriber<ArrayList<MineMessage>>(baseView,MinePresenter::javaClass.name){
                     override fun onError(e: Throwable?) {
                         if(e is ContentException){
