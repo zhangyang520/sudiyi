@@ -46,7 +46,7 @@
         <provider
                 android:name="android.support.v4.content.FileProvider"
                 android:authorities="${JPUSH_PKGNAME}.FileProvider"
-                android:exported="false"
+                android:exported="true"
                 android:grantUriPermissions="true">
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"

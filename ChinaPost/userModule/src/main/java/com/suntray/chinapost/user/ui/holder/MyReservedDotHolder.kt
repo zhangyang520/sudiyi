@@ -6,11 +6,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.suntray.chinapost.baselibrary.ui.refreshView.inner.BaseHolder
 import com.suntray.chinapost.baselibrary.utils.DateUtil
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.baselibrary.utils.UiUtils
+import com.suntray.chinapost.provider.RouterPath
 import com.suntray.chinapost.user.R
 import com.suntray.chinapost.user.R.id.btn_check
 import com.suntray.chinapost.user.data.bean.MineClient
@@ -161,5 +163,10 @@ class MyReservedDotHolder: BaseHolder<MineReservedDot>{
         }else{
             btn_chakan!!.visibility=View.VISIBLE
         }
+
+        contentView.setOnClickListener({
+            //整个的条目的点击
+            ARouter.getInstance().build(RouterPath.MineModule.MINE_RESERVED_DOT_DETAIL).withInt("dotId",data.id).navigation()
+        })
     }
 }

@@ -34,7 +34,7 @@
                     android:id="@+id/tv_select_client_content"
                     android:layout_width="500px"
                     android:layout_height="wrap_content"
-                    android:hint="请选择"
+                    android:hint="请输入客户名称检索"
                     android:textColor="#A9A9A9"
                     android:background="@null"
                     android:textColorHint="#A9A9A9"

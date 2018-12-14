@@ -3,15 +3,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="184px"
         android:layout_height="184px">
-
-    <View
-            android:id="@+id/view_top"
-            android:layout_width="match_parent"
-            android:layout_height="20px"></View>
     <ImageView
-            android:layout_below="@id/view_top"
             android:id="@+id/iv_1"
-            android:layout_marginTop="20px"
             android:layout_width="184px"
             android:layout_height="184px"
             android:src="@drawable/mine_ic_default1"

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <include
+            android:id="@+id/ll_title"
+            layout="@layout/layout_title"></include>
+
+    <ScrollView android:layout_width="match_parent"
+                android:layout_weight="1"
+                  android:layout_height="0dp">
+
+        <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+              <include
+                 layout="@layout/item_mine_reserve_dot_detail"
+               >
+              </include>
+
+            <!--预定点位的清单-->
+            <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_marginTop="30px"
+                    android:layout_below="@+id/start_end_time_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/tv_yuding_qingdan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="110px"
+                        android:text="预定点位清单"
+                        android:textColor="#ADACB1"
+                        android:textSize="26px"
+                        android:gravity="bottom"
+                        android:paddingBottom="20px"
+                        android:layout_marginLeft="20px"
+                android:layout_marginStart="20px"/>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_below="@+id/tv_yuding_qingdan"
+                        android:id="@+id/ll_dianwei_qingdan"
+                        android:orientation="vertical"
+                        android:background="#c5c5c5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                </com.zhy.autolayout.AutoLinearLayout>
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+</com.zhy.autolayout.AutoLinearLayout>

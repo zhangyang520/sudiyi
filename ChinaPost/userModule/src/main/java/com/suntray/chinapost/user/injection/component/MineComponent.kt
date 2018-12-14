@@ -61,4 +61,9 @@ interface MineComponent {
      * 绑定 客户的详情页
      */
     fun bind(mineClientDetail: MineClientDetail)
+
+    /**
+     * 绑定预订界面的详情页
+     */
+    fun bind(mineReserveDotDetailActivity: MineReserveDotDetailActivity)
 }

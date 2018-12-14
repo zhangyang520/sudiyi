@@ -99,6 +99,9 @@ object RouterPath {
 
             //客户的详情页
             const val MINE_CLIENT_DETAIL="/mine/MineClientDetail"
+
+            //预订点位的详情界面
+            const val MINE_RESERVED_DOT_DETAIL="/mine/MineReserveDotDetailActivity"
         }
     }
 }

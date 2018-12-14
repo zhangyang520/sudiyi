@@ -38,6 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:horizontalSpacing="15px"
+            android:verticalSpacing="10px"
+            android:layout_marginTop="20px"
             android:numColumns="3"
             android:stretchMode="columnWidth">
     </GridView>
@@ -67,7 +69,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:horizontalSpacing="15px"
+            android:verticalSpacing="10px"
             android:numColumns="3"
+            android:layout_marginTop="20px"
             android:stretchMode="columnWidth">
     </GridView>
 </com.zhy.autolayout.AutoLinearLayout>

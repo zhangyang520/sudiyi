@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.suntray.chinapost.baselibrary.data.dao.UserDao
+import com.suntray.chinapost.baselibrary.rx.getTxt
 import com.suntray.chinapost.baselibrary.ui.activity.BaseMvpActivity
 import com.suntray.chinapost.baselibrary.ui.progressbar.KProgressHUD
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
@@ -67,6 +68,22 @@ class PostReservedAdResultActivity:BaseMvpActivity<ResourcePresenter>(),Resource
                finish()
            })
 
+           /**
+            * 全选 和 取消 全选
+            */
+           btn_check.setOnClickListener({
+                 if(tv_select_all.getTxt().toString().equals("全选")){
+                     //点击全选
+                     btn_check.isActivated=true
+                     tv_select_all.setText("取消全选")
+                     adReservedResultAdapter.processSlectedAll()
+                 }else{
+                     //点击全选
+                     btn_check.isActivated=false
+                     tv_select_all.setText("全选")
+                     adReservedResultAdapter.processAntiAll()
+                 }
+           })
            btn_submit_reserved.setOnClickListener({
                if(reservedAdResult.countSuccess>0){
 

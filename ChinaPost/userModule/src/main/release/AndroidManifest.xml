@@ -58,5 +58,10 @@
                 android:name=".ui.activity.MineClientDetail"
                 android:screenOrientation="portrait"
         ></activity>
+
+        <activity
+                android:screenOrientation="portrait"
+                android:name=".ui.activity.MineReserveDotDetailActivity">
+        </activity>        <!--目标高度-->
     </application>
 </manifest>

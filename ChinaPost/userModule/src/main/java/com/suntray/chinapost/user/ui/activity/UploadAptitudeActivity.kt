@@ -36,6 +36,7 @@ import com.suntray.chinapost.user.injection.component.DaggerMineComponent
 import com.suntray.chinapost.user.presenter.ClientPresenter
 import com.suntray.chinapost.user.presenter.view.ClientView
 import com.suntray.chinapost.user.ui.adapter.UploadImageAdapter
+import com.suntray.chinapost.user.ui.dialog.ImageInfoDialog
 import com.zhy.autolayout.utils.AutoUtils
 import kotlinx.android.synthetic.main.activity_upload_aptitude.*
 import kotlinx.android.synthetic.main.upload_aptitude_view_new.*
@@ -180,6 +181,9 @@ class UploadAptitudeActivity:BaseMvpActivity<ClientPresenter>(),ClientView{
                             uploadaptitudeenum=UploadAptitudeEnum.JiBenXinxi
                             setPortraitDialog()
                         } else {
+                            var imageDialog= ImageInfoDialog(this@UploadAptitudeActivity)
+                            imageDialog.show()
+                            imageDialog.setContent((parent!!.getItemAtPosition(position) as AptitudeInfo).address)
                         }
                     }, Runnable { ToastUtil.makeText(this@UploadAptitudeActivity, "读写存储卡权限未打开，请到手机权限中心设置打开...") })
                 }, Runnable { ToastUtil.makeText(this@UploadAptitudeActivity, "相机权限未打开，请到手机权限中心设置打开...") })
@@ -210,6 +214,9 @@ class UploadAptitudeActivity:BaseMvpActivity<ClientPresenter>(),ClientView{
                             uploadaptitudeenum=UploadAptitudeEnum.HangyeTeshu
                             setPortraitDialog()
                         } else {
+                            var imageDialog= ImageInfoDialog(this@UploadAptitudeActivity)
+                            imageDialog.show()
+                            imageDialog.setContent((parent!!.getItemAtPosition(position) as AptitudeInfo).address)
                         }
                     }, Runnable { ToastUtil.makeText(this@UploadAptitudeActivity, "读写存储卡权限未打开，请到手机权限中心设置打开...") })
                 }, Runnable { ToastUtil.makeText(this@UploadAptitudeActivity, "相机权限未打开，请到手机权限中心设置打开...") })

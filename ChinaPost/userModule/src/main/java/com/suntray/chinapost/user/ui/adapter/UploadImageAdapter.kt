@@ -12,6 +12,7 @@ import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.user.R
 import com.suntray.chinapost.user.data.bean.AptitudeInfo
 import com.suntray.chinapost.user.data.enum.UploadAptitudeEnum
+import com.suntray.chinapost.user.ui.dialog.ImageInfoDialog
 import com.zhy.autolayout.AutoRelativeLayout
 import com.zhy.autolayout.utils.AutoUtils
 import java.io.File
@@ -176,6 +177,7 @@ class UploadImageAdapter(private val context: Context, var imagePathList: ArrayL
                 //更新结构
                 update(imagePathList)
             }
+
             SystemUtil.printlnStr("getItem(position)：" + BaseConstants.BASE_UPLOAD_URL + getItem(position)!!.address)
             if(getItem(position)!!.address.startsWith("/storage")){
                 Glide.with(context).load(File(getItem(position)!!.address)).into(viewHolder.iv_1)

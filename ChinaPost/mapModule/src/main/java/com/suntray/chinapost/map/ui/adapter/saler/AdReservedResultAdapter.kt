@@ -94,4 +94,24 @@ class AdReservedResultAdapter: RecyclerView.Adapter<AdReservedResultAdapter.AdRe
             tv_state= itemView!!.findViewById(R.id.tv_state) as TextView
         }
     }
+
+    /**
+     * 处理全选
+     */
+    fun processSlectedAll() {
+        //处理全选
+        selectedIndexList!!.clear()
+        for (index in dataList!!.indices) {
+            if(dataList!!.get(index)!!.success){
+                selectedIndexList!!.add(index)
+            }
+        }
+        notifyDataSetChanged()
+    }
+
+    fun processAntiAll() {
+        //处理全选
+        selectedIndexList!!.clear()
+        notifyDataSetChanged()
+    }
 }

@@ -12,6 +12,7 @@ class FindReservePointByIdResponse {
 
     var resourceCategoryList:ArrayList<String>?=null
     var pointList:ArrayList<Point>?=null
+    var reserve:Reserve?=null
     /**
      * 预订信息
      */

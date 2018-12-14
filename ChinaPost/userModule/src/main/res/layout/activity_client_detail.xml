@@ -39,6 +39,7 @@
                     android:id="@+id/upload_aptitude"
                     android:layout_below="@+id/hangye_layout"
                     android:layout_marginTop="20px"
+                    android:layout_marginBottom="20px"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     layout="@layout/upload_aptitude_view_new"></include>

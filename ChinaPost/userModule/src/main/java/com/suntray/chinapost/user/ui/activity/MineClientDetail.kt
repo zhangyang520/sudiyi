@@ -22,6 +22,7 @@ import com.suntray.chinapost.user.injection.component.DaggerMineComponent
 import com.suntray.chinapost.user.presenter.ClientPresenter
 import com.suntray.chinapost.user.presenter.view.ClientView
 import com.suntray.chinapost.user.ui.adapter.UploadImageAdapter
+import com.suntray.chinapost.user.ui.dialog.ImageInfoDialog
 import kotlinx.android.synthetic.main.activity_client_detail.*
 import kotlinx.android.synthetic.main.item_client_hangye_layout_show.*
 import kotlinx.android.synthetic.main.item_client_info_layout_show.*
@@ -42,13 +43,9 @@ class MineClientDetail :BaseMvpActivity<ClientPresenter>(),ClientView{
     }
 
 
-    var uploadaptitudeenum: UploadAptitudeEnum?=null
     var yinyeAdapter: UploadImageAdapter?=null
     var tradeAdapter: UploadImageAdapter?=null
 
-    //域名
-    var hostAdpater: UploadImageAdapter?=null
-    var dichanxiaoshouAdapter: UploadImageAdapter?=null
 
 
     /**
@@ -70,6 +67,8 @@ class MineClientDetail :BaseMvpActivity<ClientPresenter>(),ClientView{
             UploadAptitudeEnum.HangyeTeshu.imageList.addAll(0,getAllAptitudeInfoResponse.specialAccList!!)
             getApptitudeInfoUpadate(UploadAptitudeEnum.HangyeTeshu);
         }
+
+        scrollView.scrollBy(0,-400)
     }
 
 
@@ -138,27 +137,55 @@ class MineClientDetail :BaseMvpActivity<ClientPresenter>(),ClientView{
 
 
             var yinyelist=ArrayList<AptitudeInfo?>()
-            yinyelist.addAll(UploadAptitudeEnum.HangyeTeshu.getPathList())
+            yinyelist.addAll(UploadAptitudeEnum.JiBenXinxi.getPathList())
             SystemUtil.printlnStr("yinyelist hs:"+yinyelist.hashCode()+
-                    "...UploadAptitudeEnum.Yingye.getPathList() hs:"+UploadAptitudeEnum.HangyeTeshu.getPathList().hashCode())
+                    "...UploadAptitudeEnum.Yingye.getPathList() hs:"+UploadAptitudeEnum.JiBenXinxi.getPathList().hashCode())
             yinyeAdapter = UploadImageAdapter(this@MineClientDetail,yinyelist)
-            yinyeAdapter!!.uploadAptitudeEnum=UploadAptitudeEnum.HangyeTeshu
+            yinyeAdapter!!.uploadAptitudeEnum=UploadAptitudeEnum.JiBenXinxi
             yinyeAdapter!!.gridView=yingye_gridvew
             yinyeAdapter!!.isCancelable=false
             yingye_gridvew.setAdapter(yinyeAdapter)
+           yingye_gridvew.setOnItemClickListener(object :AdapterView.OnItemClickListener{
+                override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    //允许SD卡读写权限
+                    if ((parent!!.getItemAtPosition(position) as AptitudeInfo).address== null ||
+                            (parent!!.getItemAtPosition(position) as AptitudeInfo).address.equals("")) {// 添加图片
+                    } else {
+                        var imageDialog= ImageInfoDialog(this@MineClientDetail)
+                        imageDialog.show()
+                        imageDialog.setContent((parent!!.getItemAtPosition(position) as AptitudeInfo).address)
+                    }
+
+                }
+            })
 
             basePresenter.getAllUploadAptitude(GetAllUploadAptitudeRequest(currentClient.id,true))
 
             var tradelist=arrayListOf<AptitudeInfo?>()
-            tradelist.addAll(UploadAptitudeEnum.JiBenXinxi.getPathList())
+            tradelist.addAll(UploadAptitudeEnum.HangyeTeshu.getPathList())
             //商标
             tradeAdapter = UploadImageAdapter(this@MineClientDetail, tradelist)
             tradeAdapter!!.gridView=food_gridvew
-            tradeAdapter!!.uploadAptitudeEnum=UploadAptitudeEnum.JiBenXinxi
+            tradeAdapter!!.uploadAptitudeEnum=UploadAptitudeEnum.HangyeTeshu
             tradeAdapter!!.isCancelable=false
             food_gridvew.setAdapter(tradeAdapter)
 
-            /***
+            food_gridvew.setOnItemClickListener(object :AdapterView.OnItemClickListener{
+                override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                            //允许SD卡读写权限
+                            if ((parent!!.getItemAtPosition(position) as AptitudeInfo).address== null ||
+                                    (parent!!.getItemAtPosition(position) as AptitudeInfo).address.equals("")) {// 添加图片
+                            } else {
+                                var imageDialog= ImageInfoDialog(this@MineClientDetail)
+                                imageDialog.show()
+                                imageDialog.setContent((parent!!.getItemAtPosition(position) as AptitudeInfo).address)
+                            }
+
+                }
+            })
+
+
+        /***
              *  提示图展示
              */
             tv_base_tips.setOnClickListener({
@@ -181,10 +208,12 @@ class MineClientDetail :BaseMvpActivity<ClientPresenter>(),ClientView{
         //将 图片放入集合 显示界面
         var list=uploadAptitudeEnum1!!.getPathList()
         SystemUtil.printlnStr("list size:"+list.size)
-        if(uploadAptitudeEnum1==UploadAptitudeEnum.HangyeTeshu){
+        if(uploadAptitudeEnum1==UploadAptitudeEnum.JiBenXinxi){
             yinyeAdapter!!.update(list)
-        }else if(uploadAptitudeEnum1==UploadAptitudeEnum.JiBenXinxi){
+        }else if(uploadAptitudeEnum1==UploadAptitudeEnum.HangyeTeshu){
             tradeAdapter!!.update(list)
         }
+
+
     }
 }

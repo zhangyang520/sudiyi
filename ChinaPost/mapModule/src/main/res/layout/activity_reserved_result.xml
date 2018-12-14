@@ -17,36 +17,40 @@
             android:layout_width="match_parent"
             android:layout_marginTop="66px"
             android:layout_marginBottom="20px"
+            android:gravity="center_vertical"
             android:paddingLeft="20px"
-            android:layout_height="30px">
+            android:layout_height="60px">
 
         <TextView android:layout_width="wrap_content"
-                   android:layout_height="match_parent"
+                   android:layout_height="wrap_content"
                    android:text="预定成功   "
                    android:textSize="24px"
                    android:textColor="@color/gray"
-
+                  android:layout_gravity="center_vertical"
         />
 
         <TextView
                 android:id="@+id/tv_success_count"
                 android:layout_width="wrap_content"
-                  android:layout_height="match_parent"
+                  android:layout_height="wrap_content"
                   android:text="10"
                   android:textSize="24px"
+                android:layout_gravity="center_vertical"
                   android:textColor="#006746"
         />
         <TextView android:layout_width="wrap_content"
-                  android:layout_height="match_parent"
+                  android:layout_height="wrap_content"
                   android:text="   个，"
                   android:textSize="24px"
+                  android:layout_gravity="center_vertical"
                   android:textColor="@color/gray"
         />
 
         <TextView android:layout_width="wrap_content"
-                  android:layout_height="match_parent"
+                  android:layout_height="wrap_content"
                   android:text="    预定失败   "
                   android:textSize="24px"
+                  android:layout_gravity="center_vertical"
                   android:textColor="@color/gray"
 
         />
@@ -54,14 +58,37 @@
         <TextView
               android:id="@+id/tv_error_count"
               android:layout_width="wrap_content"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               android:text="10"
+              android:layout_gravity="center_vertical"
               android:textSize="24px"
               android:textColor="@color/red"
         />
         <TextView android:layout_width="wrap_content"
-                  android:layout_height="match_parent"
+                  android:layout_height="wrap_content"
                   android:text="   个"
+                  android:layout_gravity="center_vertical"
+                  android:textSize="24px"
+                  android:textColor="@color/gray"
+
+        />
+
+        <ImageView
+                android:id="@+id/btn_check"
+                android:layout_width="44px"
+                android:layout_height="44px"
+                android:enabled="true"
+                android:background="@drawable/btn_choose_select"
+                android:layout_marginLeft="20px"
+        ></ImageView>
+
+        <TextView
+                android:id="@+id/tv_select_all"
+                android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="全选"
+                   android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20px"
                   android:textSize="24px"
                   android:textColor="@color/gray"
 

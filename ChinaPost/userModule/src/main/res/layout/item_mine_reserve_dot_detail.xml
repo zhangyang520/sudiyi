@@ -13,22 +13,22 @@
             android:paddingRight="20px"
             android:background="@color/white"
             android:paddingBottom="30px"
-            android:layout_marginTop="20px"
+            android:layout_marginTop="10px"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="36px"
-                  android:text="客户名称"
+                  android:text="客户名称："
                   android:textColor="@color/black"
                   android:textSize="30px"
                   android:layout_centerVertical="true"
         />
 
-        <EditText
+        <TextView
                 android:layout_alignParentRight="true"
-                android:id="@+id/ed_client_name"
+                android:id="@+id/tv_client_name_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -36,10 +36,7 @@
                 android:textColor="#666666"
                 android:textColorHint="#D5D5D5"
                 android:layout_centerVertical="true"
-                android:hint="请输入"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:maxEms="16"
+                android:maxLines="10"
                 android:layout_marginTop="2px"
         />
     </com.zhy.autolayout.AutoRelativeLayout>
@@ -56,9 +53,9 @@
             android:layout_below="@+id/rl_client_name"
             android:id="@+id/rl_client_xingming"
             android:paddingLeft="20px"
-            android:paddingTop="30px"
             android:paddingRight="20px"
-            android:paddingBottom="30px"
+            android:paddingBottom="20px"
+            android:paddingTop="20px"
             android:layout_marginTop="1px"
             android:gravity="center_vertical"
             android:background="@color/white"
@@ -68,15 +65,15 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="36px"
-                android:text="联系人姓名"
+                android:text="广告类型:"
                 android:textColor="@color/black"
                 android:textSize="30px"
                 android:layout_centerVertical="true"
         />
 
-        <EditText
+        <TextView
                 android:layout_alignParentRight="true"
-                android:id="@+id/ed_client_xingming"
+                android:id="@+id/tv_ad_type_value"
                 android:layout_width="wrap_content"
                 android:layout_height="36px"
                 android:background="@null"
@@ -84,25 +81,60 @@
                 android:textColor="#666666"
                 android:textColorHint="#D5D5D5"
                 android:layout_centerVertical="true"
-                android:hint="请输入"
                 android:layout_marginTop="2px"
         />
     </com.zhy.autolayout.AutoRelativeLayout>
     <!--线条-->
-    <View
-            android:layout_below="@+id/rl_client_name"
-            android:id="@+id/line_1"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@drawable/base_bg_line"></View>
 
     <com.zhy.autolayout.AutoRelativeLayout
             android:layout_below="@+id/rl_client_xingming"
             android:id="@+id/rl_client_phone"
             android:paddingLeft="20px"
-            android:paddingTop="30px"
             android:paddingRight="20px"
-            android:paddingBottom="30px"
+            android:paddingTop="20px"
+            android:paddingBottom="20px"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/tv_resource_type"
+                android:layout_width="wrap_content"
+                android:layout_height="36px"
+                android:text="资源位类型:"
+                android:textColor="@color/black"
+                android:textSize="30px"
+                android:layout_centerVertical="true"
+        />
+
+        <TextView
+                android:gravity="right"
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_resource_type_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:textSize="30px"
+                android:layout_marginLeft="100px"
+                android:textColor="#666666"
+                android:textColorHint="#D5D5D5"
+                android:maxLines="10"
+                android:layout_toRightOf="@+id/tv_resource_type"
+                android:layout_centerVertical="true"
+                android:hint="请输入"
+                android:layout_marginTop="2px"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_below="@+id/rl_client_phone"
+            android:id="@+id/rl_reserve_time"
+            android:paddingLeft="20px"
+            android:paddingRight="20px"
+            android:paddingTop="20px"
+            android:paddingBottom="20px"
             android:layout_marginTop="1px"
             android:gravity="center_vertical"
             android:background="@color/white"
@@ -110,118 +142,30 @@
             android:layout_height="wrap_content">
 
         <TextView
+                android:id="@+id/tv_reserve_time"
                 android:layout_width="wrap_content"
                 android:layout_height="36px"
-                android:text="联系号码"
+                android:text="预订起始时间:"
                 android:textColor="@color/black"
                 android:textSize="30px"
                 android:layout_centerVertical="true"
         />
 
-        <EditText
+        <TextView
                 android:layout_alignParentRight="true"
-                android:id="@+id/ed_client_phone"
+                android:id="@+id/tv_reserve_time_value"
                 android:layout_width="wrap_content"
-                android:layout_height="36px"
+                android:layout_height="wrap_content"
                 android:background="@null"
-
+                android:paddingLeft="40px"
                 android:textSize="30px"
+                android:layout_marginLeft="200px"
                 android:textColor="#666666"
                 android:textColorHint="#D5D5D5"
+                android:maxLines="10"
+                android:layout_toRightOf="@+id/tv_resource_type"
                 android:layout_centerVertical="true"
-                android:hint="请输入"
                 android:layout_marginTop="2px"
         />
     </com.zhy.autolayout.AutoRelativeLayout>
-
-    <!-- 客户阶段 -->
-    <com.zhy.autolayout.AutoRelativeLayout
-            android:id="@+id/rl_client_state"
-            android:layout_below="@+id/rl_client_phone"
-            android:layout_marginTop="20px"
-            android:paddingLeft="20px"
-            android:paddingTop="30px"
-            android:paddingRight="20px"
-            android:paddingBottom="30px"
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="客户阶段"
-                android:textColor="@color/black"
-                android:layout_centerVertical="true"
-                android:textSize="30px"
-        />
-
-
-        <!--
-            android:textColor="#666666"
-                android:textColorHint="#D5D5D5"
-        -->
-
-        <com.zhy.autolayout.AutoRelativeLayout
-                android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-
-            <ImageView
-                     android:visibility="gone"
-                    android:id="@+id/iv_yixiang"
-                    android:layout_width="44px"
-                    android:layout_height="44px"
-                    android:src="@drawable/btn_choose_select"
-                    android:layout_toLeftOf="@+id/tv_yixiang_client"
-                    android:layout_marginRight="20px"
-                    android:layout_centerVertical="true"
-            />
-            <TextView
-                    android:visibility="gone"
-                    android:id="@+id/tv_yixiang_client"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36px"
-                    android:text="意向客户"
-                    android:layout_toLeftOf="@+id/btn_hasxiadan"
-                    android:textColor="#666666"
-                    android:layout_marginRight="70px"
-                    android:layout_centerVertical="true"
-                    android:textSize="30px"
-            />
-
-            <!--
-              iv_yixiang
-              tv_yixiang_client
-
-              btn_hasxiadan
-              tv_has_client
-            -->
-            <ImageView
-                    android:id="@+id/btn_hasxiadan"
-                    android:layout_width="44px"
-                    android:layout_height="44px"
-                    android:src="@drawable/btn_choose_select"
-                    android:layout_toLeftOf="@+id/tv_has_client"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20px"
-            />
-            <TextView
-                    android:id="@+id/tv_has_client"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36px"
-                    android:text="已下单客户"
-                    android:textColor="#666666"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:textSize="30px"
-                    android:layout_marginRight="20px"
-            />
-        </com.zhy.autolayout.AutoRelativeLayout>
-    </com.zhy.autolayout.AutoRelativeLayout>
-
-
-
 </com.zhy.autolayout.AutoRelativeLayout>

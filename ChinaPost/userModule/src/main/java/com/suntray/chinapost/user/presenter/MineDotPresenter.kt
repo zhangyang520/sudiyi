@@ -29,7 +29,7 @@ class MineDotPresenter @Inject constructor():BasePresenter<MineDotView>(){
 
 
     /**
-     * 查看预订详情
+     *  查看预订详情
      */
     fun findReservePointById(findReservePointByIdRequest: FindReservePointByIdRequest){
         mineDotServiceImpl.findReservePointById(findReservePointByIdRequest).
@@ -38,7 +38,7 @@ class MineDotPresenter @Inject constructor():BasePresenter<MineDotView>(){
                         if(e is ContentException){
                             assertMethod(baseView,{
                                 (baseView as MineDotView).onError(e.errorContent);
-                                baseView.hideLoading()
+                                 baseView.hideLoading()
                             })
                         }else{
                             if(e is SocketTimeoutException){
@@ -46,12 +46,14 @@ class MineDotPresenter @Inject constructor():BasePresenter<MineDotView>(){
                             }else{
                                 (baseView as MineDotView).onError("请求失败")
                             }
+                            baseView.hideLoading()
                         }
                     }
 
                     override fun onNext(t:FindReservePointByIdResponse) {
                         super.onNext(t)
                         assertMethod(baseView,{
+                            baseView.hideLoading()
                             (baseView as MineDotView).onFindReservePointByIdResponse(t)
                         })
                     }
