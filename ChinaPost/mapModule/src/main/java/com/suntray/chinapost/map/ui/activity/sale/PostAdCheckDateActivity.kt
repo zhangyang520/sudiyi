@@ -66,8 +66,7 @@ class PostAdCheckDateActivity:BaseMvpActivity<ResourcePresenter>(),ResourceView 
             calendar!!.set(Calendar.DAY_OF_MONTH,1)
 
             //设置图片
-            Glide.with(applicationContext).load(resourceDotLocation!!.infoImage).into(iv_info)
-                    .onLoadStarted(applicationContext!!.resources.getDrawable(R.drawable.icon_default))
+            Glide.with(applicationContext).load(resourceDotLocation!!.infoImage).error((applicationContext!!.resources.getDrawable(R.drawable.icon_default))).into(iv_info)
             tv_info_devive_specification!!.setText(resourceDotLocation!!.deviceSpecification)
 
             //事件点击

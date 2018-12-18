@@ -12,7 +12,6 @@ import java.util.*
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.PermissionChecker
 import android.support.v4.content.ContextCompat
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import com.suntray.chinapost.baselibrary.common.AppManager
 import com.suntray.chinapost.baselibrary.ui.dialog.LuyinTipDialog
 import com.trello.rxlifecycle.components.support.RxFragmentActivity
@@ -46,7 +45,6 @@ open abstract class BaseFragmenAcvitiy: RxFragmentActivity() {
         processBussiness()
         //进行初始化back 和主题
         initBtnBlackAndTitle()
-
     }
 
 
@@ -83,6 +81,7 @@ open abstract class BaseFragmenAcvitiy: RxFragmentActivity() {
             })
         }
     }
+
     /**
      * 初始化view相关的信息
      */

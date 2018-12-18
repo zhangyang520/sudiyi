@@ -1,123 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoRelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:paddingLeft="20px"
-        android:paddingBottom="40px"
+        android:paddingBottom="20px"
         android:paddingTop="40px"
-        android:paddingRight="20px"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-     <View
-             android:id="@+id/view_top"
-             android:layout_width="match_parent"
-            android:layout_height="30px"></View>
+    <View
+            android:background="@color/activity_background_color"
+            android:id="@+id/view_top"
+            android:layout_width="match_parent"
+            android:layout_height="30px" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"></View>
+
     <!--序号的图片-->
-    <TextView
-            android:id="@+id/btn_xuhao"
-            android:gravity="center"
-            android:text="1"
-            android:textSize="48px"
-            android:textColor="@color/white"
-            android:background="@drawable/map_iv_circle"
-            android:layout_marginRight="20px"
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/tl_content"
             android:layout_below="@+id/view_top"
-            android:layout_centerVertical="true"
-            android:layout_width="88px"
-            android:layout_height="88px"/>
-    <TextView
-            android:layout_toRightOf="@+id/btn_xuhao"
-            android:id="@+id/tv_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="东门车站旁"
-            android:textSize="34px"
-            android:layout_below="@+id/view_top"
-            android:textColor="@color/black"
-    />
-
-    <!-- 小区类型 -->
-    <com.zhy.autolayout.AutoLinearLayout
-            android:layout_toRightOf="@+id/btn_xuhao"
-            android:id="@+id/ll_dot_name"
-            android:layout_below="@+id/tv_location"
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20px"
-            android:layout_height="wrap_content">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30px"
-                android:textColor="#A1A1A3"
-                android:text="设备ID:"
-                android:textSize="26px"
-                android:gravity="center_vertical"
-        />
-
-        <TextView
-                android:layout_marginTop="15px"
-                android:layout_width="wrap_content"
-                android:layout_height="30px"
-                android:textColor="#A1A1A3"
-                android:text="所在区域:"
-                android:textSize="26px"
-                android:gravity="center_vertical"
-        />
-
-        <TextView
-                android:layout_marginTop="15px"
-                android:layout_width="wrap_content"
-                android:layout_height="30px"
-                android:textColor="#A1A1A3"
-                android:text="点位位置:"
-                android:textSize="26px"
-                android:gravity="center_vertical"
-        />
-    </com.zhy.autolayout.AutoLinearLayout>
-
-
-    <!-- 小区类型 -->
-    <com.zhy.autolayout.AutoLinearLayout
-            android:id="@+id/ll_dot_value"
-            android:layout_toRightOf="@+id/ll_dot_name"
-            android:layout_below="@+id/tv_location"
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20px"
             android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_width="match_parent"
+            android:paddingTop="20px"
             android:layout_height="wrap_content">
 
         <TextView
-                android:id="@+id/tv_id_value"
+                android:id="@+id/btn_xuhao"
+                android:gravity="center"
+                android:text="1"
+                android:textSize="48px"
+                android:textColor="@color/white"
+                android:background="@drawable/map_iv_circle"
+                android:layout_marginRight="20px"
+                android:layout_below="@+id/view_top"
+                android:layout_centerVertical="true"
+                android:layout_width="88px"
+                android:layout_height="88px"/>
+        <TextView
+                android:layout_toRightOf="@+id/btn_xuhao"
+                android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
-                android:layout_height="30px"
-                android:gravity="center_vertical"
-                android:textColor="#A1A1A3"
-                android:text="178690"
-                android:textSize="26px"
+                android:layout_height="wrap_content"
+                android:text="东门车站旁"
+                android:textSize="34px"
+                android:layout_below="@+id/view_top"
+                android:textColor="@color/black"
         />
 
-        <TextView
-                android:id="@+id/tv_area"
-                android:layout_marginTop="15px"
+        <!-- 小区类型 -->
+        <com.zhy.autolayout.AutoLinearLayout
+                android:layout_toRightOf="@+id/btn_xuhao"
+                android:id="@+id/ll_dot_name"
+                android:layout_below="@+id/tv_location"
                 android:layout_width="wrap_content"
-                android:layout_height="30px"
-                android:gravity="center_vertical"
-                android:textColor="#A1A1A3"
-                android:text="湖北省-武汉市-洪山区"
-                android:textSize="26px"
-        />
-        <TextView
-                android:id="@+id/tv_position"
-                android:layout_marginTop="15px"
+                android:orientation="vertical"
+                android:layout_marginTop="20px"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30px"
+                    android:textColor="#A1A1A3"
+                    android:text="设备ID:"
+                    android:textSize="26px"
+                    android:gravity="center_vertical"
+            />
+
+            <TextView
+                    android:layout_marginTop="15px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30px"
+                    android:textColor="#A1A1A3"
+                    android:text="所在区域:"
+                    android:textSize="26px"
+                    android:gravity="center_vertical"
+            />
+
+            <TextView
+                    android:layout_marginTop="15px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30px"
+                    android:textColor="#A1A1A3"
+                    android:text="点位位置:"
+                    android:textSize="26px"
+                    android:gravity="center_vertical"
+            />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+        <!-- 小区类型 -->
+        <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_dot_value"
+                android:layout_toRightOf="@+id/ll_dot_name"
+                android:layout_below="@+id/tv_location"
                 android:layout_width="wrap_content"
-                android:layout_height="30px"
-                android:gravity="center_vertical"
-                android:textColor="#A1A1A3"
-                android:text="宏伟星都9栋"
-                android:textSize="26px"
-        />
-    </com.zhy.autolayout.AutoLinearLayout>
+                android:orientation="vertical"
+                android:layout_marginTop="20px"
+                android:layout_marginLeft="20px"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tv_id_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30px"
+                    android:gravity="center_vertical"
+                    android:textColor="#A1A1A3"
+                    android:text="178690"
+                    android:textSize="26px"
+            />
+
+            <TextView
+                    android:id="@+id/tv_area"
+                    android:layout_marginTop="15px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30px"
+                    android:gravity="center_vertical"
+                    android:textColor="#A1A1A3"
+                    android:text="湖北省-武汉市-洪山区"
+                    android:textSize="26px"
+            />
+            <TextView
+                    android:id="@+id/tv_position"
+                    android:layout_marginTop="15px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30px"
+                    android:gravity="center_vertical"
+                    android:textColor="#A1A1A3"
+                    android:text="宏伟星都9栋"
+                    android:textSize="26px"
+            />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
 </com.zhy.autolayout.AutoRelativeLayout>

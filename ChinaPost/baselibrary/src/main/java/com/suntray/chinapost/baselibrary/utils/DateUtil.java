@@ -51,7 +51,8 @@ public class DateUtil {
 			return Calendar.getInstance(Locale.getDefault()).getTime();
 		}
 	}
-	
+
+
 	public static Date parse2DateTime(String s){
 		try {
 			return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss",Locale.getDefault()).parse(s);

@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.suntray.chinapost.baselibrary.data.bean.RefreshAction
 import com.suntray.chinapost.baselibrary.ui.activity.BaseMvpActivity
 import com.suntray.chinapost.baselibrary.ui.progressbar.KProgressHUD
+import com.suntray.chinapost.baselibrary.utils.DateUtil
 import com.suntray.chinapost.provider.RouterPath
 import com.suntray.chinapost.user.R
 import com.suntray.chinapost.user.data.bean.MineReservedDot
@@ -74,7 +75,8 @@ class MineReserveDotDetailActivity:BaseMvpActivity<MineDotPresenter>(),MineDotVi
 
             //广告类型
             tv_ad_type_value.setText(findReservePointByIdResponse.reserve!!.adtypename)
-            tv_reserve_time_value.setText(findReservePointByIdResponse.reserve!!.startdate+"--"+findReservePointByIdResponse.reserve!!.enddate)
+            tv_reserve_time_value.setText(DateUtil.dateFormat(DateUtil.parse2Date(findReservePointByIdResponse.reserve!!.startdate))+
+                                                       "--"+DateUtil.dateFormat(DateUtil.parse2Date(findReservePointByIdResponse.reserve!!.enddate)))
         }
 
         //进行循环 显示 列表 pointList数据
@@ -94,8 +96,12 @@ class MineReserveDotDetailActivity:BaseMvpActivity<MineDotPresenter>(),MineDotVi
             tv_location.setText(data.pointname)
             var tv_id_value: TextView =contentView.findViewById(R.id.tv_id_value) as TextView
             tv_id_value.setText(data.equid)
-            var tv_position: TextView =contentView.findViewById(R.id.tv_area) as TextView
+            var tv_area: TextView =contentView.findViewById(R.id.tv_area) as TextView
+            tv_area.setText(data.areaname)
+
+            var tv_position: TextView =contentView.findViewById(R.id.tv_position) as TextView
             tv_position.setText(data.equlocation)
+
             ll_dianwei_qingdan.addView(contentView)
         }
     }

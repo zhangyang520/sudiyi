@@ -40,7 +40,6 @@ class LoginActivity:BaseMvpActivity<LoginPresenter>(),LoginView{
         try {
             var user=UserDao.getLocalUser()
             println("LoginActivity initView userRole:"+user.userRole)
-            user.userRole=4
             if(user.userRole==3){
                 //供应商 ....
                 ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_LIST).withString("supplyID",user.orgId).navigation();
@@ -71,7 +70,6 @@ class LoginActivity:BaseMvpActivity<LoginPresenter>(),LoginView{
             //点击登录按钮
             btn_login.setOnClickListener({
                 if(ed_name.hasTxt() && ed_pwd.hasTxt()){
-                    BaseConstants.SELECTEDROLEINDEX=4
                     if(BaseConstants.SELECTEDROLEINDEX==-1){
                         ToastUtil.show(this@LoginActivity,"请选择角色")
                     }else{

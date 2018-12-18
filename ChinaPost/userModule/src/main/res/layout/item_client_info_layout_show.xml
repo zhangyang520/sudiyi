@@ -170,7 +170,6 @@
                     android:layout_height="44px"
                     android:src="@drawable/btn_choose_select"
                     android:layout_toLeftOf="@+id/tv_yixiang_client"
-                    android:layout_marginRight="20px"
                     android:layout_centerVertical="true"
             />
             <TextView
@@ -180,7 +179,6 @@
                     android:text="意向客户"
                     android:layout_toLeftOf="@+id/btn_hasxiadan"
                     android:textColor="#666666"
-                    android:layout_marginRight="70px"
                     android:layout_centerVertical="true"
                     android:textSize="30px"
             />
@@ -199,7 +197,6 @@
                     android:src="@drawable/btn_choose_select"
                     android:layout_toLeftOf="@+id/tv_has_client"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="20px"
             />
             <TextView
                     android:id="@+id/tv_has_client"
@@ -210,7 +207,6 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textSize="30px"
-                    android:layout_marginRight="20px"
             />
 
             <ImageView
@@ -221,7 +217,6 @@
                     android:visibility="gone"
                     android:layout_toLeftOf="@+id/tv_has_client"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="20px"
             />
             <TextView
                     android:id="@+id/tv_zizhi"
@@ -233,7 +228,6 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textSize="30px"
-                    android:layout_marginRight="20px"
             />
         </com.zhy.autolayout.AutoRelativeLayout>
     </com.zhy.autolayout.AutoRelativeLayout>

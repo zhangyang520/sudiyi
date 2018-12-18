@@ -78,9 +78,7 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is TitleRecylerViewHolder){
             //设置图片
-            Glide.with(context!!).load(resourceDotLocation!!.infoImage).into(holder.iv_info!!)
-                    //error(R.drawable.icon_default).
-                            .onLoadStarted(context!!.resources.getDrawable(R.drawable.icon_default))
+            Glide.with(context!!).load(resourceDotLocation!!.infoImage).error((context!!.resources.getDrawable(R.drawable.icon_default))).into(holder.iv_info!!)
             holder.tv_info_devive_specification!!.setText(resourceDotLocation!!.deviceSpecification)
 
             //事件点击

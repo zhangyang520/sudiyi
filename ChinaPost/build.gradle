@@ -12,8 +12,8 @@ buildscript {
     ext.minSdk_Version=15
     ext.target_SdkVersion=28
 
-    //版本控制
-    ext.version_Code=3
+    //版本控制  最新一版的 verseionCode=4  versionName=2.1  下次发布 两个值都要改！
+    ext.version_Code=4
     ext.version_Name='2.1'
 
     //junit测试

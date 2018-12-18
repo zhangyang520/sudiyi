@@ -85,9 +85,15 @@
         />
     </com.zhy.autolayout.AutoRelativeLayout>
     <!--线条-->
-
-    <com.zhy.autolayout.AutoRelativeLayout
+    <!--线条-->
+    <View
             android:layout_below="@+id/rl_client_xingming"
+            android:id="@+id/line_3"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@drawable/base_bg_line"></View>
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_below="@+id/line_3"
             android:id="@+id/rl_client_phone"
             android:paddingLeft="20px"
             android:paddingRight="20px"
@@ -127,9 +133,15 @@
         />
     </com.zhy.autolayout.AutoRelativeLayout>
 
+    <View
+            android:layout_below="@+id/rl_client_phone"
+            android:id="@+id/line_4"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@drawable/base_bg_line"></View>
 
     <com.zhy.autolayout.AutoRelativeLayout
-            android:layout_below="@+id/rl_client_phone"
+            android:layout_below="@+id/line_4"
             android:id="@+id/rl_reserve_time"
             android:paddingLeft="20px"
             android:paddingRight="20px"

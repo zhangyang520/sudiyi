@@ -217,7 +217,6 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textSize="30px"
-                    android:layout_marginRight="20px"
             />
         </com.zhy.autolayout.AutoRelativeLayout>
     </com.zhy.autolayout.AutoRelativeLayout>

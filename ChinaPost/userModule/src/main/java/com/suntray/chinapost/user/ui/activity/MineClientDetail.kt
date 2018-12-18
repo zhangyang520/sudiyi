@@ -88,17 +88,24 @@ class MineClientDetail :BaseMvpActivity<ClientPresenter>(),ClientView{
         tv_client_xingming.setText(currentClient!!.linkmanname)
         tv_client_phone.setText(currentClient!!.linkmanphone)
         if(currentClient!!.stage==8){
+            //意向阶段
             tv_yixiang_client.visibility=View.VISIBLE
             iv_yixiang.visibility=View.INVISIBLE
 
             btn_hasxiadan.visibility=View.GONE
             tv_has_client.visibility=View.GONE
+
+            //资质详情
+            upload_aptitude.visibility=View.GONE
         }else if(currentClient!!.stage==64){
             tv_yixiang_client.visibility=View.GONE
             iv_yixiang.visibility=View.GONE
 
             btn_hasxiadan.visibility=View.INVISIBLE
             tv_has_client.visibility=View.VISIBLE
+
+            //资质详情
+            upload_aptitude.visibility=View.VISIBLE
          }else if(currentClient!!.stage==9){
             tv_yixiang_client.visibility=View.GONE
             iv_yixiang.visibility=View.GONE
@@ -108,6 +115,9 @@ class MineClientDetail :BaseMvpActivity<ClientPresenter>(),ClientView{
 
             btn_zizhi.visibility=View.GONE
             tv_zizhi.visibility=View.VISIBLE
+
+            //资质详情
+            upload_aptitude.visibility=View.VISIBLE
           }
 
         tv_client_dizhi.setText(currentClient!!.provincename+currentClient!!.cityname+currentClient!!.districtname)

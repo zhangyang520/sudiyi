@@ -31,6 +31,7 @@ class FindReservePointByIdResponse {
       var equid=""
       var pointname=""
       var equlocation=""
+      var areaname=""
         override fun toString(): String {
             return "Point(equid='$equid', pointname='$pointname', equlocation='$equlocation')"
         }

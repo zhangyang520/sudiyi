@@ -79,7 +79,7 @@ class MineAddClientActivity : BaseMvpActivity<ClientPresenter>(),ClientView{
             ed_client_xingming.setText(currentClient!!.linkmanname)
             ed_client_phone.setText(currentClient!!.linkmanphone)
 
-            btn_hasxiadan.visibility=View.VISIBLE
+            btn_hasxiadan.visibility=View.INVISIBLE
             tv_has_client.visibility=View.VISIBLE
             btn_hasxiadan.isActivated=true
 
