@@ -1,1 +1,1 @@
-include ':app', ':baselibrary', ':provider',':userModule',':mapModule'
+include ':app', ':baselibrary', ':provider',':userModule',':mapModule', ':camerapicklibrary'

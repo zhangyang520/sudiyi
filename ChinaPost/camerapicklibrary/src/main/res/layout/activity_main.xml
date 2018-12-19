@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/sub_gambit"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_img_des"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="图片"
+            android:textColor="@color/gambit_sub_title"
+            android:textSize="18sp" />
+
+        <!--事件类型文字-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left_txt_supervise"
+            android:text="@string/theme_upload_img_des"
+            android:textColor="@color/gambit_sub_title_hint"
+            android:textSize="@dimen/supervise_mysub_left_txt_size" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gambit_sub_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="18dp"
+        android:horizontalSpacing="@dimen/grid_horizontal_space"
+        android:verticalSpacing="@dimen/grid_horizontal_space"
+        android:numColumns="3"
+        android:stretchMode="columnWidth">
+
+    </GridView>
+    </LinearLayout>
+</RelativeLayout>

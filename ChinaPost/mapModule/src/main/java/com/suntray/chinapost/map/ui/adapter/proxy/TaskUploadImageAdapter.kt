@@ -160,8 +160,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                     Glide.with(context).load(
                             getItem(position)!!.imgPath).into(viewHolder.iv_1)
                 }else{
-                    Glide.with(context).load(BaseConstants.BASE_UPLOAD_URL +
-                            getItem(position)!!.imgPath).into(viewHolder.iv_1)
+                    Glide.with(context).load(getItem(position)!!.imgPath).into(viewHolder.iv_1)
                 }
             }
 
@@ -189,7 +188,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 viewHolder.tv_edit!!.setOnClickListener({
                     //编辑 事件
                     editPosition=position
-                    (context as TaskDetailActivity)!!.setPortraitDialog()
+                    (context as TaskDetailActivity)!!.setPermissinPortraitDialog()
                 })
             }else if(getItem(position)!!.state==3 || getItem(position)!!.state==5
                            || getItem(position)!!.state==6|| getItem(position)!!.state==7){

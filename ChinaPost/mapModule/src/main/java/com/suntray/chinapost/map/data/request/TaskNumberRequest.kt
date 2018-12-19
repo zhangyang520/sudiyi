@@ -13,4 +13,4 @@ package com.suntray.chinapost.map.data.request
  *  @date 2018/12/1020:10
  *
  */
-data class TaskNumberRequest(var type:Int=0,var supplyID:Int=-1)
+data class TaskNumberRequest(var type:Int=0,var supplyID:Int=-1,var userId:Int)

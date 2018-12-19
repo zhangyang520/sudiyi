@@ -56,6 +56,7 @@ class LoginActivity:BaseMvpActivity<LoginPresenter>(),LoginView{
             if(lastLoginUserId!=-1){
                 //如果不为 -1
                 var user=UserDao.getUserId(lastLoginUserId.toString())
+                BaseConstants.SELECTEDROLEINDEX=user.userRole
                 //进行设置 对应的数据
                 ed_name.setText(user.email)
                 ed_pwd.setText(user.pwd)

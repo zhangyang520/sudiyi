@@ -15,6 +15,8 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.github.zhangyang.camera_picker.CropperActivity
+import com.github.zhangyang.camera_picker.utils.Constants
 import com.suntray.chinapost.baselibrary.common.AppManager
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.dao.UserDao
@@ -222,7 +224,7 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
 
     var tempFile: File?=null
     /* 头像名称 */
-    private val PHOTO_FILE_NAME = "temp_photo.jpg"
+    private var PHOTO_FILE_NAME = "temp_photo.jpg"
     /**
      * 打开摄像机按钮功能
      */
@@ -231,6 +233,7 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         // 判断存储卡是否可以用，可用进行存储
         if (hasSdcard()) {
+            PHOTO_FILE_NAME=System.currentTimeMillis().toString()+"_temp_photo.jpg"
             tempFile = File(Environment.getExternalStorageDirectory(), PHOTO_FILE_NAME)
             // 从文件中创建uri
             val uri: Uri
@@ -253,7 +256,6 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
      * @param data
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        SystemUtil.printlnStr("PHOTO_REQUEST_CUT requestCode:"+requestCode)
         if (requestCode == PHOTO_REQUEST_GALLERY) {
             if (data == null)
                 return
@@ -261,45 +263,21 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
             if (data != null) {
                 // 得到图片的全路径
                 val uri = data.data
-                crop(uri)
+                startPhotoZoom(uri)
             }
         } else if (requestCode == PHOTO_REQUEST_CAREMA) {
-            SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop 22222:"+requestCode)
             if (hasSdcard()) {
-                SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop:"+requestCode)
                 tempFile = File(Environment.getExternalStorageDirectory(), PHOTO_FILE_NAME)
-                val uri: Uri
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    uri = FileProvider.getUriForFile(this, "$packageName.FileProvider",
-                            tempFile!!)
-                } else {
-                    uri = Uri.fromFile(tempFile)
-                }
-                //todo 截图有问题 最后调试
-//                crop(uri)
-                basePresenter.onUploadPortrait(UserDao.getLocalUser().id,File(tempFile!!.path),BaseConstants.SELECTEDROLEINDEX)
-                if(photoWindow!=null && photoWindow!!.isShowing){
-                    photoWindow!!.dismiss()
-                }
-
+                startPhotoZoom(tempFile!!.path)
             } else {
                 Toast.makeText(this@MineActivity, "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show()
             }
-            SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop 1111:"+requestCode)
         } else if (requestCode == PHOTO_REQUEST_CUT) {
-            SystemUtil.printlnStr("PHOTO_REQUEST_CUT 1111111111111:"+(data==null))
-            if (data == null)
-                return
-            // 从剪切图片返回的数据
             if (data != null) {
-                SystemUtil.printlnStr("PHOTO_REQUEST_CUT 222222222222222222:"+(data==null))
-                val bitmap = getCircularBitmap(data.getParcelableExtra<Parcelable>("data") as Bitmap) ?: return
-                /**
-                 * 获得图片
-                 */
-                SystemUtil.printlnStr("PHOTO_REQUEST_CUT 33333333333333333333 bitmap:"+(bitmap==null))
-                var fileName=saveBitmapPng(bitmap, 95)
-                SystemUtil.printlnStr("PHOTO_REQUEST_CUT 33333333333333333333 fileName:"+fileName)
+                var fileName = data.extras!!.getString(Constants.FILE_PATH)
+                if(photoWindow!=null && photoWindow!!.isShowing){
+                    photoWindow!!.dismiss()
+                }
                 basePresenter.onUploadPortrait(UserDao.getLocalUser().id,File(fileName),BaseConstants.SELECTEDROLEINDEX)
                 if(photoWindow!=null && photoWindow!!.isShowing){
                     photoWindow!!.dismiss()
@@ -396,5 +374,23 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
     }
 
 
+    /**
+     * 进入到 图片缩放
+     */
+    fun startPhotoZoom(path:String) {
+        val intent = Intent(this@MineActivity, CropperActivity::class.java)
+        intent.putExtra("path",path)
+        intent.putExtra("PORTRAIT_IMAGE",true)
+        startActivityForResult(intent, PHOTO_REQUEST_CUT)
+    }
 
+    /**
+     * 进入到 图片缩放
+     */
+    fun startPhotoZoom(uri: Uri?) {
+        val intent = Intent(this@MineActivity, CropperActivity::class.java)
+        intent.data = uri
+        intent.putExtra("PORTRAIT_IMAGE",true)
+        startActivityForResult(intent, PHOTO_REQUEST_CUT)
+    }
 }

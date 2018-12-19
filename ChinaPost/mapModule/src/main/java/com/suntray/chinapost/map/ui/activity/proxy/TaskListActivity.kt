@@ -15,6 +15,7 @@ import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationListener
 import com.amap.api.services.core.LatLonPoint
 import com.suntray.chinapost.baselibrary.data.bean.RefreshAction
+import com.suntray.chinapost.baselibrary.data.dao.UserDao
 import com.suntray.chinapost.baselibrary.ui.activity.BaseMvpFragment
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.baselibrary.utils.ToastUtil
@@ -157,7 +158,7 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
         })
         unFinishFragment!!.getNormalData()
         //获取任务数量
-        basePresenter.getTaskNumber(TaskNumberRequest(currentIndex+1,supplyID.toInt()))
+        basePresenter.getTaskNumber(TaskNumberRequest(currentIndex+1,supplyID.toInt(),UserDao.getLocalUser().id))
         viewpager_list.setCurrentItem(0)
 
         //未完成 点击事件 0

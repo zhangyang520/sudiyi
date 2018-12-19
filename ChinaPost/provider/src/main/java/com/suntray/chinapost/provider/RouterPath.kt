@@ -104,4 +104,12 @@ object RouterPath {
             const val MINE_RESERVED_DOT_DETAIL="/mine/MineReserveDotDetailActivity"
         }
     }
+
+    //截取图片部分
+    class PickerModule{
+        companion object {
+            //截取图片的部分:
+            const val CROP_ACTIVITY="/crop/CropperActivity"
+        }
+    }
 }

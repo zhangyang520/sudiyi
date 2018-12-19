@@ -15,6 +15,9 @@ import android.widget.Button
 import android.widget.PopupWindow
 import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.github.zhangyang.camera_picker.CropperActivity
+import com.github.zhangyang.camera_picker.exception.ContentException
+import com.github.zhangyang.camera_picker.utils.Constants
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.dao.UserDao
 import com.suntray.chinapost.baselibrary.ui.activity.BaseMvpActivity
@@ -121,10 +124,13 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             UploadTaskEnum.UpKan.deleteList.clear()
             UploadTaskEnum.UpKan.newAddList.clear()
             UploadTaskEnum.UpKan.newIdsList.clear()
-            if(taskEntity!!.imgs!=null){
+            if(taskEntity!!.imgs!=null && taskEntity!!.imgs!!.size<3){
                 UploadTaskEnum.UpKan.addPath(taskEntity!!.imgs!!)
+                UploadTaskEnum.UpKan.getPathList().add(TaskUpload())
+            }else{
+                UploadTaskEnum.UpKan.addPath(taskEntity!!.imgs!!)
+
             }
-            UploadTaskEnum.UpKan.getPathList().add(TaskUpload())
             landlist.addAll(UploadTaskEnum.UpKan.getPathList())
         }else{
             //初始化数据信息
@@ -135,10 +141,12 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             UploadTaskEnum.DownKan.deleteList.clear()
             UploadTaskEnum.DownKan.newAddList.clear()
             UploadTaskEnum.DownKan.newIdsList.clear()
-            if(taskEntity!!.imgs!=null){
+            if(taskEntity!!.imgs!=null && taskEntity!!.imgs!!.size<3){
+                UploadTaskEnum.DownKan.addPath(taskEntity!!.imgs!!)
+                UploadTaskEnum.DownKan.getPathList().add(TaskUpload())
+            }else{
                 UploadTaskEnum.DownKan.addPath(taskEntity!!.imgs!!)
             }
-            UploadTaskEnum.DownKan.getPathList().add(TaskUpload())
             landlist.addAll(UploadTaskEnum.DownKan.getPathList())
         }
 
@@ -262,6 +270,22 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
 
 
     /**
+     * 带有权限的 对话框
+     */
+    public fun setPermissinPortraitDialog(){
+        //先请求拍照权限
+        requestPermission(BaseConstants.CAMERA, "android.permission.CAMERA", Runnable {
+            //允许拍照权限
+            //请求SD卡读写权限
+            requestPermission(BaseConstants.WRITE_EXTERNAL_STORAGE, "android.permission.WRITE_EXTERNAL_STORAGE", Runnable {
+                //允许SD卡读写权限
+                setPortraitDialog()
+            }, Runnable { ToastUtil.makeText(this@TaskDetailActivity, "读写存储卡权限未打开，请到手机权限中心设置打开...") })
+        }, Runnable { ToastUtil.makeText(this@TaskDetailActivity, "相机权限未打开，请到手机权限中心设置打开...") })
+    }
+
+
+    /**
      * 打开相册按钮功能
      */
     fun btnXiangCe() {
@@ -319,49 +343,24 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             if (data != null) {
                 // 得到图片的全路径
                 val uri = data.data
-                crop(uri)
+                startPhotoZoom(uri)
             }
         } else if (requestCode == PHOTO_REQUEST_CAREMA) {
-            SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop 22222:"+requestCode)
             if (hasSdcard()) {
-//                SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop:"+requestCode)
-//                tempFile = File(Environment.getExternalStorageDirectory(), PHOTO_FILE_NAME)
-                val uri: Uri
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    uri = FileProvider.getUriForFile(this, "$packageName.FileProvider",
-                            tempFile!!)
-                } else {
-                    uri = Uri.fromFile(tempFile)
-                }
-                // todo 截图有问题
-//                crop(uri)
-                proImageShow(tempFile!!.path)
-                if(photoWindow!=null && photoWindow!!.isShowing){
-                    photoWindow!!.dismiss()
-                }
+                startPhotoZoom(tempFile!!.path)
             } else {
                 Toast.makeText(this@TaskDetailActivity, "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show()
             }
-
-            SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop 1111:"+requestCode)
         } else if (requestCode == PHOTO_REQUEST_CUT) {
-            SystemUtil.printlnStr("PHOTO_REQUEST_CUT 1111111111111:"+(data==null))
             if (data == null)
                 return
             // 从剪切图片返回的数据
             if (data != null) {
-                SystemUtil.printlnStr("PHOTO_REQUEST_CUT 222222222222222222:"+(data==null))
-                val bitmap = data.getParcelableExtra<Parcelable>("data") as Bitmap;
-                /**
-                 * 获得图片
-                 */
-                SystemUtil.printlnStr("PHOTO_REQUEST_CUT 33333333333333333333 bitmap:"+(bitmap==null))
-                var fileName=saveBitmapPng(bitmap, 95)
-                SystemUtil.printlnStr("PHOTO_REQUEST_CUT 33333333333333333333 fileName:"+fileName)
-                proImageShow(fileName)
+                var fileName = data.extras!!.getString(Constants.FILE_PATH)
                 if(photoWindow!=null && photoWindow!!.isShowing){
                     photoWindow!!.dismiss()
                 }
+                proImageShow(fileName)
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -464,7 +463,6 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
     }
 
     private fun getNewAddIds(arrayList:ArrayList<TaskUpload?>):Array<Int?>{
-
         var deleteIdInters= arrayOfNulls<Int>(arrayList.size)
         for(index in arrayList.indices){
             if(arrayList.get(index)==null){
@@ -489,5 +487,24 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             deleteIdInters.set(index,deleteIdArrays.get(index))
         }
         return deleteIdInters
+    }
+
+
+    /**
+     * 进入到 图片缩放
+     */
+    fun startPhotoZoom(uri: Uri?) {
+        val intent = Intent(this@TaskDetailActivity, CropperActivity::class.java)
+        intent.data = uri
+        startActivityForResult(intent, PHOTO_REQUEST_CUT)
+    }
+
+    /**
+     * 进入到 图片缩放
+     */
+    fun startPhotoZoom(path:String) {
+        val intent = Intent(this@TaskDetailActivity, CropperActivity::class.java)
+        intent.putExtra("path",path)
+        startActivityForResult(intent, PHOTO_REQUEST_CUT)
     }
 }

@@ -15,6 +15,8 @@ import android.view.Gravity
 import android.view.View
 import android.widget.*
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.github.zhangyang.camera_picker.CropperActivity
+import com.github.zhangyang.camera_picker.utils.Constants
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.dao.UserDao
 import com.suntray.chinapost.baselibrary.ui.activity.BaseMvpActivity
@@ -384,54 +386,29 @@ class UploadAptitudeActivity:BaseMvpActivity<ClientPresenter>(),ClientView{
             if (data != null) {
                 // 得到图片的全路径
                 val uri = data.data
-                crop(uri)
+                startPhotoZoom(uri)
             }
         } else if (requestCode == PHOTO_REQUEST_CAREMA) {
-            SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop 22222:"+requestCode)
             if (hasSdcard()) {
-//                tempFile = File(Environment.getExternalStorageDirectory(), PHOTO_FILE_NAME)
-                SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop:"+requestCode+"..tempFile is exist:"+tempFile!!.exists()+"..tempFile path:"+tempFile!!.path)
                 try {
-                    val uri: Uri
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        uri = FileProvider.getUriForFile(this, "$packageName.FileProvider",
-                                tempFile!!)
-                    } else {
-                        uri = Uri.fromFile(tempFile)
-                    }
-//                    crop(uri)  //todo 截图的问题 过会看
+                    startPhotoZoom(tempFile!!.path)
                 } catch (e: Exception) {
                     e.printStackTrace()
-                }
-
-                //测试 直接上传
-                proImageShow(tempFile!!.path)
-                if(photoWindow!=null && photoWindow!!.isShowing){
-                    photoWindow!!.dismiss()
                 }
             } else {
                 Toast.makeText(this@UploadAptitudeActivity, "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show()
             }
 
-            SystemUtil.printlnStr("PHOTO_REQUEST_CUT crop 1111:"+requestCode)
         } else if (requestCode == PHOTO_REQUEST_CUT) {
-            SystemUtil.printlnStr("PHOTO_REQUEST_CUT 1111111111111:"+(data==null))
             if (data == null)
                 return
             // 从剪切图片返回的数据
             if (data != null) {
-                SystemUtil.printlnStr("PHOTO_REQUEST_CUT 222222222222222222:"+(data==null))
-                val bitmap = data.getParcelableExtra<Parcelable>("data") as Bitmap;
-                /**
-                 * 获得图片
-                 */
-                SystemUtil.printlnStr("PHOTO_REQUEST_CUT 33333333333333333333 bitmap:"+(bitmap==null))
-                var fileName=saveBitmapPng(bitmap, 95)
-                SystemUtil.printlnStr("PHOTO_REQUEST_CUT 33333333333333333333 fileName:"+fileName)
-                proImageShow(fileName)
+                var fileName = data.extras!!.getString(Constants.FILE_PATH)
                 if(photoWindow!=null && photoWindow!!.isShowing){
                     photoWindow!!.dismiss()
                 }
+                proImageShow(fileName)
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -520,5 +497,24 @@ class UploadAptitudeActivity:BaseMvpActivity<ClientPresenter>(),ClientView{
         intent.putExtra("return-data", true);
         intent.putExtra("scale", true);
         startActivityForResult(intent, PHOTO_REQUEST_CUT);
+    }
+
+    /**
+     * 进入到 图片缩放
+     */
+    fun startPhotoZoom(uri: Uri?) {
+        val intent = Intent(this@UploadAptitudeActivity, CropperActivity::class.java)
+        intent.data = uri
+        startActivityForResult(intent, PHOTO_REQUEST_CUT)
+    }
+
+    /**
+     * 进入到 图片缩放
+     */
+    fun startPhotoZoom(path:String) {
+        val intent = Intent(this@UploadAptitudeActivity, CropperActivity::class.java)
+        intent.putExtra("path",path)
+        intent.putExtra("PORTRAIT_IMAGE",false)
+        startActivityForResult(intent, PHOTO_REQUEST_CUT)
     }
 }
