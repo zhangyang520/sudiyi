@@ -317,7 +317,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                                     "0",1,30, UserDao.getLocalUser().id,
                                     currntLocation!!.adCode.toInt(),-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)+1,
                                     AppPrefsUtils.getInt(MapContstants.SETTING_ADTYPEID,-1),
-                                    AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime))
+                                    AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime,UserDao.getLocalUser().userRole))
                         } catch (e: NumberFormatException) {
 
                         }
@@ -479,7 +479,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                 var categoryIds=AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]")
                 basePresenter.provinceDot(ProvinceDotRequest(AMapUI.clickProvinceId, AMapUI.clickCityId,
                                         AMapUI.clickDistrictId,et_input_search.getTxt(),"0",
-                                    1,30,UserDao.getLocalUser().id,adType,categoryIds,startTime,endTime))
+                                    1,30,UserDao.getLocalUser().id,adType,categoryIds,startTime,endTime,UserDao.getLocalUser().userRole))
             })
             iv_area.visibility=View.GONE
             iv_dingwei.visibility=View.VISIBLE
@@ -762,7 +762,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                         "0",1,30, UserDao.getLocalUser().id,
                         currntLocation!!.adCode.toInt(),-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX)+1,
                         AppPrefsUtils.getInt(MapContstants.SETTING_ADTYPEID,-1),
-                        AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime))
+                        AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime,UserDao.getLocalUser().userRole))
             } catch (e: NumberFormatException) {
                 e.printStackTrace()
             }
@@ -783,7 +783,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                             currentRadius.toDouble(),et_input_search.getTxt(), "0",1,30, UserDao.getLocalUser().id,
                             city,-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)+1,
                             AppPrefsUtils.getInt(MapContstants.SETTING_ADTYPEID,-1),
-                            AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime))
+                            AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime,UserDao.getLocalUser().userRole))
                 } catch (e: NumberFormatException) {
                     e.printStackTrace()
                 }
@@ -795,7 +795,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                             currentRadius.toDouble(),et_input_search.getTxt(), "0",1,30, UserDao.getLocalUser().id,
                             city,-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)+1,
                             AppPrefsUtils.getInt(MapContstants.SETTING_ADTYPEID,-1),
-                            AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime))
+                            AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime,UserDao.getLocalUser().userRole))
                 } catch (e: NumberFormatException) {
                     e.printStackTrace()
                 }

@@ -91,6 +91,13 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
             rl_mine_reserved.visibility=View.VISIBLE
         }
 
+        if(UserDao.getLocalUser().userRole==2 || UserDao.getLocalUser().userRole==3){
+            rl_mine_client.visibility=View.GONE
+        }else{
+            rl_mine_client.visibility=View.VISIBLE
+        }
+
+
         if(UserDao.getLocalUser().headImgPath!=null &&
                     !UserDao.getLocalUser().headImgPath.equals("")) {
 //            Glide.with(this@MineActivity).load(BaseConstants.BASE_UPLOAD_URL+UserDao.getLocalUser().headImgPath).error(R.drawable.iv_user_portrait).into(iv_portrait)

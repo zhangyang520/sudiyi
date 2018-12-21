@@ -42,17 +42,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-    <TextView
+    <Button
             android:id="@+id/tv_edit"
+            android:clickable="true"
             android:textSize="25px"
             android:text="编 辑"
             android:layout_toRightOf="@+id/iv_1"
             android:layout_marginLeft="20px"
-            android:layout_below="@+id/tv_approval_reason"
-            android:layout_marginTop="30px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10px"
             android:textColor="@color/gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:background="@null"
+            android:layout_width="60px"
+            android:layout_height="40px"/>
     <View
             android:layout_alignTop="@+id/iv_1"
             android:layout_alignRight="@+id/iv_1"

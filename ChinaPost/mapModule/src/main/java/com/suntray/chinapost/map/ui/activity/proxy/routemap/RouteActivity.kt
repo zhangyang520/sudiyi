@@ -24,6 +24,7 @@ import com.suntray.chinapost.map.ui.adapter.proxy.BusResultListAdapter
 import com.suntray.chinapost.map.utils.AMapUtil
 import com.suntray.chinapost.map.utils.ToastUtil
 import com.suntray.chinapost.provider.RouterPath
+import kotlinx.android.synthetic.main.route_activity.*
 import overlay.DrivingRouteOverlay
 import overlay.WalkRouteOverlay
 
@@ -107,6 +108,10 @@ class RouteActivity : Activity(), AMap.OnMapClickListener, AMap.OnMarkerClickLis
         aMap!!.addMarker(MarkerOptions()
                 .position(AMapUtil.convertToLatLng(mEndPoint))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.end)))
+
+        rl_back.setOnClickListener({
+            finish()
+        })
     }
 
     /**

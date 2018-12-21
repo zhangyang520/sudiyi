@@ -9,4 +9,4 @@ data class ProvinceDotRequest(var province:Int,var city:Int,var district:Int,
                                var pointname:String,var isReserve:String,
                                var page:Int,var rows:Int,var salesman:Int,
                                var adtype:Int=-1,var categoryids:String="",
-                               var startdate:String="",var enddate:String="")
+                               var startdate:String="",var enddate:String="",var salesmanType:Int)

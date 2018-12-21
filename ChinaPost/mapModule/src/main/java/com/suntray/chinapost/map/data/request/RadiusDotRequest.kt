@@ -12,4 +12,4 @@ data class RadiusDotRequest(var longitude:Double,var latitude:Double,
                              var city:Int=-1,var district:Int=-1,
                              var searchtype:Int=1,var adtype:Int=-1,
                              var categoryids:String="",var startdate:String="",
-                             var enddate:String="")
+                             var enddate:String="",var salesmanType:Int)

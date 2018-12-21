@@ -244,7 +244,35 @@ class SwipeBtnRelativeLayout: AutoRelativeLayout{
         })
         value.start()
     }
+
+    fun smoothToRight(){
+        var translateXAll=(rightValue.toFloat()-leftValue.toFloat())-(tv_middle!!.right-tv_middle!!.left)
+        var value=ValueAnimator.ofFloat(0f,translateXAll)
+        value.addUpdateListener(object :ValueAnimator.AnimatorUpdateListener{
+            override fun onAnimationUpdate(p0: ValueAnimator?) {
+                //todo
+                tv_middle!!.translationX=p0!!.animatedValue as Float
+                SystemUtil.printlnStr("SwipeBtnRelativeLayout onAnimationUpdate value:"+(p0!!.animatedValue as Float)+"..tv_middle.x:"+tv_middle!!.x)
+            }
+        })
+        value.start()
+    }
+
+
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+
+        when(ev!!.action){
+            MotionEvent.ACTION_DOWN->{
+                   return false
+            }
+            MotionEvent.ACTION_MOVE->{
+
+            }
+
+            MotionEvent.ACTION_UP->{
+                return false
+            }
+        }
         return true
     }
 }

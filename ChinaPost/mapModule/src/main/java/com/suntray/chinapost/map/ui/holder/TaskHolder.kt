@@ -89,7 +89,6 @@ class TaskHolder: BaseHolder<TaskEntity>{
         btn_look_map!!.setOnClickListener({
             //跳转到对应的界面
             if((activity as TaskListActivity).currntLocation!=null){
-                ToastUtil.show(context,"地图界面!")
                 ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_ROUTE)
                         .withSerializable("taskEntity",getData())
                         .withParcelable("currntLocation",(activity as TaskListActivity).currntLocation).navigation()

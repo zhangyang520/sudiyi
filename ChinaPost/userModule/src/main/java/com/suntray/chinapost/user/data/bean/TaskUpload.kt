@@ -20,7 +20,7 @@ class TaskUpload:Serializable{
     var tasktype=0
     var imgpathid=""
     var taskid=0
-    var state=0 //  //审批状态（2待审批、4审批不通过、3,5,6,7审批通过)
+    var state=-1 //  //审批状态（2待审批、4审批不通过、3,5,6,7审批通过)
     var taskpointid=0
     var imgPath=""
     var opinion="" //审批意见

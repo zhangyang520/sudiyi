@@ -5,4 +5,4 @@ package com.suntray.chinapost.user.data.request
  *  @Author 张扬 @version 1.0
  *  @Date 2018/9/22 17:48
  */
-data class MineReservedDotRequest(var salesman:Int,var page:Int,var rows:Int)
+data class MineReservedDotRequest(var salesman:Int,var page:Int,var rows:Int,var salesmantype:Int)

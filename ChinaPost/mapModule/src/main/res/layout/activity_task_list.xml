@@ -46,12 +46,13 @@
                     android:textSize="26px"
                     android:layout_alignParentLeft="true"
             />
-               <TextView
+               <Button
                        android:id="@+id/tv_up"
                        android:layout_width="174px"
                        android:layout_height="wrap_content"
                        android:text="上刊任务"
                        android:layout_centerVertical="true"
+                       android:background="@null"
                        android:gravity="center"
                        android:textColor="#01764A"
                        android:textSize="26px"
@@ -106,8 +107,8 @@
                         android:textColor="@color/white"
                         android:layout_toRightOf="@+id/tv_unfinished"
                         android:layout_marginTop="10px"
-                        android:layout_width="24px"
-                        android:layout_height="24px"/>
+                        android:layout_width="30px"
+                        android:layout_height="30px"/>
 
                 <TextView
                         android:id="@+id/tv_unfinished"
@@ -179,8 +180,8 @@
                     android:textColor="@color/white"
                     android:layout_toRightOf="@+id/tv_not_examine"
                     android:layout_above="@+id/tv_not_examine"
-                    android:layout_width="24px"
-                    android:layout_height="24px"/>
+                    android:layout_width="30px"
+                    android:layout_height="30px"/>
 
             <TextView
                     android:id="@+id/tv_not_examine"

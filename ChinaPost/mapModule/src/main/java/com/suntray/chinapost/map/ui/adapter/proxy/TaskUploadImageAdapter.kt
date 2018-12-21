@@ -4,10 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.GridView
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import com.bumptech.glide.Glide
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.map.ui.activity.proxy.TaskDetailActivity
@@ -147,22 +144,28 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
         }
 
 
-        if (getItem(position)!!.imgPath == null || getItem(position)!!.imgPath.equals("")) {//图片地址为空时设置默认图片
-            viewHolder.iv_1.setImageResource(R.drawable.mine_ic_default3)
-            Glide.with(context).load(R.drawable.mine_ic_default3).into(viewHolder.iv_1)
+        if (getItem(position)!!.state==-1) {//没有数据的时候
+            Glide.with(context).load(File(getItem(position)!!.imgPath)).error(R.drawable.mine_ic_default3).into(viewHolder.iv_1)
             viewHolder.iv_cancel1.visibility = View.GONE
+
+            //其他的情况 隐藏其他的信息
+            viewHolder.tv_approval_content!!.visibility=View.GONE
+            viewHolder.tv_approval_reason!!.visibility=View.GONE
+
+            if(!isCancelable){
+                //不能编辑
+                viewHolder.tv_edit!!.visibility=View.GONE
+            }else{
+                viewHolder.tv_edit!!.visibility=View.VISIBLE
+                viewHolder.tv_edit!!.setOnClickListener({
+                    //编辑 事件
+                    editPosition=position
+                    (context as TaskDetailActivity)!!.setPermissinPortraitDialog()
+                })
+            }
         } else {
             viewHolder.itemView.visibility=View.VISIBLE
-            if(getItem(position)!!.imgPath.startsWith("/storage")){
-                Glide.with(context).load(File(getItem(position)!!.imgPath)).into(viewHolder.iv_1)
-            }else{
-                if(getItem(position)!!.imgPath.startsWith("http")){
-                    Glide.with(context).load(
-                            getItem(position)!!.imgPath).into(viewHolder.iv_1)
-                }else{
-                    Glide.with(context).load(getItem(position)!!.imgPath).into(viewHolder.iv_1)
-                }
-            }
+            Glide.with(context).load(File(getItem(position)!!.imgPath)).error(R.drawable.mine_ic_default3).into(viewHolder.iv_1)
 
             //根据 状态值 设置 对应意见的颜色 2待审批、4审批不通过、3,5,6,7审批通过
             if(getItem(position)!!.state==2){
@@ -175,21 +178,29 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                     viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
                 }
                 viewHolder.tv_edit!!.visibility=View.INVISIBLE
+                viewHolder.tv_edit!!.setOnClickListener(null)
             }else if(getItem(position)!!.state==4){
                 //审批不通过
                 viewHolder.tv_approval_content!!.setTextColor(Color.RED)
                 viewHolder.tv_approval_content!!.setText("审批不通过")
-                viewHolder.tv_edit!!.visibility=View.VISIBLE
                 if(getItem(position)!!.opinion==null || getItem(position)!!.opinion.trim().equals("")){
                     viewHolder.tv_approval_reason!!.setText("审批意见:暂无")
                 }else{
                     viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
                 }
-                viewHolder.tv_edit!!.setOnClickListener({
-                    //编辑 事件
-                    editPosition=position
-                    (context as TaskDetailActivity)!!.setPermissinPortraitDialog()
-                })
+                println("/审批不通过 viewHolder.tv_edit!!.setOnClickListener")
+
+                if(!isCancelable){
+                    //不能编辑
+                    viewHolder.tv_edit!!.visibility=View.GONE
+                }else{
+                    viewHolder.tv_edit!!.visibility=View.VISIBLE
+                    viewHolder.tv_edit!!.setOnClickListener({
+                        //编辑 事件
+                        editPosition=position
+                        (context as TaskDetailActivity)!!.setPermissinPortraitDialog()
+                    })
+                }
             }else if(getItem(position)!!.state==3 || getItem(position)!!.state==5
                            || getItem(position)!!.state==6|| getItem(position)!!.state==7){
                 //审批通过
@@ -201,6 +212,23 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 }else{
                     viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
                 }
+                viewHolder.tv_edit!!.setOnClickListener(null)
+            }else{
+                //其他的情况 隐藏其他的信息
+                viewHolder.tv_approval_content!!.visibility=View.GONE
+                viewHolder.tv_approval_reason!!.visibility=View.GONE
+
+                if(!isCancelable){
+                    //不能编辑
+                    viewHolder.tv_edit!!.visibility=View.GONE
+                }else{
+                    viewHolder.tv_edit!!.visibility=View.VISIBLE
+                    viewHolder.tv_edit!!.setOnClickListener({
+                        //编辑 事件
+                        editPosition=position
+                        (context as TaskDetailActivity)!!.setPermissinPortraitDialog()
+                    })
+                }
             }
         }
         return convertView
@@ -211,7 +239,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
         var iv_cancel1: View
         var tv_approval_content:TextView?=null //审批状态
         var tv_approval_reason:TextView?=null //审批意见
-        var tv_edit:TextView?=null //编辑按钮
+        var tv_edit:Button?=null //编辑按钮
 
         init {
             AutoUtils.auto(itemView)
@@ -219,7 +247,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
             iv_cancel1 = itemView.findViewById(R.id.iv_cancel1)
             tv_approval_content = itemView.findViewById(R.id.tv_approval_content) as TextView
             tv_approval_reason = itemView.findViewById(R.id.tv_approval_reason) as TextView
-            tv_edit = itemView.findViewById(R.id.tv_edit) as TextView
+            tv_edit = itemView.findViewById(R.id.tv_edit) as Button
         }
     }
 }

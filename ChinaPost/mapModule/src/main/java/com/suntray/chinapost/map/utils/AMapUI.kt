@@ -541,7 +541,7 @@ object AMapUI {
                     var categoryIds= AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]")
 
                     mapPresenter.provinceDot(ProvinceDotRequest(clickProvinceId, clickCityId, clickDistrictId,
-                            keyWord,"0",1,10, UserDao.getLocalUser().id,adType,categoryIds,startTime,endTime))
+                            keyWord,"0",1,10, UserDao.getLocalUser().id,adType,categoryIds,startTime,endTime,UserDao.getLocalUser().userRole))
                 }else{
                     com.suntray.chinapost.map.utils.ToastUtil.show(context,"必须选择到市这一级别")
                 }

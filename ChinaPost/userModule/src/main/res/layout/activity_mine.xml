@@ -34,7 +34,7 @@
            />-->
            <com.suntray.chinapost.baselibrary.ui.view.CircleImageView
                    android:id="@+id/iv_portrait"
-                   android:layout_width="214px"
+                   android:layout_width="250px"
                    android:layout_height="214px"
                    android:layout_marginTop="40px"
                    android:layout_centerHorizontal="true"
@@ -55,7 +55,7 @@
            <com.zhy.autolayout.AutoLinearLayout
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_toLeftOf="@+id/iv_portrait"
+                 android:layout_marginLeft="40px"
                    android:layout_below="@+id/tv_shangchuan"
                    android:layout_marginRight="10px"
                    android:layout_marginTop="45px"
@@ -79,6 +79,7 @@
                        android:layout_height="50px"
                        android:text="134266666666"
                        android:textColor="@color/white"
+                       android:singleLine="true"
                        android:textSize="30px"
                        android:layout_marginTop="15px"
                        android:layout_toLeftOf="@+id/iv_portrait"

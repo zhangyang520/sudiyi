@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import com.suntray.chinapost.baselibrary.data.bean.RefreshAction
 import com.suntray.chinapost.baselibrary.data.dao.UserDao
+import com.suntray.chinapost.baselibrary.rx.assertMethod
 import com.suntray.chinapost.baselibrary.ui.refreshView.PullToRefreshBase
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.baselibrary.utils.ToastUtil
@@ -85,16 +86,25 @@ class WillExamineFragment:Fragment(),TaskView{
 
     override fun onError(content: String, action: RefreshAction) {
         if(action==RefreshAction.NormalAction){
-            ToastUtil.makeText(context!!,"暂无待审核任务")
+            assertMethod(context,{
+                ToastUtil.makeText(context!!,"暂无待审核任务")
+            })
         }else if(action==RefreshAction.PullDownRefresh){
             recyclerview.onPullDownRefreshComplete()
-            ToastUtil.makeText(context!!,content)
+            assertMethod(context,{
+                ToastUtil.makeText(context!!,content)
+            })
+
         }else if(action==RefreshAction.UpMore){
             pageNumber-=1
-            ToastUtil.makeText(context!!,content)
+            assertMethod(context,{
+                ToastUtil.makeText(context!!,content)
+            })
             recyclerview.onPullUpRefreshComplete()
         }else if(action==RefreshAction.SearchAction){
-            ToastUtil.makeText(context!!,content)
+            assertMethod(context,{
+                ToastUtil.makeText(context!!,content)
+            })
         }
     }
 

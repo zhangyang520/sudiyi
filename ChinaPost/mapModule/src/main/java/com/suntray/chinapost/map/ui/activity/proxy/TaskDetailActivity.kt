@@ -67,7 +67,7 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         isBlackShow=true
         isRightShow=false
         isTitleShow=true
-        viewtitle="任务详情"
+
 
         isCanEditable=intent.getBooleanExtra("editAble",false)
         firstType=intent.getIntExtra("firstType",1)
@@ -111,8 +111,10 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         if(isCanEditable){
             hud2= KProgressHUD(this@TaskDetailActivity).setLabel("图片上传中....").setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             ll_bottom.visibility=View.VISIBLE
+            viewtitle="上传图片"
         }else{
             ll_bottom.visibility=View.GONE
+            viewtitle="任务详情"
         }
         var landlist=arrayListOf<TaskUpload?>()
         if(firstType==1){
@@ -126,10 +128,11 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             UploadTaskEnum.UpKan.newIdsList.clear()
             if(taskEntity!!.imgs!=null && taskEntity!!.imgs!!.size<3){
                 UploadTaskEnum.UpKan.addPath(taskEntity!!.imgs!!)
-                UploadTaskEnum.UpKan.getPathList().add(TaskUpload())
+                if(isCanEditable){
+                    UploadTaskEnum.UpKan.getPathList().add(TaskUpload())
+                }
             }else{
                 UploadTaskEnum.UpKan.addPath(taskEntity!!.imgs!!)
-
             }
             landlist.addAll(UploadTaskEnum.UpKan.getPathList())
         }else{
@@ -143,7 +146,9 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             UploadTaskEnum.DownKan.newIdsList.clear()
             if(taskEntity!!.imgs!=null && taskEntity!!.imgs!!.size<3){
                 UploadTaskEnum.DownKan.addPath(taskEntity!!.imgs!!)
-                UploadTaskEnum.DownKan.getPathList().add(TaskUpload())
+                if(isCanEditable){
+                    UploadTaskEnum.DownKan.getPathList().add(TaskUpload())
+                }
             }else{
                 UploadTaskEnum.DownKan.addPath(taskEntity!!.imgs!!)
             }
@@ -158,24 +163,6 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         }else{
             kanAdapter!!.uploadAptitudeEnum= UploadTaskEnum.DownKan
         }
-
-        gridvew.setOnItemClickListener(object : AdapterView.OnItemClickListener{
-            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                //先请求拍照权限
-                requestPermission(BaseConstants.CAMERA, "android.permission.CAMERA", Runnable {
-                    //允许拍照权限
-                    //请求SD卡读写权限
-                    requestPermission(BaseConstants.WRITE_EXTERNAL_STORAGE, "android.permission.WRITE_EXTERNAL_STORAGE", Runnable {
-                        //允许SD卡读写权限
-                        if ((parent!!.getItemAtPosition(position) as TaskUpload).imgPath== null ||
-                                (parent!!.getItemAtPosition(position) as TaskUpload).imgPath.equals("")) { // 添加图片
-                            setPortraitDialog()
-                        } else {
-                        }
-                    }, Runnable { ToastUtil.makeText(this@TaskDetailActivity, "读写存储卡权限未打开，请到手机权限中心设置打开...") })
-                }, Runnable { ToastUtil.makeText(this@TaskDetailActivity, "相机权限未打开，请到手机权限中心设置打开...") })
-            }
-        })
 
         btn_cancel.setOnClickListener({
             finish()
@@ -379,11 +366,29 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         }else{
             //修改
             if(firstType==1){
-                UploadTaskEnum.UpKan!!.newAddList.add(0, kanAdapter!!.getItem(kanAdapter!!.editPosition))
+                if(UploadTaskEnum.UpKan!!.newAddList.contains(kanAdapter!!.getItem(kanAdapter!!.editPosition))){
+                     //如果包含
+                    var index=UploadTaskEnum.UpKan!!.newAddList.indexOf( kanAdapter!!.getItem(kanAdapter!!.editPosition))
+                    UploadTaskEnum.UpKan!!.newAddList.set(index,kanAdapter!!.getItem(kanAdapter!!.editPosition))
+                }else{
+                    UploadTaskEnum.UpKan!!.newAddList.add(0, kanAdapter!!.getItem(kanAdapter!!.editPosition))
+                }
             }else{
-                UploadTaskEnum.DownKan!!.newAddList.add(0, kanAdapter!!.getItem(kanAdapter!!.editPosition))
+                if(UploadTaskEnum.DownKan!!.newAddList.contains(kanAdapter!!.getItem(kanAdapter!!.editPosition))){
+                    //如果包含
+                    var index=UploadTaskEnum.DownKan!!.newAddList.indexOf( kanAdapter!!.getItem(kanAdapter!!.editPosition))
+                    UploadTaskEnum.DownKan!!.newAddList.set(index,kanAdapter!!.getItem(kanAdapter!!.editPosition))
+                }else{
+                    UploadTaskEnum.DownKan!!.newAddList.add(0, kanAdapter!!.getItem(kanAdapter!!.editPosition))
+                }
             }
             kanAdapter!!.imagePathList!!.get(kanAdapter!!.editPosition)!!.imgPath=fileName
+
+            if(kanAdapter!!.imagePathList!!.size<3 &&
+                      kanAdapter!!.editPosition==(kanAdapter!!.imagePathList!!.size-1)){
+                //如果对应的长度 小于 3
+                kanAdapter!!.imagePathList!!.add(TaskUpload())
+            }
             kanAdapter!!.editPosition=-1
             kanAdapter!!.update( kanAdapter!!.imagePathList)
         }

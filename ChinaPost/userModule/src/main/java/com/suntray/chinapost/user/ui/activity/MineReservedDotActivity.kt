@@ -51,7 +51,7 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
         viewtitle="我预定的点位"
         rightTitle="取消预定"
         MyReservedDotHolder.renewDays=-1
-        basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10),RefreshAction.NormalAction)
+        basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10,UserDao.getLocalUser().userRole),RefreshAction.NormalAction)
 
         //查询 续订的天数
         basePresenter.findRenewDays(FindRenewDaysRequest(-1))
@@ -62,12 +62,12 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
         recylerView.setOnRefreshListener(object: PullToRefreshBase.OnRefreshListener<ListView>{
             override fun onPullDownToRefresh(refreshView: PullToRefreshBase<ListView>?) {
                 pageNumber=1;
-                basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10),RefreshAction.PullDownRefresh);
+                basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10,UserDao.getLocalUser().userRole),RefreshAction.PullDownRefresh);
             }
 
             override fun onPullUpToRefresh(refreshView: PullToRefreshBase<ListView>?) {
                 pageNumber+=1
-                basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10),RefreshAction.UpMore);
+                basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10,UserDao.getLocalUser().userRole),RefreshAction.UpMore);
             }
         })
 
@@ -161,7 +161,7 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
                 //重新请求
                 adapter!!.dismissDilog()
                 pageNumber=1
-                basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10),RefreshAction.NormalAction)
+                basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10,UserDao.getLocalUser().userRole),RefreshAction.NormalAction)
                 ToastUtil.makeText(this@MineReservedDotActivity,"续约成功!")
             }
         }catch (e:Exception){
@@ -208,7 +208,7 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
         setRight("取消预定")
         rl_bottom.visibility=View.GONE
         adapter!!.processAntiAllSelect()
-        basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10),RefreshAction.NormalAction)
+        basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10,UserDao.getLocalUser().userRole),RefreshAction.NormalAction)
         ToastUtil.makeText(this@MineReservedDotActivity,"申请取消预订成功")
     }
 

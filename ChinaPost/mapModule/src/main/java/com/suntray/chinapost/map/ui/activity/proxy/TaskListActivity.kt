@@ -58,6 +58,17 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
         isBlackShow=false
 
         supplyID=intent.getStringExtra("supplyID")
+
+        tv_up.setOnClickListener({
+            swipeBtnRelativeLayout.smoothToLeft()
+            swipeBtnRelativeLayout.onRatingBarChangeListener!!.onChangeToLeft()
+        })
+
+        tv_down.setOnClickListener({
+            swipeBtnRelativeLayout.smoothToRight()
+            swipeBtnRelativeLayout.onRatingBarChangeListener!!.onChangeToRight()
+        })
+
         swipeBtnRelativeLayout.onRatingBarChangeListener=object: OnRatioChanageListener {
             override fun onChangeToLeft() {
                 if(currentIndex!=0){
@@ -236,14 +247,23 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
     override fun onGetTaskNumber(taskNumberResponse: TaskNumberResponse) {
         if(taskNumberResponse.count1>0){
             tv_unfinish_number.visibility=View.VISIBLE
-            tv_unfinish_number.text=taskNumberResponse.count1.toString()
+            if(taskNumberResponse.count1>99){
+                tv_unfinish_number.text="99+"
+            }else{
+                tv_unfinish_number.text=taskNumberResponse.count1.toString()
+            }
+
         }else{
             tv_unfinish_number.visibility=View.GONE
         }
 
         if(taskNumberResponse.count3>0){
             tv_unexamine_number.visibility=View.VISIBLE
-            tv_unexamine_number.text=taskNumberResponse.count3.toString()
+            if(taskNumberResponse.count3>99){
+                tv_unexamine_number.text="99+"
+            }else{
+                tv_unexamine_number.text=taskNumberResponse.count3.toString()
+            }
         }else{
             tv_unexamine_number.visibility=View.GONE
         }
@@ -394,8 +414,8 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
         if (null != location) {
             currntLocation=location
             //todo 需要重新改
-            currntLocation!!.longitude=116.397472
-            currntLocation!!.latitude=39.908683
+//            currntLocation!!.longitude=116.397472
+//            currntLocation!!.latitude=39.908683
             val sb = StringBuffer()
             //errCode等于0代表定位成功，其他的为定位失败，具体的可以参照官网定位错误码说明
             if (location.errorCode == 0) {

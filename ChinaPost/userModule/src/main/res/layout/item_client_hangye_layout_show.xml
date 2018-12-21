@@ -64,7 +64,7 @@
             android:background="@drawable/base_bg_line"></View>
 
     <com.zhy.autolayout.AutoRelativeLayout
-            android:layout_below="@+id/rl_client_hangye"
+            android:layout_below="@+id/line_1"
             android:id="@+id/rl_client_xingzhi"
             android:paddingLeft="20px"
             android:paddingTop="30px"
@@ -122,7 +122,7 @@
             android:background="@drawable/base_bg_line"></View>
 
     <com.zhy.autolayout.AutoRelativeLayout
-            android:layout_below="@+id/rl_client_xingzhi"
+            android:layout_below="@+id/line_3"
             android:id="@+id/rl_client_laiyuan"
             android:paddingLeft="20px"
             android:paddingTop="30px"
@@ -233,7 +233,7 @@
     <TextView
             android:id="@+id/tv_address"
             android:layout_marginTop="1px"
-            android:layout_below="@+id/rl_client_address"
+            android:layout_below="@+id/line_4"
             android:padding="20px"
             android:layout_width="match_parent"
             android:background="@color/white"
