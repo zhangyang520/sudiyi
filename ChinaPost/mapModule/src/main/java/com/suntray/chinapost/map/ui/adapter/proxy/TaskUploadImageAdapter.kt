@@ -145,7 +145,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
 
 
         if (getItem(position)!!.state==-1) {//没有数据的时候
-            Glide.with(context).load(File(getItem(position)!!.imgPath)).error(R.drawable.mine_ic_default3).into(viewHolder.iv_1)
+            Glide.with(context).load(getItem(position)!!.imgPath).error(R.drawable.mine_ic_default3).into(viewHolder.iv_1)
             viewHolder.iv_cancel1.visibility = View.GONE
 
             //其他的情况 隐藏其他的信息
@@ -165,7 +165,9 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
             }
         } else {
             viewHolder.itemView.visibility=View.VISIBLE
-            Glide.with(context).load(File(getItem(position)!!.imgPath)).error(R.drawable.mine_ic_default3).into(viewHolder.iv_1)
+
+            println("getItem(position)!!.imgPath:"+getItem(position)!!.imgPath)
+            Glide.with(context).load(getItem(position)!!.imgPath).error(R.drawable.mine_ic_default3).into(viewHolder.iv_1)
 
             //根据 状态值 设置 对应意见的颜色 2待审批、4审批不通过、3,5,6,7审批通过
             if(getItem(position)!!.state==2){

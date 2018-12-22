@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="200px">
+
+    <View
+            android:id="@+id/view_top"
+            android:layout_width="match_parent"
+            android:layout_height="30px"></View>
+
+    <ImageView
+            android:layout_below="@id/view_top"
+            android:id="@+id/iv_1"
+            android:layout_marginTop="20px"
+            android:layout_width="184px"
+            android:layout_height="184px"
+            android:src="@drawable/mine_ic_default1"
+            android:scaleType="fitXY"
+    />
+
+    <View
+            android:layout_alignTop="@+id/iv_1"
+            android:layout_alignRight="@+id/iv_1"
+            android:id="@+id/iv_cancel1"
+            android:background="@drawable/mine_iv_cancel"
+            android:layout_marginTop="10px"
+            android:layout_marginRight="10px"
+            android:layout_width="37px"
+            android:layout_height="40px"></View>
+
+</com.zhy.autolayout.AutoRelativeLayout>

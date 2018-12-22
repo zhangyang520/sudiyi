@@ -58,7 +58,7 @@ class TaskHolder: BaseHolder<TaskEntity>{
          * 条目设置点击事件
          */
        contentView.setOnClickListener({
-            ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_DETAIL)
+            ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_UNFINISH_DETAIL)
                     .withBoolean("editAble",false)
                     .withInt("currentType",currentType)
                     .withSerializable("taskEntity",getData())
@@ -76,11 +76,19 @@ class TaskHolder: BaseHolder<TaskEntity>{
         }
 
         btn_upload_pic!!.setOnClickListener({
-            ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_DETAIL)
-                    .withBoolean("editAble",true)
-                    .withSerializable("taskEntity",getData())
-                    .withInt("currentType",currentType)
-                    .withInt("firstType",firstType).navigation(activity as TaskListActivity,101)
+            if (getData().state.toInt() == 1) {
+                ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_UNFINISH_DETAIL)
+                        .withBoolean("editAble",true)
+                        .withSerializable("taskEntity",getData())
+                        .withInt("currentType",currentType)
+                        .withInt("firstType",firstType).navigation(activity as TaskListActivity,101)
+            }else if(getData().state.toInt() == 4) {
+                ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_DETAIL)
+                        .withBoolean("editAble",true)
+                        .withSerializable("taskEntity",getData())
+                        .withInt("currentType",currentType)
+                        .withInt("firstType",firstType).navigation(activity as TaskListActivity,101)
+            }
         })
 
         /**

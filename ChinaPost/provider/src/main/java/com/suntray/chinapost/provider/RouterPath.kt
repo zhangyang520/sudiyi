@@ -48,6 +48,9 @@ object RouterPath {
             //任务的详情页
             const val POST_TASK_DETAIL="/map/TaskDetailActivity"
 
+            //未完成的詳情界面
+            const val POST_TASK_UNFINISH_DETAIL="/map/TaskDetailUnfinishActivity"
+
             //路线的类
             const val POST_TASK_ROUTE="/map/RouteActivity"
 

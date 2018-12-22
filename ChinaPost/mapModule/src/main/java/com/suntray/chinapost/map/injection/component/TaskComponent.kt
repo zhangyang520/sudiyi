@@ -4,6 +4,7 @@ import com.suntray.chinapost.baselibrary.injection.PerComponentScope
 import com.suntray.chinapost.baselibrary.injection.component.ActivityComponent
 import com.suntray.chinapost.map.injection.module.TaskModule
 import com.suntray.chinapost.map.ui.activity.proxy.TaskDetailActivity
+import com.suntray.chinapost.map.ui.activity.proxy.TaskDetailUnfinishActivity
 import com.suntray.chinapost.map.ui.activity.proxy.TaskListActivity
 import dagger.Component
 
@@ -18,4 +19,6 @@ interface TaskComponent {
     fun bind(taskListActivity: TaskListActivity)
 
     fun bind(taskDetailActivity: TaskDetailActivity)
+
+    fun bind(taskDetailUnfinishActivity: TaskDetailUnfinishActivity)
 }
