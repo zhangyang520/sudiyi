@@ -48,6 +48,7 @@
                         android:id="@+id/tv_yuding"
                         android:layout_width="wrap_content"
                         android:layout_height="36px"
+                        android:layout_marginLeft="20px"
                         android:text="预定资源位"
                         android:textColor="@color/black"
                         android:textSize="30px"

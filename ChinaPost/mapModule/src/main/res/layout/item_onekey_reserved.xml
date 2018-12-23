@@ -48,6 +48,7 @@
                 android:text="全屏屏保5"
                 android:textColor="#A9A9A9"
                 android:maxLines="3"
+                android:visibility="gone"
                 android:textSize="30px"
                 android:background="@null"
                 android:gravity="left|center_vertical"

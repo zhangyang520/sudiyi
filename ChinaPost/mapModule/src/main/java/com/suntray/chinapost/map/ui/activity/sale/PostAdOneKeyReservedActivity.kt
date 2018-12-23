@@ -138,7 +138,7 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
         }
     }
 
-    val columnNum=3 //每行
+    val columnNum=2 //每行
     var resourceIdList= arrayListOf<ResourceType>()  //选择的对应的资源位的id
 
 
@@ -168,8 +168,8 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
                 var contentView=View.inflate(this@PostAdOneKeyReservedActivity,R.layout.item_onekey_reserved,null)
                 var btn1=contentView.findViewById(R.id.btn_1) as Button;
                 var btn2=contentView.findViewById(R.id.btn_2) as Button;
-                var btn3=contentView.findViewById(R.id.btn_3) as Button;
-                for(i in 0..2){
+//                var btn3=contentView.findViewById(R.id.btn_3) as Button;
+                for(i in 0..1){
                     resourceIndex++
                     if(i==0){
                         btn1.setText(resourceList.get(resourceIndex).name)
@@ -193,18 +193,20 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
                                 resourceIdList.remove(resourceList.get(index*columnNum+i))
                             }
                         })
-                    }else if(i==2){
-                        btn3.setText(resourceList.get(resourceIndex).name)
-                        btn3.setOnClickListener({
-                            btn3.isActivated=!btn3.isActivated
-                            //保存 对应的位置
-                            if(btn3.isActivated){
-                                resourceIdList.add(resourceList.get(index*columnNum+i))
-                            }else{
-                                resourceIdList.remove(resourceList.get(index*columnNum+i))
-                            }
-                        })
                     }
+
+//                    else if(i==2){
+//                        btn3.setText(resourceList.get(resourceIndex).name)
+//                        btn3.setOnClickListener({
+//                            btn3.isActivated=!btn3.isActivated
+//                            //保存 对应的位置
+//                            if(btn3.isActivated){
+//                                resourceIdList.add(resourceList.get(index*columnNum+i))
+//                            }else{
+//                                resourceIdList.remove(resourceList.get(index*columnNum+i))
+//                            }
+//                        })
+//                    }
                 }
                 rl_yuding.addView(contentView)
             }else{
@@ -214,10 +216,10 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
                     resourceIndex++
                     var btn1=contentView.findViewById(R.id.btn_1) as Button;
                     var btn2=contentView.findViewById(R.id.btn_2) as Button;
-                    var btn3=contentView.findViewById(R.id.btn_3) as Button;
+//                    var btn3=contentView.findViewById(R.id.btn_3) as Button;
                         if(i==1){
                             btn2.visibility=View.INVISIBLE
-                            btn3.visibility=View.INVISIBLE
+//                            btn3.visibility=View.INVISIBLE
                             btn1.setText(resourceList.get(resourceIndex).name)
                             btn1.setOnClickListener({
                                 btn1.isActivated=!btn1.isActivated
@@ -230,7 +232,7 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
                             })
                         }else if(i==2){
                             btn2.visibility=View.VISIBLE
-                            btn3.visibility=View.INVISIBLE
+//                            btn3.visibility=View.INVISIBLE
                             btn2.setText(resourceList.get(resourceIndex).name)
                             btn2.setOnClickListener({
                                 btn2.isActivated=!btn2.isActivated
@@ -241,19 +243,21 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
                                     resourceIdList.remove(resourceList.get(index*columnNum+(i-1)))
                                 }
                             })
-                        }else if(i==3){
-                            btn3.visibility=View.VISIBLE
-                            btn3.setText(resourceList.get(resourceIndex).name)
-                            btn3.setOnClickListener({
-                                btn3.isActivated=!btn3.isActivated
-                                //保存 对应的位置
-                                if(btn3.isActivated){
-                                    resourceIdList.add(resourceList.get(resourceIndex))
-                                }else{
-                                    resourceIdList.remove(resourceList.get(resourceIndex))
-                                }
-                            })
-                    }
+                        }
+
+//                        else if(i==3){
+//                            btn3.visibility=View.VISIBLE
+//                            btn3.setText(resourceList.get(resourceIndex).name)
+//                            btn3.setOnClickListener({
+//                                btn3.isActivated=!btn3.isActivated
+//                                //保存 对应的位置
+//                                if(btn3.isActivated){
+//                                    resourceIdList.add(resourceList.get(resourceIndex))
+//                                }else{
+//                                    resourceIdList.remove(resourceList.get(resourceIndex))
+//                                }
+//                            })
+//                    }
                 }
                 rl_yuding.addView(contentView)
             }
