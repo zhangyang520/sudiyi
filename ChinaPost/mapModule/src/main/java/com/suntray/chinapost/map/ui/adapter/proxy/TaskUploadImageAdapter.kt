@@ -155,9 +155,10 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
             if(!isCancelable){
                 //不能编辑
                 viewHolder.tv_edit!!.visibility=View.GONE
+                viewHolder.iv_1.setOnClickListener(null)
             }else{
                 viewHolder.tv_edit!!.visibility=View.VISIBLE
-                viewHolder.tv_edit!!.setOnClickListener({
+                viewHolder.iv_1!!.setOnClickListener({
                     //编辑 事件
                     editPosition=position
                     (context as TaskDetailActivity)!!.setPermissinPortraitDialog()
@@ -180,7 +181,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                     viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
                 }
                 viewHolder.tv_edit!!.visibility=View.INVISIBLE
-                viewHolder.tv_edit!!.setOnClickListener(null)
+                viewHolder.iv_1!!.setOnClickListener(null)
             }else if(getItem(position)!!.state==4){
                 //审批不通过
                 viewHolder.tv_approval_content!!.setTextColor(Color.RED)
@@ -195,9 +196,10 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 if(!isCancelable){
                     //不能编辑
                     viewHolder.tv_edit!!.visibility=View.GONE
+                    viewHolder.iv_1!!.setOnClickListener(null)
                 }else{
                     viewHolder.tv_edit!!.visibility=View.VISIBLE
-                    viewHolder.tv_edit!!.setOnClickListener({
+                    viewHolder.iv_1!!.setOnClickListener({
                         //编辑 事件
                         editPosition=position
                         (context as TaskDetailActivity)!!.setPermissinPortraitDialog()
@@ -214,7 +216,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 }else{
                     viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
                 }
-                viewHolder.tv_edit!!.setOnClickListener(null)
+                viewHolder.iv_1!!.setOnClickListener(null)
             }else{
                 //其他的情况 隐藏其他的信息
                 viewHolder.tv_approval_content!!.visibility=View.GONE
@@ -223,9 +225,10 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 if(!isCancelable){
                     //不能编辑
                     viewHolder.tv_edit!!.visibility=View.GONE
+                    viewHolder.iv_1!!.setOnClickListener(null)
                 }else{
                     viewHolder.tv_edit!!.visibility=View.VISIBLE
-                    viewHolder.tv_edit!!.setOnClickListener({
+                    viewHolder.iv_1!!.setOnClickListener({
                         //编辑 事件
                         editPosition=position
                         (context as TaskDetailActivity)!!.setPermissinPortraitDialog()

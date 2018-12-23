@@ -80,7 +80,7 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                     tv_down.background=null
                     tv_down.setTextColor(Color.parseColor("#909092"))
                     tv_up.setTextColor(Color.parseColor("#01764A"))
-
+                    basePresenter.getTaskNumber(TaskNumberRequest(currentIndex+1,supplyID.toInt(),UserDao.getLocalUser().id))
                     if(currentPointerIndex==0){
                         unFinishFragment!!.getNormalData()
                     }else if(currentPointerIndex==1){
@@ -103,7 +103,7 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                     tv_up.background=null
                     tv_up.setTextColor(Color.parseColor("#909092"))
                     tv_down.setTextColor(Color.parseColor("#01764A"))
-
+                    basePresenter.getTaskNumber(TaskNumberRequest(currentIndex+1,supplyID.toInt(),UserDao.getLocalUser().id))
                     if(currentPointerIndex==0){
                         unFinishFragment!!.getNormalData()
                     }else if(currentPointerIndex==1){
