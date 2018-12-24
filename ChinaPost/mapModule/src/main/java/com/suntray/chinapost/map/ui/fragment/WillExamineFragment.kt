@@ -61,6 +61,12 @@ class WillExamineFragment:Fragment(),TaskView{
         taskPresenter!!.getTaskListApi(TaskListRequest(UserDao.getLocalUser().id,"",pageNumber,10,firstType,2,supplyID), RefreshAction.NormalAction);
     }
 
+    fun  clearData(){
+        if(taskAdapter!=null &&  taskAdapter!!.datas!=null){
+            taskAdapter!!.datas.clear()
+            taskAdapter!!.notifyDataSetChanged()
+        }
+    }
     override fun onResume() {
         super.onResume()
         SystemUtil.printlnStr("TaskListity WillExamineFragment  onResume ....")

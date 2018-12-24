@@ -64,6 +64,13 @@ class NotExamineFragment:Fragment(),TaskView {
         taskPresenter!!.getTaskListApi(TaskListRequest(UserDao.getLocalUser().id,"",pageNumber,10,firstType,4,supplyID), RefreshAction.NormalAction);
     }
 
+    fun  clearData(){
+        if(taskAdapter!=null &&  taskAdapter!!.datas!=null){
+            taskAdapter!!.datas.clear()
+            taskAdapter!!.notifyDataSetChanged()
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         SystemUtil.printlnStr("TaskListity NotExamineFragment  onResume ....")

@@ -141,7 +141,7 @@ class UploadImageAdapter(private val context: Context, var imagePathList: ArrayL
         if (convertView == null) {//创建ImageView
             viewHolder = ViewHolder(View.inflate(context, R.layout.item_upload_aptitude, null))
             convertView = viewHolder.itemView
-            val width = AutoUtils.getPercentWidthSize(184)
+            val width = AutoUtils.getPercentWidthSize(244)
             imageHeight = width
             convertView.tag = viewHolder
         } else {
@@ -186,7 +186,7 @@ class UploadImageAdapter(private val context: Context, var imagePathList: ArrayL
                     Glide.with(context).load(getItem(position)!!.address).into(viewHolder.iv_1)
                     //error(R.drawable.mine_ic_default1).
                 }else{
-                    Glide.with(context).load(BaseConstants.BASE_UPLOAD_URL +
+                    Glide.with(context).load(
                             getItem(position)!!.address).into(viewHolder.iv_1)
                     //error(R.drawable.mine_ic_default1).
                 }

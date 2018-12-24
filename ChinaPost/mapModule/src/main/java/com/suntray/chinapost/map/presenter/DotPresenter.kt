@@ -1,6 +1,7 @@
 package com.suntray.chinapost.map.presenter
 
 import com.suntray.chinapost.baselibrary.data.bean.ResourceType
+import com.suntray.chinapost.baselibrary.data.dao.UserDao
 import com.suntray.chinapost.baselibrary.exception.ContentException
 import com.suntray.chinapost.baselibrary.presenter.BasePresenter
 import com.suntray.chinapost.baselibrary.rx.BaseSucriber
@@ -29,7 +30,7 @@ class DotPresenter @Inject constructor():BasePresenter<DotView>(){
      * 获取 点位的资源位 列表的数据
      */
     fun getDotOfResourceInfo(id:Int){
-        resourceServiceImpl.getDotOfResourceInfo(DotOfResourceInfoRequest(id)).
+        resourceServiceImpl.getDotOfResourceInfo(DotOfResourceInfoRequest(id,UserDao.getLocalUser().id,UserDao.getLocalUser().userRole)).
                 execute(object: BaseSucriber<DotOfResourceListResponse>(baseView,DotOfResourceListResponse::javaClass.name){
 
                             override fun onError(e: Throwable?) {

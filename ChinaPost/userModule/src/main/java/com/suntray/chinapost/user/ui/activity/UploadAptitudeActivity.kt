@@ -135,7 +135,7 @@ class UploadAptitudeActivity:BaseMvpActivity<ClientPresenter>(),ClientView{
                                 ,getMultiPartBody(UploadAptitudeEnum.HangyeTeshu),description,id,getDeleteIds()
                         ))
             }else{
-                ToastUtil.makeText(this@UploadAptitudeActivity,"至少选择一种类型的图片")
+                ToastUtil.makeText(this@UploadAptitudeActivity,"请至少选择基本类型的图片")
             }
         })
 
@@ -263,9 +263,9 @@ class UploadAptitudeActivity:BaseMvpActivity<ClientPresenter>(),ClientView{
      * 是否 能够上传
      */
     private fun canUpload(): Boolean {
-        if( UploadAptitudeEnum.JiBenXinxi.getPathList().size>1 || UploadAptitudeEnum.HangyeTeshu.getPathList().size>1){
+        if( UploadAptitudeEnum.JiBenXinxi.getPathList().size>1){
                return true
-        }else if( UploadAptitudeEnum.JiBenXinxi.newAddList.size>=1 || UploadAptitudeEnum.HangyeTeshu.newAddList.size>=1){
+        }else if(UploadAptitudeEnum.JiBenXinxi.newAddList.size>=1){
             return true
         }else if(getDeleteIds().size>0){
             //只是减少了图片

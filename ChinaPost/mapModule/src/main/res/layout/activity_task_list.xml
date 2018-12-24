@@ -106,7 +106,6 @@
                         android:gravity="center"
                         android:textColor="@color/white"
                         android:layout_toRightOf="@+id/tv_unfinished"
-                        android:layout_marginTop="10px"
                         android:layout_width="30px"
                         android:layout_height="30px"/>
 

@@ -109,24 +109,11 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
          */
         iv_finger.setOnClickListener(View.OnClickListener {
             //判断 当前获取到的数据有无?
-            if(reserveNumber==-1){
-                //接口调用失败
-                ToastUtil.makeText(this@PostPoiSearchActivity,"获取一键预订的数量失败")
-            }else{
-                if (currentMapDot != null &&
-                        currentMapDot!!.size > 0) {
-                    if (currentMapDot!!.size < reserveNumber) {
-                        ARouter.getInstance()
-                                .build(RouterPath.MapModule.POST_AD_RESERVED_LIST)
-                                .navigation(this@PostPoiSearchActivity)
-                    } else {
-                        ToastUtil.makeText(this@PostPoiSearchActivity, "点位的数据不能超过"+reserveNumber+"个")
-                    }
-                } else {
-                    ToastUtil.makeText(this@PostPoiSearchActivity, "暂无点位数据")
-                }
-            }
-
+            /**查询一键预订的数量
+             *
+             */
+            hud2!!.setLabel("获取一键预订数量")
+            basePresenter.findReserveNum(FindReserveNumRequest(-1))
         })
 
         iv_map_area.setOnClickListener({
@@ -137,6 +124,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                 //如果正在请求
                 ToastUtil.makeText(this@PostPoiSearchActivity,"正在请求中")
             }else{
+                hud2!!.setLabel("获取城市数据中")
                 basePresenter.province(CityListAction.ProvinceAtion.getCityValue1().toString(), -1, -1, CityListAction.ProvinceAtion)
             }
         })
@@ -403,10 +391,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
         //获取客户字典的 数据
         basePresenter.getClientNameList()
 
-        /**查询一键预订的数量
-         *
-         */
-        basePresenter.findReserveNum(FindReserveNumRequest(-1))
+
 
         requestPermission(101, "android.permission.ACCESS_COARSE_LOCATION", object : Runnable {
             override fun run() {
@@ -426,6 +411,23 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
      */
     override fun onFindReserverNumber(number: Int) {
         reserveNumber=number
+        if(reserveNumber==-1){
+            //接口调用失败
+            ToastUtil.makeText(this@PostPoiSearchActivity,"获取一键预订的数量失败")
+        }else{
+            if (currentMapDot != null &&
+                    currentMapDot!!.size > 0) {
+                if (currentMapDot!!.size < reserveNumber) {
+                    ARouter.getInstance()
+                            .build(RouterPath.MapModule.POST_AD_RESERVED_LIST)
+                            .navigation(this@PostPoiSearchActivity)
+                } else {
+                    ToastUtil.makeText(this@PostPoiSearchActivity, "点位的数据不能超过"+reserveNumber+"个")
+                }
+            } else {
+                ToastUtil.makeText(this@PostPoiSearchActivity, "暂无点位数据")
+            }
+        }
     }
 
 
@@ -447,6 +449,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                 if(et_input_search.hasTxt()){
                     //如果数据
                     inputlist.visibility=View.INVISIBLE
+                    hud2!!.setLabel("半径区域搜索中")
                     doRequestRadius()
                 }else{
                     if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)==0){

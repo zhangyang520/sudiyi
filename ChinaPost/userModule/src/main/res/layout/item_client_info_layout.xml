@@ -13,7 +13,6 @@
             android:paddingRight="20px"
             android:background="@color/white"
             android:paddingBottom="30px"
-            android:layout_marginTop="20px"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -53,7 +52,7 @@
             android:background="@drawable/base_bg_line"></View>
 
     <com.zhy.autolayout.AutoRelativeLayout
-            android:layout_below="@+id/rl_client_name"
+            android:layout_below="@+id/line_2"
             android:id="@+id/rl_client_xingming"
             android:paddingLeft="20px"
             android:paddingTop="30px"
@@ -90,14 +89,14 @@
     </com.zhy.autolayout.AutoRelativeLayout>
     <!--线条-->
     <View
-            android:layout_below="@+id/rl_client_name"
+            android:layout_below="@+id/rl_client_xingming"
             android:id="@+id/line_1"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@drawable/base_bg_line"></View>
 
     <com.zhy.autolayout.AutoRelativeLayout
-            android:layout_below="@+id/rl_client_xingming"
+            android:layout_below="@+id/line_1"
             android:id="@+id/rl_client_phone"
             android:paddingLeft="20px"
             android:paddingTop="30px"

@@ -21,6 +21,7 @@ import com.amap.api.services.route.*
 import com.suntray.chinapost.map.R
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.ui.adapter.proxy.BusResultListAdapter
+import com.suntray.chinapost.map.utils.AMapUI
 import com.suntray.chinapost.map.utils.AMapUtil
 import com.suntray.chinapost.map.utils.ToastUtil
 import com.suntray.chinapost.provider.RouterPath
@@ -109,6 +110,7 @@ class RouteActivity : Activity(), AMap.OnMapClickListener, AMap.OnMarkerClickLis
                 .position(AMapUtil.convertToLatLng(mEndPoint))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.end)))
 
+        AMapUI.doDistrictCanvas(this, currntLocation!!.district,aMap!!);
         rl_back.setOnClickListener({
             finish()
         })

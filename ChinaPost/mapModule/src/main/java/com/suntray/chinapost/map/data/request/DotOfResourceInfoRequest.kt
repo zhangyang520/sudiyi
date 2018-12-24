@@ -6,5 +6,7 @@ package com.suntray.chinapost.map.data.request
  *  @Date 2018/9/21 13:20
  */
 data class DotOfResourceInfoRequest (
-    var id:Int=0
+    var id:Int=0,
+    var salesman:Int=0,
+    var salesmanType:Int=0
 )

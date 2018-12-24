@@ -8,7 +8,7 @@
     <color name="global_bg">#eeeff3</color>
     <!--公共部分-->
     <!--整个activity的背景颜色-->
-    <color name="activity_background_color">#ffffff</color>
+   <!-- <color name="activity_background_color">#ffffff</color>-->
     <!--app大标题的背景颜色-->
     <color name="title_backround_color">#FFFFFF</color>
     <!--app大标题的字体颜色-->

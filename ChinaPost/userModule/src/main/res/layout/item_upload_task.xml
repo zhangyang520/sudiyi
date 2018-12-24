@@ -53,7 +53,8 @@
             android:layout_marginBottom="10px"
             android:textColor="@color/gray"
             android:background="@null"
-            android:layout_width="60px"
+            android:layout_width="wrap_content"
+            android:gravity="left"
             android:layout_height="40px"/>
     <View
             android:layout_alignTop="@+id/iv_1"

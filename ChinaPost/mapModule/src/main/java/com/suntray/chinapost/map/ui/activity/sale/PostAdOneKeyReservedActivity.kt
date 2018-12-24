@@ -285,6 +285,10 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
         addSelectedList(PostAdReservedListActivity.selectedList)
 
 
+        if(UserDao.getLocalUser().userRole==2){
+            tv_select_client_content.setHint("请输入客户名称")
+        }
+
         /**
          * 内容的监听器
          */

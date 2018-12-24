@@ -158,6 +158,17 @@ class TaskUploadUnfinishImageAdapter(private val context: Context, var imagePath
             }else{
                 viewHolder.iv_cancel1.visibility = View.GONE
             }
+
+            viewHolder.iv_1!!.setOnClickListener({
+                if(getItem(position)!!.imgPath!=null && !getItem(position)!!.imgPath.equals("")){
+                    var imageDialog= com.suntray.chinapost.map.ui.dialog.ImageInfoDialog(context)
+                    imageDialog.show()
+                    imageDialog.setContent(getItem(position)!!.imgPath)
+                }else{
+                    com.suntray.chinapost.map.utils.ToastUtil.show(context,"暂无图片信息")
+                }
+            })
+
             viewHolder.iv_cancel1.setOnClickListener {
                 //删除 对应的图片
                 //更新结构

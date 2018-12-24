@@ -90,9 +90,9 @@
            <com.zhy.autolayout.AutoLinearLayout
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_toRightOf="@+id/iv_portrait"
                    android:layout_below="@+id/tv_shangchuan"
-                   android:layout_marginLeft="10px"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="40px"
                    android:layout_marginTop="45px"
                    android:gravity="center_horizontal"
                    android:orientation="vertical"

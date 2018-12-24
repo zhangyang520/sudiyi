@@ -2,7 +2,7 @@
 <com.zhy.autolayout.AutoRelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="184px"
-        android:layout_height="184px">
+        android:layout_height="234px">
 
     <View
             android:id="@+id/view_top"

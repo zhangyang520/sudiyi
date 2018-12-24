@@ -8,6 +8,7 @@ import android.widget.*
 import com.bumptech.glide.Glide
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.map.ui.activity.proxy.TaskDetailActivity
+import com.suntray.chinapost.map.ui.dialog.ImageInfoDialog
 import com.suntray.chinapost.user.R
 import com.suntray.chinapost.user.data.bean.TaskUpload
 import com.suntray.chinapost.user.data.enum.UploadTaskEnum
@@ -181,7 +182,15 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                     viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
                 }
                 viewHolder.tv_edit!!.visibility=View.INVISIBLE
-                viewHolder.iv_1!!.setOnClickListener(null)
+                viewHolder.iv_1!!.setOnClickListener({
+                    if(getItem(position)!!.imgPath!=null && !getItem(position)!!.imgPath.equals("")){
+                        var imageDialog= ImageInfoDialog(context)
+                        imageDialog.show()
+                        imageDialog.setContent(getItem(position)!!.imgPath)
+                    }else{
+                        com.suntray.chinapost.map.utils.ToastUtil.show(context,"暂无图片信息")
+                    }
+                })
             }else if(getItem(position)!!.state==4){
                 //审批不通过
                 viewHolder.tv_approval_content!!.setTextColor(Color.RED)
@@ -196,7 +205,15 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 if(!isCancelable){
                     //不能编辑
                     viewHolder.tv_edit!!.visibility=View.GONE
-                    viewHolder.iv_1!!.setOnClickListener(null)
+                    viewHolder.iv_1!!.setOnClickListener({
+                        if(getItem(position)!!.imgPath!=null && !getItem(position)!!.imgPath.equals("")){
+                            var imageDialog= ImageInfoDialog(context)
+                            imageDialog.show()
+                            imageDialog.setContent(getItem(position)!!.imgPath)
+                        }else{
+                            com.suntray.chinapost.map.utils.ToastUtil.show(context,"暂无图片信息")
+                        }
+                    })
                 }else{
                     viewHolder.tv_edit!!.visibility=View.VISIBLE
                     viewHolder.iv_1!!.setOnClickListener({
@@ -216,7 +233,15 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 }else{
                     viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
                 }
-                viewHolder.iv_1!!.setOnClickListener(null)
+                viewHolder.iv_1!!.setOnClickListener({
+                    if(getItem(position)!!.imgPath!=null && !getItem(position)!!.imgPath.equals("")){
+                        var imageDialog= ImageInfoDialog(context)
+                        imageDialog.show()
+                        imageDialog.setContent(getItem(position)!!.imgPath)
+                    }else{
+                        com.suntray.chinapost.map.utils.ToastUtil.show(context,"暂无图片信息")
+                    }
+                })
             }else{
                 //其他的情况 隐藏其他的信息
                 viewHolder.tv_approval_content!!.visibility=View.GONE
@@ -225,7 +250,16 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 if(!isCancelable){
                     //不能编辑
                     viewHolder.tv_edit!!.visibility=View.GONE
-                    viewHolder.iv_1!!.setOnClickListener(null)
+                    viewHolder.iv_1!!.setOnClickListener({
+                        if(getItem(position)!!.imgPath!=null && !getItem(position)!!.imgPath.equals("")){
+                            var imageDialog= ImageInfoDialog(context)
+                            imageDialog.show()
+                            imageDialog.setContent(getItem(position)!!.imgPath)
+                        }else{
+                            com.suntray.chinapost.map.utils.ToastUtil.show(context,"暂无图片信息")
+                        }
+                    })
+
                 }else{
                     viewHolder.tv_edit!!.visibility=View.VISIBLE
                     viewHolder.iv_1!!.setOnClickListener({

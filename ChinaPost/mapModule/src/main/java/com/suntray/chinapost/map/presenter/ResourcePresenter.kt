@@ -282,6 +282,8 @@ class ResourcePresenter @Inject constructor():BasePresenter<ResourceView>(){
      * 获取 时间的周期
      */
     fun getResourceDateSchedule(resourceDateRequest: ResourceDateRequest,calendarAction: CalendarAction){
+        resourceDateRequest.userId=UserDao.getLocalUser().id
+        resourceDateRequest.userType=UserDao.getLocalUser().userRole
         resourceServiceImpl.getResourceDateSchedule(resourceDateRequest)
                 .execute(object : BaseSucriber<ResourceDateResponse>(baseView, ResourcePresenter::javaClass.name) {
                     override fun onError(e: Throwable?) {

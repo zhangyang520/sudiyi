@@ -4,5 +4,9 @@
         <!--<domain includeSubdomains="true">47.94.207.62:19999</domain>-->
         <!--<domain includeSubdomains="true">guanggao.cnpost-sposter.com</domain>-->
     <!--</domain-config>-->
-    <base-config cleartextTrafficPermitted="true" />
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
 </network-security-config>

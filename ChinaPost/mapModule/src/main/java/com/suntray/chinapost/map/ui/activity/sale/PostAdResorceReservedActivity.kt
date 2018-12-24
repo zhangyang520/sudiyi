@@ -193,6 +193,9 @@ class PostAdResorceReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resourc
             dateResourceId=resourceAd.id
             hud2= KProgressHUD(this@PostAdResorceReservedActivity).setLabel("提交预定中...").setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
 
+            if(UserDao.getLocalUser().userRole==2){
+                tv_select_client_content.setHint("请输入客户名称")
+            }
             /**
              * 一键提交
              */

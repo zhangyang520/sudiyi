@@ -306,6 +306,7 @@ class MapPresenter @Inject constructor():BasePresenter<MapView>(){
             override fun onError(e: Throwable?) {
                 if (e is ContentException) {
                     assertMethod(baseView, {
+                        (baseView as MapView).hideLoading()
                         (baseView as MapView).onError(e.errorContent)
                     })
                 } else {
@@ -318,6 +319,7 @@ class MapPresenter @Inject constructor():BasePresenter<MapView>(){
             }
             override fun onNext(t:Int) {
                 super.onNext(t)
+                (baseView as MapView).hideLoading()
                 (baseView as MapView).onFindReserverNumber(t)
             }
         }, lifecylerProvider)

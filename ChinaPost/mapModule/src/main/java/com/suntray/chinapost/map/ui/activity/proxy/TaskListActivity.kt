@@ -80,6 +80,12 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                     tv_down.background=null
                     tv_down.setTextColor(Color.parseColor("#909092"))
                     tv_up.setTextColor(Color.parseColor("#01764A"))
+
+                    unFinishFragment!!.clearData()
+                    willExamineFragment!!.clearData()
+                    notExamineFragment!!.clearData()
+                    examineFragment!!.clearData()
+
                     basePresenter.getTaskNumber(TaskNumberRequest(currentIndex+1,supplyID.toInt(),UserDao.getLocalUser().id))
                     if(currentPointerIndex==0){
                         unFinishFragment!!.getNormalData()
@@ -90,6 +96,7 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                     }else if(currentPointerIndex==3){
                         examineFragment!!.getNormalData()
                     }
+
                 }
             }
 
@@ -103,7 +110,13 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                     tv_up.background=null
                     tv_up.setTextColor(Color.parseColor("#909092"))
                     tv_down.setTextColor(Color.parseColor("#01764A"))
+                    unFinishFragment!!.clearData()
+                    willExamineFragment!!.clearData()
+                    notExamineFragment!!.clearData()
+                    examineFragment!!.clearData()
+
                     basePresenter.getTaskNumber(TaskNumberRequest(currentIndex+1,supplyID.toInt(),UserDao.getLocalUser().id))
+
                     if(currentPointerIndex==0){
                         unFinishFragment!!.getNormalData()
                     }else if(currentPointerIndex==1){
@@ -154,14 +167,25 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                 //页面的选择
                 currentPointerIndex=position
                 if(position==0){
+                    unFinishFragment!!.clearData()
                     unFinishFragment!!.getNormalData()
                     notExamineFragment!!.getNormalData()
+                    willExamineFragment!!.clearData()
                 }else if(position==1){
+                    willExamineFragment!!.clearData()
                     willExamineFragment!!.getNormalData()
+                    notExamineFragment!!.clearData()
+                    unFinishFragment!!.clearData()
                 }else if(position==2){
+                    notExamineFragment!!.clearData()
                     notExamineFragment!!.getNormalData()
+                    willExamineFragment!!.clearData()
+                    examineFragment!!.clearData()
                 }else if(position==3){
+                    examineFragment!!.clearData()
                     examineFragment!!.getNormalData()
+                    willExamineFragment!!.clearData()
+                    notExamineFragment!!.clearData()
                 }
                 viewpager_list.setCurrentItem(position)
                 setTextView(position)
@@ -393,6 +417,7 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
             }else if(currentPointerIndex==3){
                 examineFragment!!.getNormalData()
             }
+            basePresenter.getTaskNumber(TaskNumberRequest(currentIndex+1,supplyID.toInt(),UserDao.getLocalUser().id))
         }else if(requestCode==102 && resultCode==102){
             //从 我的 任务中返回的  上刊任务 未完成
             currentPointerIndex=0
@@ -401,6 +426,7 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                 swipeBtnRelativeLayout.onRatingBarChangeListener!!.onChangeToLeft()
             }
             viewpager_list.currentItem=currentPointerIndex
+            basePresenter.getTaskNumber(TaskNumberRequest(currentIndex+1,supplyID.toInt(),UserDao.getLocalUser().id))
         }
     }
 

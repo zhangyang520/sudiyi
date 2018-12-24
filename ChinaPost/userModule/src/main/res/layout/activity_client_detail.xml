@@ -3,6 +3,7 @@
         android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:background="@color/activity_background_color"
         android:layout_height="match_parent">
 
 
@@ -16,33 +17,25 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
-        <com.zhy.autolayout.AutoRelativeLayout
+        <com.zhy.autolayout.AutoLinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
             <include
-                    android:id="@+id/hangye"
-                    android:layout_below="@+id/title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     layout="@layout/item_client_info_layout_show"></include>
 
             <include
-                    android:id="@+id/hangye_layout"
-                    android:layout_below="@+id/hangye"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     layout="@layout/item_client_hangye_layout_show"></include>
 
             <!-- 上传资质的部分-->
             <include
                     android:id="@+id/upload_aptitude"
-                    android:layout_below="@+id/hangye_layout"
                     android:layout_marginTop="20px"
                     android:layout_marginBottom="20px"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     layout="@layout/upload_aptitude_view_new"></include>
-        </com.zhy.autolayout.AutoRelativeLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
     </ScrollView>
 </com.zhy.autolayout.AutoLinearLayout>

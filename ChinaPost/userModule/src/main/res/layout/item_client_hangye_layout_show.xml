@@ -58,13 +58,13 @@
     <!--线条-->
     <View
             android:layout_below="@+id/rl_client_hangye"
-            android:id="@+id/line_1"
+            android:id="@+id/line_5"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@drawable/base_bg_line"></View>
 
     <com.zhy.autolayout.AutoRelativeLayout
-            android:layout_below="@+id/line_1"
+            android:layout_below="@+id/line_5"
             android:id="@+id/rl_client_xingzhi"
             android:paddingLeft="20px"
             android:paddingTop="30px"
@@ -116,13 +116,13 @@
     <!--线条-->
     <View
             android:layout_below="@+id/rl_client_xingzhi"
-            android:id="@+id/line_3"
+            android:id="@+id/line_6"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@drawable/base_bg_line"></View>
 
     <com.zhy.autolayout.AutoRelativeLayout
-            android:layout_below="@+id/line_3"
+            android:layout_below="@+id/line_6"
             android:id="@+id/rl_client_laiyuan"
             android:paddingLeft="20px"
             android:paddingTop="30px"
@@ -226,14 +226,14 @@
     <!--线条-->
     <View
             android:layout_below="@+id/rl_client_address"
-            android:id="@+id/line_4"
+            android:id="@+id/line_7"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@drawable/base_bg_line"></View>
     <TextView
             android:id="@+id/tv_address"
             android:layout_marginTop="1px"
-            android:layout_below="@+id/line_4"
+            android:layout_below="@+id/line_7"
             android:padding="20px"
             android:layout_width="match_parent"
             android:background="@color/white"
