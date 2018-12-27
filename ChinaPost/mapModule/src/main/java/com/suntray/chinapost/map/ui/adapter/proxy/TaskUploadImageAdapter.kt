@@ -151,6 +151,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
 
             //其他的情况 隐藏其他的信息
             viewHolder.tv_approval_content!!.visibility=View.GONE
+            viewHolder.tv_approval_reason_content!!.visibility=View.GONE
             viewHolder.tv_approval_reason!!.visibility=View.GONE
 
             if(!isCancelable){
@@ -158,7 +159,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 viewHolder.tv_edit!!.visibility=View.GONE
                 viewHolder.iv_1.setOnClickListener(null)
             }else{
-                viewHolder.tv_edit!!.visibility=View.VISIBLE
+                viewHolder.tv_edit!!.visibility=View.GONE
                 viewHolder.iv_1!!.setOnClickListener({
                     //编辑 事件
                     editPosition=position
@@ -167,6 +168,10 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
             }
         } else {
             viewHolder.itemView.visibility=View.VISIBLE
+
+            viewHolder.tv_approval_content!!.visibility=View.VISIBLE
+            viewHolder.tv_approval_reason_content!!.visibility=View.VISIBLE
+            viewHolder.tv_approval_reason!!.visibility=View.VISIBLE
 
             println("getItem(position)!!.imgPath:"+getItem(position)!!.imgPath)
             Glide.with(context).load(getItem(position)!!.imgPath).error(R.drawable.mine_ic_default3).into(viewHolder.iv_1)
@@ -177,11 +182,12 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 viewHolder.tv_approval_content!!.setTextColor(Color.parseColor("#277E63"))
                 viewHolder.tv_approval_content!!.setText("待审批")
                 if(getItem(position)!!.opinion==null || getItem(position)!!.opinion.trim().equals("")){
-                    viewHolder.tv_approval_reason!!.setText("审批意见:暂无")
+                    viewHolder.tv_approval_reason_content!!.setText("暂无")
                 }else{
-                    viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
+                    viewHolder.tv_approval_reason_content!!.setText(getItem(position)!!.opinion)
                 }
                 viewHolder.tv_edit!!.visibility=View.INVISIBLE
+                viewHolder.tv_edit!!.setOnClickListener(null)
                 viewHolder.iv_1!!.setOnClickListener({
                     if(getItem(position)!!.imgPath!=null && !getItem(position)!!.imgPath.equals("")){
                         var imageDialog= ImageInfoDialog(context)
@@ -196,15 +202,16 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 viewHolder.tv_approval_content!!.setTextColor(Color.RED)
                 viewHolder.tv_approval_content!!.setText("审批不通过")
                 if(getItem(position)!!.opinion==null || getItem(position)!!.opinion.trim().equals("")){
-                    viewHolder.tv_approval_reason!!.setText("审批意见:暂无")
+                    viewHolder.tv_approval_reason_content!!.setText("暂无")
                 }else{
-                    viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
+                    viewHolder.tv_approval_reason_content!!.setText(getItem(position)!!.opinion)
                 }
                 println("/审批不通过 viewHolder.tv_edit!!.setOnClickListener")
 
                 if(!isCancelable){
                     //不能编辑
                     viewHolder.tv_edit!!.visibility=View.GONE
+                    viewHolder.tv_edit!!.setOnClickListener(null)
                     viewHolder.iv_1!!.setOnClickListener({
                         if(getItem(position)!!.imgPath!=null && !getItem(position)!!.imgPath.equals("")){
                             var imageDialog= ImageInfoDialog(context)
@@ -216,10 +223,20 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                     })
                 }else{
                     viewHolder.tv_edit!!.visibility=View.VISIBLE
-                    viewHolder.iv_1!!.setOnClickListener({
+                    viewHolder.tv_edit!!.setOnClickListener({
                         //编辑 事件
                         editPosition=position
                         (context as TaskDetailActivity)!!.setPermissinPortraitDialog()
+                    })
+                    viewHolder.iv_1!!.setOnClickListener({
+                        //点击事件
+                        if(getItem(position)!!.imgPath!=null && !getItem(position)!!.imgPath.equals("")){
+                            var imageDialog= ImageInfoDialog(context)
+                            imageDialog.show()
+                            imageDialog.setContent(getItem(position)!!.imgPath)
+                        }else{
+                            com.suntray.chinapost.map.utils.ToastUtil.show(context,"暂无图片信息")
+                        }
                     })
                 }
             }else if(getItem(position)!!.state==3 || getItem(position)!!.state==5
@@ -229,9 +246,9 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 viewHolder.tv_approval_content!!.setText("审批通过")
                 viewHolder.tv_edit!!.visibility=View.INVISIBLE
                 if(getItem(position)!!.opinion==null || getItem(position)!!.opinion.trim().equals("")){
-                    viewHolder.tv_approval_reason!!.setText("审批意见:暂无")
+                    viewHolder.tv_approval_reason_content!!.setText("暂无")
                 }else{
-                    viewHolder.tv_approval_reason!!.setText("审批意见:"+getItem(position)!!.opinion)
+                    viewHolder.tv_approval_reason_content!!.setText(getItem(position)!!.opinion)
                 }
                 viewHolder.iv_1!!.setOnClickListener({
                     if(getItem(position)!!.imgPath!=null && !getItem(position)!!.imgPath.equals("")){
@@ -246,7 +263,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                 //其他的情况 隐藏其他的信息
                 viewHolder.tv_approval_content!!.visibility=View.GONE
                 viewHolder.tv_approval_reason!!.visibility=View.GONE
-
+                viewHolder.tv_approval_reason_content!!.visibility=View.GONE
                 if(!isCancelable){
                     //不能编辑
                     viewHolder.tv_edit!!.visibility=View.GONE
@@ -277,6 +294,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
         var iv_1: ImageView
         var iv_cancel1: View
         var tv_approval_content:TextView?=null //审批状态
+        var tv_approval_reason_content:TextView?=null //审批意见
         var tv_approval_reason:TextView?=null //审批意见
         var tv_edit:Button?=null //编辑按钮
 
@@ -285,6 +303,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
             iv_1 = itemView.findViewById(R.id.iv_1) as ImageView
             iv_cancel1 = itemView.findViewById(R.id.iv_cancel1)
             tv_approval_content = itemView.findViewById(R.id.tv_approval_content) as TextView
+            tv_approval_reason_content = itemView.findViewById(R.id.tv_approval_reason_content) as TextView
             tv_approval_reason = itemView.findViewById(R.id.tv_approval_reason) as TextView
             tv_edit = itemView.findViewById(R.id.tv_edit) as Button
         }

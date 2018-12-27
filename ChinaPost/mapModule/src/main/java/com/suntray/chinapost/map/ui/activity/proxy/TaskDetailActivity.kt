@@ -94,7 +94,7 @@ class TaskDetailActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         tv_limit_up.text=taskEntity!!.publishType
         tv_device_guige_value.text=taskEntity!!.equSpecify
         tv_task_area_value.text=taskEntity!!.taskArea
-        tv_district_value.text=taskEntity!!.zoneaddress
+        tv_district_value.text=taskEntity!!.zoneAddress
         tv_ad_type_value.text=taskEntity!!.adverType
         tv_task_time_value.text=taskEntity!!.taskTime
 //        tv_up_product_value=taskEntity!!.taskTime  上刊产品

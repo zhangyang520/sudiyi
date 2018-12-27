@@ -35,7 +35,7 @@ class ProvinceAdapter:RecyclerView.Adapter<ProvinceAdapter.ProvinceViewHoler>{
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProvinceViewHoler {
         var contentView=View.inflate(context,R.layout.recylerview_province,null)
         SystemUtil.printlnStr("ProvinceAdapter onCreateViewHolder height:"+AutoUtils.getPercentHeightSize(88))
-        var layoutParams=ViewGroup.LayoutParams(AutoUtils.getPercentWidthSize(750/3),AutoUtils.getPercentHeightSize(88))
+        var layoutParams=ViewGroup.LayoutParams(AutoUtils.getPercentWidthSize(750/3),AutoUtils.getPercentHeightSize(70))
         contentView.layoutParams=layoutParams
         contentView.requestLayout()
         AutoUtils.autoSize(contentView)

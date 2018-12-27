@@ -31,7 +31,7 @@ class DistrictAdapter:RecyclerView.Adapter<DistrictAdapter.DistrictViewHolder>{
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): DistrictViewHolder {
         var contentView=View.inflate(context,R.layout.recylerview_district,null)
-        var layoutParams=ViewGroup.LayoutParams(AutoUtils.getPercentWidthSize(750/3),AutoUtils.getPercentHeightSize(88))
+        var layoutParams=ViewGroup.LayoutParams(AutoUtils.getPercentWidthSize(750/3),AutoUtils.getPercentHeightSize(70))
         contentView.layoutParams=layoutParams
         contentView.requestLayout()
         AutoUtils.autoSize(contentView)

@@ -9,7 +9,7 @@ import java.io.Serializable
  *  @Date 2018/10/24 9:25
  */
 class TaskEntity:Serializable {
-    var  zoneaddress="" //点位地址
+    var  zoneAddress="" //点位地址
     var  supplyName=""//客户名称
     var  taskArea="" //任务区域
     var  taskTime=""  //任务要求完成时间
@@ -27,7 +27,7 @@ class TaskEntity:Serializable {
     var longitude="" //经度
     var latitude="" //纬度
     constructor(zoneaddress: String, clientName: String, taskArea: String, taskTime: String, dotName: String) {
-        this.zoneaddress = zoneaddress
+        this.zoneAddress = zoneaddress
         this.supplyName = clientName
         this.taskArea = taskArea
         this.taskTime = taskTime
@@ -37,7 +37,7 @@ class TaskEntity:Serializable {
     constructor()
 
     override fun toString(): String {
-        return "TaskEntity(zoneaddress='$zoneaddress', supplyName='$supplyName', taskArea='$taskArea', taskTime='$taskTime', pointName='$pointName', taskImageList=$imgs)"
+        return "TaskEntity(zoneaddress='$zoneAddress', supplyName='$supplyName', taskArea='$taskArea', taskTime='$taskTime', pointName='$pointName', taskImageList=$imgs)"
     }
 
 

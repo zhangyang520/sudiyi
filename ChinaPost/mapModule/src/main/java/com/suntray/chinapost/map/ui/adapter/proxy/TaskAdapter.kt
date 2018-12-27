@@ -41,7 +41,7 @@ class TaskAdapter:RecyclerView.Adapter<TaskAdapter.TaskViewHolder>{
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         holder!!.tv_client_name_value!!.setText(taskList.get(position).supplyName)
-        holder!!.tv_position!!.setText(taskList.get(position).zoneaddress)
+        holder!!.tv_position!!.setText(taskList.get(position).zoneAddress)
         holder!!.tv_task_area_value!!.setText(taskList.get(position).taskArea)
         holder!!.tv_finish_time_value!!.setText(taskList.get(position).taskTime)
         holder!!.tv_dot_name_value!!.setText(taskList.get(position).pointName)
