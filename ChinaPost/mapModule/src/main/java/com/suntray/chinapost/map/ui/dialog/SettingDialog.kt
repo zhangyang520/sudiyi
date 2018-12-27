@@ -158,7 +158,7 @@ class SettingDialog:Dialog{
             //进行保存信息
             if(exameInfo()){
                 AppPrefsUtils.putInt(MapContstants.SETTING_KEYWORDINDEX,currentKeyIndex)
-                SystemUtil.printlnStr("currentAdType:"+currentAdType)
+                SystemUtil.printlnStr("currentAdType:"+currentKeyIndex)
                 AppPrefsUtils.putInt(MapContstants.SETTING_ADTYPEID,currentAdType)
                 AppPrefsUtils.putString(MapContstants.SETTING_STARTTIME,ed_start_time!!.getTxt())
                 AppPrefsUtils.putString(MapContstants.SETTING_ENDTIME,ed_end_time!!.getTxt())

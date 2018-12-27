@@ -77,6 +77,12 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                     willExamineFragment!!.firstType=currentIndex+1
                     notExamineFragment!!.firstType=currentIndex+1
                     examineFragment!!.firstType=currentIndex+1
+
+                    unFinishFragment!!.updateFirstType(currentIndex + 1);
+                    willExamineFragment!!.updateFirstType(currentIndex + 1);
+                    notExamineFragment!!.updateFirstType(currentIndex + 1);
+                    examineFragment!!.updateFirstType(currentIndex + 1);
+
                     tv_down.background=null
                     tv_down.setTextColor(Color.parseColor("#909092"))
                     tv_up.setTextColor(Color.parseColor("#01764A"))
@@ -107,6 +113,12 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
                     willExamineFragment!!.firstType=currentIndex+1
                     notExamineFragment!!.firstType=currentIndex+1
                     examineFragment!!.firstType=currentIndex+1
+
+                    unFinishFragment!!.updateFirstType(currentIndex + 1);
+                    willExamineFragment!!.updateFirstType(currentIndex + 1);
+                    notExamineFragment!!.updateFirstType(currentIndex + 1);
+                    examineFragment!!.updateFirstType(currentIndex + 1);
+
                     tv_up.background=null
                     tv_up.setTextColor(Color.parseColor("#909092"))
                     tv_down.setTextColor(Color.parseColor("#01764A"))

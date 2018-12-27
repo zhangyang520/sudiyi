@@ -7,14 +7,18 @@ import com.suntray.chinapost.baselibrary.presenter.BasePresenter
 import com.suntray.chinapost.baselibrary.rx.BaseSucriber
 import com.suntray.chinapost.baselibrary.rx.assertMethod
 import com.suntray.chinapost.baselibrary.rx.execute
+import com.suntray.chinapost.baselibrary.ut.base.utils.AppPrefsUtils
+import com.suntray.chinapost.baselibrary.utils.DateUtil
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.map.data.bean.ResourceDotLocation
+import com.suntray.chinapost.map.data.constants.MapContstants
 import com.suntray.chinapost.map.data.request.DotOfResourceInfoRequest
 import com.suntray.chinapost.map.data.response.DotOfResourceListResponse
 import com.suntray.chinapost.map.presenter.view.DotView
 import com.suntray.chinapost.map.service.impl.ResourceServiceImpl
 import retrofit2.http.Body
 import rx.Observable
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -30,7 +34,11 @@ class DotPresenter @Inject constructor():BasePresenter<DotView>(){
      * 获取 点位的资源位 列表的数据
      */
     fun getDotOfResourceInfo(id:Int){
-        resourceServiceImpl.getDotOfResourceInfo(DotOfResourceInfoRequest(id,UserDao.getLocalUser().id,UserDao.getLocalUser().userRole)).
+        var startTime= AppPrefsUtils.getString(MapContstants.SETTING_STARTTIME,
+                DateUtil.dateFormat(Calendar.getInstance().time))
+        var endTime= AppPrefsUtils.getString(MapContstants.SETTING_ENDTIME,
+                DateUtil.dateFormat(Calendar.getInstance().time))
+        resourceServiceImpl.getDotOfResourceInfo(DotOfResourceInfoRequest(id,UserDao.getLocalUser().id,UserDao.getLocalUser().userRole,startTime,endTime)).
                 execute(object: BaseSucriber<DotOfResourceListResponse>(baseView,DotOfResourceListResponse::javaClass.name){
 
                             override fun onError(e: Throwable?) {

@@ -71,6 +71,13 @@ class NotExamineFragment:Fragment(),TaskView {
         }
     }
 
+    fun updateFirstType(firstType:Int){
+        this.firstType=firstType
+        if(taskAdapter!=null){
+            taskAdapter!!.firstType=firstType
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         SystemUtil.printlnStr("TaskListity NotExamineFragment  onResume ....")

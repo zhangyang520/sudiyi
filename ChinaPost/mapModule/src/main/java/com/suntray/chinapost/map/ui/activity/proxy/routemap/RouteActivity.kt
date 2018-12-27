@@ -19,6 +19,7 @@ import com.amap.api.services.core.AMapException
 import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.route.*
 import com.suntray.chinapost.map.R
+import com.suntray.chinapost.map.data.bean.MapDot
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.ui.adapter.proxy.BusResultListAdapter
 import com.suntray.chinapost.map.utils.AMapUI
@@ -110,7 +111,11 @@ class RouteActivity : Activity(), AMap.OnMapClickListener, AMap.OnMarkerClickLis
                 .position(AMapUtil.convertToLatLng(mEndPoint))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.end)))
 
-        AMapUI.doDistrictCanvas(this, currntLocation!!.district,aMap!!);
+//        AMapUI.doDistrictCanvas(this, currntLocation!!.district,aMap!!);
+
+//        AMapUI.poiDot(this,aMap!!,LatLonPoint(mEndPoint.latitude,mEndPoint.longitude),1000)
+
+        onDriveClick(null);
         rl_back.setOnClickListener({
             finish()
         })
@@ -187,7 +192,7 @@ class RouteActivity : Activity(), AMap.OnMapClickListener, AMap.OnMarkerClickLis
     /**
      * 驾车路线搜索
      */
-    fun onDriveClick(view: View) {
+    fun onDriveClick(view: View?) {
         searchRouteResult(ROUTE_TYPE_DRIVE, RouteSearch.DrivingDefault)
         mDrive!!.setImageResource(R.drawable.route_drive_select)
         mBus!!.setImageResource(R.drawable.route_bus_normal)

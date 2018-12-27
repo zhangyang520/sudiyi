@@ -172,24 +172,24 @@ class TaskDetailUnfinishActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         }
 
 
-        gridvew.setOnItemClickListener(object :AdapterView.OnItemClickListener{
-            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-                //先请求拍照权限
-                requestPermission(BaseConstants.CAMERA, "android.permission.CAMERA", Runnable {
-                    //允许拍照权限
-                    //请求SD卡读写权限
-                    requestPermission(BaseConstants.WRITE_EXTERNAL_STORAGE, "android.permission.WRITE_EXTERNAL_STORAGE", Runnable {
-                        //允许SD卡读写权限
-                        if ((parent!!.getItemAtPosition(position) as TaskUpload).imgPath== null ||
-                                (parent!!.getItemAtPosition(position) as TaskUpload).imgPath.equals("")) {// 添加图片
-
-                            setPortraitDialog()
-                        }
-                    }, Runnable { ToastUtil.makeText(this@TaskDetailUnfinishActivity, "读写存储卡权限未打开，请到手机权限中心设置打开...") })
-                }, Runnable { ToastUtil.makeText(this@TaskDetailUnfinishActivity, "相机权限未打开，请到手机权限中心设置打开...") })
-            }
-        })
+//        gridvew.setOnItemClickListener(object :AdapterView.OnItemClickListener{
+//            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//
+//                //先请求拍照权限
+//                requestPermission(BaseConstants.CAMERA, "android.permission.CAMERA", Runnable {
+//                    //允许拍照权限
+//                    //请求SD卡读写权限
+//                    requestPermission(BaseConstants.WRITE_EXTERNAL_STORAGE, "android.permission.WRITE_EXTERNAL_STORAGE", Runnable {
+//                        //允许SD卡读写权限
+//                        if ((parent!!.getItemAtPosition(position) as TaskUpload).imgPath== null ||
+//                                (parent!!.getItemAtPosition(position) as TaskUpload).imgPath.equals("")) {// 添加图片
+//
+//                            setPortraitDialog()
+//                        }
+//                    }, Runnable { ToastUtil.makeText(this@TaskDetailUnfinishActivity, "读写存储卡权限未打开，请到手机权限中心设置打开...") })
+//                }, Runnable { ToastUtil.makeText(this@TaskDetailUnfinishActivity, "相机权限未打开，请到手机权限中心设置打开...") })
+//            }
+//        })
 
 
         kanAdapter = TaskUploadUnfinishImageAdapter(this@TaskDetailUnfinishActivity, landlist)
@@ -266,30 +266,43 @@ class TaskDetailUnfinishActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
      * 点击头像，显示弹窗，设置新头像
      */
     public fun setPortraitDialog() {
-        //设置长按弹窗-提醒是否删除本条目
-        photoWindow= PopupWindow(this@TaskDetailUnfinishActivity)
-        var view=View.inflate(this@TaskDetailUnfinishActivity, com.suntray.chinapost.user.R.layout.item_choose_photo,null)
-        AutoUtils.autoSize(view)
-        photoWindow!!.contentView=view;
-        photoWindow!!.isOutsideTouchable=true
-        photoWindow!!.height= AutoUtils.getPercentHeightSize(1334);
-        photoWindow!!.width= AutoUtils.getPercentWidthSize(750)
-        photoWindow!!.showAtLocation(root, Gravity.BOTTOM,0,0)
 
-        //拍照
-        (view.findViewById(com.suntray.chinapost.user.R.id.btn_photo) as Button).setOnClickListener({
-            btnCamera()
-        })
+        //先请求拍照权限
+        requestPermission(BaseConstants.CAMERA, "android.permission.CAMERA", Runnable {
+            //允许拍照权限
+            //请求SD卡读写权限
+            requestPermission(BaseConstants.WRITE_EXTERNAL_STORAGE, "android.permission.WRITE_EXTERNAL_STORAGE", Runnable {
+                //允许SD卡读写权限
+                        //设置长按弹窗-提醒是否删除本条目
+                        photoWindow= PopupWindow(this@TaskDetailUnfinishActivity)
+                        var view=View.inflate(this@TaskDetailUnfinishActivity, com.suntray.chinapost.user.R.layout.item_choose_photo,null)
+                        AutoUtils.autoSize(view)
+                        photoWindow!!.contentView=view;
+                        photoWindow!!.isOutsideTouchable=true
+                        photoWindow!!.height= AutoUtils.getPercentHeightSize(1334);
+                        photoWindow!!.width= AutoUtils.getPercentWidthSize(750)
+                        photoWindow!!.showAtLocation(root, Gravity.BOTTOM,0,0)
 
-        //从相册选择
-        (view.findViewById(com.suntray.chinapost.user.R.id.btn_choose) as Button).setOnClickListener({
-            btnXiangCe()
-        })
+                        //拍照
+                        (view.findViewById(com.suntray.chinapost.user.R.id.btn_photo) as Button).setOnClickListener({
+                            btnCamera()
+                        })
 
-        (view.findViewById(com.suntray.chinapost.user.R.id.btn_cancel) as Button).setOnClickListener({
-//            kanAdapter!!.editPosition=-1
-            photoWindow!!.dismiss()
-        })
+                        //从相册选择
+                        (view.findViewById(com.suntray.chinapost.user.R.id.btn_choose) as Button).setOnClickListener({
+                            btnXiangCe()
+                        })
+
+                        (view.findViewById(com.suntray.chinapost.user.R.id.btn_cancel) as Button).setOnClickListener({
+                            //            kanAdapter!!.editPosition=-1
+                            photoWindow!!.dismiss()
+                        })
+
+
+            }, Runnable { ToastUtil.makeText(this@TaskDetailUnfinishActivity, "读写存储卡权限未打开，请到手机权限中心设置打开...") })
+        }, Runnable { ToastUtil.makeText(this@TaskDetailUnfinishActivity, "相机权限未打开，请到手机权限中心设置打开...") })
+
+
     }
 
 

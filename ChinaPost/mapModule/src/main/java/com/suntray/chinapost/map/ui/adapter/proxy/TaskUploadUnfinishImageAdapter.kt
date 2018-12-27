@@ -9,6 +9,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
+import com.suntray.chinapost.map.ui.activity.proxy.TaskDetailUnfinishActivity
 import com.suntray.chinapost.user.R
 import com.suntray.chinapost.user.data.bean.AptitudeInfo
 import com.suntray.chinapost.user.data.bean.TaskUpload
@@ -152,6 +153,10 @@ class TaskUploadUnfinishImageAdapter(private val context: Context, var imagePath
             viewHolder.iv_1.setImageResource(R.drawable.mine_ic_default3)
             Glide.with(context).load(R.drawable.mine_ic_default3).into(viewHolder.iv_1)
             viewHolder.iv_cancel1.visibility = View.GONE
+
+            viewHolder.iv_1.setOnClickListener({
+                (context as TaskDetailUnfinishActivity).setPortraitDialog()
+            })
         } else {
             if(isCancelable){
                 viewHolder.iv_cancel1.visibility = View.VISIBLE

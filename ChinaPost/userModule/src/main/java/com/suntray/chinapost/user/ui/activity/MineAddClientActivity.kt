@@ -57,7 +57,8 @@ class MineAddClientActivity : BaseMvpActivity<ClientPresenter>(),ClientView{
         SystemUtil.printlnStr("provinceCity:"+provinceCity.toString())
         if(provinceCity.size>0){
             //没有展示的时候
-            ClientBizUtils.showCityList(this@MineAddClientActivity,root,action,provinceCity,basePresenter,currentClient,tv_client_dizhi)
+            view_top.setBackgroundColor(resources.getColor(R.color.title_backround_color))
+            ClientBizUtils.showCityList(this@MineAddClientActivity,view_top,action,provinceCity,basePresenter,currentClient,tv_client_dizhi)
         }else{
             ToastUtil.makeText(this@MineAddClientActivity,action.errorMsg)
         }

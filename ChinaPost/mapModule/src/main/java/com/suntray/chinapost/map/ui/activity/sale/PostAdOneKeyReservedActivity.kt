@@ -383,8 +383,15 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
                 //广告类型 也是你选择的
                 startDate=tv_choose_start_time.getTxt()
                 endDate=tv_choose_end_time.getTxt()
-                basePresenter.oneKeySubmitResult(dotArray,resourceArray,selectedClient!!.id,adType,
-                                                        UserDao.getLocalUser().id,tv_choose_start_time.getTxt(),tv_choose_end_time.getTxt(),"",UserDao.getLocalUser().userRole)
+
+                if(UserDao.getLocalUser().userRole==2){
+                    basePresenter.oneKeySubmitResult(dotArray,resourceArray,-1,adType,
+                            UserDao.getLocalUser().id,tv_choose_start_time.getTxt(),tv_choose_end_time.getTxt(),tv_select_client_content.getTxt(),UserDao.getLocalUser().userRole)
+                }else{
+                    basePresenter.oneKeySubmitResult(dotArray,resourceArray,selectedClient!!.id,adType,
+                            UserDao.getLocalUser().id,tv_choose_start_time.getTxt(),tv_choose_end_time.getTxt(),"",UserDao.getLocalUser().userRole)
+                }
+
             }
         })
 
@@ -446,15 +453,19 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
     private  fun  hasInput():Boolean{
         if(tv_select_client_content.hasTxt() && tv_choose_ad_type.hasTxt()
                 && resourceIdList.size>0 && tv_choose_start_time.hasTxt() &&  tv_choose_end_time.hasTxt()){
-            if(selectedClient==null){
-                ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"请选择客户名称")
-                tv_select_client_content.setText("")
-                return false
-            }
-            if(!tv_select_client_content.getTxt().equals(rightClientName)){
-                ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"客户名称与选择的客户名称不一致")
-                tv_select_client_content.setText("")
-                return false
+
+            if(!(UserDao.getLocalUser().userRole==2)){
+               //如国
+                    if(selectedClient==null){
+                        ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"请选择客户名称")
+                        tv_select_client_content.setText("")
+                        return false
+                    }
+                    if(!tv_select_client_content.getTxt().equals(rightClientName)){
+                        ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"客户名称与选择的客户名称不一致")
+                        tv_select_client_content.setText("")
+                        return false
+                    }
             }
 
             if(DateUtil.parse2Date(tv_choose_start_time.getTxt()).time<=

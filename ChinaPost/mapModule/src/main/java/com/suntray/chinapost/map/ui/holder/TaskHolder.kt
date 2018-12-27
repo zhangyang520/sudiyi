@@ -11,6 +11,7 @@ import com.suntray.chinapost.baselibrary.utils.UiUtils
 import com.suntray.chinapost.map.R
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.ui.activity.proxy.TaskListActivity
+import com.suntray.chinapost.map.ui.adapter.proxy.TaskListViewAdapter
 import com.suntray.chinapost.map.utils.ToastUtil
 import com.suntray.chinapost.provider.RouterPath
 import com.zhy.autolayout.utils.AutoUtils
@@ -29,9 +30,12 @@ class TaskHolder: BaseHolder<TaskEntity>{
     var btn_look_map: Button?=null
     var btn_upload_pic: Button?=null
     var firstType:Int=0
-    constructor(currentType: Int,firstType:Int) : super() {
+    var taskListAdapter: TaskListViewAdapter?=null
+
+    constructor(currentType: Int,firstType:Int,taskListAdapter:TaskListViewAdapter) : super() {
         this.currentType = currentType
         this.firstType=firstType
+        this.taskListAdapter=taskListAdapter
     }
 
 
@@ -62,7 +66,7 @@ class TaskHolder: BaseHolder<TaskEntity>{
                     .withBoolean("editAble",false)
                     .withInt("currentType",currentType)
                     .withSerializable("taskEntity",getData())
-                    .withInt("firstType",firstType).navigation()
+                    .withInt("firstType",this.taskListAdapter!!.firstType).navigation()
         })
 
         /**
@@ -81,13 +85,13 @@ class TaskHolder: BaseHolder<TaskEntity>{
                         .withBoolean("editAble",true)
                         .withSerializable("taskEntity",getData())
                         .withInt("currentType",currentType)
-                        .withInt("firstType",firstType).navigation(activity as TaskListActivity,101)
+                        .withInt("firstType",this.taskListAdapter!!.firstType).navigation(activity as TaskListActivity,101)
             }else if(getData().state.toInt() == 4) {
                 ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_DETAIL)
                         .withBoolean("editAble",true)
                         .withSerializable("taskEntity",getData())
                         .withInt("currentType",currentType)
-                        .withInt("firstType",firstType).navigation(activity as TaskListActivity,101)
+                        .withInt("firstType",this.taskListAdapter!!.firstType).navigation(activity as TaskListActivity,101)
             }
         })
 

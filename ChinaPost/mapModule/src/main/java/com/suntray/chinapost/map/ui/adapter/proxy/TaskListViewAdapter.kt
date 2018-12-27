@@ -21,7 +21,7 @@ class TaskListViewAdapter: DefaultAdapter<TaskEntity> {
         this.firstType=firstType
     }
     override fun getHolder(): BaseHolder<TaskEntity> {
-        return TaskHolder(currentType,firstType)
+        return TaskHolder(currentType,firstType,this)
     }
 
     override fun processDatasList() {

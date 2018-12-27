@@ -708,7 +708,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
     override fun onGetAppVersion(appUpdateResponse: UpdateResponse) {
         var packageInfo=packageManager.getPackageInfo(packageName,0)
         var versoinName=packageInfo.versionName
-        UpdateUtils.updateApp(versoinName.toFloat(),appUpdateResponse.getFloatVersion(),BaseConstants.BASE_DOWNLOAD_URL+appUpdateResponse.path,"",this@PostPoiSearchActivity)
+        UpdateUtils.updateApp(versoinName.toFloat(),appUpdateResponse.getFloatVersion(),appUpdateResponse.path,"",this@PostPoiSearchActivity)
     }
 
     /**

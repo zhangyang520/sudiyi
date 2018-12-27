@@ -8,5 +8,7 @@ package com.suntray.chinapost.map.data.request
 data class DotOfResourceInfoRequest (
     var id:Int=0,
     var salesman:Int=0,
-    var salesmanType:Int=0
+    var salesmanType:Int=0,
+    var startdate:String="",
+    var enddate:String=""
 )

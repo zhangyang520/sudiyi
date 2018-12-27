@@ -173,6 +173,8 @@ class UploadImageAdapter(private val context: Context, var imagePathList: ArrayL
                     SystemUtil.printlnStr(uploadAptitudeEnum!!.yingyePathId+"..delete size:"+uploadAptitudeEnum!!.deleteList.size)
                 }else{
                     imagePathList!!.removeAt(position)
+                    //新增数据集合中 需要进行删除
+                    uploadAptitudeEnum!!.newAddList.remove(aptitudeInfo!!)
                 }
                 //更新结构
                 update(imagePathList)

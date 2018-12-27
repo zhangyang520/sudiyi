@@ -224,17 +224,17 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             //空闲状态
             if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==1){
                 holder.tv_ad_down_error!!.visibility=View.VISIBLE
-                holder.tv_ad_down_error!!.visibility=View.VISIBLE
+                holder.tv_ad_down_value_error!!.visibility=View.VISIBLE
                 holder.tv_ad_down_error!!.text="上刊时间"
                 holder.tv_ad_down_value_error!!.text=resourceDotLocation!!.resourceAdList.get(position-1).uploadDate
             }else if(resourceDotLocation!!.resourceAdList.get(position-1).taskType==2){
                 holder.tv_ad_down_error!!.visibility=View.VISIBLE
-                holder.tv_ad_down_error!!.visibility=View.VISIBLE
+                holder.tv_ad_down_value_error!!.visibility=View.VISIBLE
                 holder.tv_ad_down_error!!.text = "下刊时间"
                 holder.tv_ad_down_value_error!!.text = resourceDotLocation!!.resourceAdList.get(position - 1).uploadDate
             }else{
                 holder.tv_ad_down_error!!.visibility=View.GONE
-                holder.tv_ad_down_error!!.visibility=View.GONE
+                holder.tv_ad_down_value_error!!.visibility=View.GONE
             }
 
             //判断 任务类型 ---> 1:上刊 2:下刊
@@ -261,7 +261,7 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             })
 
             //下刊时间
-            holder.tv_ad_down_value_error!!.setText("无")
+//            holder.tv_ad_down_value_error!!.setText("无")
             holder.tv_ad_name_error!!.setText(resourceDotLocation!!.resourceAdList.get(position - 1).name)
 
             if(resourceDotLocation!!.resourceAdList.get(position-1).typename==null ||
@@ -325,7 +325,7 @@ class AdResourceAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>{
             holder.tv_ad_belong_value!!.setText(resourceDotLocation!!.resourceAdList.get(position - 1).salesmanname)
             holder.tv_ad_name!!.setText(resourceDotLocation!!.resourceAdList.get(position - 1).name)
 
-            holder.tv_ad_period_value!!.setText("无")
+//            holder.tv_ad_period_value!!.setText("无")
 
             if(resourceDotLocation!!.resourceAdList.get(position-1).typename==null ||
                     resourceDotLocation!!.resourceAdList.get(position-1).typename.equals("")){

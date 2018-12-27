@@ -342,7 +342,7 @@ class PostAdResorceReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resourc
                 ToastUtil.makeText(this@PostAdResorceReservedActivity,"请输入客户名称")
                 return false
             }
-            if(!tv_select_client_content.getTxt().equals(rightClientName)){
+            if(!tv_select_client_content.getTxt().equals(rightClientName) && UserDao.getLocalUser().userRole==4){
                 ToastUtil.makeText(this@PostAdResorceReservedActivity,"客户名称与选择的客户名称不一致")
                 tv_select_client_content.setText("")
                 return false

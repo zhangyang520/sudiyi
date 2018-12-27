@@ -53,6 +53,7 @@ import com.zhy.autolayout.config.AutoLayoutConifg
 import com.zhy.autolayout.utils.AutoUtils
 import java.util.*
 import java.util.concurrent.Executors
+import kotlin.collections.ArrayList
 
 
 object AMapUI {
@@ -326,6 +327,46 @@ object AMapUI {
     }
 
     /**
+     * 绘制的 圆圈的业务
+     */
+    fun poiDot(context: Context, aMap: AMap,
+                  currntLocation:LatLonPoint,
+                  radis:Int){
+
+        SystemUtil.printlnStr("radis:"+radis)
+        if (mlastMarker != null) {
+            resetlastmarker(context)
+        }
+        //清理之前搜索结果的marker
+        if (poiOverlay != null) {
+            poiOverlay!!.removeFromMap()
+        }
+        aMap!!.clear()
+        poiOverlay = myPoiOverlay(aMap, ArrayList<MapDot>(),currntLocation)
+        poiOverlay!!.addToMap(context)
+        poiOverlay!!.zoomToSpan()
+
+        aMap!!.addMarker(MarkerOptions()
+                .anchor(0.5f, 0.5f)
+                .icon(BitmapDescriptorFactory
+                        .fromBitmap(BitmapFactory.decodeResource(
+                                context.resources, R.drawable.point4)))
+                .position(LatLng(currntLocation!!.getLatitude(), currntLocation!!.getLongitude())))
+        //todo 1km公里范围内
+        if(radis==1000){
+            zoomLarge(aMap,14.7f,currntLocation)
+        }else if(radis==3000){
+            zoomLarge(aMap,13f,currntLocation)
+        }else if(radis==5000){
+            zoomLarge(aMap,12.5f,currntLocation)
+        }else if(radis==8000){
+            zoomLarge(aMap,11.8f,currntLocation)
+        }else if(radis==10000){
+            zoomLarge(aMap,11.4f,currntLocation)
+        }
+    }
+
+    /**
      *  zoom的放大
      *  1000 14.7
      *  3000
@@ -376,6 +417,30 @@ object AMapUI {
     fun poiDot(context: Context, aMap: AMap,
                   apmLocationList:ArrayList<MapDot>,
                   currntLocation:AMapLocation){
+        if (mlastMarker != null) {
+            resetlastmarker(context)
+        }
+        //清理之前搜索结果的marker
+        if (poiOverlay != null) {
+            poiOverlay!!.removeFromMap()
+        }
+        aMap!!.clear()
+        poiOverlay = myPoiOverlay(aMap, apmLocationList, LatLonPoint(currntLocation.latitude,currntLocation.longitude))
+        poiOverlay!!.addToMap(context)
+        poiOverlay!!.zoomToSpan()
+
+//        aMap!!.addMarker(MarkerOptions()
+//                .anchor(0.5f, 0.5f)
+//                .icon(BitmapDescriptorFactory
+//                        .fromBitmap(BitmapFactory.decodeResource(
+//                                context.resources, R.drawable.point4)))
+//                .position(LatLng(currntLocation!!.getLatitude(), currntLocation!!.getLongitude())))
+    }
+
+
+    fun poiDot(context: Context, aMap: AMap,
+               apmLocationList:ArrayList<MapDot>,
+               currntLocation:LatLonPoint){
         if (mlastMarker != null) {
             resetlastmarker(context)
         }
@@ -587,7 +652,7 @@ object AMapUI {
                     clickIndex=2
                     mapPresenter.province(action.getCityValue1().toString(),-1,code,action)
                     stringBuilder!!.delete(0, stringBuilder!!.length)
-                    stringBuilder!!.append(provinceCity.city)
+                    stringBuilder!!.append(provinceCity.id)
                     clickProvinceId=provinceCity.provinceId
                     clickCityId=code
                 }
@@ -611,7 +676,7 @@ object AMapUI {
                     clickIndex=2
                     clickDistrictId=provinceCity.id
                     stringBuilder!!.delete(0, stringBuilder!!.length)
-                    stringBuilder!!.append(provinceCity.district)
+                    stringBuilder!!.append(provinceCity.id)
                 }
             }
             recyler_district!!.adapter=districtAdapter
@@ -620,7 +685,7 @@ object AMapUI {
 
 
 
-    //绘制 地图的区域:
+    //绘制 地图的区域
     fun  doDistrictCanvas(context: Context,districtName:String,mAMap:AMap){
         var districtSearch =  DistrictSearch(context);
         SystemUtil.printlnStr(":districtName:"+districtName)

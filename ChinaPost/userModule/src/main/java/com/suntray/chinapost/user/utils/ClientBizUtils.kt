@@ -22,6 +22,7 @@ import com.suntray.chinapost.baselibrary.ui.adapter.inner.ClickCodeAction
 import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.user.data.bean.MineClient
 import com.suntray.chinapost.user.presenter.ClientPresenter
+import kotlinx.android.synthetic.main.activity_add_client.*
 
 /**
  *   客户业务逻辑的工具类
@@ -56,11 +57,14 @@ object ClientBizUtils {
 
             window= PopupWindow(context,null,R.style.Transparent_Dialog);
             window!!.width=  AutoUtils.getPercentWidthSize(750);
-            window!!.height= AutoUtils.getPercentHeightSize(1242);
+//            window!!.height= AutoUtils.getPercentHeightSize(1320);
             AutoUtils.autoSize(contentView)
             window!!.contentView=contentView;
             window!!.isOutsideTouchable=false
-            window!!.showAtLocation(rootView, Gravity.NO_GRAVITY,0, AutoUtils.getPercentHeightSize(150))
+            window!!.showAsDropDown(rootView)
+            window!!.setOnDismissListener {
+                rootView.setBackgroundColor(context.resources.getColor(com.suntray.chinapost.user.R.color.activity_background_color))
+            }
             SystemUtil.printlnStr("showCityList 11111111111111 provinceCity:"+provinceCity.size)
 
             /**

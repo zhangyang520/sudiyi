@@ -5,17 +5,69 @@
         android:background="@color/activity_background_color"
         android:layout_height="match_parent">
 
-       <include
-               android:id="@+id/title"
-               layout="@layout/layout_title"></include>
+       <!--<include-->
+               <!--android:id="@+id/title"-->
+               <!--layout="@layout/layout_title"></include>-->
+
+    <com.zhy.autolayout.AutoRelativeLayout
+                                           android:id="@+id/rl_top"
+                                           android:layout_width="match_parent"
+                                           android:layout_height="96px"
+                                           android:background="@color/title_backround_color">
+
+        <com.zhy.autolayout.AutoRelativeLayout
+                android:id="@+id/rl_back"
+                android:layout_width="80px"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:visibility="gone">
+
+            <ImageView
+                    android:id="@+id/btn_back"
+                    style="@style/TitleLeftBtn"
+                    android:src="@drawable/btn_back_selector" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <!--主题的信息设置-->
+        <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="广告资源位"
+                android:textColor="@color/black"
+                android:textSize="35px"
+                android:textStyle="bold" />
 
 
+        <!--主题的信息设置-->
+        <TextView
+                android:id="@+id/tv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20px"
+                android:text="查看预定"
+                android:visibility="gone"
+                android:textColor="@color/title_right_text_color"
+                android:textSize="35px"
+                android:textStyle="bold" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <View
+            android:layout_below="@+id/rl_top"
+            android:id="@+id/view_top"
+            android:background="@color/activity_background_color"
+            android:layout_width="match_parent"
+            android:layout_height="40px"></View>
        <include
                android:id="@+id/hangye"
-               android:layout_below="@+id/title"
+               android:layout_below="@+id/view_top"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:layout_marginTop="20px"
                layout="@layout/item_client_info_layout"></include>
 
        <include

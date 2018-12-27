@@ -50,7 +50,7 @@ class PostReservedAdResultActivity:BaseMvpActivity<ResourcePresenter>(),Resource
        var endDate= intent.getStringExtra("endDate")
        var clientName=intent.getStringExtra("clientName")
 
-       if(reservedAdResult is OneKeyReservedResponse && reservedAdResult!=null && adType!=-1 && clientId!=-1){
+       if(reservedAdResult is OneKeyReservedResponse && reservedAdResult!=null && adType!=-1){
            hud2= KProgressHUD(this@PostReservedAdResultActivity).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setLabel("确定预定中...")
 
            tv_success_count.text= reservedAdResult.countSuccess.toString()
