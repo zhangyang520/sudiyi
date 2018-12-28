@@ -6,13 +6,18 @@ import com.suntray.chinapost.baselibrary.presenter.BasePresenter
 import com.suntray.chinapost.baselibrary.rx.BaseSucriber
 import com.suntray.chinapost.baselibrary.rx.assertMethod
 import com.suntray.chinapost.baselibrary.rx.execute
+import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.bean.TaskItem
 import com.suntray.chinapost.map.data.request.TaskListRequest
 import com.suntray.chinapost.map.data.request.TaskNumberRequest
 import com.suntray.chinapost.map.data.request.TaskUploadRequest
+import com.suntray.chinapost.map.data.request.UpdateRequest
 import com.suntray.chinapost.map.data.response.TaskNumberResponse
+import com.suntray.chinapost.map.data.response.UpdateResponse
+import com.suntray.chinapost.map.presenter.view.MapView
 import com.suntray.chinapost.map.presenter.view.TaskView
+import com.suntray.chinapost.map.service.impl.OtherServiceImpl
 import com.suntray.chinapost.map.service.impl.TaskServiceImpl
 import com.suntray.chinapost.user.presenter.view.ClientView
 import com.suntray.chinapost.user.presenter.view.MineEditView
@@ -33,6 +38,36 @@ class TaskPresenter @Inject constructor():BasePresenter<TaskView>(){
     @Inject
     lateinit var taskServiceImpl: TaskServiceImpl
 
+    @Inject
+    lateinit var otherService: OtherServiceImpl
+
+    /**
+     * 更新版本
+     */
+    fun updateAppVersion(updateRequest: UpdateRequest){
+        SystemUtil.printlnStr("updateAppVersion .......:")
+        otherService.update(updateRequest).execute(object : BaseSucriber<UpdateResponse>(baseView, MapPresenter::javaClass.name) {
+
+            override fun onError(e: Throwable?) {
+                if (e is ContentException) {
+                    assertMethod(baseView, {
+                        //                        (baseView as MapView).onError(e.errorContent)
+                    })
+                } else {
+//                    super.onError(e)
+                }
+            }
+
+            override fun onStart() {
+
+            }
+
+            override fun onNext(t: UpdateResponse) {
+                super.onNext(t)
+                (baseView as TaskView).onGetAppVersion(t)
+            }
+        }, lifecylerProvider)
+    }
 
     /**
      * 获取 任务的数量

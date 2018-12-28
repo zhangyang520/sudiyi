@@ -5,6 +5,7 @@ import com.suntray.chinapost.baselibrary.presenter.view.BaseView
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.request.TaskNumberRequest
 import com.suntray.chinapost.map.data.response.TaskNumberResponse
+import com.suntray.chinapost.map.data.response.UpdateResponse
 
 /**
  *  任务界面的view
@@ -66,4 +67,12 @@ interface TaskView: BaseView {
     fun onGetTaskNumber(taskNumberResponse: TaskNumberResponse){
 
     }
+
+    /**
+     * 更新 app的回调
+     */
+    fun onGetAppVersion(appUpdateResponse: UpdateResponse){
+
+    }
+
 }

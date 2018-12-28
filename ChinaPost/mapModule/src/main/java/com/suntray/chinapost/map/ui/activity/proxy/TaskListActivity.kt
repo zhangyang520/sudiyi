@@ -22,7 +22,9 @@ import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.map.R
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.request.TaskNumberRequest
+import com.suntray.chinapost.map.data.request.UpdateRequest
 import com.suntray.chinapost.map.data.response.TaskNumberResponse
+import com.suntray.chinapost.map.data.response.UpdateResponse
 import com.suntray.chinapost.map.injection.component.DaggerTaskComponent
 import com.suntray.chinapost.map.presenter.TaskPresenter
 import com.suntray.chinapost.map.presenter.view.TaskView
@@ -32,6 +34,7 @@ import com.suntray.chinapost.map.ui.fragment.UnFinishFragment
 import com.suntray.chinapost.map.ui.fragment.WillExamineFragment
 import com.suntray.chinapost.map.ui.view.inner.OnRatioChanageListener
 import com.suntray.chinapost.map.utils.AMapUI
+import com.suntray.chinapost.map.utils.UpdateUtils
 import com.suntray.chinapost.provider.RouterPath
 import kotlinx.android.synthetic.main.activity_task_list.*
 
@@ -58,6 +61,9 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
         isBlackShow=false
 
         supplyID=intent.getStringExtra("supplyID")
+
+        //进行更新版本
+        basePresenter.updateAppVersion(UpdateRequest())
 
         tv_up.setOnClickListener({
             swipeBtnRelativeLayout.smoothToLeft()
@@ -478,4 +484,14 @@ class TaskListActivity: BaseMvpFragment<TaskPresenter>(),TaskView{
         }
     }
 
+
+
+    /**
+     * 更新版本
+     */
+    override fun onGetAppVersion(appUpdateResponse: UpdateResponse) {
+        var packageInfo=packageManager.getPackageInfo(packageName,0)
+        var versoinName=packageInfo.versionName
+        UpdateUtils.updateApp(versoinName.toFloat(),appUpdateResponse.getFloatVersion(),appUpdateResponse.path,"",this@TaskListActivity)
+    }
 }

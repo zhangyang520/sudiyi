@@ -242,7 +242,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             override fun afterTextChanged(s: Editable?) {
                 //内容改变时
                 if(isCanAccess){
-                    if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)==1){
+                    if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)==1 && mode==0){
                         //地理位置 查询高德地图的api
                         val newText = s.toString().trim { it <= ' ' }
                         val inputquery = InputtipsQuery(newText, "北京")
@@ -433,7 +433,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
 
     private fun setModeDotAndArea() {
         //清空设置
-        ASettingUtils.clearSetting()
+//        ASettingUtils.clearSetting()
         if (mode == 0) {
             //自身定位的模式
             iv_map_search.visibility = View.VISIBLE
@@ -753,6 +753,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
      * 请求 半径搜索
      */
     fun doRequestRadius(){
+        hud2!!.setLabel("半径区域搜索中")
         if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)==0){
             //点位名称
             var startTime=AppPrefsUtils.getString(MapContstants.SETTING_STARTTIME,
