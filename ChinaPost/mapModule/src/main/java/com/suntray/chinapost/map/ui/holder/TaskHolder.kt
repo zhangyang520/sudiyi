@@ -101,9 +101,14 @@ class TaskHolder: BaseHolder<TaskEntity>{
         btn_look_map!!.setOnClickListener({
             //跳转到对应的界面
             if((activity as TaskListActivity).currntLocation!=null){
-                ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_ROUTE)
-                        .withSerializable("taskEntity",getData())
-                        .withParcelable("currntLocation",(activity as TaskListActivity).currntLocation).navigation()
+                if(getData().latitude!=null && getData().longitude!=null){
+                    ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_ROUTE)
+                            .withSerializable("taskEntity",getData())
+                            .withParcelable("currntLocation",(activity as TaskListActivity).currntLocation).navigation()
+                }else{
+                    ToastUtil.show(activity,"點位的經緯度不能為空")
+                }
+
             }else{
                 ToastUtil.show(activity,"定位失败，请重新定位!")
             }
