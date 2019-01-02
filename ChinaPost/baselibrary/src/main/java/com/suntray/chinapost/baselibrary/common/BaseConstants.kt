@@ -150,6 +150,6 @@ object BaseConstants {
         val TABLE_PREFS: String = "TABLE_PREFS"
         val NO_LOGIN_TYPE: Int=101;
 
-        var SELECTEDROLEINDEX=4  //当前账户对应的选择的 类型
+        var SELECTEDROLEINDEX=-1  //当前账户对应的选择的 类型
         var DB_VERSION=11 //增加了 orgId
 }

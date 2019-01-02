@@ -98,7 +98,7 @@ android {
                                       GAODE_APPKEY:"${project.GAODE_DEBUG_APPKEY}",
                                       JPUSH_PKGNAME:"${application_Id}"+applicationIdSuffix,
                                        CONSTANT_UPLOAD_URL_VALUE:"${project.CONSTANT_URL_UPLOAD_DEBUG}",
-                                      CONSTANT_URL_DOWNLOAD_VALUE:"${project.CONSTANT_URL_DOWNLOAD_DEBUG}"]
+                                       CONSTANT_URL_DOWNLOAD_VALUE:"${project.CONSTANT_URL_DOWNLOAD_DEBUG}"]
 
                 minifyEnabled false
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

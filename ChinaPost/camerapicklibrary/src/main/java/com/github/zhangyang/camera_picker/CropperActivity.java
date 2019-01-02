@@ -109,7 +109,7 @@ public class CropperActivity extends BaseActivity implements View.OnClickListene
                 }else{
                     rectBitmap=imageView.getRectBitmap();
                     if(rectBitmap!=null){
-                        filePath=FileUtils.saveBitmapJPG(this,rectBitmap,80);
+                        filePath=FileUtils.saveBitmapJPG(this,rectBitmap,96);
                     }else{
                         return;
                     }

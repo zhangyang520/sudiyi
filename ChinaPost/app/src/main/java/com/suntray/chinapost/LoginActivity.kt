@@ -56,7 +56,10 @@ class LoginActivity:BaseMvpActivity<LoginPresenter>(),LoginView{
             if(lastLoginUserId!=-1){
                 //如果不为 -1
                 var user=UserDao.getUserId(lastLoginUserId.toString())
+                //todo 要进行恢复的
                 BaseConstants.SELECTEDROLEINDEX=user.userRole
+                //todo 要进行删除的
+//                BaseConstants.SELECTEDROLEINDEX=4
                 //进行设置 对应的数据
                 ed_name.setText(user.email)
                 ed_pwd.setText(user.pwd)
@@ -71,6 +74,8 @@ class LoginActivity:BaseMvpActivity<LoginPresenter>(),LoginView{
             //点击登录按钮
             btn_login.setOnClickListener({
                 if(ed_name.hasTxt() && ed_pwd.hasTxt()){
+                    //todo 要进行删除的
+//                    BaseConstants.SELECTEDROLEINDEX=4
                     if(BaseConstants.SELECTEDROLEINDEX==-1){
                         ToastUtil.show(this@LoginActivity,"请选择角色")
                     }else{
@@ -111,6 +116,9 @@ class LoginActivity:BaseMvpActivity<LoginPresenter>(),LoginView{
         AppPrefsUtils.putInt("lastLoginUserId",t.id);
         ToastUtil.show(this@LoginActivity,"登录成功")
         finish()
+        //todo 要进行删除的
+//        BaseConstants.SELECTEDROLEINDEX=4
+
        if(BaseConstants.SELECTEDROLEINDEX==3){
             //供应商 ....
             ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_LIST).withString("supplyID",t.orgId).navigation();

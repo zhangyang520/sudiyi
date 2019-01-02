@@ -133,8 +133,8 @@ class MineClientDetail :BaseMvpActivity<ClientPresenter>(),ClientView{
             //初始化数据信息
             UploadAptitudeEnum.HangyeTeshu.yingyePathId=""
             UploadAptitudeEnum.HangyeTeshu.currentNumber=0
-            UploadAptitudeEnum.HangyeTeshu.getPathList().clear()
-            UploadAptitudeEnum.HangyeTeshu.getPathList().add(AptitudeInfo())
+            UploadAptitudeEnum.HangyeTeshu.imageList.clear()
+//            UploadAptitudeEnum.HangyeTeshu.getPathList().add(AptitudeInfo())
             UploadAptitudeEnum.HangyeTeshu.deleteList.clear()
             UploadAptitudeEnum.HangyeTeshu.newAddList.clear()
 
@@ -142,12 +142,12 @@ class MineClientDetail :BaseMvpActivity<ClientPresenter>(),ClientView{
             UploadAptitudeEnum.JiBenXinxi.currentNumber=0
             UploadAptitudeEnum.JiBenXinxi.deleteList.clear()
             UploadAptitudeEnum.JiBenXinxi.newAddList.clear()
-            UploadAptitudeEnum.JiBenXinxi.getPathList().clear()
-            UploadAptitudeEnum.JiBenXinxi.getPathList().add(AptitudeInfo())
+            UploadAptitudeEnum.JiBenXinxi.imageList.clear()
+//            UploadAptitudeEnum.JiBenXinxi.getPathList().add(AptitudeInfo())
 
 
             var yinyelist=ArrayList<AptitudeInfo?>()
-            yinyelist.addAll(UploadAptitudeEnum.JiBenXinxi.getPathList())
+//            yinyelist.addAll(UploadAptitudeEnum.JiBenXinxi.getPathList())
             SystemUtil.printlnStr("yinyelist hs:"+yinyelist.hashCode()+
                     "...UploadAptitudeEnum.Yingye.getPathList() hs:"+UploadAptitudeEnum.JiBenXinxi.getPathList().hashCode())
             yinyeAdapter = UploadImageAdapter(this@MineClientDetail,yinyelist)
@@ -172,7 +172,7 @@ class MineClientDetail :BaseMvpActivity<ClientPresenter>(),ClientView{
             basePresenter.getAllUploadAptitude(GetAllUploadAptitudeRequest(currentClient.id,true))
 
             var tradelist=arrayListOf<AptitudeInfo?>()
-            tradelist.addAll(UploadAptitudeEnum.HangyeTeshu.getPathList())
+//            tradelist.addAll(UploadAptitudeEnum.HangyeTeshu.getPathList())
             //商标
             tradeAdapter = UploadImageAdapter(this@MineClientDetail, tradelist)
             tradeAdapter!!.gridView=food_gridvew

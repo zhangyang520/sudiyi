@@ -50,7 +50,7 @@
 <com.zhy.autolayout.AutoLinearLayout
         android:id="@+id/rl_food_licence"
         android:paddingLeft="20px"
-        android:layout_marginTop="70px"
+        android:layout_marginTop="30px"
         android:orientation="vertical"
         android:layout_below="@+id/rl_commercial_instrument"
         android:layout_width="match_parent"

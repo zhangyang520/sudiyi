@@ -87,6 +87,7 @@ class UploadImageAdapter(private val context: Context, var imagePathList: ArrayL
             }
         }
 
+        imageHeight = AutoUtils.getPercentWidthSize(244)
         gridView!!.layoutParams.height = index * imageHeight + (index - 1) * AutoUtils.getPercentWidthSize(15)
         gridView!!.requestLayout()
     }
