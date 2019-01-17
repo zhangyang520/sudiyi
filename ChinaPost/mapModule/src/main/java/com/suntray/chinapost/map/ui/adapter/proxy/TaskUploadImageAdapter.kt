@@ -180,7 +180,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
             if(getItem(position)!!.state==2){
                 //待审批
                 viewHolder.tv_approval_content!!.setTextColor(Color.parseColor("#277E63"))
-                viewHolder.tv_approval_content!!.setText("待审批")
+                viewHolder.tv_approval_content!!.setText("待审核")
                 if(getItem(position)!!.opinion==null || getItem(position)!!.opinion.trim().equals("")){
                     viewHolder.tv_approval_reason_content!!.setText("暂无")
                 }else{
@@ -200,7 +200,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
             }else if(getItem(position)!!.state==4){
                 //审批不通过
                 viewHolder.tv_approval_content!!.setTextColor(Color.RED)
-                viewHolder.tv_approval_content!!.setText("审批不通过")
+                viewHolder.tv_approval_content!!.setText("审核不通过")
                 if(getItem(position)!!.opinion==null || getItem(position)!!.opinion.trim().equals("")){
                     viewHolder.tv_approval_reason_content!!.setText("暂无")
                 }else{
@@ -243,7 +243,7 @@ class TaskUploadImageAdapter(private val context: Context, var imagePathList: Ar
                            || getItem(position)!!.state==6|| getItem(position)!!.state==7){
                 //审批通过
                 viewHolder.tv_approval_content!!.setTextColor(Color.GRAY)
-                viewHolder.tv_approval_content!!.setText("审批通过")
+                viewHolder.tv_approval_content!!.setText("审核通过")
                 viewHolder.tv_edit!!.visibility=View.INVISIBLE
                 if(getItem(position)!!.opinion==null || getItem(position)!!.opinion.trim().equals("")){
                     viewHolder.tv_approval_reason_content!!.setText("暂无")

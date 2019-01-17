@@ -34,14 +34,31 @@
                     android:layout_weight="1"
                     android:layout_height="0dp">
 
-                <TextView
-                        android:id="@+id/tv_aptitude"
-                        android:textSize="20px"
-                        android:textColor="#98979C"
-                        android:layout_marginTop="40px"
-                        android:text="上刊现场照片(图片大小100k左右)"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40px"/>
+                <com.zhy.autolayout.AutoLinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/tv_aptitude"
+                            android:textSize="20px"
+                            android:textColor="#98979C"
+                            android:layout_marginTop="40px"
+                            android:text="上刊现场照片(图片大小100k左右)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40px"/>
+
+                    <TextView
+                            android:id="@+id/tv_base_tips"
+                            android:textSize="20px"
+                            android:textColor="@color/blue"
+                            android:layout_marginLeft="20px"
+                            android:layout_marginTop="40px"
+                            android:text="查看说明"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40px"/>
+                </com.zhy.autolayout.AutoLinearLayout>
+
 
                <!-- android:layout_weight="1"
                 android:layout_height="0dp"-->

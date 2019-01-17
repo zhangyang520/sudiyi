@@ -38,32 +38,6 @@
                     android:textColor="@color/black"
                     android:textSize="30px"
                     android:layout_height="88px"/>
-
-            <ImageView
-                        android:id="@+id/iv_1"
-                        android:layout_width="750px"
-                        android:layout_height="460px"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/map_iv_default"
-            />
-
-            <ImageView
-                    android:id="@+id/iv_2"
-                    android:layout_width="750px"
-                    android:layout_height="460px"
-                    android:layout_marginTop="20px"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/map_iv_default"
-            />
-
-            <ImageView
-                    android:id="@+id/iv_3"
-                    android:layout_width="750px"
-                    android:layout_height="460px"
-                    android:layout_marginTop="20px"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/map_iv_default"
-            />
         </com.zhy.autolayout.AutoLinearLayout>
     </ScrollView>
 </com.zhy.autolayout.AutoRelativeLayout>

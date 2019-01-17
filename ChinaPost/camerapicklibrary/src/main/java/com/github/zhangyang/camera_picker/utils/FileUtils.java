@@ -349,7 +349,7 @@ public class FileUtils {
 		try {
 			FileOutputStream fout = new FileOutputStream(jpegName);
 			BufferedOutputStream bos = new BufferedOutputStream(fout);
-			b.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+			b.compress(Bitmap.CompressFormat.JPEG, 97, bos);
 			bos.flush();
 			bos.close();
 			Log.i(TAG, "saveBitmap成功");

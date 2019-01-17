@@ -478,6 +478,29 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
 
             return true
         }else{
+            if(!tv_select_client_content.hasTxt()){
+                ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"请选择客户名称")
+                return false
+            }
+
+            if(!tv_choose_ad_type.equals("请选择") ){
+                ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"请选择广告类型")
+                return false
+            }
+
+            if(!(resourceIdList!!.size>0)){
+                ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"请选择预订资源位类型")
+                return false
+            }
+            if(tv_choose_start_time.getTxt().equals("请选择")){
+                ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"请选择开始时间")
+                return false
+            }
+
+            if(tv_choose_end_time.getTxt().equals("请选择") ){
+                ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"请选择结束时间")
+                return false
+            }
             ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"请输入相关信息")
             return false
         }

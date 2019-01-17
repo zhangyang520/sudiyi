@@ -42,7 +42,7 @@
             android:id="@+id/btn_submmit_reserved"
             android:layout_width="match_parent"
             android:textSize="34px"
-            android:text="提 交 预 定"
+            android:text="提 交 预 订"
             android:background="@drawable/map_btn_submit_reserved"
             android:textColor="@color/white"
             android:textStyle="bold"

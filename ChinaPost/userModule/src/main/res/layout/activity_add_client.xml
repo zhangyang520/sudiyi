@@ -50,7 +50,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20px"
-                android:text="查看预定"
+                android:text="查看预订"
                 android:visibility="gone"
                 android:textColor="@color/title_right_text_color"
                 android:textSize="35px"
@@ -62,7 +62,7 @@
             android:id="@+id/view_top"
             android:background="@color/activity_background_color"
             android:layout_width="match_parent"
-            android:layout_height="30px"></View>
+            android:layout_height="15px"></View>
        <include
                android:id="@+id/hangye"
                android:layout_below="@+id/view_top"

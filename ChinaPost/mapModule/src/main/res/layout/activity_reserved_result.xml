@@ -23,7 +23,7 @@
 
         <TextView android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="预定成功   "
+                   android:text="预订成功   "
                    android:textSize="24px"
                    android:textColor="@color/gray"
                   android:layout_gravity="center_vertical"
@@ -48,7 +48,7 @@
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="    预定失败   "
+                  android:text="    预订失败   "
                   android:textSize="24px"
                   android:layout_gravity="center_vertical"
                   android:textColor="@color/gray"
@@ -122,7 +122,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:text="确认预定"
+                android:text="确认预订"
                 android:background="#19D0FA"
                 android:textColor="@color/white"
                 android:textSize="34px"

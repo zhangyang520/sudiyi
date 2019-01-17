@@ -54,9 +54,9 @@ class MyClientHolder:BaseHolder<MineClient>(){
             tv_mark!!.text="暂无"
         }
 
-        if(data.statename.equals("待审批")){
+        if(data.statename.equals("待审核")){
             tv_ad_state!!.setTextColor(activity.resources.getColor(R.color.orange))
-        }else if(data.statename.equals("审批不通过")){
+        }else if(data.statename.equals("审核不通过")){
             tv_ad_state!!.setTextColor(activity.resources.getColor(R.color.red))
         }else{
             tv_ad_state!!.setTextColor(Color.parseColor("#00754b"))
@@ -68,9 +68,9 @@ class MyClientHolder:BaseHolder<MineClient>(){
             //意向客户  待审批  能够
             //意向客户  审批不通过 能够
             if((data.stagename!=null && data.stagename.equals("意向客户")
-                       && data.statename!=null && data.statename.equals("待审批"))
+                       && data.statename!=null && data.statename.equals("待审核"))
                     ||(data.stagename!=null && data.stagename.equals("意向客户")
-                            && data.statename!=null && data.statename.equals("审批不通过"))){
+                            && data.statename!=null && data.statename.equals("审核不通过"))){
                 //如果状态已经变为 已下单客户
                 ARouter.getInstance().build(RouterPath.MineModule.MINE_ADD_CLIENT).withSerializable("client",data).navigation(activity,100)
             }else{
@@ -81,9 +81,9 @@ class MyClientHolder:BaseHolder<MineClient>(){
         btn_chakan!!.setOnClickListener({
             //上传资质！
             if(!((data.stagename!=null && data.stagename.equals("意向客户") &&
-                                            data.statename!=null && data.statename.equals("待审批"))||(
+                                            data.statename!=null && data.statename.equals("待审核"))||(
                             data.stagename!=null && data.stagename.equals("意向客户") &&
-                                                data.statename!=null && data.statename.equals("审批不通过")))){
+                                                data.statename!=null && data.statename.equals("审核不通过")))){
                 ARouter.getInstance().build(RouterPath.MineModule.MINE_UPLOAD_APTITUDE).withInt("clientId",data.id).navigation(activity,100)
             }else{
                 ToastUtil.makeText(activity,"不允许上传资质")

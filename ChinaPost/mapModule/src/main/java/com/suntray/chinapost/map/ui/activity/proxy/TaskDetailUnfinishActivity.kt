@@ -1,5 +1,7 @@
 package com.suntray.chinapost.map.ui.activity.proxy
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -101,6 +103,7 @@ class TaskDetailUnfinishActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
         tv_district_value.text=taskEntity!!.zoneAddress
         tv_ad_type_value.text=taskEntity!!.adverType
         tv_task_time_value.text=taskEntity!!.taskTime
+        tv_equation_value.text=taskEntity!!.equLocation
 //        tv_up_product_value=taskEntity!!.taskTime  上刊产品
         if(taskEntity!!.state.equals("1")){
             tv_task_state_value.text="未完成"
@@ -116,9 +119,28 @@ class TaskDetailUnfinishActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             hud2= KProgressHUD(this@TaskDetailUnfinishActivity).setLabel("图片上传中....").setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             ll_bottom.visibility=View.VISIBLE
             viewtitle="上传图片"
+
+            tv_base_tips.visibility=View.VISIBLE;
+
+            /***
+             *  提示图展示
+             */
+            tv_base_tips.setOnClickListener({
+                AlertDialog.Builder(this@TaskDetailUnfinishActivity)
+                        .setTitle("照片说明").setMessage("1、带报头的地址贴；\n" +
+                                "2、带报纸的全景；\n" +
+                                "3、不带报纸的全景\n")
+                        .setNegativeButton("确定",object: DialogInterface.OnClickListener{
+                            override fun onClick(dialog: DialogInterface?, which: Int) {
+                                dialog!!.dismiss()
+                            }
+                        }).create().show()
+            })
         }else{
             ll_bottom.visibility=View.GONE
             viewtitle="任务详情"
+
+            tv_base_tips.visibility=View.GONE;
         }
         var landlist=arrayListOf<TaskUpload?>()
         if(firstType==1){

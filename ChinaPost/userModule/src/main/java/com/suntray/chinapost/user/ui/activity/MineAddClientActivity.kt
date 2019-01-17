@@ -252,7 +252,7 @@ class MineAddClientActivity : BaseMvpActivity<ClientPresenter>(),ClientView{
                                     currentClient!!.nature,currentClient!!.district,currentClient!!.state,currentClient!!.brand?:""),action!!)
                 }
             }else{
-                ToastUtil.makeText(this@MineAddClientActivity,"输入的信息不全")
+
             }
         })
 
@@ -288,6 +288,54 @@ class MineAddClientActivity : BaseMvpActivity<ClientPresenter>(),ClientView{
                                             tv_select_content.hasTxt() && tv_choose_type.hasTxt() &&
                                                     tv_client_laiyuan.hasTxt() && ed_address.hasTxt() && ed_belong.hasTxt() && tv_client_dizhi.hasTxt()){
                 return true
+        }else{
+            if(!ed_client_name.hasTxt()){
+                ToastUtil.makeText(this@MineAddClientActivity,"请输入客户名称")
+                return false
+            }
+
+            if(!ed_client_xingming.hasTxt()){
+                ToastUtil.makeText(this@MineAddClientActivity,"请输入联系人姓名")
+                return false
+            }
+
+            if(!ed_client_phone.hasTxt()){
+                ToastUtil.makeText(this@MineAddClientActivity,"请输入联系号码")
+                return false
+            }
+
+            if(!(iv_yixiang.isActivated || btn_hasxiadan.isActivated)){
+                ToastUtil.makeText(this@MineAddClientActivity,"请选择客户类型")
+                return false
+            }
+
+            if(tv_select_content.getTxt().equals("请选择")){
+                ToastUtil.makeText(this@MineAddClientActivity,"请选择客户行业")
+                return false
+            }
+
+            if(tv_choose_type.getTxt().equals("请选择")){
+                ToastUtil.makeText(this@MineAddClientActivity,"请选择客户性质")
+                return false
+            }
+
+            if(tv_client_laiyuan.getTxt().equals("请选择")){
+                ToastUtil.makeText(this@MineAddClientActivity,"请选择客户来源")
+                return false
+            }
+
+
+
+            if(tv_client_dizhi.getTxt().equals("请选择")){
+                ToastUtil.makeText(this@MineAddClientActivity,"请选择客户地址")
+                return false
+            }
+
+            if(!ed_address.hasTxt()){
+                ToastUtil.makeText(this@MineAddClientActivity,"请输入客户详细地址")
+                return false
+            }
+            ToastUtil.makeText(this@MineAddClientActivity,"输入的信息不全")
         }
         return false
     }

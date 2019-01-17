@@ -22,7 +22,7 @@
     <TextView
             android:id="@+id/tv_approval_content"
             android:textSize="20px"
-            android:text="审批不通过"
+            android:text="审核不通过"
             android:layout_toRightOf="@+id/iv_1"
             android:layout_marginLeft="20px"
             android:layout_alignTop="@+id/iv_1"
@@ -33,7 +33,7 @@
     <TextView
             android:id="@+id/tv_approval_reason"
             android:textSize="20px"
-            android:text="审批意见:"
+            android:text="审核意见:"
             android:layout_toRightOf="@+id/iv_1"
             android:layout_marginLeft="20px"
            android:layout_below="@+id/tv_approval_content"

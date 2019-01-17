@@ -1,6 +1,7 @@
 package com.suntray.chinapost.map.ui.activity.sale
 
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -49,9 +50,10 @@ class PostAdDownActivity:BaseMvpActivity<ResourcePresenter>(),ResourceView{
         if(adDownResponse.imageList!=null){
             for (data in adDownResponse.imageList!!) {
                 var imageView=ImageView(this@PostAdDownActivity)
-                var layoutParams=LinearLayout.LayoutParams(AutoUtils.getPercentWidthSize(750),AutoUtils.getPercentHeightSize(460))
+                var layoutParams= ViewGroup.MarginLayoutParams(AutoUtils.getPercentWidthSize(750), AutoUtils.getPercentHeightSize(460))
+                layoutParams.setMargins(0,AutoUtils.getPercentHeightSize(50),0,0)
                 imageView.layoutParams=layoutParams
-                imageView.scaleType=ImageView.ScaleType.FIT_XY
+                imageView.scaleType=ImageView.ScaleType.FIT_CENTER
                 Glide.with(this@PostAdDownActivity).load(data.imgPath).into(imageView)
                 //.error(R.drawable.map_iv_default)
                 ll_content.addView(imageView)
@@ -62,13 +64,21 @@ class PostAdDownActivity:BaseMvpActivity<ResourcePresenter>(),ResourceView{
         isRightShow=false
         isTitleShow=true
         isBlackShow=true
-        viewtitle="下刊报告"
+
+        var title=intent.getStringExtra("title")
+        viewtitle=title
 
         resourceAd=intent.getSerializableExtra("ad") as ResourceAd
         if(resourceAd==null){
             finish()
             return
         }
+        if(resourceAd!!.taskType==1){
+            tv_date.text="上刊日期"
+        }else{
+            tv_date.text="下刊日期"
+        }
+
         basePresenter.getResourceReportRequest(FindResourceReportRequest(resourceAd!!.id))
     }
 

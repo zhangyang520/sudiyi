@@ -160,7 +160,7 @@
              android:id="@+id/btn_yuding_reserved"
              android:layout_width="168px"
              android:layout_height="50px"
-             android:text="预定资源位"
+             android:text="预订资源位"
              android:textColor="@color/white"
              android:background="@drawable/map_btn_yuding"
              android:gravity="center"

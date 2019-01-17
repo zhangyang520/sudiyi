@@ -17,6 +17,9 @@ import android.widget.*
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.github.zhangyang.camera_picker.CropperActivity
 import com.github.zhangyang.camera_picker.utils.Constants
+import com.github.zhangyang.camera_picker.utils.DisplayUtil
+import com.github.zhangyang.camera_picker.utils.FileUtils
+import com.github.zhangyang.camera_picker.utils.ImageUtils
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.dao.UserDao
 import com.suntray.chinapost.baselibrary.ui.activity.BaseMvpActivity
@@ -339,8 +342,8 @@ class UploadAptitudeActivity:BaseMvpActivity<ClientPresenter>(),ClientView{
         startActivityForResult(intent, PHOTO_REQUEST_GALLERY)
     }
 
-
     var tempFile: File?=null
+
     /* 头像名称 */
     private var PHOTO_FILE_NAME = "temp_photo.jpg"
     /**
@@ -386,15 +389,33 @@ class UploadAptitudeActivity:BaseMvpActivity<ClientPresenter>(),ClientView{
             if (data != null) {
                 // 得到图片的全路径
                 val uri = data.data
-                startPhotoZoom(uri)
+//                startPhotoZoom(uri)   //进行 新的业务的注释
+
+                val point = DisplayUtil.getScreenPoint(this@UploadAptitudeActivity)
+                val bitmap = ImageUtils.decodeBitmapWithOrientationMax(this@UploadAptitudeActivity, ImageUtils.getFilePathByFileUri(this@UploadAptitudeActivity, uri), point.x, point.y, true)
+                var filePash = FileUtils.saveBitmap(this@UploadAptitudeActivity, bitmap, System.currentTimeMillis(), 1)
+                if(photoWindow!=null && photoWindow!!.isShowing){
+                    photoWindow!!.dismiss()
+                }
+                proImageShow(filePash)
             }
         } else if (requestCode == PHOTO_REQUEST_CAREMA) {
             if (hasSdcard()) {
-                try {
-                    startPhotoZoom(tempFile!!.path)
-                } catch (e: Exception) {
-                    e.printStackTrace()
+//                try {
+//                    startPhotoZoom(tempFile!!.path)
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                }
+
+                val point = DisplayUtil.getScreenPoint(this@UploadAptitudeActivity)
+                val bitmap = ImageUtils.decodeBitmapWithOrientationMax(this@UploadAptitudeActivity, tempFile!!.path, point.x, point.y, true)
+                var filePash = FileUtils.saveBitmap(this@UploadAptitudeActivity, bitmap, System.currentTimeMillis(), 1)
+
+                if(photoWindow!=null && photoWindow!!.isShowing){
+                    photoWindow!!.dismiss()
                 }
+                proImageShow(filePash)
+
             } else {
                 Toast.makeText(this@UploadAptitudeActivity, "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show()
             }

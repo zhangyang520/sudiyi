@@ -57,7 +57,7 @@ object ClientBizUtils {
 
             window= PopupWindow(context,null,R.style.Transparent_Dialog);
             window!!.width=  AutoUtils.getPercentWidthSize(750);
-//            window!!.height= AutoUtils.getPercentHeightSize(1320);
+//            window!!.height= AutoUtils.getPercentHeightSize(1223);
             AutoUtils.autoSize(contentView)
             window!!.contentView=contentView;
             window!!.isOutsideTouchable=false

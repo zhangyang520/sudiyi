@@ -17,6 +17,7 @@ class AdDownResponse {
     var cityName=""
     var equId=""
     var equSpecify=""
+    var taskType=1
     var imageList:ArrayList<image>?=null
 
 

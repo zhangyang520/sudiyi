@@ -114,7 +114,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:text="提交预定"
+                android:text="提交预订"
                 android:background="#19D0FA"
                 android:textColor="@color/white"
                 android:textSize="34px"
