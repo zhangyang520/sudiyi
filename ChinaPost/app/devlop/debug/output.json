@@ -1,1 +1,1 @@
-[{"outputType":{"type":"APK"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":5},"path":"app-devlop-debug.apk","properties":{"packageId":"com.suntray.chinapost.dev","split":"","minSdkVersion":"15"}}]
+[{"outputType":{"type":"APK"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":5,"versionName":"2.2","enabled":true,"outputFile":"app-devlop-debug.apk","fullName":"devlopDebug","baseName":"devlop-debug"},"path":"app-devlop-debug.apk","properties":{}}]

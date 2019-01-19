@@ -483,7 +483,7 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
                 return false
             }
 
-            if(!tv_choose_ad_type.equals("请选择") ){
+            if(tv_choose_ad_type.equals("请选择") ){
                 ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"请选择广告类型")
                 return false
             }
@@ -492,12 +492,12 @@ class PostAdOneKeyReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resource
                 ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"请选择预订资源位类型")
                 return false
             }
-            if(tv_choose_start_time.getTxt().equals("请选择")){
+            if(tv_choose_start_time.getTxt().trim().equals("")){
                 ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"请选择开始时间")
                 return false
             }
 
-            if(tv_choose_end_time.getTxt().equals("请选择") ){
+            if(tv_choose_end_time.getTxt().trim().equals("") ){
                 ToastUtil.makeText(this@PostAdOneKeyReservedActivity,"请选择结束时间")
                 return false
             }
