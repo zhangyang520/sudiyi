@@ -24,7 +24,6 @@ import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.help.Inputtips
 import com.amap.api.services.help.InputtipsQuery
 import com.amap.api.services.help.Tip
-import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.bean.CityListAction
 import com.suntray.chinapost.baselibrary.data.bean.ProvinceCity
 import com.suntray.chinapost.baselibrary.data.dao.AdStyleDao
@@ -56,7 +55,6 @@ import com.suntray.chinapost.map.utils.AMapUI
 import com.suntray.chinapost.map.utils.AMapUI.detailMarker
 import com.suntray.chinapost.map.utils.AMapUI.mlastMarker
 import com.suntray.chinapost.map.utils.AMapUI.resetlastmarker
-import com.suntray.chinapost.map.utils.ASettingUtils
 import com.suntray.chinapost.map.utils.UpdateUtils
 import com.suntray.chinapost.provider.RouterPath
 import com.zhy.autolayout.utils.AutoUtils
@@ -104,6 +102,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             }
             setModeDotAndArea()
         })
+
         /**
          * 跳转到 预定点位清单 列表界面
          */
@@ -268,10 +267,10 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                 //获取当前Activity所在的窗体
                 var  dialogWindow = dialog.getWindow();
                 //设置Dialog从窗体底部弹出
-                dialogWindow.getDecorView().setPadding(AutoUtils.getPercentWidthSize(70), 0, 0, 0);
+//                dialogWindow.getDecorView().setPadding(AutoUtils.getPercentWidthSize(70), 0, 0, 0);
                 var lp = dialogWindow.getAttributes();
                 //设置宽
-                lp.width = AutoUtils.getPercentWidthSize(750)
+                lp.width = AutoUtils.getPercentWidthSize(680)
                 //设置高
                 lp.height = AutoUtils.getPercentHeightSize(1334)
 
@@ -280,6 +279,8 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                 dialogWindow.setGravity(Gravity.RIGHT);
                 //设置dialog的动画效果
                 dialogWindow.setWindowAnimations(R.style.dialogWindowAnim);
+                dialog.setCanceledOnTouchOutside(true)
+                dialog.setCancelable(true)
                 dialog.show()
                 if(mode==0){
                     //自身定位
@@ -391,8 +392,10 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
         //获取客户字典的 数据
         basePresenter.getClientNameList()
 
+        //获取 消息通知的数量
+        basePresenter.getMessageNumber(UserDao.getLocalUser().id,UserDao.getLocalUser().userRole)
 
-
+        tv_number.visibility=View.GONE
         requestPermission(101, "android.permission.ACCESS_COARSE_LOCATION", object : Runnable {
             override fun run() {
                 //定位中
@@ -438,7 +441,12 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             //自身定位的模式
             iv_map_search.visibility = View.VISIBLE
             rl_map_search.visibility= View.VISIBLE
-            rl_map_search.setOnClickListener(null)
+            et_input_search.setHint("搜索")
+            rl_map_search.setOnClickListener(object:View.OnClickListener{
+                override fun onClick(p0: View?){
+                  AMapUI.showChoosePopup(this@PostPoiSearchActivity,iv_map_search,et_input_search);
+                }
+            })
             iv_map_location_search.visibility = View.VISIBLE
             rl_map_location_search.visibility=View.VISIBLE
             iv_map_area.visibility = View.GONE
@@ -465,9 +473,14 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             ll_distance.visibility=View.VISIBLE
         } else {
             //区域的模式 +  模糊搜索的模式
-            iv_map_search.visibility = View.VISIBLE
-            rl_map_search.visibility = View.VISIBLE
-            rl_map_search.setOnClickListener(null)
+            iv_map_search.visibility = View.GONE
+            rl_map_search.visibility = View.GONE
+            et_input_search.setHint("点位名称")
+            rl_map_search.setOnClickListener(object:View.OnClickListener{
+                override fun onClick(p0: View?) {
+                    AMapUI.showChoosePopup(this@PostPoiSearchActivity, iv_map_search, et_input_search);
+                }
+            })
             iv_map_location_search.visibility = View.VISIBLE
             rl_map_location_search.visibility=View.VISIBLE
             iv_map_area.visibility = View.VISIBLE
@@ -521,6 +534,15 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
         var  currentMapDot:ArrayList<MapDot>?= arrayListOf<MapDot>()
     }
 
+
+    override fun onGetNoticeNumber(count: Int) {
+        super.onGetNoticeNumber(count)
+        if(count>0){
+            tv_number.visibility=View.VISIBLE
+        }else{
+            tv_number.visibility=View.GONE
+        }
+    }
     /**
      * 失败了 区域位置 定位
      */

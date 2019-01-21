@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="170px"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/iv_shouye_condition_choose"
+    android:orientation="vertical"
+    android:paddingTop="50px"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_position"
+        android:text="地理位置"
+        android:textColor="@color/gray"
+        android:textSize="28px"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="58px" />
+
+    <View
+        app:layout_constraintTop_toBottomOf="@+id/tv_position"
+        android:id="@+id/line_one"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="2px"></View>
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@+id/line_one"
+        android:id="@+id/tv_dot_name"
+        android:text="点位名称"
+        android:textColor="@color/gray"
+        android:textSize="28px"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="58px" />
+</LinearLayout>

@@ -5,10 +5,7 @@ import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.map.data.bean.MapDot
 import com.suntray.chinapost.baselibrary.data.bean.ProvinceCity
-import com.suntray.chinapost.map.data.request.FindReserveNumRequest
-import com.suntray.chinapost.map.data.request.ProvinceDotRequest
-import com.suntray.chinapost.map.data.request.ProvinceRequest
-import com.suntray.chinapost.map.data.request.RadiusDotRequest
+import com.suntray.chinapost.map.data.request.*
 import retrofit2.http.Body
 import retrofit2.http.POST
 import rx.Observable
@@ -45,4 +42,10 @@ interface MapApi {
      */
     @POST(value = BaseConstants.FIND_RESERVE_NUM)
     fun findReserveNum(@Body findReserveNumRequest: FindReserveNumRequest):Observable<BaseResp<Int>>
+
+    /**
+     * 消息通知的数量
+     */
+    @POST(value = BaseConstants.findNewNoticeCount)
+    fun findNewNoticeCount(@Body findNewNoticeCount:NewNoticeCountRequest):Observable<BaseResp<Int>>
 }

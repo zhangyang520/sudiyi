@@ -324,4 +324,32 @@ class MapPresenter @Inject constructor():BasePresenter<MapView>(){
             }
         }, lifecylerProvider)
     }
+
+    /**
+     * 获取 消息的数量
+     */
+    fun getMessageNumber(receiver:Int,receivertype:Int){
+        mapService.findNewNoticeCount(NewNoticeCountRequest(receiver,receivertype)).execute(object : BaseSucriber<Int>(baseView, ResourcePresenter::javaClass.name) {
+
+            override fun onError(e: Throwable?) {
+                if (e is ContentException) {
+                    assertMethod(baseView, {
+                        (baseView as MapView).hideLoading()
+                        (baseView as MapView).onError(e.errorContent)
+                    })
+                } else {
+                    super.onError(e)
+                }
+            }
+
+            override fun onStart() {
+
+            }
+            override fun onNext(t:Int) {
+                super.onNext(t)
+                (baseView as MapView).hideLoading()
+                (baseView as MapView).onGetNoticeNumber(t)
+            }
+        }, lifecylerProvider)
+    }
 }

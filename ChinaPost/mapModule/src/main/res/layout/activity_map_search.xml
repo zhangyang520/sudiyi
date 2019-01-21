@@ -62,7 +62,7 @@
                         android:layout_height="25px"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
-                        android:src="@drawable/map_iv_search"
+                        android:src="@drawable/iv_shouye_down"
                 />
             </com.zhy.autolayout.AutoRelativeLayout>
 
@@ -112,15 +112,31 @@
             />
         </com.zhy.autolayout.AutoRelativeLayout>
 
-        <ImageView
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20px"
+            android:layout_width="60px"
+            android:layout_centerVertical="true"
+            android:layout_height="60px">
+
+            <ImageView
                 android:id="@+id/iv_chat"
                 android:layout_width="50px"
                 android:layout_height="45px"
                 android:src="@drawable/map_iv_chat"
+                android:layout_marginTop="10px"
+                />
+
+            <TextView
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="20px"
-                android:layout_centerVertical="true"
-        />
+                android:id="@+id/tv_number"
+                android:layout_marginTop="2px"
+                android:background="@drawable/iv_number"
+                android:layout_width="20px"
+                android:layout_height="20px" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
     </com.zhy.autolayout.AutoRelativeLayout>
     <ListView
             android:id="@+id/inputlist"

@@ -68,4 +68,12 @@ interface MapView:BaseView{
     fun onFindReserverNumber(number: Int){
 
     }
+
+    /**
+     * 消息通知的数量
+     */
+    fun onGetNoticeNumber(count: Int){
+
+    }
+
 }

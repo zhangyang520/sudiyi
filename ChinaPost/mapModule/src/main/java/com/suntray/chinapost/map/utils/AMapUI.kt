@@ -7,10 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.PopupWindow
-import android.widget.TextView
+import android.widget.*
 import com.alibaba.android.arouter.launcher.ARouter
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
@@ -476,6 +473,41 @@ object AMapUI {
         mlastMarker = null
     }
 
+    var chooseWindow:PopupWindow?=null
+    /**
+     * 展示出 对应的 选择框
+     */
+    fun  showChoosePopup(context: Context, rootView: View, et_input_search: EditText){
+        var contentView= View.inflate(context,R.layout.pupup_arror_down,null);
+        if(chooseWindow!=null && chooseWindow!!.isShowing){
+            chooseWindow!!.dismiss()
+        }
+        chooseWindow=PopupWindow(context,null,R.style.Transparent_Dialog)
+        chooseWindow!!.width= AutoUtils.getPercentWidthSize(170);
+        chooseWindow!!.height= AutoUtils.getPercentHeightSize(140);
+        chooseWindow!!.isOutsideTouchable=true
+        contentView.findViewById<TextView>(R.id.tv_position).setOnClickListener(object :View.OnClickListener{
+            override fun onClick(p0: View?) {
+                AppPrefsUtils.putInt(MapContstants.SETTING_KEYWORDINDEX,1)
+                et_input_search.setHint("地理位置搜索")
+                if(chooseWindow!=null && chooseWindow!!.isShowing){
+                    chooseWindow!!.dismiss()
+                }
+            }
+        })
+
+        contentView.findViewById<TextView>(R.id.tv_dot_name).setOnClickListener(object :View.OnClickListener{
+            override fun onClick(p0: View?) {
+                et_input_search.setHint("点位名称搜索")
+                AppPrefsUtils.putInt(MapContstants.SETTING_KEYWORDINDEX,0)
+                if(chooseWindow!=null && chooseWindow!!.isShowing){
+                    chooseWindow!!.dismiss()
+                }
+            }
+        })
+        chooseWindow!!.contentView=contentView;
+        chooseWindow!!.showAsDropDown(rootView,-AutoUtils.getPercentWidthSize(97),AutoUtils.getPercentHeightSize(30));
+    }
 
     /**
      * 弹出 对应的框

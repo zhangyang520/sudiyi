@@ -65,6 +65,8 @@ object BaseConstants {
         const val FIND_RENEWS_DAYS="findRenewDays.do"//查询续订天数
 
         const val FIND_RESERVE_NUM="findReserveNum.do"//查看一键预订的数量
+        const val findNewNoticeCount="findNewNoticeCount.do"//消息通知的数量
+
 
         const val UPDATE_APP="getNewApp.do"//更新版本
 

@@ -106,7 +106,7 @@ class TaskHolder: BaseHolder<TaskEntity>{
                             .withSerializable("taskEntity",getData())
                             .withParcelable("currntLocation",(activity as TaskListActivity).currntLocation).navigation()
                 }else{
-                    ToastUtil.show(activity,"点位的经纬度不能为空!")
+                    ToastUtil.show(activity,"未获取到点位的坐标信息!")
                 }
 
             }else{

@@ -20,6 +20,9 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.github.zhangyang.camera_picker.CropperActivity
 import com.github.zhangyang.camera_picker.exception.ContentException
 import com.github.zhangyang.camera_picker.utils.Constants
+import com.github.zhangyang.camera_picker.utils.DisplayUtil
+import com.github.zhangyang.camera_picker.utils.FileUtils
+import com.github.zhangyang.camera_picker.utils.ImageUtils
 import com.suntray.chinapost.baselibrary.common.BaseConstants
 import com.suntray.chinapost.baselibrary.data.dao.UserDao
 import com.suntray.chinapost.baselibrary.ui.activity.BaseMvpActivity
@@ -402,11 +405,25 @@ class TaskDetailUnfinishActivity:BaseMvpActivity<TaskPresenter>(),TaskView{
             if (data != null) {
                 // 得到图片的全路径
                 val uri = data.data
-                startPhotoZoom(uri)
+
+                val point = DisplayUtil.getScreenPoint(this@TaskDetailUnfinishActivity)
+                val bitmap = ImageUtils.decodeBitmapWithOrientationMax(this@TaskDetailUnfinishActivity, ImageUtils.getFilePathByFileUri(this@TaskDetailUnfinishActivity, uri), point.x, point.y, true)
+                var filePash = FileUtils.saveBitmap(this@TaskDetailUnfinishActivity, bitmap, System.currentTimeMillis(), 1)
+                if(photoWindow!=null && photoWindow!!.isShowing){
+                    photoWindow!!.dismiss()
+                }
+                proImageShow(filePash)
             }
         } else if (requestCode == PHOTO_REQUEST_CAREMA) {
             if (hasSdcard()) {
-                startPhotoZoom(tempFile!!.path)
+                val point = DisplayUtil.getScreenPoint(this@TaskDetailUnfinishActivity)
+                val bitmap = ImageUtils.decodeBitmapWithOrientationMax(this@TaskDetailUnfinishActivity, tempFile!!.path, point.x, point.y, true)
+                var filePash = FileUtils.saveBitmap(this@TaskDetailUnfinishActivity, bitmap, System.currentTimeMillis(), 1)
+                if(photoWindow!=null && photoWindow!!.isShowing){
+                    photoWindow!!.dismiss()
+                }
+                proImageShow(filePash)
+//                startPhotoZoom(tempFile!!.path)
             } else {
                 Toast.makeText(this@TaskDetailUnfinishActivity, "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show()
             }
