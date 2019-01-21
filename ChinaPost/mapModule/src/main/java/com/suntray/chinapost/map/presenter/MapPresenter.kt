@@ -11,6 +11,7 @@ import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.map.data.bean.MapDot
 import com.suntray.chinapost.map.data.request.*
 import com.suntray.chinapost.map.data.response.ClientDictResponse
+import com.suntray.chinapost.map.data.response.NoticeCountResponse
 import com.suntray.chinapost.map.data.response.UpdateResponse
 import com.suntray.chinapost.map.presenter.view.MapView
 import com.suntray.chinapost.map.presenter.view.ResourceView
@@ -329,7 +330,7 @@ class MapPresenter @Inject constructor():BasePresenter<MapView>(){
      * 获取 消息的数量
      */
     fun getMessageNumber(receiver:Int,receivertype:Int){
-        mapService.findNewNoticeCount(NewNoticeCountRequest(receiver,receivertype)).execute(object : BaseSucriber<Int>(baseView, ResourcePresenter::javaClass.name) {
+        mapService.findNewNoticeCount(NewNoticeCountRequest(receiver,receivertype)).execute(object : BaseSucriber<NoticeCountResponse>(baseView, ResourcePresenter::javaClass.name) {
 
             override fun onError(e: Throwable?) {
                 if (e is ContentException) {
@@ -345,10 +346,10 @@ class MapPresenter @Inject constructor():BasePresenter<MapView>(){
             override fun onStart() {
 
             }
-            override fun onNext(t:Int) {
+            override fun onNext(t: NoticeCountResponse) {
                 super.onNext(t)
                 (baseView as MapView).hideLoading()
-                (baseView as MapView).onGetNoticeNumber(t)
+                (baseView as MapView).onGetNoticeNumber(t.count)
             }
         }, lifecylerProvider)
     }

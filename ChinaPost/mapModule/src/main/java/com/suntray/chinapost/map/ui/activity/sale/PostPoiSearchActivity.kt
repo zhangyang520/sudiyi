@@ -392,9 +392,6 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
         //获取客户字典的 数据
         basePresenter.getClientNameList()
 
-        //获取 消息通知的数量
-        basePresenter.getMessageNumber(UserDao.getLocalUser().id,UserDao.getLocalUser().userRole)
-
         tv_number.visibility=View.GONE
         requestPermission(101, "android.permission.ACCESS_COARSE_LOCATION", object : Runnable {
             override fun run() {
@@ -537,6 +534,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
 
     override fun onGetNoticeNumber(count: Int) {
         super.onGetNoticeNumber(count)
+        SystemUtil.printlnStr("onGetNoticeNumber   111111111 .......")
         if(count>0){
             tv_number.visibility=View.VISIBLE
         }else{
@@ -739,6 +737,9 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
     override fun onResume() {
         super.onResume()
         mapView.onResume()
+        //获取 消息通知的数量
+        basePresenter.getMessageNumber(UserDao.getLocalUser().id,UserDao.getLocalUser().userRole)
+
     }
 
     /**

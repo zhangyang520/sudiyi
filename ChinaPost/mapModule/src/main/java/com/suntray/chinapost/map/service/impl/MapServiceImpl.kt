@@ -5,6 +5,7 @@ import com.suntray.chinapost.baselibrary.rx.convertData
 import com.suntray.chinapost.map.data.bean.MapDot
 import com.suntray.chinapost.baselibrary.data.bean.ProvinceCity
 import com.suntray.chinapost.map.data.request.*
+import com.suntray.chinapost.map.data.response.NoticeCountResponse
 import com.suntray.chinapost.map.data.respository.MapRespository
 import com.suntray.chinapost.map.service.MapService
 import retrofit2.http.Body
@@ -37,7 +38,7 @@ class MapServiceImpl @Inject constructor(): MapService {
         return mapRespository.findReserveNum(findReserveNumRequest).convertData()
     }
 
-    override fun findNewNoticeCount(findNewNoticeCount: NewNoticeCountRequest): Observable<Int> {
+    override fun findNewNoticeCount(findNewNoticeCount: NewNoticeCountRequest): Observable<NoticeCountResponse> {
         return mapRespository.findNewNoticeCount(findNewNoticeCount).convertData()
     }
 }

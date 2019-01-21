@@ -6,6 +6,7 @@ import com.suntray.chinapost.baselibrary.data.bean.BaseResp
 import com.suntray.chinapost.map.data.bean.MapDot
 import com.suntray.chinapost.baselibrary.data.bean.ProvinceCity
 import com.suntray.chinapost.map.data.request.*
+import com.suntray.chinapost.map.data.response.NoticeCountResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 import rx.Observable
@@ -47,5 +48,5 @@ interface MapApi {
      * 消息通知的数量
      */
     @POST(value = BaseConstants.findNewNoticeCount)
-    fun findNewNoticeCount(@Body findNewNoticeCount:NewNoticeCountRequest):Observable<BaseResp<Int>>
+    fun findNewNoticeCount(@Body findNewNoticeCount:NewNoticeCountRequest):Observable<BaseResp<NoticeCountResponse>>
 }
