@@ -24,6 +24,7 @@ import com.amap.api.services.district.DistrictSearch
 import com.amap.api.services.district.DistrictSearchQuery
 import com.amap.api.services.poisearch.PoiSearch
 import com.bumptech.glide.Glide
+import com.iflytek.cloud.thirdparty.V
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.map.R
@@ -479,17 +480,35 @@ object AMapUI {
      */
     fun  showChoosePopup(context: Context, rootView: View, et_input_search: EditText){
         var contentView= View.inflate(context,R.layout.pupup_arror_down,null);
+        AutoUtils.autoSize(contentView)
         if(chooseWindow!=null && chooseWindow!!.isShowing){
             chooseWindow!!.dismiss()
         }
         chooseWindow=PopupWindow(context,null,R.style.Transparent_Dialog)
         chooseWindow!!.width= AutoUtils.getPercentWidthSize(170);
-        chooseWindow!!.height= AutoUtils.getPercentHeightSize(140);
+        chooseWindow!!.height= AutoUtils.getPercentHeightSize(110);
         chooseWindow!!.isOutsideTouchable=true
+
+        var postionView=contentView.findViewById<TextView>(R.id.tv_position)
+        var pointNameView=contentView.findViewById<TextView>(R.id.tv_dot_name)
+        var line_one=contentView.findViewById<View>(R.id.line_one);
+
+        if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)==0){
+            //点位名称
+            postionView.visibility=View.VISIBLE
+            pointNameView.visibility=View.GONE
+            line_one.visibility=View.GONE
+        }else{
+            postionView.visibility=View.GONE
+            pointNameView.visibility=View.VISIBLE
+            line_one.visibility=View.GONE
+        }
+
         contentView.findViewById<TextView>(R.id.tv_position).setOnClickListener(object :View.OnClickListener{
             override fun onClick(p0: View?) {
                 AppPrefsUtils.putInt(MapContstants.SETTING_KEYWORDINDEX,1)
-                et_input_search.setHint("地理位置搜索")
+                et_input_search.setHint("地理位置")
+                et_input_search.setText("")
                 if(chooseWindow!=null && chooseWindow!!.isShowing){
                     chooseWindow!!.dismiss()
                 }
@@ -498,7 +517,8 @@ object AMapUI {
 
         contentView.findViewById<TextView>(R.id.tv_dot_name).setOnClickListener(object :View.OnClickListener{
             override fun onClick(p0: View?) {
-                et_input_search.setHint("点位名称搜索")
+                et_input_search.setHint("点位名称")
+                et_input_search.setText("")
                 AppPrefsUtils.putInt(MapContstants.SETTING_KEYWORDINDEX,0)
                 if(chooseWindow!=null && chooseWindow!!.isShowing){
                     chooseWindow!!.dismiss()

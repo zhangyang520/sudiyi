@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.PopupWindow
 import android.widget.TextView
@@ -57,7 +58,7 @@ object ClientBizUtils {
 
             window= PopupWindow(context,null,R.style.Transparent_Dialog);
             window!!.width=  AutoUtils.getPercentWidthSize(750);
-//            window!!.height= AutoUtils.getPercentHeightSize(1223);
+//            window!!.height= AutoUtils.getPercentHeightSize(1334);
             AutoUtils.autoSize(contentView)
             window!!.contentView=contentView;
             window!!.isOutsideTouchable=false

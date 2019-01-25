@@ -284,7 +284,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                 dialog.show()
                 if(mode==0){
                     //自身定位
-                    dialog.setKeyword(true)
+                    dialog.setKeyword(false)
                 }else{
                     //区域模式
                     dialog.setKeyword(false)
@@ -434,11 +434,18 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
     private fun setModeDotAndArea() {
         //清空设置
 //        ASettingUtils.clearSetting()
+
+        if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)==1){
+            //点位名称
+            et_input_search.setHint("地理位置")
+        }else{
+            et_input_search.setHint("点位名称")
+        }
+
         if (mode == 0) {
             //自身定位的模式
             iv_map_search.visibility = View.VISIBLE
             rl_map_search.visibility= View.VISIBLE
-            et_input_search.setHint("搜索")
             rl_map_search.setOnClickListener(object:View.OnClickListener{
                 override fun onClick(p0: View?){
                   AMapUI.showChoosePopup(this@PostPoiSearchActivity,iv_map_search,et_input_search);

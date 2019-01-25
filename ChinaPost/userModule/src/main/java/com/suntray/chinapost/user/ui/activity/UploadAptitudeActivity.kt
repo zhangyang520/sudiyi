@@ -272,6 +272,9 @@ class UploadAptitudeActivity:BaseMvpActivity<ClientPresenter>(),ClientView{
             return true
         }else if(getDeleteIds().size>0){
             //只是减少了图片
+            if(UploadAptitudeEnum.JiBenXinxi.getPathList().size==1){
+                return false
+            }
             return true
         }
         return false
@@ -307,9 +310,9 @@ class UploadAptitudeActivity:BaseMvpActivity<ClientPresenter>(),ClientView{
         AutoUtils.autoSize(view)
         photoWindow!!.contentView=view;
         photoWindow!!.isOutsideTouchable=true
-        photoWindow!!.height= AutoUtils.getPercentHeightSize(1334);
+//        photoWindow!!.height= AutoUtils.getPercentHeightSize(1334);
         photoWindow!!.width= AutoUtils.getPercentWidthSize(750)
-        photoWindow!!.showAtLocation(root, Gravity.BOTTOM,0,0)
+        photoWindow!!.showAtLocation(root, Gravity.TOP,0,0)
 
         //拍照
         (view.findViewById(R.id.btn_photo) as Button).setOnClickListener({

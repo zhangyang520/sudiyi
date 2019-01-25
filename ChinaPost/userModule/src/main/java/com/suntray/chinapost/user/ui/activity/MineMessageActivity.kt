@@ -43,7 +43,6 @@ class MineMessageActivity:BaseMvpActivity<MinePresenter>(),MineEditView{
         isRightShow=false
         viewtitle="系统消息"
 
-        basePresenter.myMessage(UserDao.getLocalUser().id,pageNumber,10,RefreshAction.NormalAction);
         /**
          * 点击 查询的按钮
          */
@@ -59,6 +58,12 @@ class MineMessageActivity:BaseMvpActivity<MinePresenter>(),MineEditView{
             }
         })
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        pageNumber=1
+        basePresenter.myMessage(UserDao.getLocalUser().id,pageNumber,10,RefreshAction.NormalAction);
     }
 
     override fun onError(content: String, action: RefreshAction) {

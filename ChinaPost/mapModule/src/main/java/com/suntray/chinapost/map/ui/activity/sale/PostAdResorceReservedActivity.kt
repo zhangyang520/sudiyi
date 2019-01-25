@@ -361,17 +361,17 @@ class PostAdResorceReservedActivity:BaseMvpActivity<ResourcePresenter>(),Resourc
                 return false
             }
 
-            if(tv_choose_ad_type.getTxt().equals("")){
+            if(tv_choose_ad_type.hint.equals("请选择") && tv_choose_ad_type.getTxt().trim().equals("")){
                 ToastUtil.makeText(this@PostAdResorceReservedActivity,"请选择广告类型")
                 return false
             }
 
-            if(tv_choose_start_time.getTxt().equals("") ){
+            if(tv_choose_start_time.hint.equals("请选择") && tv_choose_start_time.getTxt().trim().equals("")){
                 ToastUtil.makeText(this@PostAdResorceReservedActivity,"请选择开始时间")
                 return false
             }
 
-            if(tv_choose_end_time.getTxt().equals("") ){
+            if(tv_choose_end_time.hint.equals("请选择") && tv_choose_end_time.getTxt().trim().equals("")){
                 ToastUtil.makeText(this@PostAdResorceReservedActivity,"请选择结束时间")
                 return false
             }

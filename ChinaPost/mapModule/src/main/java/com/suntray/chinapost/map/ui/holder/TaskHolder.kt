@@ -101,7 +101,8 @@ class TaskHolder: BaseHolder<TaskEntity>{
         btn_look_map!!.setOnClickListener({
             //跳转到对应的界面
             if((activity as TaskListActivity).currntLocation!=null){
-                if(getData().latitude!=null && getData().longitude!=null){
+                if(getData().latitude!=null &&  !getData().latitude.trim().equals("")
+                             && getData().longitude!=null && !getData().longitude.trim().equals("")){
                     ARouter.getInstance().build(RouterPath.MapModule.POST_TASK_ROUTE)
                             .withSerializable("taskEntity",getData())
                             .withParcelable("currntLocation",(activity as TaskListActivity).currntLocation).navigation()

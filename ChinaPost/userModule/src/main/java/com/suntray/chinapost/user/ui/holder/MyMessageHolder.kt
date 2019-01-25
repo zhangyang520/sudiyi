@@ -1,6 +1,7 @@
 package com.suntray.chinapost.user.ui.holder
 
 import android.app.Activity
+import android.graphics.Color
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -39,12 +40,20 @@ class MyMessageHolder:BaseHolder<MineMessage>(){
 
         /**
          * 待审核 #FDA100
-        已审核 00754b
+           已审核 00754b
          */
         if(data!!.type==1){
             iv_prewarning!!.setImageResource(R.drawable.mine_iv_examine)
         }else{
             iv_prewarning!!.setImageResource(R.drawable.mine_iv_prewarning)
+        }
+
+        if(data!!.isnew==0){
+            //为查看 #A3A3A3
+            tv_prewarning_title!!.setTextColor(Color.BLACK)
+        }else{
+            //以查看 #A3A3A3
+            tv_prewarning_title!!.setTextColor(Color.parseColor("#A3A3A3"))
         }
         tv_prewarning_title!!.text=data!!.title
         tv_prewarning_date!!.text=data!!.senddate

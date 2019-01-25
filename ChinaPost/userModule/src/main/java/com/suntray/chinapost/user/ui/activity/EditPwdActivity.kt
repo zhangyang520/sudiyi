@@ -37,7 +37,7 @@ class EditPwdActivity:BaseMvpActivity<MinePresenter>(),MineEditView{
             if(ed_old_pwd.hasTxt() && ed_new_pwd.hasTxt() && ed_new_pwd_again.hasTxt()){
                 if(ed_new_pwd.getTxt().equals(ed_new_pwd_again.getTxt())){
                     basePresenter.editPwd(ed_old_pwd.getTxt(),ed_new_pwd.getTxt(),
-                                        UserDao.getLocalUser().id,UserDao.getLocalUser().email,BaseConstants.SELECTEDROLEINDEX);
+                                        UserDao.getLocalUser().id,UserDao.getLocalUser().email,UserDao.getLocalUser().userRole);
                 }else{
                     ToastUtil.makeText(this@EditPwdActivity,"新密码两次输入不一致");
                 }

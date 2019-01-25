@@ -62,7 +62,7 @@
             android:id="@+id/view_top"
             android:background="@color/activity_background_color"
             android:layout_width="match_parent"
-            android:layout_height="15px"></View>
+            android:layout_height="30px"></View>
        <include
                android:id="@+id/hangye"
                android:layout_below="@+id/view_top"

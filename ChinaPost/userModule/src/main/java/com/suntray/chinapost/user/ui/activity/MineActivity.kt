@@ -285,7 +285,7 @@ class MineActivity :BaseMvpActivity<MinePresenter>(), MineEditView {
                 if(photoWindow!=null && photoWindow!!.isShowing){
                     photoWindow!!.dismiss()
                 }
-                basePresenter.onUploadPortrait(UserDao.getLocalUser().id,File(fileName),BaseConstants.SELECTEDROLEINDEX)
+                basePresenter.onUploadPortrait(UserDao.getLocalUser().id,File(fileName),UserDao.getLocalUser().userRole)
                 if(photoWindow!=null && photoWindow!!.isShowing){
                     photoWindow!!.dismiss()
                 }
