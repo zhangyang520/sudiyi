@@ -51,6 +51,7 @@ class MineReservedDotActivity : BaseMvpActivity<MineDotPresenter>(),MineDotView{
         viewtitle="我预定的点位"
         rightTitle="取消预定"
         MyReservedDotHolder.renewDays=-1
+        MyReservedDotHolder.isNeedShowSelected=false;
         basePresenter.mineReservedDot(MineReservedDotRequest(UserDao.getLocalUser().id,pageNumber,10,UserDao.getLocalUser().userRole),RefreshAction.NormalAction)
 
         //查询 续订的天数
