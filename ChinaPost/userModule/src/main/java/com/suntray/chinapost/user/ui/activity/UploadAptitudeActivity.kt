@@ -312,7 +312,7 @@ class UploadAptitudeActivity:BaseMvpActivity<ClientPresenter>(),ClientView{
         photoWindow!!.isOutsideTouchable=true
 //        photoWindow!!.height= AutoUtils.getPercentHeightSize(1334);
         photoWindow!!.width= AutoUtils.getPercentWidthSize(750)
-        photoWindow!!.showAtLocation(root, Gravity.TOP,0,0)
+        photoWindow!!.showAtLocation(root, Gravity.BOTTOM,0,0)
 
         //拍照
         (view.findViewById(R.id.btn_photo) as Button).setOnClickListener({

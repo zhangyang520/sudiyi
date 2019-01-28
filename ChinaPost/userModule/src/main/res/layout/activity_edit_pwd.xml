@@ -138,6 +138,18 @@
         />
     </com.zhy.autolayout.AutoRelativeLayout>
 
+    <TextView
+        android:layout_below="@+id/rl_new_pwd_again"
+        android:id="@+id/tv_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="8-20个字符，由字母，数字和符号组成"
+        android:paddingLeft="110px"
+        android:layout_marginTop="10px"
+        android:textColor="@color/gray"
+        android:textSize="25px"
+        />
+
 
     <Button
             android:layout_marginLeft="20px"
