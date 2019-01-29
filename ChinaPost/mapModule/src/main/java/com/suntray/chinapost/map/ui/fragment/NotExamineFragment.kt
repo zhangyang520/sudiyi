@@ -17,6 +17,7 @@ import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.map.R
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.request.TaskListRequest
+import com.suntray.chinapost.map.data.request.TaskNumberRequest
 import com.suntray.chinapost.map.presenter.TaskPresenter
 import com.suntray.chinapost.map.presenter.view.TaskView
 import com.suntray.chinapost.map.ui.adapter.proxy.TaskAdapter
@@ -125,6 +126,9 @@ class NotExamineFragment:Fragment(),TaskView {
     }
 
     override fun onGetNotExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction,count:Int) {
+
+        taskPresenter!!.getTaskNumber(TaskNumberRequest(firstType,supplyID.toInt(),UserDao.getLocalUser().id))
+
         if(action==RefreshAction.NormalAction){
             SystemUtil.printlnStr("mineClientlist onGetNotExamineList NormalAction size:"+taskList.size)
             recyclerview!!.setRefreshTitle("我的客户列表,")

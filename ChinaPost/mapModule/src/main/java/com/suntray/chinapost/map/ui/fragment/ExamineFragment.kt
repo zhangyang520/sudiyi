@@ -16,6 +16,7 @@ import com.suntray.chinapost.baselibrary.utils.ToastUtil
 import com.suntray.chinapost.map.R
 import com.suntray.chinapost.map.data.bean.TaskEntity
 import com.suntray.chinapost.map.data.request.TaskListRequest
+import com.suntray.chinapost.map.data.request.TaskNumberRequest
 import com.suntray.chinapost.map.presenter.TaskPresenter
 import com.suntray.chinapost.map.presenter.view.TaskView
 import com.suntray.chinapost.map.ui.adapter.proxy.TaskAdapter
@@ -123,6 +124,10 @@ class ExamineFragment:Fragment(),TaskView {
     }
 
     override fun onGetExamineList(taskList: ArrayList<TaskEntity>, action: RefreshAction,count:Int) {
+
+        taskPresenter!!.getTaskNumber(TaskNumberRequest(firstType,supplyID.toInt(),UserDao.getLocalUser().id))
+
+
         if(action==RefreshAction.NormalAction){
             SystemUtil.printlnStr("mineClientlist onGetExamineList NormalAction size:"+taskList.size)
             recyclerview.setRefreshTitle("我的客户列表,")
