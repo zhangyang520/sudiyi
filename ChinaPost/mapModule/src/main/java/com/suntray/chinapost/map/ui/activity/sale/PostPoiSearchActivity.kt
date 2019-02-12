@@ -18,6 +18,7 @@ import com.amap.api.location.AMapLocationListener
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.model.BitmapDescriptorFactory
+import com.amap.api.maps.model.CameraPosition
 import com.amap.api.maps.model.Marker
 import com.amap.api.services.core.AMapException
 import com.amap.api.services.core.LatLonPoint
@@ -102,6 +103,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             }
             setModeDotAndArea()
         })
+
 
         /**
          * 跳转到 预定点位清单 列表界面
@@ -716,6 +718,27 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
         if (aMap == null) {
             aMap = mapView.map
             aMap!!.setOnMarkerClickListener(this)
+            aMap!!.setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
+
+                override fun onCameraChange(cameraPosition: CameraPosition?) {
+                    SystemUtil.printlnStr("setOnCameraChangeListener onCameraChange")
+                }
+
+                /**
+                 * 监听 摄像头 移动的结束时间!
+                 */
+                override fun onCameraChangeFinish(cameraPosition: CameraPosition?) {
+                    SystemUtil.printlnStr("setOnCameraChangeListener onCameraChangeFinish")
+                    if(cameraPosition!=null && cameraPosition.target!=null){
+                        currntLocation!!.longitude=cameraPosition.target.longitude
+                        currntLocation!!.latitude=cameraPosition.target.latitude;
+                        //清除地图的数据
+                        aMap!!.clear();
+                        //请求半径的数据
+                        doRequestRadius();
+                    }
+                }
+            })
         }
     }
 
