@@ -729,7 +729,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                  */
                 override fun onCameraChangeFinish(cameraPosition: CameraPosition?) {
                     SystemUtil.printlnStr("setOnCameraChangeListener onCameraChangeFinish")
-                    if(cameraPosition!=null && cameraPosition.target!=null){
+                    if(cameraPosition!=null && cameraPosition.target!=null && mode==0){
                         currntLocation!!.longitude=cameraPosition.target.longitude
                         currntLocation!!.latitude=cameraPosition.target.latitude;
                         //清除地图的数据
