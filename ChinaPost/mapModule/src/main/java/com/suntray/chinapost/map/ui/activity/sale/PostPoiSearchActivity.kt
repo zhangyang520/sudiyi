@@ -22,6 +22,10 @@ import com.amap.api.maps.model.CameraPosition
 import com.amap.api.maps.model.Marker
 import com.amap.api.services.core.AMapException
 import com.amap.api.services.core.LatLonPoint
+import com.amap.api.services.geocoder.GeocodeResult
+import com.amap.api.services.geocoder.GeocodeSearch
+import com.amap.api.services.geocoder.RegeocodeQuery
+import com.amap.api.services.geocoder.RegeocodeResult
 import com.amap.api.services.help.Inputtips
 import com.amap.api.services.help.InputtipsQuery
 import com.amap.api.services.help.Tip
@@ -39,6 +43,7 @@ import com.suntray.chinapost.baselibrary.ut.base.utils.AppPrefsUtils
 import com.suntray.chinapost.baselibrary.utils.DateUtil
 import com.suntray.chinapost.baselibrary.utils.SystemUtil
 import com.suntray.chinapost.baselibrary.utils.ToastUtil
+import com.suntray.chinapost.baselibrary.utils.UiUtils
 import com.suntray.chinapost.map.R
 import com.suntray.chinapost.map.data.bean.MapDot
 import com.suntray.chinapost.map.data.constants.MapContstants
@@ -406,6 +411,15 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                 ToastUtil.makeText(this@PostPoiSearchActivity, "请打开定位权限")
             }
         })
+
+        requestPermission(102,"android.permission.READ_PHONE_STATE", object :Runnable{
+            override fun run() {
+            }
+
+        },object:Runnable{
+            override fun run() {
+            }
+        })
     }
 
     /**
@@ -594,6 +608,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
         }
     }
 
+    var isDoingRequest=false;
     override fun onRadisDotRequest(mapDot: ArrayList<MapDot>) {
         currentMapDot =mapDot;
         SystemUtil.printlnStr("11111  currentTip ......SETTING_KEYWORDINDEX："+
@@ -618,6 +633,9 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                 ToastUtil.makeText(this@PostPoiSearchActivity,"暂无半径点位数据")
             }
         }
+        UiUtils.instance.getHandler().postDelayed({
+            isDoingRequest=false;
+        },500)
     }
 
     override fun onMarkerClick(marker: Marker?): Boolean {
@@ -653,6 +671,9 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
     internal var locationListener: AMapLocationListener = AMapLocationListener { location ->
         if (null != location) {
             currntLocation=location
+//            currntLocation!!.longitude=116.335891
+//            currntLocation!!.latitude=39.942295;
+
             val sb = StringBuffer()
             //errCode等于0代表定位成功，其他的为定位失败，具体的可以参照官网定位错误码说明
             if (location.errorCode == 0) {
@@ -673,7 +694,6 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                 sb.append("地    址    : " + location.description + "\n")
                 AMapUI.stopLocation()
                 AMapUI.locationMap(this@PostPoiSearchActivity,aMap!!, LatLonPoint(location.latitude,location.longitude))
-                doRequestRadius()
             } else {
                 //定位失败.
                 if(location.errorCode==12){
@@ -711,6 +731,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
     }
 
     private var aMap: AMap? = null
+    private var geocoderSearch: GeocodeSearch?=null
     /**
      * 初始化AMap对象
      */
@@ -718,7 +739,33 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
         if (aMap == null) {
             aMap = mapView.map
             aMap!!.setOnMarkerClickListener(this)
+            //初始化 geo 相关的搜索对象
+            geocoderSearch= GeocodeSearch(this)
+            //设置 查询监听的 对象
+            geocoderSearch!!.setOnGeocodeSearchListener(object :GeocodeSearch.OnGeocodeSearchListener{
+
+                override fun onRegeocodeSearched(regeocodeResult: RegeocodeResult?, p1: Int) {
+                    if(regeocodeResult!=null && regeocodeResult!!.regeocodeAddress!=null){
+                        currntLocation!!.adCode=regeocodeResult!!.regeocodeAddress.adCode
+
+                        //请求半径的数据
+                        if(!isDoingRequest){
+                            SystemUtil.printlnStr("setOnCameraChangeListener onCameraChangeFinish isDoing request")
+                            doRequestRadius();
+                        }else{
+                            //正在执行中
+                            SystemUtil.printlnStr("setOnCameraChangeListener onCameraChangeFinish isNotDoing request")
+                        }
+                    }
+                }
+
+                override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
+                }
+            })
+
             aMap!!.setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
+
+                var lastPosition:CameraPosition?=null
 
                 override fun onCameraChange(cameraPosition: CameraPosition?) {
                     SystemUtil.printlnStr("setOnCameraChangeListener onCameraChange")
@@ -728,14 +775,25 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                  * 监听 摄像头 移动的结束时间!
                  */
                 override fun onCameraChangeFinish(cameraPosition: CameraPosition?) {
-                    SystemUtil.printlnStr("setOnCameraChangeListener onCameraChangeFinish")
+
                     if(cameraPosition!=null && cameraPosition.target!=null && mode==0){
+
                         currntLocation!!.longitude=cameraPosition.target.longitude
                         currntLocation!!.latitude=cameraPosition.target.latitude;
-                        //清除地图的数据
-                        aMap!!.clear();
-                        //请求半径的数据
-                        doRequestRadius();
+
+                        if(lastPosition!=null && cameraPosition.zoom!=lastPosition!!.zoom){
+                            //当前后的缩放级别不一样
+                            SystemUtil.printlnStr("setOnCameraChangeListener onCameraChangeFinish suofang return .......")
+                            lastPosition=cameraPosition;
+                            return
+                        }
+
+                        lastPosition=cameraPosition;
+
+                        var query= RegeocodeQuery(LatLonPoint(cameraPosition!!.target.latitude,cameraPosition!!.target.longitude), 200f,GeocodeSearch.AMAP);
+                        geocoderSearch!!.getFromLocationAsyn(query);
+                        //逆地址 解析:
+
                     }
                 }
             })
@@ -806,6 +864,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
      * 请求 半径搜索
      */
     fun doRequestRadius(){
+        isDoingRequest=true
         hud2!!.setLabel("半径区域搜索中")
         if(AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)==0){
             //点位名称
@@ -822,6 +881,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                         AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime,UserDao.getLocalUser().userRole))
             } catch (e: NumberFormatException) {
                 e.printStackTrace()
+                isDoingRequest=false;
             }
         }else{
             //地理位置
@@ -836,6 +896,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                 //如果输入不为空  且等于 当前的tip的 内容
                 try {
                     city=currentTip!!.adcode.toInt()
+//                    city=110100
                     basePresenter.radiusDot(RadiusDotRequest(currentTip!!.point.longitude,currentTip!!.point.latitude,
                             currentRadius.toDouble(),et_input_search.getTxt(), "0",1,30, UserDao.getLocalUser().id,
                             city,-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)+1,
@@ -843,11 +904,13 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                             AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime,UserDao.getLocalUser().userRole))
                 } catch (e: NumberFormatException) {
                     e.printStackTrace()
+                    isDoingRequest=false;
                 }
             }else{
                 //不等的情况
                 try {
                     city=currntLocation!!.adCode.toInt()
+//                    city=110100
                     basePresenter.radiusDot(RadiusDotRequest(currntLocation!!.longitude,currntLocation!!.latitude,
                             currentRadius.toDouble(),et_input_search.getTxt(), "0",1,30, UserDao.getLocalUser().id,
                             city,-1,AppPrefsUtils.getInt(MapContstants.SETTING_KEYWORDINDEX,1)+1,
@@ -855,6 +918,7 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
                             AppPrefsUtils.getString(MapContstants.SETTING_RESOURCEIDS,"[]"),startTime,endTime,UserDao.getLocalUser().userRole))
                 } catch (e: NumberFormatException) {
                     e.printStackTrace()
+                    isDoingRequest=false;
                 }
             }
         }
