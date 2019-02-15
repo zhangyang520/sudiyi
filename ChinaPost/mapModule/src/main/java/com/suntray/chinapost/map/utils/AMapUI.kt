@@ -350,6 +350,7 @@ object AMapUI {
                         .fromBitmap(BitmapFactory.decodeResource(
                                 context.resources, R.drawable.point4)))
                 .position(LatLng(currntLocation!!.getLatitude(), currntLocation!!.getLongitude())))
+
         //todo 1km公里范围内
         if(radis==1000){
             zoomLarge(aMap,14.7f,currntLocation)

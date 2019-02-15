@@ -17,9 +17,7 @@ import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationListener
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
-import com.amap.api.maps.model.BitmapDescriptorFactory
-import com.amap.api.maps.model.CameraPosition
-import com.amap.api.maps.model.Marker
+import com.amap.api.maps.model.*
 import com.amap.api.services.core.AMapException
 import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.geocoder.GeocodeResult
@@ -81,6 +79,9 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
     var currentTip:Tip?=null
     var isCanAccess=true //是否能够访问
     var reserveNumber=-1 //查询 一键预订的数量
+
+    var currentLatLng:LatLng?=null;
+
 
     override fun initView() {
         isBlackShow = false
@@ -153,6 +154,11 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             btn_dis_5.setTextColor(resources.getColor(R.color.gray))
             btn_dis_8.setTextColor(resources.getColor(R.color.gray))
             btn_dis_10.setTextColor(resources.getColor(R.color.gray))
+            if(currentLatLng!=null && currntLocation!=null){
+                currntLocation!!.longitude=currentLatLng!!.longitude
+                currntLocation!!.latitude=currentLatLng!!.latitude
+            }
+
             doRequestRadius()
         })
         btn_dis_3.setOnClickListener({
@@ -163,6 +169,10 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             btn_dis_5.setTextColor(resources.getColor(R.color.gray))
             btn_dis_8.setTextColor(resources.getColor(R.color.gray))
             btn_dis_10.setTextColor(resources.getColor(R.color.gray))
+            if(currentLatLng!=null && currntLocation!=null){
+                currntLocation!!.longitude=currentLatLng!!.longitude
+                currntLocation!!.latitude=currentLatLng!!.latitude
+            }
             doRequestRadius()
         })
 
@@ -173,6 +183,10 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             btn_dis_8.setTextColor(resources.getColor(R.color.gray))
             btn_dis_10.setTextColor(resources.getColor(R.color.gray))
             currentRadius = 5000
+            if(currentLatLng!=null && currntLocation!=null){
+                currntLocation!!.longitude=currentLatLng!!.longitude
+                currntLocation!!.latitude=currentLatLng!!.latitude
+            }
             doRequestRadius()
         })
 
@@ -183,6 +197,10 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             btn_dis_5.setTextColor(resources.getColor(R.color.gray))
             btn_dis_10.setTextColor(resources.getColor(R.color.gray))
             currentRadius = 8000
+            if(currentLatLng!=null && currntLocation!=null){
+                currntLocation!!.longitude=currentLatLng!!.longitude
+                currntLocation!!.latitude=currentLatLng!!.latitude
+            }
             doRequestRadius()
         })
 
@@ -193,6 +211,10 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             btn_dis_5.setTextColor(resources.getColor(R.color.gray))
             btn_dis_8.setTextColor(resources.getColor(R.color.gray))
             currentRadius = 10000
+            if(currentLatLng!=null && currntLocation!=null){
+                currntLocation!!.longitude=currentLatLng!!.longitude
+                currntLocation!!.latitude=currentLatLng!!.latitude
+            }
             doRequestRadius()
         })
 
@@ -671,8 +693,11 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
     internal var locationListener: AMapLocationListener = AMapLocationListener { location ->
         if (null != location) {
             currntLocation=location
-//            currntLocation!!.longitude=116.335891
-//            currntLocation!!.latitude=39.942295;
+
+            currntLocation!!.longitude=116.335891
+            currntLocation!!.latitude=39.942295;
+
+            currentLatLng=LatLng(currntLocation!!.latitude,currntLocation!!.longitude)
 
             val sb = StringBuffer()
             //errCode等于0代表定位成功，其他的为定位失败，具体的可以参照官网定位错误码说明
@@ -766,9 +791,21 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
             aMap!!.setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
 
                 var lastPosition:CameraPosition?=null
+                var marker:Marker?=null
 
                 override fun onCameraChange(cameraPosition: CameraPosition?) {
                     SystemUtil.printlnStr("setOnCameraChangeListener onCameraChange")
+
+                    if(marker!=null){
+                        marker!!.remove()
+                        aMap!!.reloadMap();
+                    }
+                    marker=aMap!!.addMarker(MarkerOptions()
+                            .anchor(0.5f, 0.5f)
+                            .icon(BitmapDescriptorFactory
+                                    .fromBitmap(BitmapFactory.decodeResource(
+                                            resources, R.drawable.point4)))
+                            .position(LatLng(cameraPosition!!.target.latitude, cameraPosition.target!!.longitude)))
                 }
 
                 /**
