@@ -694,8 +694,8 @@ class PostPoiSearchActivity:BaseMvpActivity<MapPresenter>(),MapView, AMap.OnMark
         if (null != location) {
             currntLocation=location
 
-            currntLocation!!.longitude=116.335891
-            currntLocation!!.latitude=39.942295;
+//            currntLocation!!.longitude=116.335891
+//            currntLocation!!.latitude=39.942295;
 
             currentLatLng=LatLng(currntLocation!!.latitude,currntLocation!!.longitude)
 
